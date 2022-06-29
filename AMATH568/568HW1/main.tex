@@ -1,0 +1,176 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{listings}
+\usepackage{multimedia} % to embed movies in the PDF file
+\usepackage{graphicx}
+\usepackage{comment}
+\usepackage[english]{babel}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{subfigure}
+\usepackage{wrapfig}
+\usepackage{multirow}
+\usepackage{tikz}
+\usepackage{verbatim}
+\include{latex-defs}
+
+
+\title{AMATH 568 Homework 1}
+\author{Cade Ballew \#2120804}
+\date{January 12, 2022}
+
+\begin{document}
+
+\maketitle
+
+\section{Problem 1}
+\subsection{Part a}
+Taking $a\in\mathbb{C}$, to show that $\displaystyle \frac{1}{z -a} = \OO\left(\frac{1}{1 + |z|} \right)$ as $z \to \infty$, $z \in \mathbb C$, we wish to find constants $K,M>0$ such that for $|z|>M$, $\left|\frac{1}{z -a}\right|\leq K\left|\frac{1}{1 + |z|}\right|=K\frac{1}{1 + |z|}$. Take $M=2|a|$ in the case where $a\neq0$. Then, by the reverse triangle inequality, when $|z|>M$,
+\[
+|z-a|\leq\left||z|-|a|\right|=|z|-|a|>2|a|-|a|=|a|.
+\]
+Thus,
+\[
+\left|\frac{1}{z -a}\right|<\frac{1}{|a|}=\frac{1+|z|}{|a|}\frac{1}{1+|z|}.
+\]
+Now, note that when $|z|>M$,
+\[
+\frac{1+|z|}{|a|}>\frac{1+M}{|a|}=\frac{1+2|a|}{|a|}=\frac{1}{|a|}+2.
+\]
+Thus, if we take $K\geq\frac{1}{|a|}+2$, we have found such an $M$ and $K$, so the definition is satisfied.\\
+Now, consider the case where $a=0$. Then, we can take $M=1$, meaning that for $z>M$, 
+\[
+\left|\frac{1}{z-a}\right|=\frac{1}{|z|}<1=(1+|z|)\frac{1}{1+|z|}.
+\]
+Also,
+\[
+1+|z|>1+M=2,
+\]
+so we simply need to take $K=2$, and $\left|\frac{1}{z -a}\right|\leq K\frac{1}{1 + |z|}$ for $z>M$.
+
+\subsection{Part b}
+Now, we wish to show that $\displaystyle \frac{1}{\mathrm{dist}(z,[a,b])} = \OO\left(\frac{1}{1 + |z|} \right)$ as $z \to \infty$, $z \in \mathbb C$ with $a,b\in\real$. First, note that if $a=b$, $\mathrm{dist}(z,[a,b])=|z-a|$, so this amounts to showing that $\displaystyle \frac{1}{z -a} = \OO\left(\frac{1}{1 + |z|} \right)$ as $z \to \infty$, $z \in \mathbb C$ which was done in part a. Now, assume that $a\neq b$. Now, consider a region $D$ defined by revolving $[a,b]$ in the complex plane. Namely, if $a$ and $b$ have the same sign, $D$ is an annulus defined by $\min\{|a|,|b|\}\leq |z|\leq\max\{|a|,|b|\}$ and if they have different signs, $D$ is a disk defined by $|z|\leq\max\{|a|,|b|\}$. Regardless, if $|z|\geq\max\{|a|,|b|\}$, $\mathrm{dist}(z,D)=|z|-\max\{|a|,|b|\}$. Now, note that $[a,b]\subset D$, so clearly, $\mathrm{dist}(z,[a,b])\geq\mathrm{dist}(z,D)$ for any $z\in \compl$. Let $A=\max\{|a|,|b|\}$ and take $M=2A$. Then, if $|z|>M$, by the above and the reverse triangle inequality, 
+\[
+\mathrm{dist}(z,[a,b])\geq\mathrm{dist}(z,D)=|z-A|\geq\left||z|-|A|\right|=|z|-A>2A-A=A.
+\]
+Thus, if $|z|>M$,
+\[
+\left|\frac{1}{\mathrm{dist}(z,[a,b])}\right|=\frac{1}{\mathrm{dist}(z,[a,b])}<\frac{1}{A}=\frac{1+|z|}{A}\frac{1}{1+|z|}.
+\]
+Now, we simply take
+\[
+K\geq\frac{1+|z|}{A}>\frac{1+2A}{A}=\frac{1}{A}+2=\frac{1}{\max\{|a|,|b|\}}+2
+\]
+to get that 
+\[
+\left|\frac{1}{\mathrm{dist}(z,[a,b])}\right|\leq K\frac{1}{1+|z|}
+\]
+when $|z|>M$. Thus, $\displaystyle \frac{1}{\mathrm{dist}(z,[a,b])} = \OO\left(\frac{1}{1 + |z|} \right)$ as $z \to \infty$, $z \in \mathbb C$.
+
+\section{Problem 2 (Exercise 1.8)}
+Suppose that $\mu$ is a continuous parameter and that for each $\mu \in [0,1]$ we have that $f(z,\mu) = \OO(g(z,\mu))$ as $z \to z_0$ from $D$. Despite the proof on page 21 of the text, it is not true that if the integrals exist in the Riemann sense for all $z$ close enough to $z_0$ then
+  \begin{align*}
+    \int_0^1 f(z,\mu) d \mu = \OO \left( \int_0^1 |g(z,\mu)| d \mu \right) \quad \text{as $z \to z_0$ from $D$}.
+  \end{align*} 
+Even though both integrals can be written as Riemann sums, 
+\[
+\int_0^1 f(z,\mu) d \mu=\lim_{N\to\infty}\sum_{i=0}^N\Delta\mu f(z,\mu_i),\quad\\
+\int_0^1 g(z,\mu) d \mu=\lim_{N\to\infty}\sum_{i=0}^N\Delta\mu g(z,\mu_i)\\
+\]
+this needs to be true in the limit, requiring an infinite number of terms, so we may not be able to find the minimum of $\delta_1,\delta_2,\ldots$ and the maximum of $K_1,K_2,\ldots$ as is done in the proof. If we include the additional hypothesis that there are positive real numbers $\delta, K$ such that $|f(z,\mu)|\leq K|g(z,\mu)|$ for all $0<|z-z_0|<\delta$ and all $\mu\in[0,1]$, then this is no longer an issue and the proof is valid with our new definitions of $\delta$ and $K$. \\
+As a counterexample, consider $f(z,\mu)=\mu^{-1}e^{-z/\mu}$ and $g(z,\mu)=e^{-z/\mu}$ as $z\to0$, $z>0$. Clearly, for each given $\mu\in(0,1]$, $f(z,\mu)=\OO(g(z,\mu))$, because $|\mu^{-1}e^{-z/\mu}|\leq K|e^{-z/\mu}|$ if $K\geq\mu^{-1}$. First, note that 
+\[
+\left|\int_0^1 g(z,\mu) d \mu\right|=\left|\int_0^1 e^{-z/\mu} d \mu\right|\leq\max_{\mu\in(0,1]}e^{-z/\mu}=e^{-z}\leq1
+\]
+since $z>0$. However, using the substitution $u=z/\mu$ which gives that $d\mu=\frac{-\mu}{u}du$ and taking $z<1$, 
+\begin{align*}
+\int_0^1 f(z,\mu) d \mu&=\int_0^1 \mu^{-1}e^{-z/\mu} d \mu=\int_z^\infty\frac{e^{-u}}{u}du\\&=\int_1^\infty\frac{e^{-u}}{u}du+\int_z^1\frac{e^{-u}-1}{u}du+\int_z^1\frac{du}{u}.
+\end{align*}
+The last integral in this expression for the integral of $f$ is unbounded (tends to infinity) as $z\to0$, so there is no possible way we can find a $\delta,K>0$ such that 
+\[
+\left|\int_0^1 f(z,\mu) d \mu\right|\leq K\left|\int_0^1 g(z,\mu) d \mu\right|\leq K
+\]
+when $z<\delta$ since we can always increase $\int_z^1\frac{du}{u}$ by taking $z$ to be closer to 0.
+
+\section{Problem 3 (Exercise 1.11)}
+Consider the function $e^{-2z}$ for $|\arg z|<\pi/4$. This implies that $|\arg 2z|<\pi/2$, so $2z$ is in the right half-plane or, equivalently, $\Re(2z)>0$. Now, fix $\epsilon>0$ and observe that 
+\[
+|e^{-2z}|=|e^{-2\Re(z)}||e^{-2\Im(z)}|=|e^{-2\Re(z)}|=e^{-2\Re(z)}.
+\]
+Because we restrict $z$ to the sector $|\arg z|<\pi/4$, we know that $\Re(z)\to\infty$ as $z\to\infty$. We wish to show that $e^{-2z}$ is $\oo(1)$, so we wish to find an $M>0$ such that $|e^{-2z}|<\epsilon$ whenever $|z|>M$. However, this is precisely the definition of a limit at infinity in the complex plane, so we need only show that $\lim_{z\to\infty,|\arg z|<\pi/4}e^{-2z}=0$. However, 
+\[
+\lim_{z\to\infty,|\arg z|<\pi/4}|e^{-2z}|=\lim_{z\to\infty,|\arg z|<\pi/4}|e^{-2\Re(z)}|=0
+\]
+because $\Re(z)\to\infty$ here, so $\lim_{z\to\infty,|\arg z|<\pi/4}e^{-2z}=0$ is indeed true. Thus, $e^{-2z}$ is $\oo(1)$, meaning that as $z\to\infty$ in this sector
+\[
+2\cosh(z)=e^z+e^{-z}=e^z(1+e^{-2z})=e^z(1+\oo(1)),
+\]
+so $2\cosh(z)$ is approximated by $e^z$ in the sector $|\arg z|<\pi/4$ in the sense of small relative error. 
+This is also true in the sense of absolute error, because the sector is contained in the right half-plane, $\Re(z)>0$, meaning that 
+\begin{align*}
+\lim_{z\to\infty,|\arg z|<\pi/4}|e^{-z}|&=\lim_{z\to\infty,|\arg z|<\pi/4}|e^{-\Re(z)}||e^{-\Im(z)}|\\&=\lim_{z\to\infty,|\arg z|<\pi/4}|e^{-\Re(z)}|=\lim_{z\to\infty,|\arg z|<\pi/4}e^{-\Re(z)}=0,
+\end{align*}
+so $e^{-z}$ is $\oo(1)$ as $z\to\infty$ in the sector $|\arg z|<\pi/4$, and $f(z)=e^z+\oo(1)$ as $z\to\infty$ in the sector $|\arg z|<\pi/4$.\\
+Now, consider the function $e^{2z}$ in the sector $|\arg (-z)|<\pi/4$. Then, $|\arg(-2z)|<\pi/2$, so $-2z$ is in the right half-plane or, equivalently, $\Re(2z)<0$. Now observe that 
+\[
+|e^{2z}|=|e^{2\Re(z)}||e^{2\Im(z)}|=|e^{2\Re(z)}|=e^{2\Re(z)}.
+\]
+Because we restrict $z$ to the sector $|\arg (-z)|<\pi/4$, we know that $\Re(z)\to-\infty$ as $z\to\infty$. Thus, 
+\[
+\lim_{z\to\infty,|\arg (-z)|<\pi/4}|e^{2z}|=\lim_{z\to\infty,|\arg (-z)|<\pi/4}|e^{2\Re(z)}|=0
+\]
+because $\Re(z)\to-\infty$ here, so $\lim_{z\to\infty,|\arg (-z)|<\pi/4}e^{2z}=0$, meaning that $e^{2z}$ is $\oo(1)$, and as $z\to\infty$ in this sector,
+\[
+2\cosh(z)=e^z+e^{-z}=e^{-z}(1+e^{2z})=e^{-z}(1+\oo(1)),
+\]
+so $2\cosh(z)$ is approximated by $e^{-z}$ in the sector $|\arg (-z)|<\pi/4$ in the sense of small relative error. Again, this is also true in the sense of absolute error, because the sector is contained in the left half plane, $\Re(z)<0$, meaning that 
+\begin{align*}
+\lim_{z\to\infty,|\arg (-z)|<\pi/4}|e^{z}|&=\lim_{z\to\infty,|\arg (-z)|<\pi/4}|e^{\Re(z)}||e^{\Im(z)}|\\&=\lim_{z\to\infty,|\arg (-z)|<\pi/4}|e^{\Re(z)}|=\lim_{z\to\infty,|\arg (-z)|<\pi/4}e^{\Re(z)}=0,
+\end{align*}
+so $e^{z}$ is $\oo(1)$ as $z\to\infty$ in the sector $|\arg (-z)|<\pi/4$, and $f(z)=e^{-z}+\oo(1)$ as $z\to\infty$ in the sector $|\arg (-z)|<\pi/4$.
+
+\section{Problem 4}
+By definition, for $z\in\compl$,
+\begin{align*}
+\erfc(z)=\frac{2}{\sqrt{\pi}}\int_z^\infty e^{-s^2}ds=\frac{2}{\sqrt{\pi}}\left(\int_z^0 e^{-s^2}ds+\int_0^\infty e^{-s^2}ds\right).
+\end{align*}
+Additionally, using the change of variables $s\to-s$, 
+\begin{align*}
+\erfc(-z)&=\frac{2}{\sqrt{\pi}}\int_{-z}^\infty e^{-s^2}ds=\frac{2}{\sqrt{\pi}}\left(\int_{-z}^0 e^{-s^2}ds+\int_0^\infty e^{-s^2}ds\right)\\&=
+\frac{2}{\sqrt{\pi}}\left(\int_{z}^0 e^{-s^2}(-ds)+\int_0^{-\infty} e^{-s^2}(-ds)\right)\\&=
+\frac{2}{\sqrt{\pi}}\left(\int_{0}^z e^{-s^2}ds+\int_{-\infty}^0 e^{-s^2}ds\right).
+\end{align*}
+Thus,
+\begin{align*}
+\erfc(z)+\erfc(-z)&=\frac{2}{\sqrt{\pi}}\left(\int_z^0 e^{-s^2}ds+\int_0^\infty e^{-s^2}ds+\int_{0}^z e^{-s^2}ds+\int_{-\infty}^0 e^{-s^2}ds\right)\\&=
+\frac{2}{\sqrt{\pi}}\int_{-\infty}^\infty e^{-s^2}ds=\frac{2}{\sqrt{\pi}}\sqrt{\pi}=2.
+\end{align*}
+From class, we have that when $\Re(z)\geq0$ and as $|z|\to\infty$, 
+\[
+\erfc(z)\sim \frac{e^{-z^2}}{\sqrt{\pi}}\sum_{m=0}^\infty(-1)^m\frac{\left(\frac{1}{2}\right)_m}{z^{2m+1}},
+\]
+so the above identity gives that 
+\[
+\erfc(-z)\sim 2-\frac{e^{-z^2}}{\sqrt{\pi}}\sum_{m=0}^\infty(-1)^m\frac{\left(\frac{1}{2}\right)_m}{z^{2m+1}}
+\]
+when $\Re(z)\geq0$ and as $|z|\to\infty$. To find an expression for $\erfc(z)$ when $\Re(z)<0$, we simply swap $z$ and $-z$ to get that 
+\[
+\erfc(z)\sim 2-\frac{e^{-(-z)^2}}{\sqrt{\pi}}\sum_{m=0}^\infty(-1)^m\frac{\left(\frac{1}{2}\right)_m}{(-z)^{2m+1}}=2+\frac{e^{-z^2}}{\sqrt{\pi}}\sum_{m=0}^\infty(-1)^m\frac{\left(\frac{1}{2}\right)_m}{z^{2m+1}}
+\]
+for $\Re(z)<0$ as $|z|\to\infty$.
+
+\section{Problem 5}
+Consider the function defined on $\real$
+\[
+f(z)=\begin{cases}
+e^{-1/z},\quad z>0\\
+0, \quad z\leq0
+\end{cases}
+\]
+at the point $z_0=0$. The derivative of $e^{-1/z}$ is $z^{-2}e^{-1/z}$, so in general, the product rule tells us that the $n$th derivative will be some linear combination of products $z^{-k}e^{-1/z}$, where $k\in\mathbb{Z}$. However, from the right, $e^{-1/z}$ tends to zero faster than any polynomial, so
+\[
+\lim_{z\to0+}\left(e^{-1/z}\right)^{(k)}=0
+\]
+for all $k$. Thus, our function is infinitely differentiable at $0$ since this matches the derivative from the left at 0. However, this implies that its Taylor series centered at $z_0=0$ is identically 0, but $f(z)$ takes nonzero values arbitraily close to $z_0=0$ when $z>0$, as $e^{-1/z}\neq0$ for any $z\in\real$. 
+
+\end{document}

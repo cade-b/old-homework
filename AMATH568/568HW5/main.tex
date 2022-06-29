@@ -1,0 +1,178 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{listings}
+\usepackage{multimedia} % to embed movies in the PDF file
+\usepackage{graphicx}
+\usepackage{comment}
+\usepackage[english]{babel}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{subfigure}
+\usepackage{wrapfig}
+\usepackage{multirow}
+\usepackage{verbatim}
+\include{latex-defs}
+
+
+\title{AMATH 568 Homework 5}
+\author{Cade Ballew \#2120804}
+\date{February 9, 2022}
+
+\begin{document}
+	
+\maketitle
+	
+\section{Problem 1}
+Say that $y$ is a solution to $y''(z) = zy(z)$ and let $w(z) = y(1/z)$. To derive a differential equation for $w$, we use the chain rule to compute 
+\[
+w'(z)=\left(y\left(\frac{1}{z}\right)\right)'=-\frac{1}{z^{2}}y'\left(\frac{1}{z}\right)
+\]
+and
+\[
+w''(z)=\left(-\frac{1}{z^{2}}y'\left(\frac{1}{z}\right)\right)'=\frac{2}{z^3}y'\left(\frac{1}{z}\right)+\frac{1}{z^4}y''\left(\frac{1}{z}\right).
+\]
+Now, we apply our relationship for $w'(z)$ and our initial differential equation which gives that $y''(1/z)=y(1/z)/z$.
+\begin{align*}
+w''(z)=-\frac{2}{z}\left(-\frac{1}{z^{2}}y'\left(\frac{1}{z}\right)\right)+\frac{1}{z^4}\left(\frac{1}{z}y\left(\frac{1}{z}\right)\right)=-\frac{2}{z}w'(z)+\frac{1}{z^5}w(z).
+\end{align*}
+From this, we reduce our differential equation to canonical form following (6.4) in the text. Namely, we let $p(z)=\frac{2}{z}$ and $q(z)=-\frac{1}{z^5}$ so that our equation is of form
+\[
+w''(z)+p(z)w'(z)+q(z)w(z)=0.
+\]
+Then,
+\[
+w''(z)+f(z)w(z)=0
+\]
+where
+\[
+f(z)=q(z)-\frac{1}{2}p'(z)-\frac{1}{4}p^2(z)=-\frac{1}{z^5}+\frac{1}{z^2}-\frac{1}{z^2}=-\frac{1}{z^5}.
+\]
+Thus, we can write our differential equation for $w$ as
+\[
+w''(z)=\frac{1}{z^5}w(z).
+\]
+To determine ordinary and singular points, we investigate $f(z)=-1/z^5$. This function is clearly analytic in $\compl\setminus\{0\}$. Thus, all points in $\compl\setminus\{0\}$ are ordinary points, and $z=0$ is a singular point. Furthermore, $f$ has a fifth order pole at $z=0$, so definition 6.3 in the text allows us to conclude that $z=0$ is an irregular singular point. 
+
+\section{Problem 2}
+Noting that the equation $y''(z)=zy(z)$ has only ordinary points as $f(z)=-z$ is entire, we can simply assume that $y$ is of the form
+\[
+y(z)=\sum_{n=0}^\infty y_nz^n
+\]
+and match terms. To do this, we write 
+\begin{align*}
+y''(z)=\sum_{n=0}^\infty(n+2)(n+1)y_{n+2}z^n=\sum_{n=1}^\infty y_{n-1}z^n=z\sum_{n=0}^\infty y_nz^n=zy(z).
+\end{align*}
+This tells us that $(n+2)(n+1)y_{n+2}=y_{n-1}$ for $n=1,2,\ldots$ and that $(0+2)(0+1)y_2=0$ since the RHS sum has no $n=0$ term. Reindexing, we can write
+\[
+y_n=\frac{y_{n-3}}{n(n-1)}
+\]
+for $n=3,4,\ldots$ where we take $y_0,y_1$ as our boundary conditions and note that $y_2=0$. Now, we can write this more explicitly by considering $n\mod3$ for $n\geq3$. If $n\mod3=0$,
+\begin{align*}
+y_n&=\frac{y_{n-3}(n-2)}{n(n-1)(n-2)}=\frac{y_{n-6}(n-2)}{n(n-1)(n-2)(n-3)(n-4)}\\&=
+\frac{y_{n-6}(n-2)(n-5)}{n(n-1)(n-2)(n-3)(n-4)(n-5)}=\ldots=\frac{y_0(n-2)!!!}{n!}.
+\end{align*}
+Similarly, if $n\mod3=1$,
+\[
+y_n=\frac{y_1(n-2)!!!}{n!}.
+\]
+We can also clearly see that if $n\mod3=2$, $y_n=0$, because $y_2=0$. Assembling this, a Maclaurin series for a general solution $y$ is given by
+\begin{align*}
+y(z)=y_0\left(1+\frac{1}{3!}z^3+\frac{4\cdot 1}{6!}z^6+\frac{7\cdot4\cdot1}{9!}z^9+\ldots\right)+y_1\left(z+\frac{2}{4!}z^4+\frac{5\cdot 2}{7!}z^7+\frac{8\cdot5\cdot2}{10!}z^{10}+\ldots\right).
+\end{align*}
+We expect this series to have an infinite radius of convergence; to see this, we argue that 
+\[
+\sup_{n\in\mathbb{N}}|y_n|R^n<\infty
+\]
+for any fixed $R>0$. The reason this holds is that the factorial term in the denominator grows faster than any polynomial even with the triple factorial term to partially cancel it out. We can see this by investigating 
+\[
+\frac{|y_{n+3}|R^{n+3}}{|y_n|R^n}=\frac{R^3}{(n+3)(n+2)}
+\]
+for nonzero $y_n$. Because $R$ is fixed, we can certainly find an $N$ for which $(n+3)(n+2)>R^3$ when $n\geq N$. Thus, we can find an $N$ for which $|y_{n+3}|R^{n+3}<|y_n|R^n$ when $n\geq N$. What this tells us is that 
+\[
+\sup_{n\in\mathbb{N},n\mod3=0}|y_n|R^n=\sup_{n\in\mathbb{N},n\mod3=0,n\leq N}|y_n|R^n<\infty
+\]
+and 
+\[
+\sup_{n\in\mathbb{N},n\mod3=1}|y_n|R^n=\sup_{n\in\mathbb{N},n\mod3=1,n\leq N}|y_n|R^n<\infty
+\]
+because each of these subseries of \{$|y_n|R^n\}$ must achieve its maximum before beginning to decrease with every term. Since $\sup_{n\in\mathbb{N},n\mod3=2}|y_n|R^n=0$, %If we find such an $N_0$ for when $n\mod3=0$ and an $N_1$ for when $n\mod3=1$, we can take $N=\max\{N_1,N_2\}$ in which case $|y_n|R^n$ will clearly be decreasing for $n\geq N$ in each of what are essentially two infinite series that make up our Maclaurin series. This means that each of these effective series must achieve maximum $|y_n|R^n$ when $n<N$. Thus,
+\[
+\sup_{n\in\mathbb{N}}|y_n|R^n\leq\sup_{n\in\mathbb{N},n\mod3=0}|y_n|R^n+\sup_{n\in\mathbb{N},n\mod3=1}|y_n|R^n<\infty,
+\]
+because the $n$ that maximizes each of these quantities  is finite as demonstrated above. If we let $C=\sup_{n\in\mathbb{N},n<N}|y_n|R^n$, then
+\[
+\sum_{n=0}^\infty |y_nz^n|=\sum_{n=0}^\infty |y_n|R^n\left(\frac{|z|}{R}\right)^n\leq C\sum_{n=0}^\infty\left(\frac{|z|}{R}\right)^n.
+\]
+The series on the RHS is a geometric series that converges when $|z|<R$, so we must have radius of convergence at least $R$. However, we have chosen $R>0$ arbitrarily, so we can choose $R$ to be as large as we want which means that our radius of convergence is actually infinity.
+
+\section{Problem 3}
+Considering the differential equation
+  \begin{align*}
+    Y''(z) + f(z) Y(z) = 0, \quad Y(0) = y_0, \quad Y'(0) = y_1,
+  \end{align*}
+where $f(z)$ is a rational function that is analytic at $z = 0$, $f(z)= \sum_{n=0}^\infty f_n z^n$, and that $f_0 = 0$ and $f_{1} = -1$, we solve for $y$ by matching series as on page 215 of the text since our equation is already in canonical form. Let
+\[
+Y(z)=\sum_{n=0}^{\infty}Y_nz^n.
+\]
+First implementing the boundary conditions, $y_0=Y(0)=Y_0$ and $y_1=Y'(0)=Y_1$.
+\\
+Now, applying the hierarchy of equations, $2Y_2+f_0Y_0=0$, so $f_0=0$ gives that $Y_2=0$. $0=6Y_3+f_0Y_1+f_1Y_0=6Y_3-y_1$ gives that $Y_3=y_0/6$, and $0=12Y_4+f_2Y_0+f_1Y_1+f_0Y_2=12Y_4+f_2y_0-y_1$ gives $Y_4=\frac{y_1-f_2y_0}{12}$. Noting that a Taylor expansion for $Y-y$ can be given by 
+\[
+Y(z)-y(z)=\sum_{n=0}^{\infty}Y_nz^n-\sum_{n=0}^{\infty}y_nz^n=\sum_{n=0}^{\infty}(Y_n-y_n)z^n
+\]
+if we assume the necessary convergence properties to combine series, we can use our result from problem 2 to write
+\begin{align*}
+Y(z)-y(z)&=(Y_0-y_0)+(Y_1-y_1)z+(Y_2-y_2)z^2+(Y_3-y_3)z^3+(Y_4-y_4)z^4+\OO(z^5)\\&=
+(y_0-y_0)+(y_1-y_1)z+(0-0)z^2+\left(\frac{y_0}{6}-\frac{y_0}{6}\right)z^3+\left(\frac{y_1-f_2y_0}{12}-\frac{y_1}{12}\right)z^4+\OO(z^5)\\&=
+-\frac{f_2y_0}{12}z^4+\OO(z^5).
+\end{align*}
+
+\section{Problem 4}
+Considering the equation
+  \begin{align*}
+    (z-1)^2 w''(z) + \frac{4 z -1}{(5z-1)^2} w(z) = 0,
+  \end{align*}
+we rewrite as
+\[
+w''(z) + \frac{4 z -1}{(5z-1)^2(z-1)^2} w(z) = 0
+\]
+and let 
+\[
+f(z)=\frac{4 z -1}{(5z-1)^2(z-1)^2}
+\]
+to apply the method of Frobenius. If we consider a Laurent expansion of $f$ around $z=1$ (noting that $f$ has a double pole here), $f(z)=\sum_{n=-2}^\infty f_n(z-1)^n$, we can compute coefficients
+\[
+f_{-2}=\frac{4z}{(5z-1)^2}\bigg|_{z=1}=\frac{3}{16}
+\]
+and 
+\[
+f_{-1}=\lim_{z\to 1}\frac{d}{dz}\left(\frac{4z}{(5z-1)^2}\right)=\lim_{z\to1}\frac{4(5z-1)^2-10(4z-1)(5z-1)}{(5z-1)^4}=\frac{16-30}{64}=-\frac{7}{32}.
+\]
+Since $f$ has a double pole at $z=1$, we follow the double pole case on page 219 of the text and assume that 
+\[
+w(z)=(w-1)^\rho\sum_{n=0}^\infty w_n(z-1)^n.
+\]
+The first equation in the resulting hierarchy gives that 
+\[
+\rho=\frac{1\pm\sqrt{1-4f_{-2}}}{2}=\frac{1\pm\sqrt{1-\frac{3}{4}}}{2}=\frac{1}{2}\pm\frac{1}{4},
+\]
+so we set $\rho_1=3/4$, $\rho_2=1/4$. First considering the case of $\rho_1$, the second equation in the hierarchy gives
+\[
+0=(\rho_1+1)\rho_1w_1+f_{-2}w_1+f_{-1}w_0=\frac{21}{16}w_1+\frac{3}{16}w_1-\frac{7}{32}w_0
+\]
+which simplfies to $3w_1/2=7w_0/32$ or $w_1=\frac{7}{48}w_0$. From this, we can find that one of our solutions has form
+\begin{align*}
+w(z)&=(z-1)^{3/4}\left(y_0+\frac{7}{48}y_1(z-1)+\OO((z-1)^2)\right)\\&=
+y_0\left((z-1)^{3/4}+\frac{7}{48}(z-1)^{7/4}+\OO((z-1)^{11/4})\right).
+\end{align*}
+We find the other linearly independent solution by considering $\rho_2=1/4$. Now, the second equation gives
+\[
+0=(\rho_2+1)\rho_2w_1+f_{-2}w_1+f_{-1}w_0=\frac{5}{16}w_1+\frac{3}{16}w_1-\frac{7}{32}w_0
+\]
+which simplifies to $w_1/2=7w_0/32$ or $w_1=\frac{7}{16}w_0$. From this, we can find that our other solution has the form
+\begin{align*}
+w(z)&=(z-1)^{1/4}\left(y_0+\frac{7}{16}y_1(z-1)+\OO((z-1)^2)\right)\\&=
+y_0\left((z-1)^{1/4}+\frac{7}{16}(z-1)^{5/4}+\OO((z-1)^{9/4})\right).
+\end{align*}
+
+\end{document}

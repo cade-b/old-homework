@@ -1,0 +1,224 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{listings}
+\usepackage{multimedia} % to embed movies in the PDF file
+\usepackage{graphicx}
+\usepackage{comment}
+\usepackage[english]{babel}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{subfigure}
+\usepackage{wrapfig}
+\usepackage{multirow}
+\usepackage{verbatim}
+\include{latex-defs}
+
+
+\title{AMATH 568 Homework 7}
+\author{Cade Ballew \#2120804}
+\date{February 25, 2022}
+
+\begin{document}
+	
+\maketitle
+	
+\section{Problem 1}
+Considering the ODE
+  \begin{align*}  
+    y''(x;\lambda) + \left[ \lambda \cos x - \lambda^2 \sin x \right] y(x;\lambda) = 0, \quad \lambda \to \infty,
+  \end{align*}
+we write it in the form 
+  \begin{align*}  
+    y''(x;\lambda) + f(x) y(x;\lambda) = 0, \quad \lambda \to \infty,
+  \end{align*}
+where 
+\[
+f(x)=\lambda^2\sum_{n=0}^\infty f_n(x)\lambda^{-n}
+\]
+with $f_0(x)=-\sin x$, $f_1(x)=\cos{x}$, and $f_j(x)=0$ for $j\geq2$. Then, we can apply the WKB method to find oscillatory and exponential solutions using (7.37) and (7.38) in the text. 
+\begin{align*}
+y_{\text{osc}}^\pm(x)=\frac{1}{(-\sin x)^{1/4}}\exp\left(\pm i\lambda\int_{x_0}^x\sqrt{-\sin{s}}ds\pm i\frac{1}{2}\int_{x_0}^x\frac{\cos{s}}{\sqrt{-\sin{s}}}ds\right)(1+\oo(1))
+\end{align*}
+\begin{align*}
+y_{\text{exp}}^\pm(x)=\frac{1}{|\sin{x}|^{1/4}}\exp\left(\pm\lambda\int_{x_0}^x\sqrt{|\sin s|}ds\mp\frac{1}{2}\int_{x_0}^x\frac{\cos{s}}{\sqrt{|\sin{s}|}}ds\right)(1+\oo(1)).
+\end{align*}
+We know that the first expansion is valid in a region $[\alpha,\beta]$ where $f_0(x)=-\sin{x}>0$ and sufficiently far away from the turning points, i.e. for some region inside the interval such that $-\pi<\alpha\leq\beta<0$ if we want to look at the region near $x=0$ before the next sign change. Thus, we also take $x_0\in[\alpha,\beta]$. Similarly, the second expansion is valid in some region inside the region where $f_0(x)=-\sin{x}<0$ until the next turning point, i.e. in some region $[\alpha',\beta']$ inside the interval $(0,\pi)$; we also take $x_0\in[\alpha',\beta']$.
+
+\section{Problem 2}
+\subsection{Part a}
+Defining \begin{align*}
+      H_n(x) = (-1)^n e^{x^2} \frac{d^n}{d x^n} e^{-x^2}, \quad n = 0,1,2,\ldots,
+    \end{align*}
+we first compute 
+\begin{align*}
+H_n'(x)=2x(-1)^ne^{x^2}\frac{d^n}{d x^n} e^{-x^2}+(-1)^ne^{x^2}\frac{d^{n+1}}{d x^{n+1}} e^{-x^2}=2xH_n(x)-H_{n+1}(x),
+\end{align*}
+so
+\begin{align*}
+H_n''(x)=2H_n(x)+2xH_n'(x)-H_{n+1}'(x).
+\end{align*}
+Then, we can reduce the differential equation to a recurrence relation as
+\begin{align*}
+&H_n''(x) - 2 x H_n'(x) + 2 n H_n(x)=2H_n(x)+2xH_n'(x)-H_{n+1}'(x)- 2 x H_n'(x)+ 2 n H_n(x)\\&=
+(2+2n)H_n(x)-H_{n+1}'(x)=2(n+1)H_n(x)-2xH_{n+1}(x)+H_{n+2}(x).
+\end{align*}
+Now, we use the generalized Leibnitz rule to compute
+\begin{align*}
+\frac{d^{n+2}}{d x^{n+2}} e^{-x^2}&=\frac{d^{n+1}}{d x^{n+1}} \left(\frac{d}{dx}e^{-x^2}\right)=\frac{d^{n+1}}{d x^{n+1}}(-2xe^{-x^2})\\&=
+\sum_{k=0}^{n+1}\binom{n+1}{k}\frac{d^k}{dx^k}(-2x)\frac{d^{n+1-k}}{d x^{n+1-k}}e^{-x^2}=-2x\frac{d^{n+1}}{d x^{n+1}}e^{-x^2}-2(n+1)\frac{d^{n}}{d x^{n}}e^{-x^2}.
+\end{align*}
+From this we can use the definition of $H_n$ to find that 
+\begin{align*}
+&2(n+1)H_n(x)-2xH_{n+1}(x)+H_{n+2}(x)\\&=
+2(n+1)(-1)^n e^{x^2} \frac{d^n}{d x^n} e^{-x^2}-2x(-1)^{n+1} e^{x^2} \frac{d^{n+1}}{d x^{n+1}} e^{-x^2}+(-1)^{n+2} e^{x^2} \frac{d^{n+2}}{d x^{n+2}} e^{-x^2}\\&=
+(-1)^n e^{x^2}\left(2(n+1)\frac{d^n}{d x^n} e^{-x^2}+2x\frac{d^{n+1}}{d x^{n+1}} e^{-x^2}-2x\frac{d^{n+1}}{d x^{n+1}}e^{-x^2}-2(n+1)\frac{d^{n}}{d x^{n}}e^{-x^2}\right)\\&=
+0.
+\end{align*}
+Thus, the Hermite polynomials satisfy the differential equation
+\begin{align*}
+      H_n''(x) - 2 x H_n'(x) + 2 n H_n(x) = 0.
+    \end{align*}
+
+\subsection{Part b}
+Now, let $\psi_n(x) := (2^n n! \sqrt{\pi}) e^{-\frac{x^2}{2}} H_n(x)$. Then,
+\begin{align*}
+&\psi_n'(x)=(2^n n! \sqrt{\pi})(-x)e^{-\frac{x^2}{2}} H_n(x)+(2^n n! \sqrt{\pi}) e^{-\frac{x^2}{2}} H_n'(x)\\
+&\psi_n''(x)=(2^n n! \sqrt{\pi})\left(-e^{-\frac{x^2}{2}} H_n(x)+x^2e^{-\frac{x^2}{2}} H_n(x)-xe^{-\frac{x^2}{2}} H_n'(x)-xe^{-\frac{x^2}{2}} H_n'(x)+e^{-\frac{x^2}{2}} H_n''(x)\right),
+\end{align*}
+so the differential equation
+\begin{align*}
+&\psi_n''(x) + (2n + 1 - x^2) \psi_n(x) =(2^n n! \sqrt{\pi})\big(-e^{-\frac{x^2}{2}} H_n(x)+x^2e^{-\frac{x^2}{2}} H_n(x)-xe^{-\frac{x^2}{2}} H_n'(x)\\&-xe^{-\frac{x^2}{2}} H_n'(x)+e^{-\frac{x^2}{2}} H_n''(x)+ (2n + 1 - x^2)e^{-\frac{x^2}{2}}H_n(x)\big)\\&=
+\left(2^n n! \sqrt{\pi}e^{-\frac{x^2}{2}}\right)\left(2nH_n(x)-2xH_n'(x)+H_n''(x)\right)=0
+\end{align*}
+by the differential equation from part a.
+\subsection{Part c}
+From our definitions in part b, define
+\[
+\Psi_n(x)=\psi_n(cx)
+\]
+where $c$ is some undetermined constant. Then, 
+\[
+\Psi_n''(x)=c^2\psi_n''(cx),
+\]
+so our differential equation from part b gives that 
+\[
+-\frac{1}{c^2}\Psi_n''(x)-(2n+1-c^2x^2)\Psi(x)=0
+\]
+which we can rewrite as
+\[
+-\frac{1}{c^4}\Psi_n''(x)+x^2\Psi_n(x)=\frac{2n+1}{c^2}\Psi_n(x).
+\]
+Now, we set 
+\[
+\frac{1}{c^4}=\frac{\hbar^2}{2},
+\]
+so
+\[
+c=\left(\frac{2}{\hbar^2}\right)^{1/4}.
+\]
+Then, our equation becomes
+\[
+-\frac{\hbar^2}{2}\Psi_n''(x)+x^2\Psi_n(x)=\pm\sqrt{\frac{\hbar^2}{2}}(2n+1)\Psi_n(x)=\pm\sqrt{2}\hbar\left(n+\frac{1}{2}\right)\Psi_n(x).
+\]
+We need to choose the plus sign to ensure square integrability, so  the operator $\mathcal S_\hbar = - \frac{\hbar^2}{2} \frac{d^2}{d x^2} + x^2$ has $L^2$ eigenvalues $E=\sqrt{2}\hbar\left(n+\frac{1}{2}\right)$ where $n = 0,1,2,\ldots$.\\
+Now, we attempt to verify (7.85) in the text by first computing $\phi(E)$ as defined on page 303. Here, we have that $V(x)=x^2$ so solving $x^2-E=0$ gives that $x_-=-\sqrt{E}$ and $x_+=\sqrt{E}$, and
+\begin{align*}
+\phi(E)=\sqrt{2}\int_{-\sqrt{E}}^{\sqrt{E}}\sqrt{E-x^2}dx=\sqrt{2}\frac{\pi E}{2}=\frac{\pi}{\sqrt{2}}E.
+\end{align*}
+Thus, (7.85) gives that 
+\[
+\frac{\pi}{\sqrt{2}}E=\pi\hbar\left(n+\frac{1}{2}\right),
+\]
+meaning that 
+\[
+E=\sqrt{2}\hbar\left(n+\frac{1}{2}\right)
+\]
+which matches what we already derived.
+
+\section{Problem 3}
+Consider the Airy equation
+\[
+y''(x)-xy(x)=0
+\]
+as $x\to\infty$. We perform the substitution $x=\lambda^\alpha z$ where $\lambda\to\infty,\alpha>0$ by letting $Y(z)=y(\lambda^\alpha z)$ so that $Y''(z)=\lambda^{2\alpha}y''(\lambda z)$ and
+\[
+y''(x)-xy(x)=\lambda^{-2\alpha}Y''(z)-\lambda^\alpha zY(z)=0
+\]
+which we rewrite as
+\[
+Y''(z)-\lambda^{3\alpha}zY(z)=0.
+\]
+To match the form we want for WKB, we need that $3\alpha=2$, so $\alpha=2/3$. Then, we can apply WKB to the new equation
+\[
+Y''(z)-f(z)Y(z)=0
+\]
+where 
+\[
+f(z)=\lambda^2\sum_{n=0}^\infty f_n(z)\lambda^{-n}
+\]
+with $f_0(z)=-z$ and $f_j(z)=0$ for $j\geq1$. Then, we look for solutions of the form $Y(z)=e^{\phi(z)}$ by letting $u(z)=\phi'(z)$ and solving the resulting Riccati equation
+\[
+u'(z)+u(z)^2+f(z)=0.
+\]
+Then, following page 9 of part 5 of the lecture notes, we look for 
+\[
+u(z)\sim\lambda\sum_{n=0}^\infty u_n(z)\lambda^{-n}.
+\]
+First, we need $u_0$ to solve
+\[
+0=u_0^2(z)+f_0(z)=u_0^2(z)-z.
+\]
+We can consider $z>0$ since we consider $x=\lambda^{2/3} z\to\infty$ and $\lambda\to\infty$, so we simply find that
+\[
+u_0(z)=\pm z^{1/2}.
+\]
+We then use our hierarchy of equations to compute
+\[
+u_1(z)=\frac{-1}{2u_0(z)}(u_0'(z)+f_1(z))=\frac{-1}{\pm2z^{1/2}}\frac{\pm1}{2z^{1/2}}=-\frac{1}{4z}
+\]
+and 
+\[
+u_2(z)=\frac{-1}{2u_0(z)}(u_1'(z)+u_1(z)^2+f_2(z))=\frac{-1}{\pm2z^{1/2}}\left(\frac{1}{4z^2}+\frac{1}{16z^2}\right)=\mp\frac{5}{32z^{5/2}}, 
+\]
+so
+\[
+u(z)\sim \pm z^{1/2}\lambda-\frac{1}{4z}\mp\frac{5}{32z^{5/2}\lambda}+\OO(\lambda^{-2})
+\]From this, we can compute
+\begin{align*}
+\phi(z)&=\lambda\sum_{n=0}^\infty \int_{z_0}^zu_n(s)ds\lambda^{-n}=\pm\lambda\int_{z_0}^zs^{1/2}ds-\int_{z_0}^z\frac{ds}{4s}\mp\lambda^{-1}\int_{z_0}^z\frac{5}{32s^{5/2}}ds+\OO(\lambda^{-2})\\&=
+\pm\lambda\left(\frac{2}{3}z^{3/2}-\frac{2}{3}z_0^{3/2}\right)-\left(\frac{1}{4}\log{z}-\frac{1}{4}\log{z_0}\right)\mp\lambda^{-1}\left(-\frac{5}{48z^{3/2}}+\frac{5}{48z_0^{3/2}}\right)+\OO(\lambda^{-2})\\&=
+\pm\lambda\frac{2}{3}z^{3/2}-\frac{1}{4}\log{z}\pm\lambda^{-1}\frac{5}{48z^{3/2}}+C_1\lambda+C_0+C_{-1}\lambda^{-1}+\OO(\lambda^{-2})
+\end{align*}
+where $C_1,C_0,C_{-1}$ are constants depending on our choice of $z_0$. Thus, we have that 
+\begin{align*}
+Y(z)=\exp\left(\pm\frac{2}{3}(\lambda^{2/3} z)^{3/2}-\frac{1}{4}\log{z}\pm\frac{5}{48(\lambda^{2/3} z)^{3/2}}+C_1\lambda+C_0+C_{-1}\lambda^{-1}+\OO(\lambda^{-2})\right).
+\end{align*}
+Undoing our substitution, we find
+\begin{align*}
+y(x)&=\exp\left(\pm\frac{2}{3}x^{3/2}-\frac{1}{4}\log{\lambda^{-2/3}x}\pm\frac{5}{48x^{3/2}}+C_1\lambda+C_0+C_{-1}\lambda^{-1}+\OO(x^{-3})\right)\\&=
+Cx^{-1/4}\exp\left(\pm\frac{2}{3}x^{3/2}\right)\exp\left(\pm\frac{5}{48x^{3/2}}+\OO(x^{-3})\right)
+\end{align*}
+where we have grouped $C_0$ and all terms depending on $\lambda$ into a single constant $C$ also depending on $\lambda$. Taylor expanding,
+\begin{align*}
+y(x)=Cx^{-1/4}\exp\left(\pm\frac{2}{3}x^{3/2}\right)\sum_{k=0}^\infty\frac{\left(\pm\frac{5}{48x^{3/2}}+\OO(x^{-3})\right)^k}{k!}.
+\end{align*}
+Taking the 0th and 1st terms of this power series,
+\[
+y(x)\sim Cx^{-1/4}\exp\left(\pm\frac{2}{3}x^{3/2}\right)\left(1\pm \frac{5}{48x^{3/2}}+\OO(x^{-3})\right).
+\]
+To match this with the expansion on DLMF, we need to take the minus sign and let $C=\frac{1}{2\sqrt{\pi}}$ (which amounts to choosing $z_0$ such that this holds). Then,
+\[
+y(x)\sim \frac{1}{2\sqrt{\pi}x^{1/4}}e^{-\frac{2}{3}x^{3/2}}\left(1-\ \frac{5}{48x^{3/2}}+\OO(x^{-3})\right).
+\]
+%Maybe say more explicitly how to match DLMF
+To verify that this is the same as DLMF, we compute
+\[
+u_1=\frac{15}{216}u_0=\frac{5}{72}
+\]
+so
+\begin{align*}
+\text{Ai}(x)\sim\frac{e^{-\frac{2}{3}x^{3/2}}}{2\sqrt{\pi}x^{1/4}}\sum_{k=0}^\infty(-1)^k\frac{u_k}{\left(\frac{2}{3}x^{3/2}\right)^k}=x^{-1/4}\exp\left(\pm\frac{2}{3}x^{3/2}\right)\left(1\pm \frac{5}{48x^{3/2}}+\OO(x^{-3})\right)
+\end{align*}
+which is precisely what we obtained above.
+
+\end{document}

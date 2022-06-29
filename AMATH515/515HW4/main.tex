@@ -1,0 +1,137 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{listings}
+\usepackage{multimedia} % to embed movies in the PDF file
+\usepackage{graphicx}
+\usepackage{comment}
+\usepackage[english]{babel}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{wrapfig}
+\usepackage{multirow}
+\usepackage{verbatim}
+\usepackage{float}
+\usepackage{cancel}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{cancel}
+\include{latex-defs}
+
+
+\title{AMATH 515 Homework 4}
+\author{Cade Ballew}
+\date{March 16, 2022}
+
+\begin{document}
+	
+\maketitle
+	
+\section{Problem 1}
+Let $\alpha\in\real$. Then,
+\begin{align*}
+&\|\alpha x + (1-\alpha) y\|^2 + \alpha(1-\alpha) \|x-y\|^2\\&=
+\|\alpha x\|^2+2\ip{\alpha x}{(1-\alpha) y}+\|(1-\alpha) y\|^2+ \alpha(1-\alpha)\left(\|x\|^2-2\ip{x}{y}+\|y\|^2\right)\\&=
+\alpha^2\|x\|^2+\cancel{2\alpha(1-\alpha)\ip{x}{ y}}+(1-\alpha)^2\| y\|^2+ \alpha(1-\alpha)\|x\|^2-\cancel{2\alpha(1-\alpha)\ip{x}{y}}+\alpha(1-\alpha)\|y\|^2\\&=
+\alpha(\alpha+(1-\alpha))\|x\|^2+(1-\alpha)((1-\alpha)+\alpha)\|y\|^2=\alpha \|x\|^2 + (1-\alpha) \|y\|^2.
+\end{align*}
+
+\section{Problem 2}
+Let 
+\[
+T_\lambda = (1-\lambda)I + \lambda T
+\]
+where $T$ is nonexpansive. 
+\subsection{Part a}
+To see that $T_\lambda$ and $T$ have the same fixed points, consider an $x$ such that $x=Tx$ (a fixed point of $T$). Then,
+\[
+T_\lambda x=((1-\lambda)I + \lambda T)x=(1-\lambda)x+\lambda Tx=(1-\lambda)x+\lambda x=x,
+\]
+so $x$ is a fixed point of $T_\lambda$. If $x$ is instead a fixed point of $T_\lambda$, then $T_\lambda x=x$, so
+\[
+x=T_\lambda x=((1-\lambda)I + \lambda T)x=(1-\lambda)x+\lambda Tx.
+\]
+Then,
+\[
+\lambda Tx=x-(1-\lambda)x=\lambda x,
+\]
+so $Tx=x$, meaning that $x$ is also a fixed point of $T$. Thus, $T$ and $T_\lambda$ have the same fixed points.  
+
+\subsection{Part b}
+Let $\overline z$ be a fixed point of $T$. Then, $\overline z=T\overline z$, so
+\begin{align*}
+\|T_\lambda z - \overline z\|^2=\|(1-\lambda)z + \lambda Tz - \lambda\overline z -(1-\lambda)\overline z\|^2=\|\lambda (Tz-T\Bar{z})+(1-\lambda)(z-\Bar{z})\|^2.
+\end{align*}
+Now, we apply problem 1 and use the fact that $T$ is nonexpansive to get that 
+\begin{align*}
+\|T_\lambda z - \overline z\|^2&=\lambda\|Tz-T\Bar{z}\|^2+(1-\lambda)\|z-\Bar{z}\|^2-\lambda(1-\lambda)\|(Tz-T\Bar{z})-(z-\Bar{z})\|^2\\&\leq
+\lambda\|z-\Bar{z}\|^2+(1-\lambda)\|z-\Bar{z}\|^2-\lambda(1-\lambda)\|Tz-\underbrace{T\Bar{z}}_{=\Bar{z}}-z+\Bar{z}\|^2\\&=
+\|z-\Bar{z}\|^2-\lambda(1-\lambda)\|Tz-z\|^2=\|z-\Bar{z}\|^2-\lambda(1-\lambda)\|z-Tz\|^2.
+\end{align*}
+
+\section{Problem 3}
+\subsection{Part a}
+Let $T$ be a firmly nonexpansive operator. Then, 
+\[
+\|Tx - Ty\|^2 + \|(I-T) x - (I-T)y\|^2 \leq \|x-y\|^2. 
+\]
+From this, 
+\begin{align*}
+\text{LHS}&=\|Tx - Ty\|^2+\|(x-y)-(Tx-Ty)\|^2\\&=
+\|Tx - Ty\|^2+\|x-y\|^2-2\ip{x-y}{Tx-Ty}+\|Tx-Ty\|^2\\&=
+2\|Tx - Ty\|^2+\|x-y\|^2-2\ip{x-y}{Tx-Ty}.
+\end{align*}
+Thus, by definition, $T$ is firmly nonexpansive iff
+\[
+2\|Tx - Ty\|^2+\|x-y\|^2-2\ip{x-y}{Tx-Ty}\leq\|x-y\|^2. 
+\]
+Of course, we can just move terms around to see that this is true iff, 
+\[
+\langle x-y, Tx - Ty \rangle \geq \|Tx - Ty\|^2,
+\]
+so $T$ is firmly nonexpansive iff this holds.
+
+\subsection{Part b}
+Using the result of part a, we can write the norm as an inner product to get that $T$ is firmly nonexpansive iff
+\[
+\langle x-y, Tx - Ty \rangle-\ip{Tx - Ty}{Tx - Ty}\geq0.
+\]
+Now, note that
+\begin{align*}
+&\langle x-y, Tx - Ty \rangle-\ip{Tx - Ty}{Tx - Ty}\\&=
+\ip{(x-y)-(Tx-Ty)}{Tx - Ty}=\ip{(I-T)x-(I-T)y}{Tx-Ty}.
+\end{align*}
+Thus, $T$ is firmly nonexpansive iff
+\[
+\langle Tx - Ty, (I-T)x - (I-T)y \rangle \geq 0.
+\]
+
+\subsection{Part c}
+Now, suppose that $S = 2T - I$. Let 
+\[
+\mu = \|Tx - Ty\|^2 + \|(I-T)x - (I-T)y\|^2 - \|x-y\|^2
+\]
+and let 
+\[
+\nu = \|Sx - Sy\|^2 - \|x-y\|^2.
+\]
+Then, 
+\begin{align*}
+\nu &= \|(2T-I)x-(2T-I)y\|^2-\|x-y\|^2 \\&=
+\|(T-I)x-(T-I)y+(Tx-Ty)\|^2+\|x-y\|^2-2\|x-y\|^2\\&=
+\|(T-I)x-(T-I)y+(Tx-Ty)\|^2\\&+\|(T-I)x-(T-I)y-(Tx-Ty)\|^2-2\|x-y\|^2,
+\end{align*}
+so
+\begin{align*}
+\frac{1}{4}\nu&=\|\frac{1}{2}((T-I)x-(T-I)y)+\frac{1}{2}(Tx-Ty)\|^2\\&+\frac{1}{4}\|(T-I)x-(T-I)y-(Tx-Ty)\|^2-\frac{1}{2}\|x-y\|^2.
+\end{align*}
+Applying problem 1 with $\alpha=\frac{1}{2}$ to the first two terms, we get that 
+\begin{align*}
+    \frac{1}{4}\nu&=\frac{1}{2}\|(T-I)x-(T-I)y\|^2+\frac{1}{2}\|Tx-Ty\|^2-\frac{1}{2}\|x-y\|^2,
+\end{align*}
+so
+\begin{align*}
+\nu&=2\|(T-I)x-(T-I)y\|^2+2\|Tx-Ty\|^2-2\|x-y\|^2=2\mu.
+\end{align*}
+We know from the definition that $T$ is firmly nonexpansive iff $\mu\leq0$ which we now know is true iff $\nu\leq0$. Of course, this is true iff $S$ is nonexpansive.
+
+\end{document}

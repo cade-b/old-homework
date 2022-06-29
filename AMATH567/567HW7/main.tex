@@ -1,0 +1,366 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{listings}
+\usepackage{multimedia} % to embed movies in the PDF file
+\usepackage{graphicx}
+\usepackage{comment}
+\usepackage[english]{babel}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{subfigure}
+\usepackage{wrapfig}
+\usepackage{multirow}
+\usepackage{tikz}
+\usepackage{verbatim}
+ % sum prime
+\include{latex-defs}
+
+\title{AMATH 567 Homework 7}
+\author{Cade Ballew \#2120804}
+\date{November 17, 2021}
+
+\begin{document}
+
+\maketitle
+
+\section{Problem 1 (3.2.2)}
+
+\subsection{Part b}
+From equation 3.2.25 in the text, we have that $\frac{1}{1+z^2}=\sum_{n=0}^\infty(-1)^nz^{2n}$ for $|z|<1$. Thus, 
+\[
+\frac{z}{1+z^2}=z\sum_{n=0}^\infty(-1)^nz^{2n}=\sum_{n=0}^\infty(-1)^nz^{2n+1}
+\]
+for $|z|<1$.
+
+\subsection{Part c}
+Note that the derivatives of $f(x)=\cosh{x}$ follow a pattern, namely, for $k\geq0$, $f^{(2k+1)}(z)=\sinh{z}$ and  $f^{(2k)}(z)=\cosh{z}$. Thus, $f^{(2k+1)}(0)=0$ and $f^{(2k)}(0)=1$. Invoking theorem 3.2.2 in the text to write a Taylor expansion, we get that 
+\[
+\cosh{z}=\sum_{n=0}^\infty\frac{z^{2n}}{(2n)!}
+\]
+which is valid for $|z|<\infty$, because $f(z)$ is entire.
+
+
+\section{Problem 2 (3.3.1)} 
+Consider $f(z)=\frac{1}{1+z^2}$
+\subsection{Part a}
+Equation 3.2.25 in the text gives that the Taylor series for $f$ is 
+\[
+\frac{1}{1+z^2}=\sum_{n=0}^\infty(-1)^nz^{2n}
+\]
+for $|z|<1$.
+
+\subsection{Part b}
+Now, note that $|z|>1$ iff $|1/z|<1$, so we can write 
+\[
+\frac{1}{1+z^2}=\frac{1}{z^2}\frac{1}{1+(1/z)^2}=\frac{1}{z^2}\sum_{n=0}^\infty(-1)^n(1/z)^{2n}=\sum_{n=0}^\infty\frac{(-1)^n}{z^{2n+2}}
+\]
+for $|z|>1$.
+
+\section{Problem 3 (3.3.5)}
+Let 
+	\[
+	f(z)=e^{\frac{t}{2}(z - 1/z)} = \sum_{n=-\infty}^\infty J_n(t)z^n.
+	\]
+By the definition of a Laurent series, 
+\[
+J_n(t)=\frac{1}{2\pi i}\oint_C\frac{f(z)}{z^{n+1}}dz=\frac{1}{2\pi i}\oint_C\frac{e^{\frac{t}{2}(z - 1/z)}}{z^{n+1}}dz
+\]
+for some closed contour $C$ enclosing $z=0$, because $f$ is analytic except for at the origin. Take $C$ to be the unit circle counter-clockwise and parameterize this as $z=e^{i\theta}$ which gives $dz=ie^{i\theta}d\theta$ for $\theta\in[-\pi,\pi]$. Then,
+\begin{align*}
+    J_n(t)&=\frac{1}{2\pi i}\int_{-\pi}^\pi\frac{e^{t/2(e^{i\theta}-e^{-i\theta}})}{e^{(n+1)i\theta}}ie^{i\theta}d\theta=\frac{1}{2\pi}\int_{-\pi}^\pi \frac{e^{it\sin{\theta}}}{e^{in\theta}}d\theta\\&=
+    \frac{1}{2\pi}\int_{-\pi}^\pi e^{-i(n\theta-t\sin{\theta})}d\theta
+\end{align*}
+follows from the fact that $e^{i\theta}-e^{-i\theta}=2i\sin{\theta}$. Using Euler's formula to break up this integral,
+\[
+J_n(t)=\frac{1}{2\pi}\int_{-\pi}^\pi\underbrace{\cos(n\theta-t\sin{\theta}}_{A(\theta)})d\theta-\frac{i}{2\pi}\int_{-\pi}^\pi\underbrace{\sin(n\theta-t\sin{\theta}}_{B(\theta)})d\theta.
+\]
+Observe that as defined above,
+\begin{align*}
+A(-\theta)&=\cos(-n\theta-t\sin(-\theta))=\cos(-n\theta+t\sin{\theta})=\cos(-(n\theta-t\sin{\theta}))\\&=
+\cos(n\theta-t\sin{\theta})=A(\theta)
+\end{align*}
+and 
+\begin{align*}
+B(-\theta)&=\sin(-n\theta-t\sin(-\theta))=\cos(-n\theta+t\sin{\theta})=\sin(-(n\theta-t\sin{\theta}))\\&=
+-\sin(n\theta-t\sin{\theta})=-B(\theta).
+\end{align*}
+Thus, $A(\theta)$ is an even function of $\theta$ and $B(\theta)$ is an odd function of $\theta$. We can use this fact to rewrite our integral as
+\[
+J_n(t)=\frac{1}{\pi}\int_{0}^\pi\cos(n\theta-t\sin{\theta})d\theta-\frac{i}{2\pi}0=\frac{1}{\pi}\int_{0}^\pi\cos(n\theta-t\sin{\theta})d\theta.
+\]
+
+\section{Problem 4 (3.5.1)}
+
+\subsection{Part a}
+Note that
+\[
+\frac{e^{z^2}-1}{z^2}=\frac{1}{z^2}\sum_{n=1}^\infty\frac{z^{2n}}{n!}=\sum_{n=1}^\infty\frac{z^{2n-2}}{n!}.
+\]
+$e^{z^2}$ is entire, so the only singularity is where $z^2=0$, namely at $z=0$. However, we have shown that this singularity is removable, because the above series converges to 0 at $z=0$ and has no negative powers of $z$. This singularity is also isolated, because it is the only singularity.  
+
+\subsection{Part b}
+Now, note that 
+\[
+\frac{e^{2z}-1}{z^2}=\frac{1}{z^2}\sum_{n=1}^\infty\frac{(2z)^n}{n!}=\sum_{n=1}^\infty\frac{2^n}{n!}z^{2n-2}.
+\]
+As in part a, the only singularity is at $z=0$, because $e^{2z}$ is entire and it is the only zero of $z^2$. We have now derived a Laurent series centered at $z=0$ for this function whose first nonzero term is at $j=-1$, meaning that $z=0$ is a simple pole with strength 2 (take $n=1$ to find this). Of course, it is isolated, because it is the only singularity.  
+
+\subsection{Part c}
+When analyzing the function $e^{1/z}$, we saw that isolated simple poles in the exponent function lead to essential singularities in the combined function. Thus, the isolated simple poles of $\tan{z}$ are essential singularities of $e^{\tan z}=\sum_{n=0}^\infty\frac{\tan^nz}{n!}$. From example 3.5.3 in the text, we know that $\tan{z}$ has only isolated simple poles which occur at $\pi/2+k\pi$ for any $k\in\mathbb{Z}$, meaning that $e^{\tan z}$ has essential singularities at $\pi/2+k\pi$ for any $k\in\mathbb{Z}$. These are the only singularities, because $e^z$ is an entire function. These singularities are isolated by the definition of an essential singularity. 
+
+\subsection{Part g}
+The function $\begin{cases} z^2 & |z| \leq 1 \\ 1/z^2 & |z| > 1 \end{cases}$ exhibits a boundary jump discontinuity at $|z|=1$. This is because both functions are analytic and both have continuous limits to the boundary $|z|=1$ (we can just plug in a value at a point on the boundary to find a limit, because both functions are continuous there) but are not necessarily equal on the boundary. We can see this by plugging in $z=e^{i\theta}$ which yields the functions $e^{2i\theta}$ and $e^{-2i\theta}$, functions that are only equivalent when $\theta=\pi k$ for $k\in\mathbb{Z}$, isolated points. \\Clearly, these singularities are not isolated. 
+
+\subsection{Part h}
+Consider 
+\[
+f(z)=\sum\limits_{n=1}^\infty \frac{z^{n!}}{n!}. 
+\]
+Taking a ratio test
+\[
+\frac{|z^{(n+1)!}/(n+1)!|}{|z^{n!}/n!|}=\frac{|z^{((n+1)!-n!)|}}{n+1}=\frac{|z^{n!n}|}{n+1}
+\]
+yields a radius of convergence $R<1$. However, on the boundary $|z|=1$, we find that our terms are bounded
+\[
+\left|\frac{z^{n!}}{n!}\right|=\frac{|z|^{n!}}{n!}=\frac{1}{n!},
+\]
+so our series is bounded by 
+\[
+\sum\limits_{n=1}^\infty\frac{1}{n!}=e-1,
+\]
+meaning that we converge uniformly on the boundary as well by the Weierstrass M-test if we take $M_n=\frac{1}{n!}$. Thus, we can take the derivative termwise which gives that 
+\[
+f'(z)=\sum\limits_{n=1}^\infty z^{n!-1}=\frac{1}{z}\sum\limits_{n=1}^\infty z^{n!}.
+\]
+Now, this diverges on a dense set of points on $|z|=1$, because for any arc on $|z|=1$, we can find some $N\in\mathbb{N}$ such that $z^{N!}=1$ due to the density of the rationals in $\real$. However, $N!$ is a factor of $n!$ for any $n\geq N$, so $z^{n!}=1$  for any such $n$. This means that $\sum\limits_{n=N}^\infty z^{n!}$ diverges, meaning that $f'(z)$ diverges. Thus, analytic continuation is not possible, and $|z|=1$ forms a natural barrier which is, of course, not isolated. 
+
+
+\section{Problem 5 (3.5.3)}
+\subsection{Part b}
+Example 3.5.3 shows that $f(z)=\tan z$ is meromorphic and has simple poles of strength -1 at $z=\pi/2+k\pi$ for any $k\in\mathbb{Z}$ (Bernard said it was okay to just cite this).
+
+\subsection{Part d}
+Note that 
+\[
+f(z)=\frac{e^z-1-z}{z^4}=\frac{1}{z^4}\sum_{n=2}^\infty \frac{z^n}{n!}=\sum_{n=2}^\infty \frac{z^{n-4}}{n!}.
+\]
+The only possible singularity is at $z=0$ because the numerator of $f$ is entire and it is the only root of $z^4$. The above Laurent series has its first nonzero term at $j=-2$, so $z=0$ is a double pole with strength 1/2 (look at the n=2 term to see this). Clearly, this means that $f$ is meromorphic.
+
+\subsection{Part e}
+Consider 
+\[
+f(z)=\frac{1}{2 \pi i} \oint_C \frac{w}{(w^2 - 2)(w -z)} d w
+\]
+for $|z| < 1$ where $C$ is the unit circle centered at the origin. The function $w/(w^2-2)$ is analytic in and on $C$, so we apply Cauchy's integral formula to find that
+\[
+f(z)=\frac{z}{z^2-2}=\frac{z}{(z+\sqrt{2})(z-\sqrt{2})}
+\]
+for $|z| < 1$. Now, we analytically extend this function to the rest of the complex plane sans its singularities. Then, we can see from the above expression for $f$ that we have single poles at $z=\pm\sqrt{2}$ which are the only singularities, meaning that $f$ is meromorphic. Plugging in these values to the function sans the problematic factor, we get that these poles have strength $\pm\sqrt{2}/(\pm\sqrt{2}\pm\sqrt{2})=1/2$.  
+
+\section{Problem 6 (3.6.6)}
+ Let $\Gamma$ be given by
+
+	\[
+	\frac{1}{\Gamma(z)} = z e^{\gamma z} \prod_{n=1}^\infty \left(1 + \frac{z}{n}\right) e^{-z/n}
+	\]
+	for $z \neq 0,-1,-2,\ldots$ and $\gamma = $ constant.
+\subsection{Part a}
+Letting $\ln$ denote the principal complex logarithm, we take the log of both sides to get
+\[
+-\ln(\Gamma(z))=\ln{z}+\gamma z+\sum_{n=1}^\infty\left(\ln\left(1+\frac{z}{n}\right)-\frac{z}{n}\right).
+\]
+Differentiating both sides, 
+\[
+-\frac{\Gamma'(z)}{\Gamma(z)}=\frac{1}{z}+\gamma+\sum_{n=1}^\infty\left(\frac{1/n}{1+z/n}-\frac{1}{n}\right),
+\]
+so
+\[
+\frac{\Gamma'(z)}{\Gamma(z)}=-\frac{1}{z}-\gamma-\sum_{n=1}^\infty\left(\frac{1}{n+z}-\frac{1}{n}\right).
+\]
+Note that we can differentiate inside the summation because page 83 of the lecture notes gives that the above infinite product is uniformly convergent (if we take $z=-z$) and the proof of the M-test for infinite products in the notes gives that the corresponding infinite sum is uniformly convergent if the infinite product is uniformly convergent. 
+
+\subsection{Part b}
+Observe that 
+\begin{align*}
+\frac{\Gamma'(z+1)}{\Gamma(z+1)}-\frac{\Gamma'(z)}{\Gamma(z)}-\frac{1}{z}&=-\frac{1}{z+1}-\gamma-\sum_{n=1}^\infty\left(\frac{1}{n+z+1}-\frac{1}{n}\right)+\frac{1}{z}+\gamma+\sum_{n=1}^\infty\left(\frac{1}{n+z}-\frac{1}{n}\right)-\frac{1}{z}\\&=
+-\frac{1}{z+1}-\sum_{n=1}^\infty\left(\frac{1}{n+z+1}-\frac{1}{n}\right)+\sum_{n=1}^\infty\left(\frac{1}{n+z}-\frac{1}{n}\right).
+\end{align*}
+Now, we have found above that both of these series are uniformly convergent, so we can combine them which gives
+\begin{align*}
+\frac{\Gamma'(z+1)}{\Gamma(z+1)}-\frac{\Gamma'(z)}{\Gamma(z)}-\frac{1}{z}&=-\frac{1}{z+1}+\sum_{n=1}^\infty\left(\frac{1}{n+z}-\frac{1}{n+z+1}\right)\\&=
+-\frac{1}{z+1}+\lim_{N\to\infty}\sum_{n=1}^N\left(\frac{1}{n+z}-\frac{1}{n+z+1}\right)\\&=
+-\frac{1}{z+1}+\lim_{N\to\infty}\left(\frac{1}{1+z}-\frac{1}{N+z+1}\right)\\&=
+-\frac{1}{z+1}+\frac{1}{1+z}=0
+\end{align*}
+because our series is a telescoping sum.\\
+Taking the antiderivative of both sides, we get that $\ln(\Gamma(z+1))-\ln(\Gamma(z))-\ln(z)+c_1=0$, so 
+\[
+\ln{\frac{\Gamma(z+1)}{z\Gamma(z)}}=-c_1
+\]
+which gives that $\Gamma(z+1)=Cz\Gamma(z)$ after exponentiating both sides and renaming our constant. 
+
+\subsection{Part c}  
+From the definition of $\Gamma$, we have that 
+\begin{align*}
+\lim_{z\to0}z\Gamma(z)=\lim_{z\to0}\frac{1}{e^{\gamma z} \prod_{n=1}^\infty \left(1 + \frac{z}{n}\right) e^{-z/n}}=\frac{1}{1\prod_{n=1}^\infty1*1}=1.
+\end{align*}
+Therefore, $C=\Gamma(1)$ by part b. Note that there is some subtlety here, because we are switching the order of the limits (one limit comes from the infinite product) in order to plug in $z=0$ directly, but this is okay because we have seen that the infinite product is uniformly convergent in part a.
+
+\subsection{Part d}
+Plugging in $z=1$ to our definition for $\Gamma$ and using part c, we get that 
+\[
+1=\frac{1}{\Gamma(1)}=e^\gamma\prod_{n=1}^\infty\left(1 + \frac{1}{n}\right)e^{-1/n},
+\]
+so
+\[
+e^{-\gamma}=\prod_{n=1}^\infty\left(1 + \frac{1}{n}\right)e^{-1/n}.
+\]
+
+\subsection{Part e}
+By definition, 
+\begin{align*}
+e^{-\gamma}&=\prod_{n=1}^\infty\left(1 + \frac{1}{n}\right)e^{-1/n}=\lim_{n\to\infty}\frac{2}{1}\frac{3}{2}\frac{4}{3}\cdots\frac{n+1}{n}e^{\sum_{n=1}^\infty-1/n}\\&=
+\lim_{n\to\infty}(n+1)e^{-S(n)}
+\end{align*}
+where $S(n)=1+\frac{1}{2}+\ldots+\frac{1}{n}$.
+Exponentiating both sides,
+\[
+-\gamma=\lim_{n\to\infty}(\ln(n+1)-S(n))
+\]
+which gives that 
+\[
+\gamma=\lim_{n\to\infty}\left(\sum_{k=1}^\infty\frac{1}{k}-\ln(n+1)\right).
+\]
+
+\section{Problem 7}
+Define the Weierstrass $\wp$-function as
+	\[
+	\wp(z)=\frac{1}{z^2}+\sum_{j,k=-\infty}^{\infty}{}^{'} \left(\frac{1}{(z-j
+	\omega_1-k \omega_2)^2}-\frac{1}{(j \omega_1+k \omega_2)^2}\right),
+	\]
+where $\omega_1$ is a positive real number, and $\omega_2$ is on the positive imaginary axis.
+
+\subsection{Part a}
+We first show that $\wp(z+\omega_1)=\wp(z)$. 
+\begin{align*}
+&\wp(z+\omega_1)=\frac{1}{(z+\omega_1)^2}+\sum_{j,k=-\infty}^{\infty}{}^{'}\left( \frac{1}{(z-(j-1)\omega_1-k \omega_2)^2}-\frac{1}{(j \omega_1+k \omega_2)^2}\right)\\&=
+\frac{1}{(z+\omega_1)^2}+\left(\frac{1}{z^2}-\frac{1}{\omega_1^2}\right)+\sum_{j,k=-\infty, (j,k)\neq(1,0)}^{\infty}{}^{'}\left( \frac{1}{(z-(j-1)\omega_1-k \omega_2)^2}-\frac{1}{(j \omega_1+k \omega_2)^2}\right)\\&=
+\frac{1}{(z+\omega_1)^2}+\left(\frac{1}{z^2}-\frac{1}{\omega_1^2}\right)+\sum_{j,k=-\infty, (j,k)\neq(-1,0)}^{\infty}{}^{'}\left( \frac{1}{(z-j\omega_1-k \omega_2)^2}-\frac{1}{((j+1) \omega_1+k \omega_2)^2}\right)
+\end{align*}
+where we reindexed $j\to j+1$. Now, consider the series
+\begin{align*}
+&\sum_{j,k=-\infty, (j,k)\neq(-1,0)}^{\infty}{}^{'}\left( \frac{1}{((j+1) \omega_1+k \omega_2)^2}-\frac{1}{(j\omega_1+k\omega_2)^2}\right)\\&=
+\sum_{k=-\infty}^{\infty}{}^{'}\left(\sum_{j=-\infty}^{0}\left( \frac{1}{((j+1) \omega_1+k \omega_2)^2}-\frac{1}{(j\omega_1+k\omega_2)^2}\right)+\sum_{j=1}^{\infty}\left( \frac{1}{((j+1) \omega_1+k \omega_2)^2}-\frac{1}{(j\omega_1+k\omega_2)^2}\right)\right)\\&+\sum_{j=-\infty}^{-2}\left( \frac{1}{((j+1) \omega_1)^2}-\frac{1}{(j\omega_1)^2}\right)+\sum_{j=1}^{\infty}\left( \frac{1}{((j+1) \omega_1)^2}-\frac{1}{(j\omega_1)^2}\right)\\&=
+\sum_{k=-\infty}^{\infty}{}^{'}\left(\lim_{N\to-\infty}\left(\frac{1}{( \omega_1+k \omega_2)^2}-\frac{1}{(N\omega_1+k\omega_2)^2}\right)+\lim_{N\to\infty}\left(\frac{1}{((N+1)\omega_1+k\omega_2)^2}-\frac{1}{( \omega_1+k \omega_2)^2}\right)\right)\\&+\lim_{N\to-\infty}\left( \frac{1}{(- \omega_1)^2}-\frac{1}{(N\omega_1)^2}\right)+\lim_{N\to\infty}\left( \frac{1}{((N+1) \omega_1)^2}-\frac{1}{(\omega_1)^2}\right)\\&=
+\sum_{k=-\infty}^{\infty}{}^{'}\left(\frac{1}{(\omega_1+k\omega_2)^2}-\frac{1}{(\omega_1+k\omega_2)^2}\right)+\frac{1}{\omega_1}-\frac{1}{\omega_1}=0.
+\end{align*}
+Because this is zero, we can add it to our equation for $\wp(z+\omega_1)$ which gives
+\begin{align*}
+&\wp(z+\omega_1)=\frac{1}{(z+\omega_1)^2}+\left(\frac{1}{z^2}-\frac{1}{\omega_1^2}\right)+\sum_{j,k=-\infty, (j,k)\neq(-1,0)}^{\infty}{}^{'}\left( \frac{1}{(z-j\omega_1-k \omega_2)^2}-\frac{1}{((j+1) \omega_1+k \omega_2)^2}\right)\\&+\sum_{j,k=-\infty, (j,k)\neq(-1,0)}^{\infty}{}^{'}\left( \frac{1}{((j+1) \omega_1+k \omega_2)^2}-\frac{1}{(j\omega_1+k\omega_2)^2}\right).
+\end{align*}
+We know that the first series is uniformly convergent, because it is just a shifted version of the Weierstrass $\wp$ function defined at $z+\omega_1$ which we know is uniformly convergent. The second series is also uniformly convergent with respect to $z$, because it is constant with respect to $z$. Thus, we can combine the series and get that 
+\begin{align*}
+\wp(z+\omega_1)&=\frac{1}{(z+\omega_1)^2}+\left(\frac{1}{z^2}-\frac{1}{\omega_1^2}\right)+\sum_{j,k=-\infty, (j,k)\neq(-1,0)}^{\infty}{}^{'}\left( \frac{1}{(z-j\omega_1-k \omega_2)^2}-\frac{1}{(j\omega_1+k \omega_2)^2}\right)\\&=
+\frac{1}{z^2}+\left(\frac{1}{(z+\omega_1)^2}-\frac{1}{\omega_1^2}\right)+\sum_{j,k=-\infty, (j,k)\neq(-1,0)}^{\infty}{}^{'}\left( \frac{1}{(z-j\omega_1-k \omega_2)^2}-\frac{1}{(j\omega_1+k \omega_2)^2}\right)\\&=
+\frac{1}{z^2}+\sum_{j,k=-\infty}^{\infty}{}^{'}\left( \frac{1}{(z-j\omega_1-k \omega_2)^2}-\frac{1}{(j\omega_1+k \omega_2)^2}\right)=\wp(z)
+\end{align*}
+noting that $\frac{1}{(z+\omega_1)^2}-\frac{1}{\omega_1^2}$ is the $(j,k)=(-1,0)$ term of this series.\\
+Now, we argue that showing this is sufficient for showing that $\wp(z+M\omega_1+N\omega_2)=\wp(z)$ for any $M,N\in\mathbb{Z}$. We first use an induction argument on $M$, noting that if we plug in $z+\omega_1$ to our relation, we get that $\wp(z+\omega_1)=\wp(z+2\omega_1)$, so $\wp(z)=\wp(z+2\omega_1)$. Similarly,  $\wp(z+(M-1)\omega_1)=\wp(z+M\omega_1)$, so if we take this to be our inductive step, we get that $\wp(z)=\wp(z+M\omega_1)$, meaning that this relation holds for all $M\in\mathbb{N}$. Similarly, if we plug in $z-\omega_1$, we get that $\wp(z-\omega_1)=\wp(z-\omega_1+\omega_1)=\wp(z)$. Then, we can use the same inductive argument in the negative direction by noting that $\wp(z-2\omega_1)=\wp(z-2\omega_1+\omega_1)=\wp(z-\omega_1)$ and that $\wp(z-M\omega_1)=\wp(z-M\omega_1+\omega_1)=\wp(z-(M-1)\omega_1)$. Thus, we have that $\wp(z+M\omega_1)=\wp(z)$ for all $M\in\mathbb{Z}$. To get the $\omega_2$ direction, we simply note that $\wp$ is symmetric with respect to $\omega_1$ and $\omega_2$, so the manipulations we made also imply that $\wp(z+\omega_2)=\wp(z)$. The induction arguments we already made then give that $\wp(z+N\omega_2)=\wp(z)$ for any $N\in\mathbb{Z}$. Then, we plug $z+M\omega_1$ into this equation to get that $\wp(z+M\omega_1+N\omega_2)=\wp(z+M\omega_1)=\wp(z)$ for all $M,N\in\mathbb{Z}$.
+
+\subsection{Part b}
+To show that $\wp$ is an even function, consider
+\begin{align*}
+\wp(-z)&=\frac{1}{(-z)^2}+\sum_{j,k=-\infty}^{\infty}{}^{'} \left(\frac{1}{(-z-j
+	\omega_1-k \omega_2)^2}-\frac{1}{(j \omega_1+k \omega_2)^2}\right)\\&=
+	\frac{1}{z^2}+\sum_{j,k=-\infty}^{\infty}{}^{'} \left(\frac{1}{(z+j
+	\omega_1+k \omega_2)^2}-\frac{1}{(j \omega_1+k \omega_2)^2}\right).
+\end{align*}
+Now, reindex $j\to-j$, $k\to-k$
+\begin{align*}
+\wp(-z)&=\frac{1}{z^2}+\sum_{j,k=\infty}^{-\infty}{}^{'} \left(\frac{1}{(z-j
+	\omega_1-k \omega_2)^2}-\frac{1}{(-j \omega_1-k \omega_2)^2}\right)\\&=
+	\frac{1}{z^2}+\sum_{j,k=-\infty}^{\infty}{}^{'} \left(\frac{1}{(z-j
+	\omega_1-k \omega_2)^2}-\frac{1}{(j \omega_1+k \omega_2)^2}\right)=\wp(z)
+\end{align*}
+where we have simply changed the order of summation. Thus, $\wp(z)$ is an even function.
+
+\subsection{Part c}
+To find a Laurent series for $\wp(z)$, first note that if we consider some $w$ that is constant with respect to $z$, 
+\begin{align*}
+\frac{1}{(z-w)^2}&=\frac{d}{dz}\left(\frac{-1}{z-w}\right)=\frac{d}{dz}\left(\frac{1}{w}\frac{1}{1-z/w}\right)=\frac{d}{dz}\left(\frac{1}{w}\sum_{k=0}^\infty\left(\frac{z}{w}\right)^k\right)\\&=
+\frac{1}{w}\sum_{k=0}^\infty\frac{d}{dz}\left(\left(\frac{z}{w}\right)^k\right)=\frac{1}{w}\sum_{k=1}^\infty\frac{k}{w}\left(\frac{z}{w}\right)^{k-1}=\frac{1}{w^2}\sum_{k=1}^\infty k\left(\frac{z}{w}\right)^{k-1}
+\end{align*}
+Note that the $k=0$ term drops out, because it is a constant, so its derivative is 0. Reindexing, 
+\[
+\frac{1}{(z-w)^2}=\frac{1}{w^2}\sum_{k=0}^\infty (k+1)\left(\frac{z}{w}\right)^k=\frac{1}{w^2}+\frac{1}{w^2}\sum_{k=1}^\infty (k+1)\left(\frac{z}{w}\right)^k.
+\]
+Thus, 
+\[\frac{1}{(z-w)^2}-\frac{1}{w^2}=\frac{1}{w^2}\sum_{k=1}^\infty (k+1)\left(\frac{z}{w}\right)^k.
+\]
+Now, we take a step back ensure that our steps were legitimate. In order for our geometric series to be valid, we need that $|z/w|<1$. If this holds, we also have that our series is uniformly convergent, so we are able to differentiate termwise. \\
+Now, take $w=j\omega_1+k\omega_2$. Then, for $|z/w|<1$, we need that $|z|<\inf_{j,k\in\mathbb{Z}}|j\omega_1+k\omega_2|$ in order for the above series to be valid. Then, 
+\begin{align*}
+\frac{1}{(z-j\omega_1-k\omega_2)^2}-\frac{1}{(j\omega_1+k\omega_2)^2}=\frac{1}{(j\omega_1+k\omega_2)^2}\sum_{n=1}^\infty (n+1)\left(\frac{z}{j\omega_1+k\omega_2}\right)^n
+\end{align*}
+which gives that 
+\begin{align*}
+\wp(z)&=\frac{1}{z^2}+\sum_{j,k=-\infty}^{\infty}{}^{'}\left(\frac{1}{(j\omega_1+k\omega_2)^2}\sum_{n=1}^\infty (n+1)\left(\frac{z}{j\omega_1+k\omega_2}\right)^n\right)\\&=
+\frac{1}{z^2}+\sum_{n=1}^\infty \sum_{j,k=-\infty}^{\infty}{}^{'}\frac{n+1}{(j\omega_1+k\omega_2)^2}\left(\frac{z}{j\omega_1+k\omega_2}\right)^n\\&=
+\frac{1}{z^2}+\sum_{n=1}^\infty \sum_{j,k=-\infty}^{\infty}{}^{'}\frac{n+1}{(j\omega_1+k\omega_2)^{n+2}}z^n
+\end{align*}
+where we are able to switch the sums, because both the geometric series and $\wp(z)$ are uniformly convergent for $|z|<\inf_{j,k\in\mathbb{Z}}|j\omega_1+k\omega_2|$. Thus, if we let 
+\[
+\alpha_n=\sum_{j,k=-\infty}^{\infty}{}^{'}\frac{n+1}{(j\omega_1+k\omega_2)^{n+2}},
+\]
+then $\wp(z)=\frac{1}{z^2}+\sum_{n=1}^\infty\alpha_nz^n$. From part b, we know that $\wp(z)$ is even, so it must hold that $\alpha_{2k}=0$ for $k\in\mathbb{N}$. It is also clear that this must be true from the fact that $j\omega_1+k\omega_2$ is raised to an even power in the formula for $\alpha_{2k}$, meaning that the terms are even in both $j$ and $k$, so summing over both from $-\infty$ to $\infty$ yields 0. Thus, we can write the Laurent series in the form
+\[
+\wp(z)=\frac{1}{z^2}+\alpha_0+\alpha_2 z^2+\alpha_4 z^4+\ldots
+\]
+where $\alpha_0=0$ because we do not have a constant term.
+Because our series are uniformly convergent, we can differentiate termwise to get that 
+\[
+		\wp'(z)=-\frac{2}{z^3}+\beta_1 z+\beta_3 z^3+\ldots
+\]
+where 
+\[
+\beta_{n-1}=\sum_{j,k=-\infty}^{\infty}{}^{'}\frac{(n+1)n}{(j\omega_1+k\omega_2)^{n+2}}
+\]
+follows from taking the derivative of $\alpha_nz^n$. Reindexing, we get that 
+\[
+\beta_n=\sum_{j,k=-\infty}^{\infty}{}^{'}\frac{(n+2)(n+1)}{(j\omega_1+k\omega_2)^{n+3}}=(n+1)\alpha_{n+1}.
+\]
+Note that $\beta_{2k+1}=0$ for $k\in\mathbb{N}$ follows from the relation to $\alpha_{2k+2}$. 
+
+\subsection{Part d}
+Note that $\alpha_0=0$, so we have that 
+\[
+		\wp(z)=\frac{1}{z^2}+\alpha_2 z^2+\alpha_4 z^4+\ldots,
+		\]
+		and
+		\[
+		\wp'(z)=-\frac{2}{z^3}+\beta_1 z+\beta_3 z^3+\ldots.
+\]
+Let us write out the terms of the differential equation, stopping at the $z^1$ term
+\[
+(\wp')^2=\left(\frac{-2}{z^3}\right)^2+2\frac{-2}{z^3}\beta_1z+2\frac{-2}{z^3}\beta_3z^3+\ldots=\frac{4}{z^6}-\frac{4\beta_1}{z^2}-4\beta_3+\ldots
+\]
+\[
+\wp^3=\left(\frac{1}{z^2}\right)^3+3\left(\frac{1}{z^2}\right)^2\alpha_2z^2+3\left(\frac{1}{z^2}\right)^2\alpha_4z^4+\ldots=\frac{1}{z^6}+\frac{3\alpha_2}{z^2}+3\alpha_4+\ldots
+\]
+\[
+\wp^2=\left(\frac{1}{z^2}\right)^2+2\frac{1}{z^2}\alpha_2z^2+\ldots=\frac{1}{z^2}+2\alpha_2+\ldots
+\]
+\[
+\wp=\frac{1}{z^2}+\ldots.
+\]
+Now, define $d(z)=(\wp')^2-a\wp^3-b\wp^2-c\wp$, so 
+\[
+d=\frac{4-a}{z^6}-\frac{b}{z^4}+\frac{-4\beta_1-3a\alpha_2-c}{z^2}-(4\beta_3+3a\alpha_4+2b\alpha_2)+\ldots.
+\]
+Clearly, $d$ is biperiodic, because $\wp$ is biperiodic. If we take $a=4$, $b=0$, $c=-4\beta_1-3a\alpha_2=-4\beta_1-12\alpha_2=-8\alpha_2-12\alpha_2=-20\alpha_2$, then $d(z)$ does not have a singularity at $z=0$, because the coefficients on the negative power terms of the Laurent series centered at $z=0$ are zero. Of course, this is only valid in our radius of convergence, but the biperiodicity of $\wp(z)$ implies that we can write this same expansion at $z=M\omega_1+N\omega_2$ for any $M,N\in\mathbb{Z}$. This is precisely where the singularities of $\wp$ lie, so if $d$ has singularities at these points, they are removable. Thus, $d$ is entire as a function of $z$. In class, we showed that an entire biperiodic function is bounded (This follows from the fact that its image on a parallelogram, a compact subset, is its image on the whole complex plane). Thus, $d(z)$ is an entire function on the complex plane that is bounded, so Liouville's theorem gives that it must be constant as a function of $z$. Thus, all higher order terms must be zero, meaning that $d=-(4\beta_3+3a\alpha_4+2b\alpha_2)=-4\beta_3-12\alpha_4=-16\alpha_4-12\alpha_4=-28\alpha_4$, so $\wp(z)$ satisfies the differential equation
+\[
+		(\wp')^2=a \wp^3+b \wp^2+c \wp+d,
+\]
+where we take $a=4$, $b=0$, $c=-20\alpha_2$, $d=-28\alpha_4$. 
+
+\end{document}

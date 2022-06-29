@@ -1,0 +1,202 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{listings}
+\usepackage{multimedia} % to embed movies in the PDF file
+\usepackage{graphicx}
+\usepackage{comment}
+\usepackage[english]{babel}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{subfigure}
+\usepackage{wrapfig}
+\usepackage{multirow}
+\usepackage{verbatim}
+\include{latex-defs}
+
+
+\title{AMATH 568 Homework 3}
+\author{Cade Ballew \#2120804}
+\date{January 26, 2022}
+
+\begin{document}
+	
+\maketitle
+	
+\section{Problem 1}
+In the notation of Watson's lemma, take $T=\infty$ and instead of the assumption that $\phi$ is absolutely integrable, assume that that $g(t)$ is absolutely integrable on any finite subinterval of $[0,\infty)$ and for some $\mu > 0$, $g(t) = \OO(e^{\mu t} h(t))$ as $t \to \infty$ for $h$ absolutely integrable. This means that there exist $K,M>0$ such that $|g(t)|\leq K|e^{\mu t}h(t)|$ whenever $|t|\geq M$. Considering $t\geq0$, this means that $|\phi(t)|\leq Kt^\sigma|e^{\mu t}h(t)|$ whenever $t\geq M$. If $\sigma\leq0$, then
+\[
+|\phi(t)|\leq Kt^\sigma|e^{\mu t}h(t)|\leq KM^\sigma|e^{\mu t}h(t)|
+\]
+whenever $t\geq M$, so $\phi(t)$ is $\OO(e^{\mu t}h(t))$ as $t\to\infty$. If $\sigma>0$, then because exponential terms are beyond all orders, we can find some $\epsilon>0$ such that $t^\sigma\leq e^{\epsilon t}$ when $t$ is sufficiently large. Letting $M$ now be chosen to satisfy both this and the above, we then have that 
+\[
+|\phi(t)|\leq Kt^\sigma|e^{\mu t}h(t)|\leq K|(e^{(\mu+\epsilon) t}h(t)|
+\]
+whenever $t\geq M$, so $\phi(t)$ is $\OO(e^{(\mu+\epsilon) t}h(t))$ as $t\to\infty$. In both cases, clearly, $\phi(t)$ is $\OO(e^{(\mu+\epsilon) t}h(t))$. Now, consider $K,M>0$ relative to this definition and choose $r\geq M$. Then, 
+\begin{align*}
+\left|\int_r^\infty e^{-\lambda t}\phi(t)dt\right|&\leq\int_r^\infty e^{-\lambda t}|\phi(t)|dt=\int_r^\infty e^{(-\lambda+\mu+\epsilon) t}e^{-(\mu+\epsilon) t}|\phi(t)|dt\\&
+\leq e^{(-\lambda+\mu+\epsilon) r}\int_r^\infty e^{-(\mu+\epsilon) t}|\phi(t)|dt\\&\leq
+e^{(-\lambda+\mu+\epsilon) r}\int_r^\infty e^{-(\mu+\epsilon) t}K|e^{(\mu+\epsilon) t}h(t)|dt\\&=
+Ke^{(-\lambda+\mu+\epsilon) r}\int_r^\infty|h(t)|dt
+\end{align*}
+which is beyond all orders as $\lambda\to\infty$. Since our assumption is that $g$ is infinitely differentiable in a neighborhood of $0$, we need to consider $s>0$ to be arbitrary and cannot let it be larger than $M$ as we do with $r$. In the case where $r>s$, we also consider
+\begin{align*}
+\left|\int_s^r e^{-\lambda t}\phi(t)dt\right|&\leq\int_s^r e^{-\lambda t}|\phi(t)|dt=\int_s^r e^{-\lambda t}|t^\sigma g(t)|dt\leq\int_s^r e^{-\lambda s}t^\sigma|g(t)|dt\\&\leq
+e^{-\lambda s}\sup_{t\in[s,r]}t^\sigma\int_s^r|g(t)|dt 
+\end{align*}
+which is also BAO, because $g$ is absolutely integrable on finite subintervals. 
+\\Thus, we can  localize to 
+\[
+\int_0^s e^{-\lambda t}\phi(t)dt
+\]
+at the cost of a BAO term. The rest of the proof of Watson's lemma proceeds unaltered as this this the only portion in which we used the assumption that $\phi$ is absolutely integrable.
+
+\section{Problem 2}
+\subsection{Part a}
+Consider the integral
+    \begin{align*}
+      \int_0^\infty \left(\frac{x}{k}\right)^\ell x^{k/2-1} e^{-x/2} d x, \quad \ell > 0.
+    \end{align*}
+Using the change variables $y = x/k$, 
+\begin{align*}
+&\int_0^\infty \left(\frac{x}{k}\right)^\ell x^{k/2-1} e^{-x/2} d x=\int_0^\infty y^\ell (ky)^{k/2-1}e^{-ky/2}(kdy)=\int_0^\infty k^{k/2}e^{-ky/2}y^{\ell+k/2-1}dy\\&=
+k^{k/2}\int_0^\infty e^{-ky/2}y^{\ell-1}e^{k\ln{y}/2}dy=k^{k/2}\int_0^\infty e^{k(\ln{y}-y)/2}y^{\ell-1}dy=c_k\int_0^\infty e^{k h(y)} g_\ell(y) d y
+\end{align*}
+where $c_k=k^{k/2}$, $h(y)=\frac{1}{2}(\ln{y}-y)$, and $g_\ell(y)=y^{\ell-1}$. Now, consider $0<\epsilon<1$ and 
+\begin{align*}
+\left|\int_0^\epsilon e^{k h(y)} g_\ell(y) d y\right|&\leq\int_0^\epsilon |e^{k h(y)}| |g_\ell(y)| d y=\int_0^\epsilon |e^{k\ln{y}/2}||e^{-ky/2}||y^{\ell-1}|dy\\&\leq
+\int_0^\epsilon e^{k\ln{\epsilon}/2}|y^{\ell-1}|dy=e^{k\ln{\epsilon}/2}\int_0^\epsilon|y^{\ell-1}|dy.
+\end{align*}
+Note that this is BAO, because $\ln{\epsilon}<0$. Thus, we can perturb our integral to 
+\[
+\int_\epsilon^\infty e^{k h(y)} g_\ell(y) d y
+\]
+at the cost of a beyond all orders error.
+
+\subsection{Part b}
+To apply Laplace's method, note that $g_\ell(y)$ is absolutely integrable and smooth and consider our $h(y)=\frac{1}{2}(\ln{y}-y)$ which is also smooth away from $y=0$. Then, $h'(y)=\frac{1}{2y}-\frac{1}{2}$, so we have an interior maximum at $y^*=1$ that takes value $h(y^*)=-1/2$. Also, note that $h''(y)=-\frac{1}{2y^2}$, so $h''(y^*)=-1/2<0$, meaning that we can directly apply our result from the interior maximum case of Laplace's method as given on page 16 of part 2 of the course notes. 
+\begin{align*}
+\int_\epsilon^\infty e^{k h(y)} g_\ell(y) d y&=\sqrt{\frac{\pi}{k}}e^{kh(y^*)}g(y^*){\phi(0)}(1+\OO(1/k))\\&=
+2\sqrt{\frac{\pi}{k}}e^{-k/2}1^{\ell-1}(1+\OO(1/k))=2\sqrt{\frac{\pi}{k}}e^{-k/2}(1+\OO(1/k))
+\end{align*}
+as $k\to\infty$, $k>0$ because $\phi(0)=\sqrt{\frac{-2}{h''(y^*)}}=2$.
+
+\subsection{Part c}
+Now, consider that Sterling's formula on page 17 of part 2 of the lecture notes gives that
+\[
+\Gamma(k/2)=\sqrt{2\pi}(k/2)^{k/2-1/2}e^{-k/2}(1+\OO(1/k)),
+\]
+as $k\to\infty$, $k>0$ so if 
+\begin{align*}
+    \rho_k(x) := \frac{1}{2^{k/2} \Gamma(k/2)} x^{k/2-1} e^{-x/2}, \quad x \geq 0, \quad k > 0,
+  \end{align*}
+\begin{align*}
+    \int_0^\infty \left( \frac{x}{k} \right)^\ell \rho_k(x) d x &=\frac{2k^{k/2}\sqrt{\frac{\pi}{k}}e^{-k/2}(1+\OO(1/k))}{2^{k/2}\sqrt{2\pi}(k/2)^{k/2-1/2}e^{-k/2}(1+\OO(1/k))}\\&=
+    \frac{2k^{k/2-1/2}\sqrt{\pi}(1+\OO(1/k))}{2\sqrt{\pi}k^{k/2-1/2}(1+\OO(1/k))}=\frac{1+\OO(1/k)}{1+\OO(1/k)}=1+\oo(1).
+  \end{align*}
+
+\section{Problem 3}
+\subsection{Part a}
+Consider the function
+  \begin{align*}
+    y(x;\lambda) = \int_0^\infty e^{\lambda x t - \lambda ^2 t^3/3} d t, \quad \lambda, x \in \mathbb R.
+  \end{align*}
+where $\lambda\neq0$. Since differentiability is local, rather than apply the given theorem to $x\in(0,\infty)$ directly, we apply it for $x\in(0,b)$ where $b>0$ is chosen so that $b>x$ at the $x$ we wish to consider. To see that we can apply this to $y$ so that we can differentiate under the integral sign, we note that for condition (i), $f(x,t)=e^{\lambda x t - \lambda ^2 t^3/3}\leq e^{\lambda b t - \lambda ^2 t^3/3}$ is dominated by $e^{- \lambda ^2 t^3/3}$ as $t\to\infty$ which decays to zero beyond all orders and is integrable. Being the exponential of a polynomial, it is also continuous, so it must be bounded on $t\in[0,\infty)$ since $f(x,0)=1$ (One could find the value of $t$ that maximizes its magnitude, but that is beyond the point since $f(x,t)$ will clearly be finite at the chosen $t$). Thus, it must also follow that $f$ is absolutely integrable on this region. To see (ii), we can simply compute 
+\[
+\partial_x f(x,t)=\lambda te^{\lambda x t - \lambda ^2 t^3/3}
+\]
+which we know to be continuous as the product of a polynomial and the exponential of a polynomial. For (iii), we  simply note that 
+\[
+|\partial_x f(x,t)|=|\lambda te^{\lambda x t - \lambda ^2 t^3/3}|=|\lambda t||f(x,t)|\leq |\lambda t|e^{- \lambda ^2 t^3/3}e^{\lambda x t}\leq\lambda te^{- \lambda ^2 t^3/3}e^{\lambda b t}
+\]
+so, we simply take $F(t)=\lambda te^{- \lambda ^2 t^3/3}e^{\lambda b t}$ and part (iii) is shown. Thus, we can differentiate under the integral sign. \\
+In addition to this, we also need to be able to take a second derivative, so we need to apply the theorem (on the same region $(0,b)\times(0,\infty)$) to $\partial_x f(x,t)$ as well. This follows by essentially the same logic. For (i), we again note that $\partial_x f(x,t)$ is continuous and its bounding for $t\geq0$ follows from the fact that $e^{- \lambda ^2 t^3/3}$ still decays to zero BAO, so it dominates the new $\lambda t$ term. For (ii), we again just compute 
+\[
+\partial_x \partial_xf(x,t)=(\lambda t)^2e^{\lambda x t - \lambda ^2 t^3/3}
+\]
+which again is clearly continuous. For (iii), we see that 
+\[
+|\partial_x \partial_xf(x,t)|=(\lambda t)^2|e^{\lambda x t - \lambda ^2 t^3/3}|\leq \lambda^2 t^2e^{- \lambda ^2 t^3/3}e^{\lambda b t},
+\]
+so we take $F(t)=\lambda^2 t^2e^{- \lambda ^2 t^3/3}e^{\lambda b t}$ and the condition is satisfied. Thus, we have shown that the theorem applies to $\partial_x f(x,t)$ as well. \\
+Applying the theorem to both $f(x,t)$ and $\partial_x f(x,t)$, we can compute 
+\[
+\frac{d^2 y}{d x^2} (x;\lambda) = \int_0^\infty \frac{d^2 y}{d x^2}e^{\lambda x t - \lambda ^2 t^3/3} d t=\int_0^\infty \lambda^2 t^2e^{\lambda x t - \lambda ^2 t^3/3} d t.
+\]
+Now, perform the change of variables $u=-\lambda x t + \lambda ^2 t^3/3$. Then,
+\begin{align*}
+\frac{d^2 y}{d x^2} (x;\lambda) &=\int_0^\infty \lambda^2 t^2 e^{-u}\frac{du}{-\lambda x+\lambda^2t^2}=\int_0^\infty  e^{-u}\frac{\lambda^2 t^2}{-\lambda x+\lambda^2t^2}du\\&=
+\int_0^\infty  e^{-u}\left(1+\frac{\lambda x}{-\lambda x+\lambda^2t^2}\right)du=\int_0^\infty e^{-u} du+\lambda x\int_0^\infty e^{-u} \frac{du}{-\lambda x+\lambda^2t^2}\\&=
+1+\lambda x \int_0^\infty e^{-u} dt=1+\lambda x\int_0^\infty e^{\lambda x t - \lambda ^2 t^3/3}dt=1 + \lambda x y(x;\lambda).
+\end{align*}
+
+\subsection{Part b}
+Performing the substitution $x=s\lambda$ for $s$ fixed, 
+\[
+y(\lambda;t)=\int_0^\infty e^{s\lambda^2 t-\lambda^2t^3/3}dt=\int_0^\infty e^{\lambda^2(st-t^3/3)}dt.
+\]
+First we consider the case where $s=0$. Then, 
+\[
+y(\lambda;t)=\int_0^\infty e^{-\lambda^2t^3/3}dt.
+\]
+To evaluate this, we simply perform the substitution $u=\lambda^2t^3$. This gives that $t=\left(\frac{3u}{\lambda^2}\right)^{1/3}=\frac{3^{1/3}}{\lambda^{2/3}}u^{1/3}$, so $dt=\frac{du}{3^{2/3}\lambda^{2/3}}u^{-2/3}du$ (Note that this assumes $\lambda>0$, but we could just add absolute values to account for $\lambda<0$). Then,
+\[
+y(\lambda;t)=\int_0^\infty e^{-u}\frac{du}{3^{2/3}\lambda^{2/3}}u^{-2/3}=\frac{1}{3^{2/3}\lambda^{2/3}}\int_0^\infty e^{-u}u^{-2/3}du=\frac{\Gamma(1/3)}{(3\lambda)^{2/3}}.
+\]
+\\
+To apply Laplace's method, we take $R(t)=st-t^3/3$ and $g(t)=1$ and first consider the case where $s<0$. Then, $R(t)=st-t^3/3$ is maximized at $t=0$, so we consider the left endpoint maximum version of Laplace's method, letting $a=0$. Then, we have that $R(a)=0$, so we need not pull anything out of the integral before analyzing asymptotics. Now, we notice that the text gives an asymptotic expansion for integrals of this form on page 65 for which the assumptions are that we have a left endpoint maximum, $R'(a)<0$ as well as the standard assumptions for Laplace's method that $R$ and $g$ and smooth and that $g$ is absolutely integrable which clearly hold. $R'(t)=s-t^2$, so $R'(a)=s<0$, so our assumptions hold. Thus,
+\[
+y(\lambda;t)\sim\sum_{n=0}^\infty\frac{\phi_{\text{left}}^{(n)}(0)}{(\lambda^2)^{n+1}}
+\]
+as $\lambda\to\infty$ where $\phi_{\text{left}}(k)=g(a+\phi(k))\phi'(k)$ is the change of variables that we are implicitly making. Because we will need them later, we compute $R''(t)=-2t$ and $R'''(t)=-2$, so $R''(a)=0$ and $R'''(a)=-2$. The text also gives formulae for the necessary derivatives on page 66 which we now apply. 
+\[
+\phi_{\text{left}}(0)=-\frac{g(a)}{R'(a)}=-\frac{1}{s}
+\]
+\[
+\phi'_{\text{left}}(0)=\frac{g'(a)R'(a)-g(a)R''(a)}{R'(a)^3}=0
+\]
+\begin{align*}
+\phi''_{\text{left}}(0)&=-\frac{1}{R'(a)^5}\left(g''(a)R'(a)^2-3g'(a)R'(a)R''(a)+g(a)(3R''(a)^2-R'(a)R'''(a))\right)\\&=
+-\frac{1}{s^5}(-s(-2))=-\frac{2}{s^5}.
+\end{align*}
+Now, we can plug these in to our expansion to get that 
+\[
+y(\lambda;t)\sim-\frac{1}{s\lambda^2}-\frac{2}{s^4\lambda^6}+\OO(1/\lambda^8).
+\]
+Finally, we can plug $x$ back in for $s\lambda$ to get that the first term of the expansion is given by
+\[
+-\frac{1}{\lambda x}
+\]
+and the second nonzero term is
+\[
+-\frac{2}{\lambda^2 x^4}.
+\]
+Now, consider $s>0$. This affects us in that $R(t)$ now has interior maximum, so we must apply the interior maximum version of Laplace's method. We first take the same $R(t)=st-t^3/3$ and set $0=R'(t)=s-t^2$ to take $t^*=\sqrt{s}$ so $R(t^*)=2s^{3/2}/3$. Thus, we define $\Tilde{R}(t)=R(t)-R(t^*)$ and rewrite 
+\[
+y(\lambda;t)=e^{2\lambda^2s^{3/2}/3}\int_0^\infty e^{\lambda^2(st-t^3/3-2k^{3/2}/3)}dt.
+\]
+Now, we use the expansion given on page 69 of the text for the remaining integral i.e.,
+\[
+\int_0^\infty e^{\lambda^2\Tilde{R}(t)}dt\sim\sqrt{\frac{\pi}{\lambda^2}}\frac{\phi_{\text{mid}}^{(2n)}(0)}{2^{2n}n!\lambda^{2n}}
+\]
+as $\lambda\to\infty$ where $\phi_{\text{mid}}(k)=g(t^*+k\phi(k))(k\phi'(k)+\phi(s))$ is again the change of variables that we are implicitly making. The only assumption needed for this that we have not already shown is that $R''(t^*)<0$, but $R''(t)=-2t$, so $R''(t^*)=-2\sqrt{k}<0$. Since we will need it later, we also compute $R'''(t)=-2$, so $R'''(t^*)=-2$; finally, $R^{(4)}(t^*)=0$, clearly. Also, not that $$\phi(0)=\phi^*=\sqrt{\frac{-2}{R''(t^*)}}=k^{-1/4}.$$ Now, we apply the formula for the derivatives of $\phi_{\text{mid}}$ also found on page 69 of the text. 
+\[
+\phi_{\text{mid}}(0)=g(t^*)\phi^*=k^{-1/4}.
+\]
+\begin{align*}
+\phi''_{\text{mid}}(0)&=\left(g''(t^*)-g'(t^*)\frac{R'''(t^*)}{R''(t^*)}+g(t^*)\frac{5R'''(t^*)^2-3R''(t^*)R^{(4)}(t^*)}{12R''(t^*)^2}\right)(\phi^*)^3\\&=
+\frac{5(-2)^2}{12(-2\sqrt{k})^2}(k^{-1/4})^3=\frac{5}{12k^{7/4}}.
+\end{align*}
+Now, plugging these values in, 
+\begin{align*}
+y(x;\lambda)\sim e^{2\lambda^2s^{3/2}/3}\sqrt{\pi}\left(\frac{1}{s^{1/4}\lambda}+\frac{5}{48s^{7/4}\lambda^3}+\OO(1/\lambda^5)\right).
+\end{align*}
+If we wish to plug $x=s\lambda$ back in, we get that the first term is given by
+\[
+e^{2\lambda^{1/2}x^{1/2}/3}\sqrt{\pi}\frac{1}{x^{1/4}\lambda^{3/4}}
+\]
+and the second term is given by
+\[
+e^{2\lambda^{1/2}x^{1/2}/3}\sqrt{\pi}\frac{5}{48x^{7/4}\lambda^{5/4}}.
+\]
+
+\end{document}

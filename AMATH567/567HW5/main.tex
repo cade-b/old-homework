@@ -1,0 +1,245 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{listings}
+\usepackage{multimedia} % to embed movies in the PDF file
+\usepackage{graphicx}
+\usepackage{comment}
+\usepackage[english]{babel}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{subfigure}
+\usepackage{wrapfig}
+\usepackage{multirow}
+\usepackage{tikz}
+\usepackage{verbatim}
+\include{latex-defs}
+
+\title{AMATH 567 Homework 5}
+\author{Cade Ballew \#2120804}
+\date{November 3, 2021}
+
+\begin{document}
+
+\maketitle
+
+\section{Problem 1 (2.6.1)}
+Let $C$ be the unit circle centered at the origin. 
+\subsection{Part a}
+Consider the function $f(z)=\sin z$ which is entire, so we can apply Cauchy's integral formula at 0 to it for any simple closed contour. Thus,
+\[
+\sin{0}=\frac{1}{2\pi i}\oint_C\frac{\sin{z}}{z-0}dz.
+\]
+This gives that 
+\[
+\oint_C\frac{\sin{z}}{z}dz=2\pi i\sin{0}=0.
+\]
+\subsection{Part b}
+Consider the function $f(z)=\frac{1}{4}$ which is entire and apply theorem 2.6.2 in the text (the derivatives of Cauchy's theorem) at $1/2$ for $k=1$ to get
+\[
+f'(\frac{1}{2})=\frac{1!}{2\pi i}\oint_C\frac{f(z)}{(z-\frac{1}{2})^2}dz=\frac{1}{2\pi i}\oint_C\frac{1/4}{(z-\frac{1}{2})^2}dz=\frac{1}{2\pi i}\oint_C\frac{1}{(2z-1)^2}dz.
+\]
+However $f'(z)=0$ for any $z\in\mathbb{C}$ because $f$ is constant, so
+\[
+\oint_C\frac{1}{(2z-1)^2}dz=0.
+\]
+\subsection{Part c}
+Now, consider the function $f(z)=\frac{1}{8}$ which is entire and apply theorem 2.6.2 in the text at $1/2$ for $k=2$ to get
+\[
+f''(\frac{1}{2})=\frac{2!}{2\pi i}\oint_C\frac{f(z)}{(z-\frac{1}{2})^3}dz=\frac{1}{\pi i}\oint_C\frac{1/8}{(z-\frac{1}{2})^3}dz=\frac{1}{\pi i}\oint_C\frac{1}{(2z-1)^3}dz.
+\]
+$f''(z)=0$ for any $z\in\mathbb{C}$ because $f$ is constant, so
+\[
+\oint_C\frac{1}{(2z-1)^3}dz=0.
+\]
+\subsection{Part d}
+Consider $f(z)=e^z$ which is entire, so we apply Cauchy's formula at 0 to get
+\[
+f(0)=\frac{1!}{2\pi i}\oint_C\frac{f(z)}{z-0}dz=\frac{1}{2\pi i}\oint_C\frac{e^z}{z}dz.
+\]
+Thus,
+\[
+\oint_C\frac{e^z}{z}dz=2\pi if(0)=2\pi ie^0=2\pi i.
+\]
+\subsection{Part e}
+Consider $f(z)=e^{z^2}$ which is once again entire, so we apply theorem 2.6.2 in the text for $k=1$ at 0 to get that
+\[
+f'(0)=\frac{1!}{2\pi i}\oint_C\frac{f(z)}{(z-0)^2}dz=\frac{1}{2\pi i}\oint_C\frac{e^{z^2}}{z^2}dz.
+\]
+Note that $f'(z)=2ze^{z^2}$, so 
+\[
+\oint_C\frac{e^{z^2}}{z^2}dz=2\pi i f'(0)= 0.
+\]
+Similarly, we apply the same theorem for $k=3$ to get that 
+\[
+f''(0)=\frac{2!}{2\pi i}\oint_C\frac{f(z)}{(z-0)^3}dz=\frac{1}{\pi i}\oint_C\frac{e^{z^2}}{z^3}dz.
+\]
+Note that $f''(z)=2e^{z^2}+4z^2e^{z^2}$, so 
+\[
+\oint_C\frac{e^{z^2}}{z^3}dz=\pi i f''(0)=2\pi i.
+\]
+Thus, we can conclude that 
+\[
+\oint_Ce^{z^2}\left(\frac{1}{z^2}-\frac{1}{z^3}\right)dz=\oint_C\frac{e^{z^2}}{z^2}dz-\oint_C\frac{e^{z^2}}{z^3}dz=0-2\pi i=-2\pi i.
+\]
+
+\section{Problem 2 (2.6.10)} 
+Beginning with Cauchy's integral formula and letting the contour C be a circle of unit radius centered at the origin. Parameterize as $\zeta=e^{i\theta}$ which gives $d\zeta=ie^{i\theta}d\theta$. Then, 
+\[
+f(z)=\frac{1}{2\pi i}\oint_C\frac{f(\zeta)}{\zeta-z}d\zeta=\frac{1}{2\pi i}\int_0^{2\pi}\frac{f(e^{i\theta})}{e^{i\theta}-z}ie^{i\theta}d\theta=\frac{1}{2\pi }\int_0^{2\pi}\frac{f(e^{i\theta})e^{i\theta}}{e^{i\theta}-z}d\theta=\frac{1}{2\pi }\int_0^{2\pi}\frac{f(\zeta)\zeta}{\zeta-z}d\theta
+\]
+where $z$ lies inside the circle. Now, we can observe that 
+\[
+0=\frac{1}{2\pi i}\oint_C\frac{f(\zeta)}{\zeta-1/\overline{z}}d\zeta=\frac{1}{2\pi }\int_0^{2\pi}\frac{f(\zeta)\zeta}{\zeta-1/\overline{z}}d\theta.
+\]
+The first equality follows because the integrand has only one singularity at $\zeta=1/\overline{z}$ which is outside the unit circle that we are integrating over (it is equivalent to $\frac{1}{R}e^{i\theta}$ if $z=Re^{i\theta}$), so we can invoke Cauchy's theorem. The second follows because our steps in manipulating the integral to get that $\frac{1}{2\pi i}\oint_C\frac{f(\zeta)}{\zeta-z}d\zeta=\frac{1}{2\pi }\int_0^{2\pi}\frac{f(\zeta)\zeta}{\zeta-z}d\theta$ in the previous part did not depend on our choice of $z$. Now, note that $\zeta\overline{\zeta}=1$, so
+\[
+\frac{\zeta}{\zeta-1/\overline{z}}=\frac{\zeta\overline{\zeta}}{\zeta\overline{\zeta}-\overline{\zeta}/\overline{z}}=\frac{1}{1-\overline{\zeta}/\overline{z}}=\frac{\overline{z}}{\overline{z}-\overline{\zeta}}.
+\]
+Thus, 
+\[
+0=\frac{1}{2\pi}\int_0^{2\pi}\frac{f(\zeta)\overline{z}}{\overline{z}-\overline{\zeta}}.
+\]
+Now, if we subtract this from or add this to the first equation, we get that 
+\[
+f(z)=\frac{1}{2\pi}\int_0^{2\pi}f(\zeta)\left(\frac{\zeta}{\zeta-z}\mp\frac{\overline{z}}{\overline{z}-\overline{\zeta}}\right)d\theta=\frac{1}{2\pi}\int_0^{2\pi}f(\zeta)\left(\frac{\zeta}{\zeta-z}\pm\frac{\overline{z}}{\overline{\zeta}-\overline{z}}\right)d\theta.
+\]
+Using the plus sign,
+\[
+f(z)=\frac{1}{2\pi}\int_0^{2\pi}f(\zeta)\frac{\zeta(\overline{\zeta}-\overline{z})+\overline{z}(\zeta-z)}{(\zeta-z)(\overline{\zeta-z})}d\theta=\frac{1}{2\pi}\int_0^{2\pi}f(\zeta)\frac{\zeta\overline{\zeta}-z\overline{z}}{|\zeta-z|^2}d\theta=\frac{1}{2\pi}\int_0^{2\pi}f(\zeta)\frac{1-|z|^2}{|\zeta-z|^2}d\theta.
+\]
+\subsection{Part a}
+Now, take $z=re^{i\phi}$ and define $u(r,\phi)=\Re f$. Then, 
+\begin{align*}
+u(r,\phi)&=\Re\left(\frac{1}{2\pi}\int_0^{2\pi}f(\zeta)\frac{1-|z|^2}{|\zeta-z|^2}d\theta\right)=\Re\left(\frac{1}{2\pi}\int_0^{2\pi}f(\zeta)\frac{1-r^2}{|\zeta|^2-2\Re(\overline{\zeta}z)+r^2}d\theta\right)\\&=
+\Re\left(\frac{1}{2\pi}\int_0^{2\pi}f(e^{i\theta})\frac{1-r^2}{1-2\Re(re^{i(\phi-\theta)})+r^2}d\theta\right)\\&=
+\Re\left(\frac{1}{2\pi}\int_0^{2\pi}(u(1,\theta)+iv(1,\theta))\underbrace{\frac{1-r^2}{1-2r\cos(\phi-\theta)+r^2}}_{\text{real}}d\theta\right)\\&=
+\frac{1}{2\pi}\int_0^{2\pi}u(1,\theta)\frac{1-r^2}{1-2r\cos(\phi-\theta)+r^2}d\theta=\frac{1}{2\pi}\int_0^{2\pi}u(\theta)\frac{1-r^2}{1-2r\cos(\phi-\theta)+r^2}d\theta.
+\end{align*}
+\subsection{Part b}
+Using the minus sign in the formula for $f(z)$, 
+\[
+f(z)=\frac{1}{2\pi}\int_0^{2\pi}f(\zeta)\frac{\zeta(\overline{\zeta}-\overline{z})-\overline{z}(\zeta-z)}{(\zeta-z)(\overline{\zeta-z})}d\theta=\frac{1}{2\pi}\int_0^{2\pi}f(\zeta)\frac{1-2\zeta\overline{z}+|z|^2}{|\zeta-z|^2}d\theta.
+\]
+Again taking $z=re^{i\phi}$,
+\[
+f(z)=\frac{1}{2\pi}\int_0^{2\pi}f(\zeta)\frac{1-2e^{i\theta}re^{-i\phi}+r^2}{1-2r\cos(\phi-\theta)+r^2}d\theta=\frac{1}{2\pi}\int_0^{2\pi}f(\zeta)\frac{1+r^2-2re^{i(\theta-\phi)}}{1-2r\cos(\phi-\theta)+r^2}d\theta.
+\]
+Taking the imaginary part of this, 
+\begin{align*}
+v(r,\phi)&=\Im\left(\frac{1}{2\pi}\int_0^{2\pi}f(\zeta)\frac{1+r^2-2re^{i(\theta-\phi)}}{1-2r\cos(\phi-\theta)+r^2}d\theta\right)\\&=
+\Im\left(\frac{1}{2\pi}\int_0^{2\pi}(u(1,\theta)+iv(1,\theta))\left(\frac{1+r^2-2r\cos(\theta-\phi)}{1-2r\cos(\phi-\theta)+r^2}-i\frac{2r\sin(\theta-\phi)}{1-2r\cos(\phi-\theta)+r^2}\right)d\theta\right)\\&=
+-\frac{1}{2\pi}\int_0^{2\pi}u(\theta)\frac{2r\sin(\theta-\phi)}{1-2r\cos(\phi-\theta)+r^2}d\theta+\frac{1}{2\pi}\int_0^{2\pi}v(\theta)\frac{1+r^2-2r\cos(\theta-\phi)}{1-2r\cos(\phi-\theta)+r^2}d\theta\\&=
+\frac{1}{2\pi}\int_0^{2\pi}v(\theta)d\theta+\frac{1}{\pi}\int_0^{2\pi}u(\theta)\frac{r\sin(\phi-\theta)}{1-2r\cos(\phi-\theta)+r^2}d\theta\\&=
+v(r=0)+\frac{1}{\pi}\int_0^{2\pi}u(\theta)\frac{r\sin(\phi-\theta)}{1-2r\cos(\phi-\theta)+r^2}d\theta
+\end{align*}
+where the penultimate step follows because sine is an odd function, and the last step from the first equation we derived in this problem taken at $z=0$. Note that the first term is constant with respect to $r$ and $\phi$.
+\subsection{Part c}
+Consider
+\begin{align*}
+\Im\left(\frac{\zeta+z}{\zeta-z}\right)&=\Im\left(\frac{(\zeta+z)(\overline{\zeta-z)}}{(\zeta-z)(\overline{\zeta-z})}\right)=\Im\left(\frac{1-r^2+2i\Im(z\overline{\zeta})}{|\zeta-z|^2}\right)\\&=
+\Im\left(\frac{1-r^2+2i\Im(re^{i(\phi-\theta)})}{1-2r\cos(\phi-\theta)+r^2}\right)=\Im\left(\frac{1-r^2+2ir\sin(\phi-\theta)}{1-2r\cos(\phi-\theta)+r^2}\right)\\&=\Im\left(\frac{1-r^2}{1-2r\cos(\phi-\theta)+r^2}+i\frac{2r\sin(\phi-\theta)}{1-2r\cos(\phi-\theta)+r^2}\right)\\&=
+\frac{2r\sin(\phi-\theta)}{1-2r\cos(\phi-\theta)+r^2}.
+\end{align*}
+Note that we need not worry about dividing by 0, because we cannot have that $\overline{z}=\overline{\zeta}$, since $z$ inside the circle, but $\zeta$ is on it, so $\phi\neq\theta$. Thus, the result from part b can be expressed as 
+\[
+v(r,\phi)=v(0)+\frac{1}{2\pi}\Im\left(\int_0^{2\pi}u(\theta)\frac{\zeta+z}{\zeta-z}d\theta\right).
+\]
+
+\section{Problem 3 (2.6.2 in lecture notes)}
+Let $f(z)=R(x,y)\exp(i\theta(x,y))$ where $R$ and $\theta$ are real-valued functions of $x$ and $y$. If $f(z)$ is analytic, then it satisfies the Cauchy-Riemann equations, so using the fact that $f(x,y)=\underbrace{R(x,y)\cos(\theta(x,y))}_u+i\underbrace{R(x,y)\sin(\theta(x,y))}_v$, we can write
+\[
+u_x=R_x\cos(\theta(x,y))-\theta_xR(x,y)\sin(\theta(x,y))=R_y\sin(\theta(x,y))+\theta_yR(x,y)\cos(\theta(x,y))=v_y
+\]
+and 
+\[
+v_x=R_x\sin(\theta(x,y))+\theta_xR(x,y)\cos(\theta(x,y))=-R_y\cos(\theta(x,y))+\theta_yR(x,y)\sin(\theta(x,y))=-u_y.
+\]
+To simplify these, multiply the first equation by $\cos(\theta(x,y))$ and the second by $\sin(\theta(x,y))$ and add which gives that 
+\[
+R_x=R_x(\cos^2(\theta(x,y))+\sin^2(\theta(x,y)))=\theta_y(\cos^2(R(x,y))(\theta(x,y))+\sin^2(\theta(x,y)))=\theta_yR(x,y).
+\]
+Multiplying the first equation by $-\sin(\theta(x,y))$ and the second by $\cos(\theta(x,y))$ and adding gives that 
+\[
+\theta_xR(x,y)=\theta_xR(x,y)(\cos^2(\theta(x,y))+\sin^2(\theta(x,y)))=-R_y(\cos^2(\theta(x,y))+\sin^2(\theta(x,y)))=-R_y.
+\]
+Now that the $x$ and $y$ derivatives of $R$ and $\theta$ are connected, we consider the case where $R(x,y)=R$ is a constant. Then, $R_x,R_y=0$ so our equations become
+\begin{align*}
+\theta_yR&=0\\
+\theta_xR&=0.
+\end{align*}
+If $R=0$, then these equations hold for all $\theta(x,y)$, but in that case, $f(z)=0$ is constant. If we assume $R\neq0$, then we have $\theta_x,\theta_y=0$, so $\theta(x,y)=\theta$ is constant with respect to $x$ and $y$. Thus, $f(z)=R\exp{i\theta}$ is constant.\\
+If $\theta(x,y)=\theta$ is constant, $\theta_x,\theta_y=0$, so the equations become
+\begin{align*}
+R_x&=0\\
+-R_y&=0.
+\end{align*}
+Thus, $R(x,y)=R$ is constant with respect to $x$ and $y$, meaning that $f(z)=R\exp{i\theta}$ is constant.
+
+\section{Problem 4 (2.6.11 in lecture notes)}
+Consider the Legendre polynomials defined by 
+\[
+P_n(z)=\frac{1}{2^n n!}\frac{d^n}{dz^n}(z^2-1)^n
+\]
+for $n\in\mathbb{N}$. Because $(z^2-1)^n$ is entire for any $n\in\mathbb{N}$, we can apply theorem 2.6.2 to compute the derivative above by taking $f(z)=(z^2-1)^n$ and $C$ to be any simple closed contour encircling $z$. Namely,
+\[
+\frac{d^n}{dz^n}(z^2-1)^n=\frac{n!}{2\pi i}\oint_C\frac{(t^2-1)^n}{(t-z)^{n+1}}dt.
+\]
+Thus,
+\[
+P_n(z)=\frac{1}{2^n n!}\frac{n!}{2\pi i}\oint_C\frac{(t^2-1)^n}{(t-z)^{n+1}}dt=\frac{1}{2\pi i}\oint_C\frac{(t^2-1)^n}{2^n(t-z)^{n+1}}dt
+\]
+for any $n\in\mathbb{N}$ and any simple closed contour $C$ encircling $z$.
+
+\section{Problem 5 (2.6.12 in lecture notes)}
+\subsection{Part a}
+Parameterizing the unit circle $C(0,1)$ as $z=e^{it}$, $dz=ie^{it}dt$, we get that 
+\begin{align*}
+\frac{1}{2\pi i}\oint_{C(0,1)}\left(z+\frac{1}{z}\right)^n\frac{dz}{z}&=\frac{1}{2\pi i}\int_0^{2\pi}(e^{it}+e^{-it})^n\frac{ie^{it}dt}{e^{it}}\\&=
+\frac{1}{2\pi}\int_0^{2\pi}\left(2\cos t\right)^ndt=\frac{2^n}{2\pi }\int_0^{2\pi}\cos^nt dt
+\end{align*}
+by the definition of the complex cosine.
+\subsection{Part b}
+Using the binomial formula on the LHS of part a, 
+\begin{align*}
+\frac{1}{2\pi i}\oint_{C(0,1)}\left(z+\frac{1}{z}\right)^n\frac{dz}{z}&=\frac{1}{2\pi i}\oint_{C(0,1)}\sum_{\ell=0}^n\binom{n}{\ell}z^{n-\ell}\frac{1}{z^\ell}\frac{dz}{z}\\&=
+\frac{1}{2\pi i}\oint_{C(0,1)}\sum_{\ell=0}^n\binom{n}{\ell}z^{n-2\ell-1}dz\\&=
+\frac{1}{2\pi i}\sum_{\ell=0}^n\binom{n}{\ell}\oint_{C(0,1)}z^{n-2\ell-1}dz.
+\end{align*}
+From this and part a, we find that for $k\in\mathbb{N}$, 
+\begin{align*}
+\frac{1}{2\pi }\int_0^{2\pi}\cos^{2k}t dt&=\frac{1}{2^{2k}}\frac{1}{2\pi i}\oint_{C(0,1)}\left(z+\frac{1}{z}\right)^{2k}\frac{dz}{z}\\&=
+\frac{1}{2^{2k}}\frac{1}{2\pi i}\sum_{\ell=0}^{2k}\binom{2k}{\ell}\oint_{C(0,1)}z^{2k-2\ell-1}dz
+\end{align*}
+From pages 44 and 45 of the lecture notes, because our contour encircles the origin and $2k-2\ell-1$ is an integer for $\ell\in\{1,\ldots, 2k+1\}$, we have that
+\[
+\oint_{C(0,1)}z^{2k-2\ell-1}dz=
+\begin{cases}
+0, &2k-2\ell-1\neq-1\\
+2\pi i, &2k-2\ell-1=-1
+\end{cases}.
+\]
+Thus, $\oint_{C(0,1)}z^{2k-2\ell-1}dz$ will only be nonzero for $\ell=k$, meaning that we can write 
+\begin{align*}
+\frac{1}{2\pi }\int_0^{2\pi}\cos^{2k}t dt&=\frac{1}{2^{2k}}\frac{1}{2\pi i}\binom{2k}{k}\oint_{C(0,1)}z^{-1}dz=\frac{1}{2^{2k}}\frac{1}{2\pi i}\binom{2k}{k}2\pi i\\&=
+\frac{1}{2^{2k}}\frac{(2k)!}{k! k!}=\frac{(2k)!}{2^{2k}(k!)^2}.
+\end{align*}
+Similarly, for $k\in\mathbb{N}$, 
+\begin{align*}
+\frac{1}{2\pi }\int_0^{2\pi}\cos^{2k+1}t dt&=\frac{1}{2^{2k+1}}\frac{1}{2\pi i}\oint_{C(0,1)}\left(z+\frac{1}{z}\right)^{2k+1}\frac{dz}{z}\\&=
+\frac{1}{2^{2k+1}}\frac{1}{2\pi i}\sum_{\ell=0}^{2k+1}\binom{2k+1}{\ell}\oint_{C(0,1)}z^{2k+1-2\ell-1}dz
+\end{align*}
+Once again, we have that 
+\[
+\oint_{C(0,1)}z^{2k-2\ell-1}dz=
+\begin{cases}
+0, &2k+1-2\ell-1\neq-1\\
+2\pi i, &2k+1-2\ell-1=-1
+\end{cases}.
+\]
+by the same reasoning as before. However, $2k+1-2\ell-1=-1$ cannot hold for integers $k$ and $\ell$, because solving this yields $\ell=k+\frac{1}{2}$. Thus, $\oint_{C(0,1)}z^{2k-2\ell-1}dz=0$ for all $\ell\in\{1,\ldots, 2k+1\}$, meaning that 
+\[
+\frac{1}{2\pi }\int_0^{2\pi}\cos^{2k+1}t dt=0.
+\]
+
+
+\end{document}

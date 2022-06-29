@@ -1,0 +1,331 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{listings}
+\usepackage{multimedia} % to embed movies in the PDF file
+\usepackage{graphicx}
+\usepackage{comment}
+\usepackage[english]{babel}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{subfigure}
+\usepackage{wrapfig}
+\usepackage{multirow}
+\usepackage{tikz}
+\usepackage{verbatim}
+\include{latex-defs}
+
+\title{AMATH 567 Homework 6}
+\author{Cade Ballew \#2120804}
+\date{November 10, 2021}
+
+\begin{document}
+
+\maketitle
+
+\section{Problem 1 (3.1.1)}
+Consider the region $\alpha \leq |z| \leq \beta$, for finite $\alpha, \beta > 0$.
+\subsection{Part a}
+The sequence $\left\{f_n(z)=\frac{1}{nz^2}\right\}_{n=1}^{\infty}$ converges to $f(z)=0$ uniformly on this region. To see this, fix $\epsilon>0$ and consider 
+\[
+|f_n(z)-f(z)|=\left|\frac{1}{nz^2}-0\right|=\frac{1}{n|z|^2}\leq\frac{1}{n\alpha^2}.
+\]
+In order for this to be less than $\epsilon$, we simply need to take $N>\frac{1}{\epsilon\alpha^2}$. Then, if $n\geq N$, $|f_n(z)-f(z)|<\epsilon$; this is the definition of uniform convergence.
+\subsection{Part d}
+The sequence $\left\{f_n(z)=\frac{1}{1+(nz)^2}\right\}_{n=1}^{\infty}$ also converges to $f(z)=0$ uniformly on this region. To see this, note that by the reverse triangle inequality and for $n$ sufficiently large such that $n\geq\sqrt{\frac{1}{\alpha^2}}\geq\sqrt{\frac{1}{|z|^2}}$ (which implies that $n^2|z|^2-1\geq0$),
+\[
+|1+(nz)^2|\geq\big||1|-|-(nz)^2|\big|=|1-\big|nz|^2\big|=n^2|z|^2-1\geq n^2\alpha^2-1.
+\]
+Then,
+\[
+|f_n(z)-f(z)|=\left|\frac{1}{1+(nz)^2}-0\right|=\frac{1}{n^2|z|^2-1}\leq\frac{1}{n^2\alpha^2-1}.
+\]
+Thus, if we fix $\epsilon>0$ and take $N>\max\left\{\sqrt{\frac{1}{\alpha^2}},\sqrt{\frac{1+\epsilon}{\epsilon\alpha^2}}\right\}$, then if $n\geq N$, $|f_n(z)-f(z)|<\epsilon$; this is the definition of uniform convergence.
+
+\section{Problem 2 (3.1.2)} 
+\subsection{Part a}
+If we take the same series from part a but let $\alpha=0$, we lose convergence because $\left\{f_n(z)=\frac{1}{nz^2}\right\}_{n=1}^{\infty}$ is undefined at $z=0$. If we remove this point, the series still converges to $f(z)=0$ for $0 < |z| \leq \beta$, but we lose uniformity, because  we no longer have $\alpha$ to uniformly bound the terms with, but this observation is outside what the problem has asked. \\
+ $\left\{f_n(z)=\frac{1}{1+(nz)^2}\right\}_{n=1}^{\infty}$ converges to 1 if we take $z=0$, so the sequence now converges to a function $f(z)$ that is 1 at $z=0$ and 0 for $0 < |z| \leq \beta$. However, this convergence is not uniform, because we cannot uniformly bound our terms with $\alpha$. Namely, for any $n\in\mathbb{N},\epsilon>0$ small, we can find a $z$ with $0<|z|^2\leq\beta$ such that $|f_n(z)-0|\geq\epsilon$ if we take $|z|^2\leq\frac{1-\epsilon}{n^2\epsilon}$ and $\epsilon<1$.
+
+\subsection{Part b}
+Consider the same series from part a, but let $\beta=\infty$. Then, both series are still uniformly convergent. This is because the upper bound $\beta$ was not used in the proofs of uniform convergence in problem 1, meaning that the same proofs work when we take $\beta=\infty$.
+
+\section{Problem 3 (3.1.3)}
+First,
+\[
+\lim_{n \to \infty} \int_0^1 n z^{n-1} dz=\lim_{n \to \infty}\left[z^n\right]_0^1=\lim_{n \to \infty} 1=1.
+\]
+However,
+\begin{align*}
+\int_0^1\lim_{n \to \infty} \left(n z^{n-1}\right)dz&=\int_0^1\lim_{n \to \infty} \left(\frac{n}{z^{1-n}}\right)dz=\int_0^1\lim_{n \to \infty} \left(\frac{1}{-z^{1-n}\ln{z}}\right)dz\\&=\int_0^1\lim_{n \to \infty} \left(-\frac{z^{n-1}}{\ln{z}}\right)dz=\int_0^1 0dz=0
+\end{align*}
+where we have used L'Hopital's rule to to evaluate the limit. The limit inside the integral is zero for $z\in[0,1)$, so define the integral as a Riemann sum excluding the endpoints to avoid issues at $z=1$.
+The reason that this is not a counter-example to theorem 3.1.1 in the text is that the limits do not converge uniformly, so the assumptions were not satisfied. To see this more explicitly, note that $\lim_{n \to \infty} nz^{n-1}$ does not converge uniformly in $(0,1)$, because $z$ is allowed to get arbitrarily close to 1, a point which gives a value of infinity if we plug it in then take the limit. Thus, for any fixed $n\in\mathbb{N},\epsilon>0$ small, we can always find a $z$ such that $|z^n-0|\geq\epsilon$.
+
+\section{Problem 4}
+Consider the function
+	\[
+	f(z)=\frac{z}{e^z-1}.
+	\]
+\subsection{Part a}
+Clearly, this function has a singularity at $z=0$. To see that it is removable, consider
+\[
+\frac{e^z-1}{z}=\frac{\sum_{j=0}^\infty \frac{z^j}{j!}-1}{z}=\frac{\sum_{j=1}^\infty \frac{z^j}{j!}}{z}=\sum_{j=1}^\infty \frac{z^{j-1}}{j!}.
+\]
+This takes value 1 at $z=0$ and is analytic here, meaning that $f(z)$ also takes value 1 at $z=0$ and is analytic here when represented as the reciprocal of this. Thus, we have removed the singularity at the origin. Alternatively, we could just take the limit as $z\to0$ of $f$ and apply L'Hopital's rule.
+
+\subsection{Part b}
+$f$ has singularities where $e^z-1=0$. This is equivalent to $z=2\pi i k$ for $k\in\mathbb{Z}$. Thus, the next (nonremovable) singularities occur at $z=\pm2\pi i$, so the radius of convergence for a Taylor series centered at $z=0$ is $2\pi$. 
+\subsection{Part c}
+By the definition of a Taylor series, if we let 
+\[
+B_n=\frac{d^n}{dz^n}\biggr(\frac{z}{e^z-1}\biggr)\biggr|_{z=0},
+\]
+then 
+\[
+f(z)=\sum_{n=0}^\infty \frac{B_n}{n!}z^n
+\]
+is a Taylor series for $f$ centered at $z=0$. 
+
+\subsection{Part d}
+Using this Taylor series and our original definition of $f$
+\begin{align*}
+z&=(e^z-1)\sum_{n=0}^\infty \frac{B_n}{n!}z^n=\biggr(\sum_{j=0}^\infty \frac{z^j}{j!}-1\biggr)\sum_{n=0}^\infty \frac{B_n}{n!}z^n=\biggr(\sum_{j=1}^\infty \frac{z^j}{j!}\biggr)\sum_{m=0}^\infty \frac{B_m}{m!}z^m\\&=
+\sum_{n=1}^\infty\sum_{k=0}^{n-1}\frac{B_k}{k!(n-k)!}z^n=\sum_{n=1}^\infty\frac{z^n}{n!}\sum_{k=0}^{n-1}\binom{n}{k}B_k.
+\end{align*}
+Note that the fourth step follows from performing diagonal summation via the Cauchy product. To derive a recursion for the Bernoulli numbers, we simply consider specific values of $n$ knowing that the coefficients must be zero for $n\neq1$ and one for $n=1$. Starting with $n=1$, we get that 
+\[
+1 = \frac{1}{1!}\sum_{k=0}^0\binom{1}{k}B_k=\binom{1}{0}B_0=B_0.
+\]
+Knowing this, we can consider any other $n$ to get that 
+\[
+0=\sum_{k=0}^{n-1}\binom{n}{k}B_k
+\]
+which can be rewritten as 
+\[
+\binom{n}{n-1}B_{n-1}=-\sum_{k=0}^{n-2}\binom{n}{k}B_k
+\]
+for any $n>1$. Reindexing and noting that $\binom{n+1}{n}=n+1$, 
+\[
+B_n=-\frac{1}{n+1}\sum_{k=0}^{n-1}\binom{n+1}{k}B_k
+\]
+for $n\in\mathbb{N}$. and $B_0=1$. \\
+Using this recursion (with the help of MATLAB) to find the first 13 Bernoulli numbers, 
+\begin{align*}
+B_0&=1\\
+B_1&=-0.5\\
+B_2&=0.1667\\
+B_3&=0\\
+B_4&=-0.0333\\
+B_5&=0\\
+B_6&=0.0238\\
+B_7&=0\\
+B_8&=-0.0333\\
+B_9&=0\\
+B_{10}&=0.0758\\
+B_{11}&=0\\
+B_{12}&=-0.2531
+\end{align*}
+\subsection{Part e}
+Consider the function $g(z)=\frac{z}{e^z-1}+\frac{z}{2}$, noting that $B_1=-\frac{1}{2}$. Then, 
+\[
+g(z)=\frac{z}{e^z-1}+\frac{z}{2}=\frac{2z+z(e^z-1)}{2(e^z-1)}=\frac{z+ze^z}{2(e^z-1)}=\frac{z}{2}\frac{e^z+1}{e^z-1}.
+\]
+Also,
+\[
+g(-z)=\frac{-z}{2}\frac{e^{-z}+1}{e^{-z}-1}=\frac{-z}{2}\frac{e^{-z}(1+e^z)}{e^{-z}(1-e^z)}=\frac{-z}{2}\frac{e^z+1}{-(e^z-1)}=\frac{z}{2}\frac{e^z+1}{e^z-1}=g(z).
+\]
+Thus, $g$ is an even function of $z$, meaning that all the odd-term coefficients of its Taylor series must be zero (because $g(-z)$ must have the same Taylor series as $g(z)$ given that they're equal for all $z\in\mathbb{C}$ which can only hold if odd-term coefficients are zero). However, we know that the Taylor series representation of $g$ centered at $z=0$ is 
+\[
+g(z)=\sum_{n=0}^\infty \frac{B_n}{n!}z^n+\frac{z}{2}=B_0+(B_1+1/2)z+\sum_{n=2}^\infty \frac{B_n}{n!}z^n.
+\]
+Thus, we have that $B_1+1/2=0$ (as we previously discovered) and that $\frac{B_n}{n!}=0$ for odd $n>1$. Reindexing, this gives that $B_{2n+1}=0$ for $n\geq1$.
+\subsection{Part f}
+By definition, 
+\[
+z\coth{z}=z\frac{e^z+e^{-z}}{e^z-e^{-z}}=z\frac{e^{2z}+1}{e^{2z}-1}.
+\]
+It is easy to see that this is precisely $g(2z)$ as defined in the previous problem. Thus, we can use our expression for the Taylor series of $g(z)$ centered at $z=0$ to find that
+\[
+z\coth{z}=B_0+(B_1+1/2)(2z)+\sum_{n=2}^\infty \frac{B_n}{n!}(2z)^n=B_0+\sum_{n=2}^\infty \frac{2^nB_n}{n!}z^n.
+\]
+We can simplify this by reindexing as $n\to2n$ which we can do without losing terms, because we have no odd terms. Thus, 
+\[
+z\coth{z}=B_0+\sum_{n=1}^\infty \frac{2^{2n}B_{2n}}{(2n)!}z^{2n}=\sum_{n=0}^\infty \frac{2^{2n}B_{2n}}{(2n)!}z^{2n}
+\]
+is a Taylor series for $z\coth{z}$ centered at $z=0$. We can find the radius of convergence by noting that we have plugged $2z$ into a Taylor series that had radius of convergence $2\pi$. Thus, our radius of convergence is $\pi$. We could also find this more explicitly by looking at the singularities of $\coth{z}$ which occur at $z=\pm k\pi$ for $k\in\mathbb{Z}$, meaning that our radius of convergence is $\pi$ and the series is valid for $|z|<\pi$.\\
+To find a Laurent series for $\cot{z}$, note that $\coth{z}=i\cot(iz)$, so $z\cot z=-iz\coth(-iz)$, meaning that 
+\[
+\cot z=\frac{1}{z}\sum_{n=0}^\infty \frac{2^{2n}B_{2n}}{(2n)!}(-iz)^{2n}=\sum_{n=0}^\infty \frac{2^{2n}B_{2n}}{(2n)!}(-i)^{2n}z^{2n-1}=\sum_{n=0}^\infty \frac{(-1)^n2^{2n}B_{2n}}{(2n)!}z^{2n-1}
+\]
+because $(-i)^{2n}=(-1)^n$ for $n\in\mathbb{Z}$. This is a Laurent series rather than a Taylor series, because we have a $z^{-1}$ term. We have the same radius of convergence as before, because we have plugged $-iz$ into our previous series and $|-iz|=|z|$. Thus, the radius of convergence is $\pi$. However, this series is undefined at $z=0$ because we divide by $z$. Thus, the series is valid for $0<|z|<\pi$. Again, we could also find this by looking at the singularities of $\cot z$ which occur at $z=\pi k$ for $k\in\mathbb{Z}$. 
+
+\section{Problem 5}
+Consider the representation of the {\bf Riemann zeta function}
+	\[
+	\zeta(z)=\sum_{n=1}^\infty \frac{1}{n^z},
+	\]
+	where the principal branch of the logarithm is used to define each
+	term.
+\subsection{Part a}
+For $z=x\in\mathbb{R}$, this series is defined for $x>x_0=1$ by the properties of a p-series from calculus.
+\subsection{Part b}
+Now, consider $z\in\mathbb{C}$ such that $\Re(z)\geq\delta$ and $\delta>1$. Then, for a fixed $n\in\mathbb{N}$, letting $z=x+iy$,
+\begin{align*}
+\left|\frac{1}{n^z}\right|&=\left|\frac{1}{e^{z\ln{n}}}\right|=\left|e^{-(x+iy)\ln{n}}\right|=\left|e^{-x\ln{n}}e^{-iy\ln{n}}\right|\leq\left|e^{-\delta\ln{n}}\right|\underbrace{\left|e^{-iy\ln{n}}\right|}_{=1}\\&=
+\left|e^{-\ln{n}}\right|^\delta=\left|\frac{1}{n}\right|^\delta=\frac{1}{n^\delta}.
+\end{align*}
+Now, define $M_n=\frac{1}{n^\delta}$. Then, by part a, $\sum_{n=0}^{\infty}M_n$ converges because $\delta>1$. Thus, by the Weierstrass M-test, this representation of $\zeta(z)$ converges uniformly for $\Re(z)\geq\delta$, meaning that it is analytic for $\Re(z)>1$.
+\subsection{Part c}
+Because the series is uniformly convergent for $\Re(z)\geq\delta$, theorem 3.4.4 in the text (Alternatively, we can use the fact that uniformly convergent series can be integrated term-by-term and Cauchy's formula for writing the derivative of an analytic function in terms of a contour integral which does not impact the uniform convergence of our series) gives that we can differentiate it term-by-term. Thus,
+\[
+\zeta'(z)=\sum_{n=1}^\infty \frac{d}{dz}\left(\frac{1}{n^z}\right)=\sum_{n=1}^\infty \frac{d}{dz}\left(e^{-z\ln{n}}\right)=\sum_{n=1}^\infty -\ln{n}e^{-z\ln{n}}=-\sum_{n=1}^\infty\frac{\ln{n}}{n^z}
+\]
+for $\Re(z)>1$. 
+
+\section{Problem 6}
+\subsection{Part a}
+Consider 
+\[
+			      F(z)=1+z+z^2+z^3+\ldots=\sum_{n=0}^\infty z^n
+\]
+On page 64 of the lecture notes, we find that this series converges uniformly for $|z|\leq R_2<1$. Thus, $F(z)$ has radius of convergence 1 and is analytic on this region (theorem 3.4.4).
+\subsection{Part b}
+To induce a Taylor representation of $F$ centered at $z=-1/2$, we use the method of analytic continuation of power series on page 68 of the lecture notes, taking $z_1=-1/2$ and $z_0=0$ to get 
+\[
+G(z)=\sum_{m=0}^{\infty}c_m\left(z+\frac{1}{2}\right)^m
+\]
+where
+\[
+c_m=\sum_{n=m}^\infty\binom{n}{m}\left(-\frac{1}{2}-0\right)^{n-m}=\sum_{n=m}^\infty\binom{n}{m}\left(-\frac{1}{2}\right)^{n-m}=\sum_{n=0}^\infty\binom{n+m}{m}\left(-\frac{1}{2}\right)^{n}
+\]
+having reindexed $n-m\to n$. \\
+Now, in search of bonus points, let us show where this series converges. First, for fixed $m$ and $n$,
+\begin{align*}
+(-1)^n\binom{n+m}{m}&=(-1)^n\frac{(n+m)(n+m-1)\dotsm m(m-1)\dotsm1}{n!m!}\\&=
+(-1)^n\frac{(n+m)(n+m-1)\dotsm (m+1)m!}{n!m!}\\&=
+(-1)^n\frac{1}{n!}(\underbrace{(n+m)(n+m-1)\dotsm (m+1)}_{\text{n terms}}).
+\end{align*}
+Distributing a $-1$ to each term inside the parentheses, 
+\begin{align*}
+(-1)^n\binom{n+m}{m}=\frac{1}{n!}((-(n+m))(1-(n+m))\dotsm((n-2)-(n+m))(-m-1)).
+\end{align*}
+Reversing the order of the terms and manipulating them,
+\begin{align*}
+(-1)^n\binom{n+m}{m}&=\frac{1}{n!}((-m-1)(-m-2)\dotsm(-m-(n-1))(-m-n))\\&=
+\binom{-m-1}{n}
+\end{align*}
+by the definition of Newton's generalized binomial coefficients. Now, we invoke Newton's generalized binomial formula (Bernard said that this was permitted), we get that for a fixed $m$,
+\begin{align*}
+c_m&=\sum_{n=0}^\infty(-1)^n\binom{n+m}{m}\left(\frac{1}{2}\right)^{n}=\sum_{n=0}^\infty\binom{-m-1}{m}\left(\frac{1}{2}\right)^{n}\\&=
+\left(1+\frac{1}{2}\right)^{-m-1}=\left(\frac{2}{3}\right)^{m+1}.
+\end{align*}
+With this, we can conduct a ratio test to evaluate the convergence of $G(z)$.
+\[
+\left|\frac{c_{m+1}\left(z+\frac{1}{2}\right)^{m+1}}{c_{m}\left(z+\frac{1}{2}\right)^{m}}\right|=\left|\frac{c_{m+1}}{c_m}\right|\left|z+\frac{1}{2}\right|=\left|\frac{(2/3)^{m+2}}{(2/3)^{m+1}}\right|\left|z+\frac{1}{2}\right|=\frac{2}{3}\left|z+\frac{1}{2}\right|.
+\]
+Thus, our series is valid where $\frac{2}{3}\left|z+\frac{1}{2}\right|<1$, that is where $\left|z+\frac{1}{2}\right|<\frac{3}{2}$, meaning that our radius of convergence is 3/2. Of course, the ratio test requires boundedness of the first term, but $c_0(z+1/2)^0=c_0=2/3$ is clearly bounded on this region.  
+
+\section{Problem 7}
+Consider the same $F$ and $G$ as defined in problem 6. 
+\subsection{Part a}
+To find the number of terms needed to approximate the value of $F(z)$ at $z=0.9$ to within $10^{-6}$, we use the following snippet of MATLAB code which gives that $N=152$ terms are needed.
+\begin{verbatim}
+%part a: find N
+N = 0;
+F = 0.9^0; %0th term of F
+err = abs(F-10);
+tol = 1e-6;
+while err > tol
+    N = N+1; 
+    F = F+0.9^N;
+    err = abs(F-10);
+end
+fprintf('We need N=%i terms to approximate within 10^{-6}\n',N)
+\end{verbatim}
+\subsection{Part b}
+Using this value of $N$, we truncate $G$ to estimate $G(0.9)$. Note that because we performed a change of variables in the formula for the coefficients $c_m$, our approximation for them becomes 
+\[
+c_m=\sum_{n=m}^N\binom{n}{m}\left(-\frac{1}{2}\right)^{n-m}=\sum_{n=0}^{N-m}\binom{n+m}{m}\left(-\frac{1}{2}\right)^{n}.
+\]
+The following MATLAB code yields that our approximation is $G(0.9)\approx -9.039198*10^{25}$.
+\begin{verbatim}
+%Part b: estimate G(0.9)
+G = 0; 
+for m = 0:N
+    %compute c_m
+    c_m=0;
+    for n = 0:N-m
+        c_m=c_m+nchoosek(m+n,m)*(-1/2)^n;
+    end
+    G = G+c_m*(0.9+1/2)^m;
+end
+fprintf('When truncating the series for c_m at N-m, we get G(0.9)=%d\n',G)
+\end{verbatim}
+However, we can get a value that doesn't suffer from catastrophic cancellation by using Mathematica to approximate this in exact arithmetic which yields $G(0.9)\approx 9.9997396$.
+\subsection{Part c}
+Now, we use the same method to approximate $G(-1.1)$. The following MATLAB code yields $G(-1.1)\approx1.025325*10^6$.
+\begin{verbatim}
+%Part c: estimate G(-1.1)
+G = 0; 
+for m = 0:N
+    %compute c_m
+    c_m=0;
+    for n = 0:N-m
+        c_m=c_m+nchoosek(m+n,m)*(-1/2)^n;
+    end
+    G = G+c_m*(-1.1+1/2)^m;
+end
+fprintf('When truncating the series for c_m at N-m, we get G(1.1)=%d\n',G)
+\end{verbatim}
+However, when we attempt to check this against exact arithmetic using Mathematica, we get $G(-1.1)\approx1.025325*10^6$, the same result. This value is obviously orders of magnitude off from $1/(1-z)$, evaluated at $z=-1.1$, which is approximately $0.47619$.
+\subsection{Part d}
+Obviously, the values we obtain when numerically evaluating are nowhere near the true values of the function $G$ represents despite falling within the radius of convergence. This is because of the formula we use to compute the coefficients $c_m$. This relies on the computation of binomial coefficients for large values of $n$ and $m$ which become so massive that they cannot be computed accurately with double-precision floating-point arithmetic. In fact, MATLAB even gives numerous warnings which state that the binomial coefficients are too large to be computed accurately. Of course, terms cancel nicely as we found in problem 6, but because accuracy has already been lost, our approximation does not recover and is off by orders of magnitude. \\
+However, we have seen that using exact arithmetic does not resolve our issue with computing $G(-1.1)$. The real problem lies with the fact that -1.1 is outside the radius of convergence for $F(z)$. Down to precision issues, what we are computing with $G(z)$ is the same as what we are computing with $F(z)$, just with the terms shifted. This is because analytic continuation only holds in the limit, so our truncated series isn't actually a real analytic continuation but really just computing a truncation of $F(z)$. %However, if we use the much nicer form for $c_m$ that we found in the extra credit part of problem 6, we are able to approximate $G$ to values that one would expect.
+
+\section{Problem 8} 
+Consider
+\[
+f(z)=\sum_{n=1}^\infty \frac{z^{n-1}}{(1-z^n)(1-z^{n+1})}.
+\]
+Note that 
+\[
+\frac{1}{1-z^n}-\frac{1}{1-z^{n+1}}=\frac{1-z^{n+1}-1+z^n}{(1-z^n)(1-z^{n+1})}=\frac{z^{n-1}(z-z^2)}{(1-z^n)(1-z^{n+1})}
+\]
+which enables us to write 
+\[
+f(z)=\sum_{n=1}^\infty\frac{1}{z(1-z)}\left(\frac{1}{1-z^n}-\frac{1}{1-z^{n+1}}\right)=\frac{1}{z(1-z)}\sum_{n=1}^\infty\left(\frac{1}{1-z^n}-\frac{1}{1-z^{n+1}}\right).
+\]
+Now, define
+\[
+S_m=\sum_{n=1}^m\left(\frac{1}{1-z^n}-\frac{1}{1-z^{n+1}}\right).
+\]
+Then, 
+\begin{align*}
+S_m&=\left(\left(\frac{1}{1-z}-\frac{1}{1-z^2}\right)+\left(\frac{1}{1-z}-\frac{1}{1-z^2}\right)+\ldots+\left(\frac{1}{1-z^m}-\frac{1}{1-z^{m+1}}\right)\right)\\&=
+\frac{1}{1-z}-\frac{1}{1-z^{m+1}}
+\end{align*}
+because this is a telescoping series. Thus,
+\[
+f(z)=\frac{1}{z(1-z)}\lim_{m\to\infty}\left(\frac{1}{1-z}-\frac{1}{1-z^{m+1}}\right)=\frac{1}{z(1-z)}\left(\frac{1}{1-z}-\lim_{m\to\infty}\frac{1}{1-z^{m+1}}\right).
+\]
+The value that the limit in this expression takes depends on $|z|$. If $|z|<1$, then $\lim_{m\to\infty}\frac{1}{1-z^{m+1}}=1$, so 
+\[
+f(z)=\frac{1}{z(1-z)}\left(\frac{1}{1-z}-1\right)=\frac{1}{z(1-z)}\frac{z}{1-z}=\frac{1}{(1-z)^2}.
+\]
+If $|z|>1$, then $\lim_{m\to\infty}\frac{1}{1-z^{m+1}}=0$, so 
+\[
+f(z)=\frac{1}{z(1-z)}\frac{1}{1-z}=\frac{1}{z(1-z)^2}.
+\] 
+Thus, 
+\[
+		\sum_{n=1}^\infty \frac{z^{n-1}}{(1-z^n)(1-z^{n+1})}=\left\{
+		\begin{array}{lcr}
+			\frac{1}{(1-z)^2},  &  & |z|<1, \\
+			\frac{1}{z(1-z)^2}, &  & |z|>1.
+		\end{array}
+		\right.
+\]
+The reason that this does not contradict analytic continuation is that theorem 3.9 in the course notes requires that our functions be continuous on their shared boundary ($|z|=1$ in our case), but both have singularities at $z=1$. Furthermore, our series representation has infinitely-many singularities on this shared boundary. These singularities are actually dense on the boundary, because they are the roots of unity for all $n\in\mathbb{N}$ which are $e^{2\pi i k/n}$ for all $n\in\mathbb{Z}$ and the rationals are dense in $\real$. Thus, no matter where we attempt to do analytic continuation, we run into issues as we cannot look at any neighborhood without running into singularities. 
+
+
+\end{document}

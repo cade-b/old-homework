@@ -1,0 +1,228 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{listings}
+\usepackage{multimedia} % to embed movies in the PDF file
+\usepackage{graphicx}
+\usepackage{comment}
+\usepackage[english]{babel}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{wrapfig}
+\usepackage{multirow}
+\usepackage{verbatim}
+\usepackage{float}
+\usepackage{cancel}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{/home/cade/Homework/latex-defs}
+
+
+\title{AMATH 569 Homework 4}
+\author{Cade Ballew \#2120804}
+\date{May 11, 2022}
+
+\begin{document}
+	
+\maketitle
+	
+\section{Problem 1}
+Consider the Green's function of the 1-D heat equation in a semi-infinite domain, $G(x,t;\xi,\tau)$ defined by 
+\[
+\left(\frac{\partial}{\partial t}-D\frac{\partial^2}{\partial x^2}\right)G=\delta(x-\xi)\delta(t-\tau), \quad 0<x,\xi<\infty, ~t,\tau>0
+\]
+with the initial condition $G=0$ at $t=0$.
+
+\subsection{Part a}
+Consider this with the boundary condition $G=0$ at $x=0$ and $x\to\infty$. When $t<\tau$, our problem is given by
+\begin{align*}
+&\left(\frac{\partial}{\partial t}-D\frac{\partial^2}{\partial x^2}\right)G=0, \quad 0<x,\xi<\infty\\
+&G=0, \quad t=0,\\
+&G=0, \quad x=0,~x\to\infty
+\end{align*}
+which has solution $G(x,t;\xi,\tau)=0$. Now, consider the case where $t>\tau$. Then, our problem is
+\begin{align*}
+	&\left(\frac{\partial}{\partial t}-D\frac{\partial^2}{\partial x^2}\right)G=0, \quad 0<x,\xi<\infty\\
+	&G=\delta(x-\xi), \quad t=\tau,\\
+	&G=0, \quad x=0,~x\to\infty.
+\end{align*}
+To deal with this semi-infinite domain, let us transform our problem into the infinite domain by considering the odd extension of our initial condition 
+\[
+g(x)=\begin{cases}
+	\delta(x-\xi), \quad x>0\\
+	0, \quad x=0\\
+	-\delta(-x-\xi), \quad x<0
+\end{cases}
+\]
+so that $g(0)=0$ and the new problem
+\begin{align*}
+	&\left(\frac{\partial}{\partial t}-D\frac{\partial^2}{\partial x^2}\right)G=0, \quad -\infty<x<\infty\\
+	&G=g(x), \quad t=\tau\\
+	&G=0, \quad x\to\pm\infty
+\end{align*}
+where we will verify later that $G=0$ at $x=0$. Then, by page 9 of lecture 12, using the fact that the Green's function on the infinite domain is given by
+\[
+\frac{1}{\sqrt{4\pi D(t-\tau)}}e^{-\frac{(x-\xi)^2}{4D(t-\tau)}}
+\]
+when $t>\tau$, we have that 
+\begin{align*}
+G(x,t;\xi,\tau)&=\int_{-\infty}^\infty\frac{1}{\sqrt{4\pi D(t-\tau)}}e^{-\frac{(x-y)^2}{4D(t-\tau)}}g(y)dy\\&=
+-\frac{1}{\sqrt{4\pi D(t-\tau)}}\int_{-\infty}^0e^{-\frac{(x-y)^2}{4D(t-\tau)}}\delta(-y-\xi)dy+\frac{1}{\sqrt{4\pi D(t-\tau)}}\int_{0}^\infty e^{-\frac{(x-y)^2}{4D(t-\tau)}}\delta(y-\xi)dy\\&=
+-\frac{1}{\sqrt{4\pi D(t-\tau)}}e^{-\frac{(x+\xi)^2}{4D(t-\tau)}}+\frac{1}{\sqrt{4\pi D(t-\tau)}}e^{-\frac{(x-\xi)^2}{4D(t-\tau)}}.
+\end{align*}
+Thus,
+\[
+G(x,t;\xi,\tau)=\begin{cases}
+	0, \quad 0\leq t<\tau\\
+	\frac{1}{\sqrt{4\pi D(t-\tau)}}\left(-e^{-\frac{(x+\xi)^2}{4D(t-\tau)}}+e^{-\frac{(x-\xi)^2}{4D(t-\tau)}}\right), \quad t>\tau.
+\end{cases}
+\]
+Clearly, $G=0$ when $x=0$, so our boundary conditions are indeed met.  
+
+\subsection{Part b}
+Now, we instead consider the problem with the boundary condition $\frac{\partial}{\partial x}G=0$ at $x=0$ and $x\to\infty$. When $t<\tau$, our problem is given by
+\begin{align*}
+	&\left(\frac{\partial}{\partial t}-D\frac{\partial^2}{\partial x^2}\right)G=0, \quad 0<x,\xi<\infty\\
+	&G=0, \quad t=0,\\
+	&\frac{\partial}{\partial x}G=0, \quad x=0,~x\to\infty
+\end{align*}
+which again has solution $G(x,t;\xi,\tau)=0$. Now, consider the case where $t>\tau$. Then, our problem is
+\begin{align*}
+	&\left(\frac{\partial}{\partial t}-D\frac{\partial^2}{\partial x^2}\right)G=0, \quad 0<x,\xi<\infty\\
+	&G=\delta(x-\xi), \quad t=\tau,\\
+	&\frac{\partial}{\partial x}G=0, \quad x=0,~x\to\infty.
+\end{align*}
+To deal with this semi-infinite domain, we again transform our problem into the infinite domain by considering the even extension of our initial condition 
+\[
+g(x)=\begin{cases}
+	\delta(x-\xi), \quad x>0\\
+	0, \quad x=0\\
+	\delta(-x-\xi), \quad x<0
+\end{cases}
+\]
+so that $\frac{\partial}{\partial x}g(0)=0$ and the new problem
+\begin{align*}
+	&\left(\frac{\partial}{\partial t}-D\frac{\partial^2}{\partial x^2}\right)G=0, \quad -\infty<x<\infty\\
+	&G=g(x), \quad t=\tau\\
+	&\frac{\partial}{\partial x}G=0, \quad x\to\pm\infty.
+\end{align*}
+where we will verify later that $\frac{\partial}{\partial x}G=0$ at $x=0$. Now, we again wish to use the Green's function on the infinite domain to solve this, but one may think that this is different from the Green's function used in part a. However, in the derivation of this problem in lecture 9, we had the boundary condition $u\to0$ as $x\to\pm\infty$ and assumed that $u_x\to0$ as $x\to\pm\infty$ where $u$ is our Green's function. If we instead we consider $u_x\to0$ as $x\to\pm\infty$ as our boundary condition and assume that $u\to0$ as $x\to\pm\infty$, we of course get the same function 
+\[
+\frac{1}{\sqrt{4\pi D(t-\tau)}}e^{-\frac{(x-\xi)^2}{4D(t-\tau)}}
+\]
+for which it is easy to see that $u\to0$ as $x\to\pm\infty$ indeed holds. Thus, when $t>\tau$, we have that 
+\begin{align*}
+	G(x,t;\xi,\tau)&=\int_{-\infty}^\infty\frac{1}{\sqrt{4\pi D(t-\tau)}}e^{-\frac{(x-y)^2}{4D(t-\tau)}}g(y)dy\\&=
+	\frac{1}{\sqrt{4\pi D(t-\tau)}}\int_{-\infty}^0e^{-\frac{(x-y)^2}{4D(t-\tau)}}\delta(-y-\xi)dy+\frac{1}{\sqrt{4\pi D(t-\tau)}}\int_{0}^\infty e^{-\frac{(x-y)^2}{4D(t-\tau)}}\delta(y-\xi)dy\\&=
+	\frac{1}{\sqrt{4\pi D(t-\tau)}}e^{-\frac{(x+\xi)^2}{4D(t-\tau)}}+\frac{1}{\sqrt{4\pi D(t-\tau)}}e^{-\frac{(x-\xi)^2}{4D(t-\tau)}}.
+\end{align*}
+Thus,
+\[
+G(x,t;\xi,\tau)=\begin{cases}
+	0, \quad 0\leq t<\tau\\
+	\frac{1}{\sqrt{4\pi D(t-\tau)}}\left(e^{-\frac{(x+\xi)^2}{4D(t-\tau)}}+e^{-\frac{(x-\xi)^2}{4D(t-\tau)}}\right), \quad t>\tau.
+\end{cases}
+\]
+Now, using Wolfram-Alpha\footnote{This is also clear since we're taking the derivative of exponentials containing squares.}, we find that the condition that $\frac{\partial}{\partial x}G=0$ at $x=0$ does indeed hold. 
+
+
+\section{Problem 2}
+Consider the Green's function of the 1-D wave equation in a semi-infinite domain, $G(x,t;\xi,\tau)$ defined by 
+\[
+\left(\frac{\partial^2}{\partial t^2}-c^2\frac{\partial^2}{\partial x^2}\right)G=\delta(x-\xi)\delta(t-\tau), \quad 0<x,\xi<\infty, ~t,\tau>0
+\]
+with the initial condition $G=0$ at $t=0$.
+
+\subsection{Part a}
+Consider this with the boundary condition $G=0$ at $x=0$ and $x\to\infty$. When $t<\tau$, our problem is given by
+\begin{align*}
+	&\left(\frac{\partial^2}{\partial t^2}-c^2\frac{\partial^2}{\partial x^2}\right)G=0, \quad 0<x,\xi<\infty\\
+	&G=0, \quad t=0,\\
+	&G=0, \quad x=0,~x\to\infty
+\end{align*}
+which has solution $G(x,t;\xi,\tau)=0$. Now, consider the case where $t>\tau$. Then, our problem is
+\begin{align*}
+	&\left(\frac{\partial^2}{\partial t^2}-c^2\frac{\partial^2}{\partial x^2}\right)G=0, \quad 0<x,\xi<\infty\\
+	&G=\delta(x-\xi), \quad t=\tau,\\
+	&G=0, \quad x=0,~x\to\infty.
+\end{align*}
+To deal with this semi-infinite domain, let us transform our problem into the infinite domain by considering the odd extension of our initial condition 
+\[
+g(x)=\begin{cases}
+	\delta(x-\xi), \quad x>0\\
+	0, \quad x=0\\
+	-\delta(-x-\xi), \quad x<0
+\end{cases}
+\]
+so that $g(0)=0$ and the new problem
+\begin{align*}
+	&\left(\frac{\partial^2}{\partial t^2}-c^2\frac{\partial^2}{\partial x^2}\right)G=0, \quad -\infty<x<\infty\\
+	&G=g(x), \quad t=\tau\\
+	&G=0, \quad x\to\pm\infty
+\end{align*}
+where we will verify later that $G=0$ at $x=0$. Then, by page 6 of lecture 13, the Green's function on the infinite domain is given by
+\[
+\frac{1}{2c}\left(H((x-\xi)+c(t-\tau))-H((x-\xi)-c(t-\tau))\right)
+\]
+when $t>\tau$, so we have that 
+\begin{align*}
+	G(x,t;\xi,\tau)&=\int_{-\infty}^\infty\frac{1}{2c}\left(H((x-\xi)+c(t-\tau))-H((x-\xi)-c(t-\tau))\right)g(y)dy\\&=
+	-\frac{1}{2c}\int_{-\infty}^0\left(H((x-y)+c(t-\tau))-H((x-y)-c(t-\tau))\right)\delta(-y-\xi)dy\\&+\frac{1}{2c}\int_{0}^\infty \left(H((x-y)+c(t-\tau))-H((x-y)-c(t-\tau))\right)\delta(y-\xi)dy\\&=
+	-\frac{1}{2c}\left(H((x+\xi)+c(t-\tau))-H((x+\xi)-c(t-\tau))\right)\\&+\frac{1}{2c} \left(H((x-\xi)+c(t-\tau))-H((x-\xi)-c(t-\tau))\right)
+\end{align*}
+Thus,
+\[
+G(x,t;\xi,\tau)=\begin{cases}
+	0, \quad 0\leq t<\tau\\
+	\frac{1}{2c}(-H((x+\xi)+c(t-\tau))+H((x+\xi)-c(t-\tau))\\+H((x-\xi)+c(t-\tau))-H((x-\xi)-c(t-\tau))), \quad t>\tau.
+\end{cases}
+\]
+Clearly, $G=0$ when $x=0$.  
+
+\subsection{Part b}
+Now, we instead consider the problem with the boundary condition $\frac{\partial}{\partial x}G=0$ at $x=0$ and $x\to\infty$. When $t<\tau$, our problem is given by
+\begin{align*}
+	&\left(\frac{\partial^2}{\partial t^2}-c^2\frac{\partial^2}{\partial x^2}\right)G=0, \quad 0<x,\xi<\infty\\
+	&G=0, \quad t=0,\\
+	&\frac{\partial}{\partial x}G=0, \quad x=0,~x\to\infty
+\end{align*}
+which again has solution $G(x,t;\xi,\tau)=0$. Now, consider the case where $t>\tau$. Then, our problem is
+\begin{align*}
+	&\left(\frac{\partial^2}{\partial t^2}-c^2\frac{\partial^2}{\partial x^2}\right)G=0, \quad 0<x,\xi<\infty\\
+	&G=\delta(x-\xi), \quad t=\tau,\\
+	&\frac{\partial}{\partial x}G=0, \quad x=0,~x\to\infty.
+\end{align*}
+To deal with this semi-infinite domain, we again transform our problem into the infinite domain by considering the even extension of our initial condition 
+\[
+g(x)=\begin{cases}
+	\delta(x-\xi), \quad x>0\\
+	0, \quad x=0\\
+	\delta(-x-\xi), \quad x<0
+\end{cases}
+\]
+so that $\frac{\partial}{\partial x}g(0)=0$ and the new problem
+\begin{align*}
+	&\left(\frac{\partial^2}{\partial t^2}-c^2\frac{\partial^2}{\partial x^2}\right)G=0, \quad -\infty<x<\infty\\
+	&G=g(x), \quad t=\tau\\
+	&\frac{\partial}{\partial x}G=0, \quad x\to\pm\infty
+\end{align*}
+where we will verify later that $\frac{\partial}{\partial x}G=0$ at $x=0$. Now, we again wish to use the Green's function on the infinite domain to solve this. As in problem 1, in the derivation we had the boundary condition $u\to0$ as $x\to\pm\infty$ and assumed that $u_x\to0$ as $x\to\pm\infty$ where $u$ is our Green's function. If we instead we consider $u_x\to0$ as $x\to\pm\infty$ as our boundary condition and assume that $u\to0$ as $x\to\pm\infty$, we of course get the same function 
+\[
+\frac{1}{2c}\left(H((x-\xi)+c(t-\tau))-H((x-\xi)-c(t-\tau))\right)
+\]
+for which it is easy to see that $u\to0$ as $x\to\pm\infty$ indeed holds. Thus, when $t>\tau$, we have that 
+\begin{align*}
+	G(x,t;\xi,\tau)&=\int_{-\infty}^\infty\frac{1}{2c}\left(H((x-\xi)+c(t-\tau))-H((x-\xi)-c(t-\tau))\right)g(y)dy\\&=
+	\frac{1}{2c}\int_{-\infty}^0\left(H((x-y)+c(t-\tau))-H((x-y)-c(t-\tau))\right)\delta(-y-\xi)dy\\&+\frac{1}{2c}\int_{0}^\infty \left(H((x-y)+c(t-\tau))-H((x-y)-c(t-\tau))\right)\delta(y-\xi)dy\\&=
+	\frac{1}{2c}\left(H((x+\xi)+c(t-\tau))-H((x+\xi)-c(t-\tau))\right)\\&+\frac{1}{2c} \left(H((x-\xi)+c(t-\tau))-H((x-\xi)-c(t-\tau))\right)
+\end{align*}
+Thus,
+\[
+G(x,t;\xi,\tau)=\begin{cases}
+	0, \quad 0\leq t<\tau\\
+	\frac{1}{2c}(H((x+\xi)+c(t-\tau))-H((x+\xi)-c(t-\tau))\\+H((x-\xi)+c(t-\tau))-H((x-\xi)-c(t-\tau))), \quad t>\tau.
+\end{cases}
+\]
+Since these are Heaviside functions, their derivatives are delta functions, meaning that they will all evaluate to zero at $x=0$, so we find that the condition that $\frac{\partial}{\partial x}G=0$ at $x=0$ and $x\to\infty$ does indeed hold.
+
+
+\end{document}

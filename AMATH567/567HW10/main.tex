@@ -1,0 +1,294 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{listings}
+\usepackage{multimedia} % to embed movies in the PDF file
+\usepackage{graphicx}
+\usepackage{comment}
+\usepackage[english]{babel}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{subfigure}
+\usepackage{wrapfig}
+\usepackage{multirow}
+\usepackage{tikz}
+\usepackage{verbatim}
+\include{latex-defs}
+
+
+\title{AMATH 567 Homework 10}
+\author{Cade Ballew \#2120804}
+\date{December 8, 2021}
+
+\begin{document}
+
+\maketitle
+
+\section{Problem 1 (4.3.1)}
+\subsection{Part a}
+Consider the function 
+\[
+f(z)=\frac{e^{i|k|z}-e^{i|m|z}}{z^2}
+\]
+and the contour $C=C_\epsilon+C_R+C_1+C_2$ with $C_R$ defined in the usual way, $C_1$ defined on the real line from $-R$ to $-\epsilon$, $C_\epsilon$ defined to be the usual semicircle of radius $\epsilon$ around $z=0$ taken from $-\epsilon$ to $\epsilon$ so that the singularity is outside the contour, and $C_2$ defined on the real line from $\epsilon$ to $R$. Then, $f$ has no singularities in or on $C$, so $\oint_Cf(z)dz=0$ by Cauchy's theorem. Because the denominator of $f$ is degree 2, Jordan's lemma gives that $\int_{C_R}f(z)dz\to0$ as $R\to\infty$. Also, theorem 4.3.1b in the text gives that as $\epsilon\to0$,
+\begin{align*}
+\int_{C_\epsilon}f(z)dz&=-i\pi\Res_{z=0}f(z)=-i\pi\lim_{z\to0}\frac{e^{i|k|z}-e^{i|m|z}}{z}\\&=-i\pi\lim_{z\to0}(i|k|e^{i|k|z}-i|m|e^{i|m|z})=-i\pi(i|k|-i|m|)=\pi(|k|-|m|)
+\end{align*}
+where the minus sign accounts for us going around $C_\epsilon$ in the opposite direction. Thus, as $R\to\infty$, $\epsilon\to0$, $\int_{C_1+C_2}f(z)dz=-\pi(|k|-|m|)$, i.e.,
+\[
+\pvint_{-\infty}^\infty\frac{e^{i|k|x}-e^{i|m|x}}{x^2}dx=\int_{-\infty}^0\frac{e^{i|k|x}-e^{i|m|x}}{x^2}dx+\int_0^\infty\frac{e^{i|k|x}-e^{i|m|x}}{x^2}dx=-\pi(|k|-|m|).
+\]
+Now, we apply Euler's formula to write
+\begin{align*}
+-\pi(|k|-|m|)&=\pvint_{-\infty}^\infty\frac{e^{i|k|x}-e^{i|m|x}}{x^2}dx\\&=
+\pvint_{-\infty}^\infty\frac{\cos(|k|x)-\cos(|m|x)}{x^2}dx+i\pvint_{-\infty}^\infty\frac{\sin(|k|x)-\sin(|m|x)}{x^2}dx.
+\end{align*}
+Now, note that the second PV integral is zero, because both the numerator and denominator are even as functions of $x$. Additionally, the first PV integral can be rewritten as a normal integral, because the integrand is bounded and  the limit
+\begin{align*}
+\lim_{x\to0}\frac{\cos(|k|x)-\cos(|m|x)}{x^2}&=\lim_{x\to0}\frac{-|k|\sin(|k|x)+|m|\sin(|m|x)}{2x}\\&=\lim_{x\to0}\frac{-|k|^2\cos(|k|x)+|m|^2\cos(|m|x)}{2}=\frac{-|k|^2+|m|^2}{2}
+\end{align*}
+converges. Then, 
+\[
+-\pi(|k|-|m|)=\int_{-\infty}^\infty\frac{\cos(|k|x)-\cos(|m|x)}{x^2}dx=2\int_0^\infty\frac{\cos(kx)-\cos(mx)}{x^2}dx
+\]
+from the fact that cosine is an odd function (which allows us to drop the absolute values) and the denominator of the integrand is even. Thus, we conclude that 
+\[
+\int_0^\infty\frac{\cos(kx)-\cos(mx)}{x^2}=\frac{-\pi}{2}(|k|-|m|)
+\]
+
+\subsection{Part b}
+Taking $k=2$ and $m=0$ and using a double angle forumla,
+\[
+\int_0^\infty\frac{-2\sin^2x}{x^2}dx=\int_0^\infty\frac{\cos(2x)-1}{x^2}=\frac{-\pi}{2}(|2|-|0|)=-\pi.
+\]
+Thus, we conclude that 
+\[
+\int_0^\infty\frac{\sin^2x}{x^2}dx=\frac{-\pi}{-2}=\frac{\pi}{2}.
+\]
+
+\section{Problem 2 (4.3.6)} 
+\subsection{Part a}
+Let \[
+    \psi^{\pm}(x) = \lim_{\epsilon\to 0^+}\frac{1}{2\pi i}\int_{-\infty}^\infty \frac{f(\zeta)}{\zeta- (x \pm i\varepsilon)}d\zeta
+    \]
+    and \[
+        P^{\pm}=\lim_{\epsilon\to 0^+}\frac{1}{2\pi i}\int_{-\infty}^\infty \frac{1}{\zeta - (x\pm i\varepsilon)} d \zeta.
+        \]
+%Consider showing the first thing
+Consider a contour $C=C_1+C_R$ where $C_1$ is the real line from $-R$ to $R$ and $C_R$ is defined in the usual manner. Then, letting $R\to\infty$, assuming the necessary decay properties so that the integral over $C_R$ goes to zero by the big circle theorem, we have that 
+\begin{align*}
+P^+\psi^+(x)&=\lim_{\epsilon\to0^+}\frac{1}{2\pi i}\int_{-\infty}^\infty\frac{\psi^+(\zeta)}{\zeta-(x+i\epsilon)}d\zeta\\&=
+\lim_{\epsilon\to0^+}\frac{1}{2\pi i}\lim_{R\to\infty}\left(\int_{-R}^R\frac{\psi^+(\zeta)}{\zeta-(x+i\epsilon)}d\zeta+\int_{C_R}\frac{\psi^+(\zeta)}{\zeta-(x+i\epsilon)}d\zeta\right)\\&=
+\lim_{\epsilon\to0^+}\frac{1}{2\pi i}\lim_{R\to\infty}\oint_C\frac{\psi^+(\zeta)}{\zeta-(x+i\epsilon)}d\zeta=\lim_{\epsilon\to0^+}\Res_{\zeta=x+i\epsilon}\frac{\psi^+(\zeta)}{\zeta-(x+i\epsilon)}\\&=
+\lim_{\epsilon\to0^+}\psi^+(x+i\epsilon)=\psi^+(x)
+\end{align*}
+by the residue theorem since $\psi^+$ is analytic in the upper half plane. \\
+Similarly, if we take a contour $C=C_1+C_L$ where $C_1$ is the same but $C_L$ is the lower semicircle of radius $R$ from $R$ to $-R$, then
+\begin{align*}
+P^-\psi^-(x)&=\lim_{\epsilon\to0^+}\frac{1}{2\pi i}\int_{-\infty}^\infty\frac{\psi^-(\zeta)}{\zeta-(x-i\epsilon)}d\zeta\\&=
+\lim_{\epsilon\to0^+}\frac{1}{2\pi i}\lim_{R\to\infty}\left(\int_{-R}^R\frac{\psi^-(\zeta)}{\zeta-(x-i\epsilon)}d\zeta+\int_{C_L}\frac{\psi^-(\zeta)}{\zeta-(x-i\epsilon)}d\zeta\right)\\&=
+\lim_{\epsilon\to0^+}\frac{1}{2\pi i}\lim_{R\to\infty}\oint_C\frac{\psi^-(\zeta)}{\zeta-(x-i\epsilon)}d\zeta=\lim_{\epsilon\to0^+}-\Res_{\zeta=x-i\epsilon}\frac{\psi^-(\zeta)}{\zeta-(x-i\epsilon)}\\&=
+\lim_{\epsilon\to0^+}-\psi^-(x-i\epsilon)=-\psi^-(x)
+\end{align*}
+by the residue theorem. Note that the terms are negated to account for moving around the contour clockwise.\\
+Using the first contour, we can apply Cauchy's theorem to conclude that
+\begin{align*}
+P^-\psi^+(x)&=\lim_{\epsilon\to0^+}\frac{1}{2\pi i}\int_{-\infty}^\infty\frac{\psi^+(\zeta)}{\zeta-(x-i\epsilon)}d\zeta\\&=
+\lim_{\epsilon\to0^+}\frac{1}{2\pi i}\lim_{R\to\infty}\left(\int_{-R}^R\frac{\psi^+(\zeta)}{\zeta-(x-i\epsilon)}d\zeta+\int_{C_R}\frac{\psi^+(\zeta)}{\zeta-(x-i\epsilon)}d\zeta\right)\\&=
+\lim_{\epsilon\to0^+}\frac{1}{2\pi i}\lim_{R\to\infty}\oint_C\frac{\psi^+(\zeta)}{\zeta-(x-i\epsilon)}d\zeta=0
+\end{align*}
+because the singularity occurs outside $C$, and using the second contour, 
+\begin{align*}
+P^+\psi^-(x)&=\lim_{\epsilon\to0^+}\frac{1}{2\pi i}\int_{-\infty}^\infty\frac{\psi^-(\zeta)}{\zeta-(x+i\epsilon)}d\zeta\\&=
+\lim_{\epsilon\to0^+}\frac{1}{2\pi i}\lim_{R\to\infty}\left(\int_{-R}^R\frac{\psi^-(\zeta)}{\zeta-(x+i\epsilon)}d\zeta+\int_{C_L}\frac{\psi^-(\zeta)}{\zeta-(x+i\epsilon)}d\zeta\right)\\&=
+\lim_{\epsilon\to0^+}\frac{1}{2\pi i}\lim_{R\to\infty}\oint_C\frac{\psi^-(\zeta)}{\zeta-(x+i\epsilon)}d\zeta=0
+\end{align*}
+by the same reasoning. 
+
+\subsection{Part b}
+If we let $f(x)=\frac{1}{x^4+1}$, then 
+\begin{align*}
+\psi^\pm(x)&=\lim_{\epsilon\to0^+}\frac{1}{2\pi i}\int_{-\infty}^\infty\frac{1}{(\zeta^4+1)(\zeta-(x\pm i\epsilon))}d\zeta\\&=
+\lim_{\epsilon\to0^+}\frac{1}{2\pi i}\int_{-\infty}^\infty\frac{1}{(\zeta+e^{i\pi/4})(\zeta-e^{i\pi/4})(\zeta+e^{3i\pi/4})(\zeta-e^{3i\pi/4})(\zeta-(x\pm i\epsilon))}d\zeta.
+\end{align*}
+To compute $\psi^+$, we consider the first contour described in part a and let $R\to\infty$ so the integral along $C_R$ vanishes and we can apply the residue theorem to get
+\begin{align*}
+\psi^+(x)&=\lim_{\epsilon\to0^+}\frac{1}{2\pi i}\lim_{R\to\infty}\oint_C\frac{1}{(\zeta^4+1)(\zeta-(x+ i\epsilon))}d\zeta\\&=\lim_{\epsilon\to0^+}\biggr(\Res_{\zeta=x+i\epsilon}\frac{1}{(\zeta^4+1)(\zeta-(x+ i\epsilon))}+\Res_{\zeta=e^{i\pi/4}}\frac{1}{(\zeta^2+i)(\zeta-e^{i\pi/4})(\zeta+e^{i\pi/4})(\zeta-(x+ i\epsilon))}\\&+\Res_{\zeta=e^{3i\pi/4}}\frac{1}{(\zeta^2-i)(\zeta-e^{3i\pi/4})(\zeta+e^{3i\pi/4})(\zeta-(x+ i\epsilon))}\biggr)\\&=
+\lim_{\epsilon\to0^+}\left(\frac{1}{(x+i\epsilon)^4+1}+\frac{1}{(2i)2e^{i\pi/4}(e^{i\pi/4}-(x+i\epsilon))}+\frac{1}{(-2i)2e^{3i\pi/4}(e^{3i\pi/4}-(x+i\epsilon))}\right)\\&=
+\frac{1}{x^4+1}+\frac{1}{4i(i-e^{i\pi/4}x)}+\frac{1}{4i(i+e^{3i\pi/4}x)}.
+\end{align*}
+Now, we consider the second contour described in part a to compute $\psi^-$. Note that terms are again negated to account for going around the contour in the opposite direction. 
+\begin{align*}
+-\psi^-(x)&=\lim_{\epsilon\to0^+}\frac{1}{2\pi i}\lim_{R\to\infty}\oint_C\frac{1}{(\zeta^4+1)(\zeta-(x- i\epsilon))}d\zeta\\&=\lim_{\epsilon\to0^+}\biggr(\Res_{\zeta=x-i\epsilon}\frac{1}{(\zeta^4+1)(\zeta-(x- i\epsilon))}+\Res_{\zeta=e^{-i\pi/4}}\frac{1}{(\zeta^2+i)(\zeta-e^{i\pi/4})(\zeta+e^{i\pi/4})(\zeta-(x- i\epsilon))}\\&+\Res_{\zeta=e^{-3i\pi/4}}\frac{1}{(\zeta^2-i)(\zeta-e^{3i\pi/4})(\zeta+e^{3i\pi/4})(\zeta-(x- i\epsilon))}\biggr)\\&=
+\lim_{\epsilon\to0^+}\left(\frac{1}{(x-i\epsilon)^4+1}+\frac{1}{(2i)(-2e^{i\pi/4})(e^{-i\pi/4}-(x-i\epsilon))}+\frac{1}{(-2i)(-2e^{3i\pi/4})(e^{-3i\pi/4}-(x-i\epsilon))}\right)\\&=
+\frac{1}{x^4+1}+\frac{1}{4i(i+e^{i\pi/4}x)}+\frac{1}{4i(i-e^{3i\pi/4}x)}.
+\end{align*}
+Thus,
+\begin{align*}
+\psi^+(x)-\psi^-(x)&=\frac{2}{x^4+1}+\left(\frac{1}{4i(i-e^{i\pi/4}x)}+\frac{1}{4i(i+e^{i\pi/4}x)}\right)+\left(\frac{1}{4i(i+e^{3i\pi/4}x)}+\frac{1}{4i(i-e^{3i\pi/4}x)}\right)\\&=
+\frac{2}{x^4+1}+\frac{2i}{4i(-1-ix^2)}+\frac{2i}{4i(1-ix^2)}=\frac{2}{x^4+1}+\frac{1}{2}\left(\frac{1}{ix^2-1}-\frac{1}{ix^2+1}\right)\\&=
+\frac{2}{x^4+1}+\frac{1}{2}\frac{2}{-x^4-1}=\frac{1}{x^4+1}=f(x).
+\end{align*}
+
+\subsection{Part c}
+To evaluate $\psi^+$, first consider the change of variables $z=\zeta-i\epsilon$ which gives that 
+\[
+\psi^+(x)=\lim_{\epsilon\to0^+}\frac{1}{2\pi i}\int_{-\infty-i\epsilon}^{\infty-i\epsilon}\frac{f(z+i\epsilon)}{z-x}dz.
+\]
+Now, consider a rectangular contour $C$ with corners at $-R-i\epsilon$, $R-i\epsilon$, $R$, and $-R$ with an interior kink around the point $z=x$ of radius $\epsilon_2\leq\epsilon$ to avoid the singularity such that we travel counterclockwise and let $R\to\infty$, $\epsilon_2\to0$. Because $f$ can be analytically extended in a neighborhood of the real line, the integrand is analytic in and on $C$, so 
+\[
+\oint_C\frac{f(z+i\epsilon)}{z-x}dz=0 
+\]
+by Cauchy's theorem. Breaking our contour up into its components, the integral goes to zero as $R\to\infty$ on the left and right sides, because we have assumed the necessary decay properties. Thus, our result from Cauchy's theorem gives that in the limit, the integral on the bottom from left to right is equivalent to the negative of integral on the top from right to left which is equivalent to the integral on the top from left to right. More explicitly,
+\[
+\frac{1}{2\pi i}\int_{-R-i\epsilon}^{R-i\epsilon}\frac{f(z+i\epsilon)}{z-x}dz=\frac{1}{2\pi i}\left(\int_{-R}^{x-\epsilon_2}+\int_{C_{\epsilon_2}}+\int_{x+\epsilon_2}^R\right)\frac{f(z+i\epsilon)}{z-x}dz
+\]
+in the limit as $R\to\infty$ and $\epsilon_2\to0$ if $C_R$ is the interior semicircle centered at $z=x$ with radius $\epsilon_2$ taken from $x-\epsilon_2$ with $\theta=-\pi$ to $x+\epsilon_2$ with $\theta=0$.
+Then, taking the limit,
+\begin{align*}
+\frac{1}{2\pi i}\int_{-\infty-i\epsilon}^{\infty-i\epsilon}\frac{f(z+i\epsilon)}{z-x}dz&=\frac{1}{2\pi i}\left(\int_{-\infty}^{x}+\int_{x}^\infty\right)\frac{f(z+i\epsilon)}{z-x}dz+\frac{1}{2\pi i}\lim_{\epsilon_2\to0}\int_{C_{\epsilon_2}}\frac{f(z+i\epsilon)}{z-x}dz\\&=
+\frac{1}{2\pi i}\pvint_{-\infty}^{\infty}\frac{f(z+i\epsilon)}{z-x}dz+\frac{1}{2\pi i}i\pi\Res_{z=x}\frac{f(z+i\epsilon)}{z-x}\\&=
+\frac{1}{2\pi i}\pvint_{-\infty}^{\infty}\frac{f(z+i\epsilon)}{z-x}dz+\frac{1}{2}f(x+i\epsilon)
+\end{align*}
+by theorem 4.3.1b in the text. Thus, 
+\[
+\psi^+(x)=\lim_{\epsilon\to0^+}\left(\frac{1}{2\pi i}\pvint_{-\infty}^{\infty}\frac{f(z+i\epsilon)}{z-x}dz+\frac{1}{2}f(x+i\epsilon)\right)=\frac{1}{2\pi i}\pvint_{-\infty}^{\infty}\frac{f(\zeta)}{\zeta-x}d\zeta+\frac{1}{2}f(x).
+\]
+Now, we can find $\psi^-(x)$ in a very similar manner by considering a substitution $z=\zeta+i\epsilon$ 
+which gives that 
+\[
+\psi^-(x)=\lim_{\epsilon\to0^+}\frac{1}{2\pi i}\int_{-\infty+i\epsilon}^{\infty+i\epsilon}\frac{f(z-i\epsilon)}{z-x}dz.
+\]
+Note that the following argument is essentially identical to the above but with a reflected contour and the signs adjusted appropriately. \\ 
+Now, consider a rectangular contour $C$ with corners at $-R+i\epsilon$, $R+i\epsilon$, $R$, and $-R$ with an interior kink around the point $z=x$ of radius $\epsilon_2\leq\epsilon$ to avoid the singularity such that we travel clockwise and let $R\to\infty$, $\epsilon_2\to0$. Because $f$ can be analytically extended in a neighborhood of the real line, the integrand is analytic in and on $C$, so \[
+\oint_C\frac{f(z-i\epsilon)}{z-x}dz=0 
+\]
+by Cauchy's theorem. Breaking our contour up into its components, the integral goes to zero as $R\to\infty$ on the left and right sides, because we have assumed the necessary decay properties. Thus, our result from Cauchy's theorem gives that in the limit, the integral on the top from left to right is equivalent to the negative of integral on the bottom from right to left which is equivalent to the integral on the bottom from left to right. More explicitly,
+\[
+\frac{1}{2\pi i}\int_{-R+i\epsilon}^{R+i\epsilon}\frac{f(z-i\epsilon)}{z-x}dz=\frac{1}{2\pi i}\left(\int_{-R}^{x-\epsilon_2}+\int_{C_{\epsilon_2}}+\int_{x+\epsilon_2}^R\right)\frac{f(z-i\epsilon)}{z-x}dz
+\]
+in the limit as $R\to\infty$ and $\epsilon_2\to0$ if $C_R$ is the interior semicircle centered at $z=x$ with radius $\epsilon_2$ taken from $x-\epsilon_2$ with $\theta=\pi$ to $x+\epsilon_2$ with $\theta=0$.
+Then, taking the limit,
+\begin{align*}
+\frac{1}{2\pi i}\int_{-\infty+i\epsilon}^{\infty+i\epsilon}\frac{f(z-i\epsilon)}{z-x}dz&=\frac{1}{2\pi i}\left(\int_{-\infty}^{x}+\int_{x}^\infty\right)\frac{f(z-i\epsilon)}{z-x}dz+\frac{1}{2\pi i}\lim_{\epsilon_2\to0}\int_{C_{\epsilon_2}}\frac{f(z-i\epsilon)}{z-x}dz\\&=
+\frac{1}{2\pi i}\pvint_{-\infty}^{\infty}\frac{f(z-i\epsilon)}{z-x}dz+\frac{1}{2\pi i}i(-\pi)\Res_{z=x}\frac{f(z-i\epsilon)}{z-x}\\&=
+\frac{1}{2\pi i}\pvint_{-\infty}^{\infty}\frac{f(z-i\epsilon)}{z-x}dz-\frac{1}{2}f(x-i\epsilon)
+\end{align*}
+by theorem 4.3.1b in the text where the negative sign comes from going about the semicircle clockwise. Thus, 
+\[
+\psi^+(x)=\lim_{\epsilon\to0^+}\left(\frac{1}{2\pi i}\pvint_{-\infty}^{\infty}\frac{f(z-i\epsilon)}{z-x}dz-\frac{1}{2}f(x-i\epsilon)\right)=\frac{1}{2\pi i}\pvint_{-\infty}^{\infty}\frac{f(\zeta)}{\zeta-x}d\zeta-\frac{1}{2}f(x).
+\]
+Now, if we define 
+\[
+\frac{1}{2i}H(f(x))=\frac{1}{2\pi i}\pvint_{-\infty}^{\infty}\frac{f(\zeta)}{\zeta-x}d\zeta,
+\]
+then we have found that $\psi^{\pm}(x)=\frac{1}{2i}H(f(x))\pm\frac{1}{2}f(x)$. Then, 
+\[
+\psi^{\pm}(x)=\frac{1}{2}\left(\pm1+\frac{1}{i}H\right)f(x)=\frac{1}{2}(\pm1-iH)f(x).
+\]
+
+\section{Problem 3}
+Suppose that $f(z)=p(z)/q(z)$ is a rational function with
+    degree~$q(z)\geq2+$ degree~$p(z)$ and suppose that $q(z)$ has no roots
+    at the integers, except possibly at 0.\\
+In the case where $q(z)$ does not have a root at zero, then the assumptions of problem 4 on homework 9 are met, so we can apply the result directly to conclude that 
+\[
+\sum_{k=-\infty}^\infty\frac{p(k)}{q(k)}=-\pi\sum_j\Res_{z=z_j} f(z)\cot(\pi z).
+\]
+where the $z_j$'s are the roots of $q(z)$. \\
+Now, consider the case where $q(z)$ has a root at 0. Then, as $N\to\infty$, part c of homework 9 and the residue theorem (noting that the singularities of $\cot(\pi z)$ occur at the integers but 0 is excluded to account for it being in the other sum) give that 
+\[
+0=\oint_{\Gamma_N}f(z)\cot(\pi z)dz=2\pi i\left(\sum_j\Res_{z=z_j} f(z)\cot(\pi z)+\sump_{k=-\infty}^\infty\Res_{z=k}f(z)\cot(\pi z)\right)
+\]
+where the $z_j$'s are the roots of $q(z)$ with 0 included. Thus, 
+\[
+\sum_j\Res_{z=z_j} f(z)\cot(\pi z)=-\sump_{k=-\infty}^\infty\Res_{z=k}f(z)\cot(\pi z)=-\sump_{k=-\infty}^\infty\frac{f(k)}{\pi}
+\]
+by part a of homework 9. Thus,
+\[
+\sump_{k=-\infty}^\infty\frac{p(k)}{q(k)}=-\pi\sum_j\Res_{z=z_j} f(z)\cot(\pi z).
+\]
+Note that we can encompass the case where 0 is not a root of $q(z)$ in this case as well provided that we append 0 to the set of $z_j$s. This simply depends on which side of our equation we wish to put the $k=0$ or $z_j=0$ term on.
+
+\section{Problem 4}
+To compute the series in this problem, we note our result from problem 4f of homework 6 which gave that the Laurent series for $\cot z$ is
+\[
+\cot z=\sum_{n=0}^\infty \frac{(-1)^n2^{2n}B_{2n}}{(2n)!}z^{2n-1}
+\]
+so 
+\[
+\cot(\pi z)=\sum_{n=0}^\infty \frac{(-1)^n2^{2n}B_{2n}}{(2n)!}(\pi z)^{2n-1}=\sum_{n=0}^\infty \frac{(-1)^n2^{2n}\pi^{2n-1}B_{2n}}{(2n)!}z^{2n-1}.
+\]
+\subsection{Part a}
+By problem 3 and the residue theorem, noting that $\frac{1}{z^2}$ has a singularity only at $z=0$,
+\begin{align*}
+\sump_{k=-\infty}^\infty \frac{1}{k^2}&=-\pi\Res_{z=0}\frac{\cot(\pi z)}{z^2}=-\pi\Res_{z=0}\left(\sum_{n=0}^\infty \frac{(-1)^n2^{2n}\pi^{2n-1}B_{2n}}{(2n)!}z^{2n-3}\right)\\&=
+-\pi\frac{-2^2\pi B_2}{2!}=2\pi^2\frac{1}{6}=\frac{\pi^2}{3}.
+\end{align*}
+
+\subsection{Part b}
+By problem 3 and the residue theorem, noting that $\frac{1}{z^3}$ has a singularity only at $z=0$,
+\begin{align*}
+\sump_{k=-\infty}^\infty \frac{1}{k^3}&=-\pi\Res_{z=0}\frac{\cot(\pi z)}{z^2}=-\pi\Res_{z=0}\left(\sum_{n=0}^\infty \frac{(-1)^n2^{2n}\pi^{2n-1}B_{2n}}{(2n)!}z^{2n-4}\right)=0
+\end{align*}
+because there is no $z^{-1}$ term in this Laurent series.
+
+\subsection{Part c}
+By problem 3 and the residue theorem, noting that $\frac{1}{z^4}$ has a singularity only at $z=0$,
+\begin{align*}
+\sump_{k=-\infty}^\infty \frac{1}{k^4}&=-\pi\Res_{z=0}\frac{\cot(\pi z)}{z^2}=-\pi\Res_{z=0}\left(\sum_{n=0}^\infty \frac{(-1)^n2^{2n}\pi^{2n-1}B_{2n}}{(2n)!}z^{2n-5}\right)\\&=
+-\pi\frac{(-1)^22^4\pi^3 B_4}{4!}=-\pi\frac{16}{24}\pi^3\frac{-1}{30}=\pi^4\frac{2}{3}\frac{1}{30}=\frac{\pi^4}{45}.
+\end{align*}
+
+\section{Problem 5}
+Example 4.4.4 in the text gives that $h(z)=e^z-4z-1$ inside of $C_1: |z|=1$. For completeness, we repeat that argument here. \\
+Let $f(z)=-4z$ and $g(z)=e^z-1$ on $C_1$. Then,
+\[
+|f(z)|=|-4z|=4
+\]
+and 
+\[
+|g(z)|=|e^z-1|\leq|e^z|+1\leq e^{|z|}+1=e+1<4.
+\]
+Thus, we can apply Rouche's theorem to conclude that the difference between the number of zeroes and number of poles is the same for $f$ and $h=f+g$ inside $C_1$. However, both $f$ and $h$ are entire, so we conclude that they have the same number of zeroes in $C_1$. $f$ has one at $z=0$, so it must hold that $h$ also has one zero in $C_1$.
+
+\section{Problem 6}
+\subsection{Part a}
+Let $f:z\rightarrow w=f(z)$ be an analytic function on the closed
+    disk $D(z_0, R)$ of radius $R$ centered at $z_0$. Denote the
+    boundary of $D(z_0, R)$ by $C(z_0, R)$. Assume that $f: D(z_0,
+    R)\to f(D(z_0, R))$ is one-to-one and onto. Given
+    $$
+    g(w)=\frac{1}{2\pi i}\oint_{C(z_0,R)}\frac{t f'(t)}{f(t)-w}d t
+    $$
+    for $w\in f(D(z_0, R))$, not including the boundary, we show that it is the inverse function to $f$ by demonstrating that $g(f(z))=z$ for any $z\in D(z_0,R)$. Note that because $f$ is bijective, the left and right inverses coincide, so we need not show the other direction. Then, by the residue theorem (noting that $f(t)=f(z)$ only at $t=z$ due to injectivity),
+\begin{align*}
+g(f(z))&=\frac{1}{2\pi i}\oint_{C(z_0,R)}\frac{t f'(t)}{f(t)-f(z)}dt=\Res_{t=z}\frac{t f'(t)}{f(t)-f(z)}=\lim_{t\to z}\frac{t f'(t)(t-z)}{f(t)-f(z)}\\&=
+zf'(z)\lim_{t\to z}\frac{t-z}{f(t)-f(z)}=zf'(z)\frac{1}{f'(z)}=z
+\end{align*}
+by the definition of the complex derivative where we have used the fact that $tf'(t)$ is analytic as a function of $t$ to pull the terms outside the limit.
+
+\subsection{Part b}
+To derive a Taylor series for the inverse function of $f(z)=ze^z$ using part a, note that $f'(z)=(z+1)e^z$, so
+\begin{align*}
+g(w)&=\frac{1}{2\pi i}\oint_{C(0,R)}\frac{t (t+1)e^t}{te^t-w}dt=\frac{1}{2\pi i}\oint_{C(0,R)}t (t+1)e^t\frac{1}{te^t}\frac{1}{1-\frac{w}{te^t}}dt\\&=
+\frac{1}{2\pi i}\oint_{C(0,R)}(t+1)\sum_{k=0}^\infty\left(\frac{w}{te^t}\right)^kdt=\sum_{k=0}^\infty w^k\frac{1}{2\pi i}\oint_{C(0,R)}\frac{t+1}{t^ke^{kt}}dt.
+\end{align*}
+Note that to have the uniform convergence that enables us to write the geometic series and move it outside the integral, we need that $|w/(te^t)|<1$. Now, we note that the integrand has a singularity only at $t=0$, so we apply the residue theorem to get
+\begin{align*}
+g(w)&=\sum_{k=0}^\infty w^k\Res_{t=0}\frac{t+1}{t^ke^{kt}}=\sum_{k=0}^\infty w^k\Res_{t=0}(t^{1-k}+t^{-k})e^{-kt}\\&=
+\sum_{k=0}^\infty w^k\Res_{t=0}(t^{1-k}+t^{-k})\sum_{n=0}^\infty\frac{(-kt)^n}{n!}\\&=\sum_{k=0}^\infty w^k\Res_{t=0}\left(\sum_{n=0}^\infty\frac{(-k)^n}{n!}t^{n-k+1}+\sum_{n=0}^\infty\frac{(-k)^n}{n!}t^{n-k}\right)\\&=
+\sum_{k=0}^\infty w^k\left(\frac{(-k)^{k-2}}{(k-2)!}+\frac{(-k)^{k-1}}{(k-1)!}\right)=\sum_{k=0}^\infty w^k\frac{(k-1)(-k)^{k-2}+(-k)^{k-1}}{(k-1)!}\\&=
+\sum_{k=0}^\infty w^k\frac{(-k)^{k-2}(k-1-k)}{(k-1)!}=\sum_{k=0}^\infty w^k\frac{-(-k)^{k-2}}{(k-1)!}=\sum_{k=0}^\infty w^k\frac{-k(-k)^{k-2}}{k(k-1)!}\\&=\sum_{k=0}^\infty \frac{(-k)^{k-1}}{k!}w^k=\sum_{k=1}^\infty \frac{(-k)^{k-1}}{k!}w^k
+\end{align*}
+because the $k=0$ term is zero. Now, we backtrack to the condition on the geometric series in order to find a radius of convergence. We require that $|w|<|te^t|$, so we find a lower bound for $|te^t|$ in our contour. Letting $z=Re^{i\theta}$,
+\begin{align*}
+|te^t|=\left|Re^{i\theta}e^{Re^{i\theta}}\right|=R|e^{R\cos\theta}e^{iR\sin\theta}|=Re^{R\cos\theta}\geq Re^{-R}
+\end{align*}
+because $\cos\theta\geq-1$ and the exponential is strictly increasing on the real line. Now, we choose $R$ that minimizes this RHS by taking 
+\[
+0=\frac{d}{dR}Re^{-R}=e^{-R}-Re^{-R}=(1-R)e^{-R},
+\]
+so $R=1$. Thus, $|te^t|\geq e^{-1}$, so our radius of convergence is $1/e$. This value can also be found by performing a ratio test on the series we derive directly. \\
+To verify that this corresponds with what we'd expect from real analysis, we note that $f(x)=xe^x$ is minimized where $0=\frac{d}{dx}xe^x=(1+x)e^x$, i.e. where $x=-1$. $f(-1)=-1/e$, so $f(x)\geq-1/e$ (we can confirm that this is truly a global minimum by plotting $f(x)$ directly or noting that $f(x)\to\infty$ as $x\to\pm\infty$). Thus, our inverse function will be undefined for $x<-1/e$, meaning that a Taylor series centered at $x=0$ should have radius of convergence $1/e$. 
+
+\end{document}

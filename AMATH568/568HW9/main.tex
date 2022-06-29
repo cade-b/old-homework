@@ -1,0 +1,231 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{listings}
+\usepackage{multimedia} % to embed movies in the PDF file
+\usepackage{graphicx}
+\usepackage{comment}
+\usepackage[english]{babel}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{wrapfig}
+\usepackage{multirow}
+\usepackage{verbatim}
+\usepackage{float}
+\usepackage{cancel}
+\usepackage{caption}
+\usepackage{subcaption}
+\include{latex-defs}
+
+
+\title{AMATH 568 Homework 9}
+\author{Cade Ballew \#2120804}
+\date{March 11, 2022}
+
+\begin{document}
+	
+\maketitle
+	
+\section{Problem 1}
+\subsection{Part a}
+For $s\neq z$ and $n\geq1$, consider the expression
+\[
+-\frac{1}{z}  \sum_{j=0}^{n-1} \left( \frac{s}{z} \right)^j + \frac{s^n}{z^{n+1}} \frac{1}{1-\frac s z}.
+\]
+Noting that the formula for the sum of a finite geometric series is given by 
+\[
+\sum_{j=0}^{n-1} a^j=\frac{1-a^j}{1-a}
+\]
+for $a\neq1$, we can find that 
+\begin{align*}
+-\frac{1}{z}  \sum_{j=0}^{n-1} \left( \frac{s}{z} \right)^j - \frac{s^n}{z^{n+1}} \frac{1}{1-\frac s z}&=-\frac{1}{z}\frac{1-\left( \frac{s}{z} \right)^n}{1-\frac{s}{z}}- \frac{s^n}{z^{n+1}} \frac{1}{1-\frac s z}\\&=-\frac{1}{z}\frac{1}{1-\frac s z} \left(1-\left( \frac{s}{z} \right)^n+\left( \frac{s}{z} \right)^n\right)=\frac{1}{s-z}.
+\end{align*}
+Thus, it is trivially true that 
+\[
+\frac{1}{s-z} = -\frac{1}{z}  \sum_{j=0}^{n-1} \left( \frac{s}{z} \right)^j + \OO\left(\frac{s^n}{z^{n+1}} \frac{1}{1-\frac s z}\right).
+\]
+
+\subsection{Part b}
+Let 
+\[
+\phi(z) = \frac{1}{2\pi i} \int_{i \mathbb R} \frac{2e^{s^2}}{s-z} d s, \quad \Re z > 0.
+\]
+Using part a and dropping the error term, we find that 
+\begin{align*}
+\phi(z)\sim\frac{1}{2\pi i} \int_{i \mathbb R}2e^{s^2}\left(-\frac{1}{z}  \sum_{j=0}^{n-1} \left( \frac{s}{z} \right)^j\right)ds=-\sum_{j=0}^{n-1}\frac{1}{\pi i}\frac{1}{z^{j+1}}\int_{i \mathbb R}e^{s^2}s^jds.
+\end{align*}
+Making the change of variables $s=ix$,
+\begin{align*}
+\phi(z)\sim-\sum_{j=0}^{n-1}\frac{1}{\pi i}\frac{1}{z^{j+1}}\int_{-\infty}^\infty e^{-x^2}(ix)^jidx.
+\end{align*}
+Now, note that the integrand is an odd function when $j$ is odd and even when $j$ is even, so we can reindex $j\to2j$ to get
+\begin{align*}
+\phi(z)\sim\sum_{j=0}^{\lfloor(n-1)/2\rfloor}-\frac{1}{\pi }\frac{1}{z^{2j+1}}2\int_{0}^\infty e^{-x^2}(ix)^{2j}dx=\sum_{j=0}^{\lfloor(n-1)/2\rfloor}-\frac{2}{\pi z^{2j+1}}\int_{0}^\infty e^{-x^2}(ix)^{2j}dx.
+\end{align*}
+Now, we perform another change of variables $y=x^2$ to get
+\begin{align*}
+\phi(z)&\sim\sum_{j=0}^{\lfloor(n-1)/2\rfloor}-\frac{2}{\pi z^{2j+1}}\int_{0}^\infty e^{-y}(-1)^jy^j\frac{dy}{2y^{1/2}}=\sum_{j=0}^{\lfloor(n-1)/2\rfloor}-\frac{(-1)^j}{\pi z^{2j+1}}\int_{0}^\infty e^{-y}y^{j-1/2}dy\\&=
+\sum_{j=0}^{\lfloor(n-1)/2\rfloor}-\frac{(-1)^j}{\pi z^{2j+1}}\Gamma\left(j+\frac{1}{2}\right).
+\end{align*}
+Now, we use the identity $\Gamma(n+1)=n\Gamma(n)$ to produce the Pochhammer symbol as
+\begin{align*}
+\Gamma\left(j+\frac{1}{2}\right)&=\left(j-\frac{1}{2}\right)\Gamma\left(j-\frac{1}{2}\right)=\ldots=\left(j-\frac{1}{2}\right)\left(j-\frac{3}{2}\right)\cdots\frac{1}{2}\Gamma\left(\frac{1}{2}\right)\\&=
+\frac{1}{2}\left(\frac{1}{2}+1\right)\cdots\left(\frac{1}{2}+j-1\right)\Gamma\left(\frac{1}{2}\right)=\left(\frac{1}{2}\right)_j\Gamma\left(\frac{1}{2}\right)=\left(\frac{1}{2}\right)_j\sqrt{\pi}.
+\end{align*}
+Plugging this in,
+\[
+\phi(z)\sim\sum_{j=0}^{\lfloor(n-1)/2\rfloor}-\frac{(-1)^j}{\sqrt{\pi} z^{2j+1}}\left(\frac{1}{2}\right)_j.
+\]
+To consider the full asymptotic expansion, we simply let $n\to\infty$. Now, we have that $\mathrm{erfc}(z) = - e^{-z^2} \phi(z)$, so we can conclude that for $\Re z > 0$,
+\[
+\mathrm{erfc}(z)\sim\frac{e^{-z^2}}{\sqrt{\pi}}\sum_{j=0}^{\infty} \frac{(-1)^j}{z^{2j+1}}\left(\frac{1}{2}\right)_j
+\]
+which matches the expansion on DLMF. \\
+However, there is a technicality that we have brushed over in writing this expansion. In order for this to be valid, we need to ensure that the integral of the error term that we have neglected is actually of lower order than our sum. To see this, note that if $s\in i\real$ and $\Re z>0$, 
+\[
+|s-z|\geq|\Re s-\Re z|=|\Re z|=\frac{1}{\Re z}.
+\]
+Thus,
+\[
+\left|\frac{1}{s-z}\right|\leq \Re z.
+\]
+Then, the absolute value of the neglected term in $\phi$ is bounded by
+\begin{align*}
+&\left|\frac{1}{2\pi i} \int_{i \mathbb R} 2e^{s^2} \left(-\frac{s^n}{z^{n+1}} \frac{1}{1-\frac s z}\right)d s\right|\leq\frac{1}{\pi } \int_{i \mathbb R} |e^{s^2}| \left|\left(\frac{s}{z}\right)^n \frac{1}{s-z}\right|d s\\&\leq
+\frac{1}{\pi\Re z}\int_{i \mathbb R} |e^{s^2}| \left|\frac{s}{z}\right|^nds=\frac{1}{\pi\Re z|z|^n}\int_{i \mathbb R} |e^{s^2}||s|^nds=\oo(z^{-n}).
+\end{align*}
+provided that $\Re z\to\infty$ as the exponential term in the integrand decays BAO with respect to $s$. Note that this is indeed lower order since the last term of $\phi(z)$ is $\OO(z^{-n})$.
+
+\section{Problem 2}
+Let $\mathcal L$ be a bounded linear operator on a complete vector space $X$ and suppose that
+  \begin{align*}
+    \sum_{n=0}^\infty \| \mathcal L^n \| < \infty.
+  \end{align*}
+For any $f\in X$, we have that $\|\cL^nf\|\leq\|\cL^n\|\|f\|$ by the definition of an operator norm. Thus,
+\[
+\sum_{n=0}^\infty \| \mathcal L^n f\|\leq\sum_{n=0}^\infty \| \mathcal L^n\| \|f\|=\|f\|\sum_{n=0}^\infty \| \mathcal L^n\|<\infty
+\]
+if we assume that $\|f\|<\infty$ which must hold since $f\in X$. Thus, we can apply the proposition stated on the assignment to conclude that $\sum_{n=0}^\infty \mathcal L^n f\in X$. Let $u=\sum_{n=0}^\infty \mathcal L^n f$. Then, absolute convergence allows us to find that
+\begin{align*}
+u-\cL u&=\sum_{n=0}^\infty \mathcal L^n f-\cL\sum_{n=0}^\infty \mathcal L^n f=\sum_{n=0}^\infty(\cL^nf-\cL^{n+1}f)=\lim_{N\to\infty}\sum_{n=0}^N(\cL^nf-\cL^{n+1}f)\\&=
+\lim_{N\to\infty}\left((f-\cL f)+(\cL f-\cL^2f)+\ldots+(\cL^Nf-\cL^{N+1}f)\right)\\&=
+\lim_{N\to\infty}(f-\cL^{N+1}f)=f,
+\end{align*}
+because the convergence of $\sum_{n=0}^\infty \| \mathcal L^n f\|$ implies that 
+\[
+\lim_{N\to\infty}\|\cL^{N+1}f\|=0.
+\]
+To show that this $u$ is the unique solution of $u-\cL u=f$, consider some other $v\in X$ such that $v-\cL v=f$. Then, $u-\cL u=v-\cL v$, so $u-v=\cL(u-v)$. Let $w=u-v$. Then,
+\[
+w=\cL w=\cL^2 w=\ldots=\cL^n w
+\]
+for any $n\in \mathbb{N}$. Thus, 
+\[
+\|w\|\leq\|\cL^n\| \|w\|
+\]
+for any $n\in \mathbb{N}$, meaning we can take 
+\[
+\lim_{n\to\infty}\|w\|\leq\lim_{n\to\infty}\|\cL^n\| \|w\|=0,
+\]
+since $w\in X$ impliex that $\|w\|<\infty$ and 
+\[
+\lim_{n\to\infty}\|\cL^n\|=0
+\]
+must occur for $\sum_{n=0}^\infty \| \mathcal L^n \|$ to converge. Thus, since $w$ does not depend on $n$, we must have that $w=0$, meaning that $u=v$, and the solution that we have derived must be the only possible solution.
+
+\section{Problem 3}
+Consider the Volterra integral equation on $\mathbb R$:
+  \begin{align*}
+    u(x) - \int_{-\infty}^x K(x,y) V(y) u(y) d y = f(x),
+  \end{align*}
+  where $f$ is a bounded continuous function, $|K(x,y)| \leq C$ and $\int_{-\infty}^\infty|V(y)| d y < \infty$. Define an operator $\cL$ such that
+\[
+\cL f(x)=\int_{-\infty}^x K(x,y) V(y) u(y) d y.
+\]
+with $f\in X$ where $X$ is set of all bounded continuous functions on $\mathbb R$ with the norm $\|f\| = \sup_{x \in \mathbb R}|f(x)|$. It must hold that $\cL$ is a linear operator, because the linearity of integrals gives that $\mathcal L (cf + bg) = c\mathcal L f + b\mathcal L g$, $f,g \in X$, $c,b \in \mathbb C$. Now, note that an alternative way to define the operator norm is the infimum over all constants $C$ such that $\|\mathcal L f\| \leq C$ where $\|f\|=1$. This is due to the fact that the definining inequality is true for all $C$ when $f=0$, so we can write it as infimum over all constants $C$ such that $\frac{\|\mathcal L f\|}{\|f\|} \leq C$ with which we can normalize $f$ and cancel $\|f\|$. To show that $\cL$ is a bounded operator, we consider $u\in X$, assuming that $\|u\|=1$ and bound
+\begin{align*}
+|\cL u|\leq\int_{-\infty}^x|K(x,y)| |V(y)| |u(y)| d y\leq C\int_{-\infty}^x |V(y)|dy
+\end{align*}
+Define 
+\[
+\phi(x)=\int_{-\infty}^x |V(y)|dy. 
+\]
+Then, by our new definition of the operator norm, we must have that for any $u\in X$ with $\|u\|=1$
+\[
+\|\cL\|\leq\|cL u(x)\|\leq C\|\phi(x)\|<\infty,
+\]
+because the absolute integrability of $V$ gives that $\phi(x)<\infty$ for all $x$,
+meaning that $\cL$ is bounded. Now, consider 
+\[
+\cL^2u(x)=\int_{-\infty}^x K(x,s)V(s)\int_{-\infty}^s K(s,t)V(t)u(t)dtds,
+\]
+so 
+\begin{align*}
+|\cL^2u(x)|&\leq C^2\int_{-\infty}^x |V(s)|\int_{-\infty}^s|V(t)|dtds=C^2\int_{-\infty}^x|V(s)|\phi(s)ds\\&=C^2\int_{-\infty}^x\phi'(s)\phi(s)ds=C^2\frac{\phi^2(x)}{2}.
+\end{align*}
+Using this as a base case, we show inductively show that 
+\[
+|\cL^ku(x)|\leq C^k\frac{\phi^k(x)}{k!}
+\]
+for any $k\in\mathbb{N}$. Assuming this as an inductive hypothesis, 
+\begin{align*}
+|\cL^{k+1}u(x)|&=|\cL(\cL^ku(x))|\leq \int_{-\infty}^x |K(x,s)||V(s)|C^k\frac{\phi^k(s)}{k!}ds=C^{k+1}\int_{-\infty}^x|V(s)|\frac{\phi^k(s)}{k!}ds\\&=C^{k+1}\int_{-\infty}^x\phi'(s)\frac{\phi^k(s)}{k!}ds=C^{k+1}\frac{\phi^{k+1}(x)}{(k+1)!},
+\end{align*}
+so this relationship holds by induction. Thus, for any $n$, 
+\[
+\|\cL^n\|\leq\|cL^n u(x)\|\leq C^n\frac{\|\phi(x)\|^n}{n!}.
+\]
+This means that 
+\begin{align*}
+\sum_{n=0}^\infty \| \mathcal L^n \| \leq \sum_{n=0}^\infty C^n\frac{\|\phi(x)\|^n}{n!}=e^{C\|\phi(x)\|}<\infty.
+\end{align*}
+Thus, we can apply the result of problem 2 to conclude that there must exist a unique bounded continuous solution $u(x)$ such that 
+  \begin{align*}
+    u(x) - \int_{-\infty}^x K(x,y) V(y) u(y) d y = f(x).
+  \end{align*}
+We can apply this result to the problem 
+  \begin{align*}
+    \psi_{1,\pm}(x;k) - \int_{-\infty}^x \frac{\sin(k (x-y))}{k} V(y) \psi_{1,\pm}(y;k) d y = e^{\pm i k x}, \quad k \in \mathbb R \setminus \{0\}
+  \end{align*}
+with the same assumption on $V$ by noting that the function $f(x)=e^{\pm i k x}$ is bounded and continuous for $k,x\in\real$ as $|e^{\pm i k x}|=1<\infty$ and 
+\[
+\left|\frac{\sin(k (x-y))}{k}\right|\leq\frac{1}{|k|},
+\]
+so we take $C=\frac{1}{|k|}<\infty$. Thus, there exist unique bounded continuous functions $\psi_{1,\pm}(x;k)$ that satisfy this equation.  
+
+\section{Problem 4}
+Now, consider $\psi_{1,\pm}(x;0)$, i.e. we wish to show that a function which satisfies
+\begin{align*}
+    \psi_{1,\pm}(x;0) - \int_{-\infty}^x \frac{\sin(k (x-y))}{k} V(y) \psi_{1,\pm}(y;0) d y = 1
+  \end{align*}
+where $k\to0$. To do this, define an operator $\cL$ such that
+\begin{align*}
+\cL u(x)&=\int_{-\infty}^x \frac{\sin(k (x-y))}{k} V(y) u(y) d y=\int_{-\infty}^x \frac{\sin(k (x-y))}{k(x-y)}(x-y) V(y) u(y) d y\\&=
+\int_{-\infty}^x \sinc(k(x-y))(x-y) V(y) u(y) d y
+\end{align*}
+Now, we can plug in $k=0$ (noting that $\sinc$ is a bounded function regardless of if we do this) to get 
+\begin{align*}
+\cL u(x)=\int_{-\infty}^x (x-y) V(y) u(y) d y= x\int_{-\infty}^xV(y)u(y)-\int_{-\infty}^x y V(y) u(y) d y.
+\end{align*}
+Now, integrate by parts to get
+\begin{align*}
+\cL u(x)&=x\int_{-\infty}^xV(y)u(y)-\left[y\int_{-\infty}^{x'} V(y) u(y) d y\right]_{x'=-\infty}^{x'=x}+\int_{-\infty}^x V(y) u(y) d y\\&=x\int_{-\infty}^xV(y)u(y)dy-x\int_{-\infty}^xV(y)u(y)dy+\lim_{L\to-\infty}L\int_{-\infty}^LV(y)u(y)dy+\int_{-\infty}^x V(y) u(y) d y\\&=
+\int_{L}^x V(y) u(y) d y+\lim_{L\to-\infty}L\int_{-\infty}^LV(y)u(y)dy.
+\end{align*}
+We would like to have the necessary decay in order to conclude that 
+\[
+\cL u(x)=\int_{-\infty}^x V(y) u(y) d y.
+\]
+Doing this requires one additional assumption. Namely, we need that 
+\[
+\int_{-\infty}^y V(y)u(y)dy
+\]
+decays to zero faster that $\frac{1}{y}$ in order to dominate our $L$ term. Since we assume our solution is bounded, the additional assumption we impose is that
+\[
+\int_{-\infty}^y V(y)dy=\OO(1/y)
+\]
+as $y\to-\infty$. Thus, we are in fact looking for solutions to
+\begin{align*}
+    \psi_{1,\pm}(x;0) - \int_{-\infty}^x V(y) \psi_{1,\pm}(y;0) d y = 1,
+  \end{align*}
+meaning that with our additional assumption, we can simply apply the result of problem 3 directly by taking $K(x,y)=1$, $f(x)=1$ and assuming that $\int_{-\infty}^\infty|V(y)| d y < \infty$ to get that $\psi_{1,\pm}(x;0)$ exists and is continuous. 
+\end{document}

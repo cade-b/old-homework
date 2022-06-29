@@ -1,0 +1,204 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{listings}
+\usepackage{multimedia} % to embed movies in the PDF file
+\usepackage{graphicx}
+\usepackage{comment}
+\usepackage[english]{babel}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{subfigure}
+\usepackage{wrapfig}
+\usepackage{multirow}
+\usepackage{tikz}
+\usepackage{verbatim}
+\include{latex-defs}
+
+\title{AMATH 567 Homework 8}
+\author{Cade Ballew \#2120804}
+\date{November 24, 2021}
+
+\begin{document}
+
+\maketitle
+
+\section{Problem 1 (3.6.7)}
+Consider \[
+    \pi \cot(\pi z) - \left(\frac{1}{z} + \sump_{j = -\infty}^{\infty} \left(\frac{1}{z - j} + \frac{1}{j}\right)\right) = h(z).
+    \]
+
+\subsection{Part a}
+To see that $h(z)$ is periodic of period 1, we show that the LHS is periodic of period 1. Clearly, $\pi \cot(\pi (z+1))=\pi \cot(\pi z)$, because $\cot$ is $\pi$-periodic. Let $S(z)$ denote the term in parentheses. Then,
+\begin{align*}
+S(z+1)&=\frac{1}{z+1}+\sump_{j = -\infty}^{\infty} \left(\frac{1}{z+1 - j} + \frac{1}{j}\right)\\&=\frac{1}{z+1}+\left(\frac{1}{z}+1\right)+\sump_{\substack{j = -\infty,\\j\neq1}}^{\infty} \left(\frac{1}{z +1- j} + \frac{1}{j}\right)\\&=
+\frac{1}{z}+\left(\frac{1}{z+1}+1\right)+\sump_{\substack{j = -\infty,\\j\neq-1}}^{\infty} \left(\frac{1}{z - j} + \frac{1}{j+1}\right)
+\end{align*}
+Now, consider the series 
+\begin{align*}
+\sump_{\substack{j = -\infty,\\j\neq-1}}^{\infty} \left(\frac{1}{j} - \frac{1}{j+1}\right)&=\sum_{j=-\infty}^{-2}\left(\frac{1}{j} - \frac{1}{j+1}\right)+\sum_{j=1}^{\infty}\left(\frac{1}{j} - \frac{1}{j+1}\right)\\&=
+\lim_{N\to-\infty}\left(\frac{1}{N} - \frac{1}{-2+1}\right)+\lim_{N\to\infty}\left(\frac{1}{1} - \frac{1}{N+1}\right)\\&=
+1+1=2.
+\end{align*}
+Note that this is uniformly convergent as a function of $z$, because it is constant as a function of $z$. Now,
+\begin{align*}
+S(z+1)&=-2+\frac{1}{z}+\left(\frac{1}{z+1}+1\right)+\sump_{\substack{j = -\infty,\\j\neq-1}}^{\infty} \left(\frac{1}{z - j} + \frac{1}{j+1}\right)+\sump_{\substack{j = -\infty,\\j\neq-1}}^{\infty} \left(\frac{1}{j} - \frac{1}{j+1}\right)\\&=
+\frac{1}{z}+\left(\frac{1}{z-(-1)}-1\right)+\sump_{\substack{j = -\infty,\\j\neq-1}}^{\infty} \left(\frac{1}{z - j} + \frac{1}{j}\right)\\&=
+\frac{1}{z}+\sump_{j = -\infty}^{\infty} \left(\frac{1}{z - j} + \frac{1}{j}\right)=S(z)
+\end{align*}
+where we have combined the series because they are both uniformly convergent and reinserted the $j=-1$ term. Thus, the entire LHS is periodic of period 1, so it must hold that $h(z)$ is periodic of period 1. 
+
+\subsection{Part b}
+We first wish to show that as $y\to\pm\infty$, $\pi\cot(\pi z)$ is bounded for $x\in[0,1]$ where $z=x+iy$. To see this, use the definition of the complex cotangent which gives that
+\[
+\pi\cot(\pi z)=\pi i\frac{e^{i\pi z}+e^{-i\pi z}}{e^{i\pi z}-e^{-i\pi z}}=\pi i\frac{e^{i\pi x}e^{-\pi y}+e^{-i\pi x}e^{\pi y}}{e^{i\pi x}e^{-\pi y}-e^{-i\pi x}e^{\pi y}}.
+\]
+Now, by the triangle inequality
+\[
+|e^{i\pi x}e^{-\pi y}+e^{-i\pi x}e^{\pi y}|\leq|e^{i\pi x}e^{-\pi y}|+|e^{-i\pi x}e^{\pi y}|=e^{-\pi y}+e^{\pi y}=e^{-\pi |y|}+e^{\pi |y|}
+\]
+where the last step follows by symmetry. Similarly, the reverse triangle inequality gives that 
+\[
+|e^{i\pi x}e^{-\pi y}-e^{-i\pi x}e^{\pi y}|\geq\left||e^{i\pi x}e^{-\pi y}|-|e^{-i\pi x}e^{\pi y}|\right|=|e^{-\pi y}-e^{\pi y}|=e^{\pi |y|}-e^{-\pi |y|}
+\]
+where the last step follows from symmetry and the fact that $e^a\geq e^{-a}$ for $a\geq0$. Then, 
+\begin{align*}
+|\pi\cot(\pi z)|&=\left|\pi i\frac{e^{i\pi x}e^{-\pi y}+e^{-i\pi x}e^{\pi y}}{e^{i\pi x}e^{-\pi y}-e^{-i\pi x}e^{\pi y}}\right|\leq\pi\frac{e^{-\pi |y|}+e^{\pi |y|}}{e^{\pi |y|}-e^{-\pi |y|}}\\&=
+\pi\frac{e^{-\pi |y|}+e^{\pi |y|}}{e^{\pi |y|}-e^{-\pi |y|}}=\pi\frac{e^{-2\pi |y|}+1}{1-e^{-2\pi |y|}}
+\end{align*}
+As $y\to\pm\infty$, this tends to $\pi$, because $e^a\to0$ ad $a\to-\infty$. Thus, $\pi\cot{\pi z}$ is bounded as $y\to\pm\infty$.\\
+
+Now, if we define $S(z)$ as in part a, we can observe that 
+\begin{align*}
+S(z)&=\frac{1}{z}+\sum_{j=-\infty}^{-1}\left(\frac{1}{z - j} + \frac{1}{j}\right)+\sum_{j=1}^{\infty}\left(\frac{1}{z - j} + \frac{1}{j}\right)\\&=
+\frac{1}{z}+\sum_{j=\infty}^{1}\left(\frac{1}{z + j} + \frac{1}{-j}\right)+\sum_{j=1}^{\infty}\left(\frac{1}{z - j} + \frac{1}{j}\right)\\&=
+\frac{1}{z}+\sum_{j=1}^{\infty}\left(\frac{1}{z + j} - \frac{1}{j}\right)+\sum_{j=1}^{\infty}\left(\frac{1}{z - j} + \frac{1}{j}\right)=
+\frac{1}{z}+\sum_{n=1}^{\infty}\left(\frac{1}{z + n} + \frac{1}{z-n}\right)\\&=
+\frac{1}{z}+\sum_{n=1}^{\infty}\frac{2n}{z^2 - n^2}
+\end{align*}
+where we have negated the dummy variable in the first summation and are able to combine the series due to unifrom convergence. Then, the triangle inequality and the inequality $|z^2-n^2|\geq \frac{1}{\sqrt{2}}(y^2+n^2)$ where $z=x+iy$ and $x\in [0,1]$, $|y|\geq 2$ give that
+\begin{align*}
+|S(z)|&\leq \frac{1}{|z|} + \sum_{n=1}^\infty \frac{2|z|}{|z^2 - n^2|}\leq\frac{1}{|z|} + \sum_{n=1}^\infty \frac{2\sqrt2y}{|z^2 - n^2|}\leq\frac{1}{|z|} + y\sum_{n=1}^\infty \frac{2\sqrt2}{(y^2 + n^2)/\sqrt{2}}\\&=\frac{1}{|z|} + 4y\sum_{n=1}^\infty \frac{1}{y^2 + n^2}.
+\end{align*}
+Also, 
+\[
+y\sum_{n=1}^\infty \frac{1}{y^2 + n^2}=y\sum_{n=1}^\infty \frac{1}{y^2(1 + n^2/y^2)}=\frac{1}{y}\sum_{n=1}^\infty \frac{1}{1 + (n/y)^2}\leq\frac{1}{y}\int_0^\infty\frac{1}{1+(r/y)^2}dr
+\]
+where the last step follows from the integral test because our integrand is strictly decreasing and these are right Riemann sums. Thus, taking the $u$-substitution $u=r/y$,
+\[
+y\sum_{n=1}^\infty \frac{1}{y^2 + n^2}=\frac{1}{y}\int_0^\infty\frac{1}{1+u^2}ydu=\int_0^\infty\frac{1}{1+u^2}du=\left[\arctan u\right]_0^\infty=\pi/2.
+\]
+Thus, the reverse triangle inequality gives that
+\[
+|S(z)|\leq\frac{1}{|z^2|}+4\frac{\pi}{2}\leq\frac{1}{\left||x|-|y|\right|}+2\pi=\frac{1}{|y-x|}+2\pi
+\]
+for $y$ sufficiently large. Clearly, this tends to $2\pi$ as $y\to\infty$, so $S(z)$ is bounded for $0<x<1$ and $y\to\infty$. The same argument works for $y\to-\infty$, so we have that $S(z)$ is bounded for $0<x<1$.\\
+Now, note that from page 87 of the lecture notes we have that  $\pi\cot{\pi z}$ has simple poles at $z_j=j$ for $j\in\mathbb{Z}$ and these poles have residue 1. Thus, its only pole on the strip $0\leq\Re(z)<1$ is at $z=0$. However, this cancels with the $1/z$ term from $S(z)$ when we consider the entire LHS. Thus, $h(z)$ is bounded and analytic in this strip, and the periodicity we derived in part a gives that it is bounded and analytic everywhere. Therefore, Liouville's theorem gives that $h(z)$ must be constant.  \\
+Now, in search of extra credit, we prove the bound stated above.
+Letting $n\in\mathbb{N}$ and $z=x+iy$, 
+\begin{align*}
+|z^2-n^2|^2&=|(x+iy)^2-n^2|^2=|(x^2+2ixy-y^2)-n^2|^2=|(x^2-y^2-n^2)+i2xy|^2\\&=
+(x^2-y^2-n^2)^2+4x^2y^2=(x^2-y^2)^2-2n^2(x^2-y^2)+n^4+4x^2y^2\\&=
+(x^2+y^2)^2-2n^2(x^2-y^2)+n^4\geq y^4-2n^2x^2+2n^2y^2+n^4\\&=
+-2n^2x^2+(y^2+n^2)^2=-2n^2x^2+\frac{1}{2}(y^2+n^2)^2+\frac{1}{2}(y^2+n^2)^2.
+\end{align*}
+Now, we use the fact that $x\in[0,1]$ to get that $-2n^2x^2\geq-2n^2$ which gives
+\begin{align*}
+|z^2-n^2|^2&\geq-2n^2+\frac{1}{2}y^4+y^2n^2+\frac{1}{2}n^4+\frac{1}{2}(y^2+n^2)^2\\&=
+n^2(y^2-2)+\frac{1}{2}(y^4+n^4)+\frac{1}{2}(y^2+n^2)^2\\&\geq
+n^2(y^2-2)+\frac{1}{2}(y^2+n^2)^2\geq\frac{1}{2}(y^2+n^2)^2
+\end{align*}
+where the last line follows because $|y|\geq2$. Now, we simply take the square root of both sides to get that $|z^2-n^2|\geq\frac{1}{\sqrt{2}}(y^2+n^2)$, the desired inequality.  
+
+\subsection{Part c}
+Now, to see that both terms on the LHS are odd in $z$, note that cotangent is an odd function, so $\pi\cot(\pi z)$ is also odd. Additionally, 
+\[
+S(-z)=\frac{1}{-z}+\sum_{n=1}^\infty \frac{2(-z)}{(-z)^2 - n^2}=-\frac{1}{z}-\sum_{n=1}^\infty \frac{2z}{z^2 - n^2}=-S(z).
+\]
+Therefore the LHS is odd in $z$, meaning that $h(z)$ is odd. However, we know that $h(z)$ is constant, so we can write $h(z)=c$. Then, $h(z)=-h(-z)$, so $c=-c$, meaning that $c=0$ and $h(z)=0$.
+
+\section{Problem 2 (3.3.1)} 
+We know that 
+\[
+\frac{\sin \pi z}{\pi z}=\prod_{j=1}^\infty
+\left(1-\frac{z^2}{j^2}\right).
+\]
+\subsection{Part a}
+First, the Taylor series for sine gives that 
+\[
+\frac{\sin \pi z}{\pi z}=\frac{1}{\pi z}\left(\pi z-\frac{(\pi z)^3}{3!}+\frac{(\pi z)^5}{5!}-\ldots\right)=1-\frac{\pi^2}{3!}z^2+\frac{\pi^4}{5!}z^4-\dots
+\]
+meaning that the coefficient for the $z^2$ term on the RHS should be $-\frac{\pi^2}{3!}$. Looking at the partial product, we know that $\prod_{j=1}^N
+\left(1-\frac{z^2}{j^2}\right)$ has $z^2$ term $\sum_{j=1}^N-\frac{1}{j^2}$. Since the infinite product is just the limit of the partial product as $N\to\infty$, we get that the infinite product has $z^2$ coefficients 
+\[
+\lim_{N\to\infty}\sum_{j=1}^N-\frac{1}{j^2}=-\sum_{j=1}^\infty\frac{1}{j^2}.
+\]
+Equating these coefficients and dividing by $-1$, we get that 
+\[
+\sum_{j=1}^\infty\frac{1}{j^2}=\frac{\pi^2}{3!}=\frac{\pi^2}{6}.
+\]
+\subsection{Part b}
+Now, we note that the LHS has $z^4$ coefficient $\frac{\pi^4}{5!}$. If we again consider the RHS as a partial product from $j=1$ to $N$, we get that the $z^4$ coefficient is $\sum_{j\neq k}\frac{1}{j^2k^2}$ where $j$ and $k$ are taken from 1 to $N$. By the same argument as in part a when we take the limit as $N\to\infty$, we get that the $z^4$ coefficient is the same sum but with $j$ and $k$ taken from 1 to infinity. Manipulating this using our result from part a, 
+\begin{align*}
+\sum_{j\neq k}\frac{1}{j^2k^2}&=\frac{1}{2}\sum_{j=1}^{\infty}\sum_{\substack{k = 1,\\k\neq j}}^\infty\frac{1}{j^2k^2}=\frac{1}{2}\sum_{j=1}^{\infty}\left(\sum_{k=1}^\infty\frac{1}{j^2k^2}-\frac{1}{j^4}\right)=\frac{1}{2}\sum_{j=1}^{\infty}\frac{1}{j^2}\left(\sum_{k=1}^\infty\frac{1}{k^2}-\frac{1}{j^2}\right)\\&=
+\frac{1}{2}\sum_{j=1}^{\infty}\frac{1}{j^2}\left(\frac{\pi^2}{6}-\frac{1}{j^2}\right)=\frac{1}{2}\frac{\pi^2}{6}\sum_{j=1}^{\infty}\frac{1}{j^2}-\frac{1}{2}\sum_{j=1}^{\infty}\frac{1}{j^4}=\frac{\pi^4}{72}-\frac{1}{2}\sum_{j=1}^{\infty}\frac{1}{j^4}
+\end{align*}
+where we have split the sums because these are p-series which are absolutely convergent. Thus,
+\[
+\sum_{j=1}^{\infty}\frac{1}{j^4}=2\left(\frac{\pi^4}{72}-\frac{\pi^4}{5!}\right)=2\left(\frac{\pi^2}{72}-\frac{\pi^4}{120}\right)=\frac{\pi^4}{90}.
+\]
+
+\section{Problem 3 (4.1.2)}
+\subsection{Part a}
+Let \[
+f(z)=\frac{z^2 + 1}{z^2 - a^2}
+\]
+where $a^2 < 1$.
+\subsubsection{Part i}
+Assuming $a\neq0$, the residue theorem gives that 
+\[
+\frac{1}{2\pi i}\oint_Cf(z)dz=\Res_{z=-a}\frac{z^2+1}{(z-a)(z+a)}+\Res_{z=a}\frac{z^2+1}{(z-a)(z+a)}=\frac{a^2+1}{-2a}+\frac{a^2+1}{2a}=0.
+\]
+In the case where $a=0$, 
+\[
+\frac{1}{2\pi i}\oint_Cf(z)dz=\Res_{z=0}\frac{z^2+1}{z^2}=\Res_{z=0}\left(1+\frac{1}{z^2}\right)=0,
+\]
+the same solution. 
+\subsubsection{Part ii}
+Enclosing the singular points outside $C$, the residue theorem gives that 
+\[
+\frac{1}{2\pi i}\oint_Cf(z)dz=\Res_{z=\infty}f(z)=\Res_{t=0}\frac{1}{t^2}\frac{1/t^2+1}{1/t^2-a^2}=0.
+\]
+This is because the function that we are taking the residue of is even as a function of $t$, meaning that its Laurent series cannot have coefficients of 0 for all its odd terms because this would require that $c_j=-c_j$ for all odd $j\in\mathbb{Z}$. Thus, $c_{-1}=0$. \\
+Clearly, we have obtained the same result with both methods.
+
+\subsection{Part b}
+Let \[
+f(z)=\frac{z^2 + 1}{z^3}.
+\]
+\subsubsection{Part i}
+By the residue theorem, 
+\[
+\frac{1}{2\pi i}\oint_Cf(z)dz=\Res_{z=0}\frac{z^2+1}{z^3}=\Res_{z=0}\left(\frac{1}{z^3}+\frac{1}{z}\right)=1.
+\]
+\subsubsection{Part ii}
+Enclosing the singular points outside $C$, the residue theorem gives that 
+\[
+\frac{1}{2\pi i}\oint_Cf(z)dz=\Res_{z=\infty}f(z)=\Res_{t=0}\frac{1/t^2+1}{1/t^3}\frac{1}{t^2}=\Res_{t=0}\frac{1/t^2+1}{1/t}=\Res_{t=0}\left(\frac{1}{t}+t\right)=1.
+\]
+Clearly, we have obtained the same result with both methods.
+
+\subsection{Part c}
+Let $f(z)=z^2 e^{-1/z}$.
+\subsubsection{Part i}
+By the residue theorem, 
+\[
+\frac{1}{2\pi i}\oint_Cf(z)dz=\Res_{z=0}z^2 e^{-1/z}=\Res_{z=0}z^2\sum_{j=0}^\infty\frac{(-1/z)^j}{j!}=\Res_{z=0}\sum_{j=0}^\infty\frac{(-1)^j}{j!}z^{2-j}=-\frac{1}{6}.
+\]
+\subsubsection{Part ii}
+Enclosing the singular points outside $C$, the residue theorem gives that 
+\begin{align*}
+\frac{1}{2\pi i}\oint_Cf(z)dz&=\Res_{z=\infty}f(z)=\Res_{z=0}\frac{1}{t^2}\frac{1}{t^2}e^{-t}=\Res_{z=0}\frac{1}{t^4}\sum_{j=0}^\infty\frac{(-t)^j}{j!}\\&=
+\Res_{z=0}\sum_{j=0}^\infty\frac{(-1)^j}{j!}t^{j-4}=-\frac{1}{6}.
+\end{align*}
+Clearly, we have obtained the same result with both methods.
+\end{document}

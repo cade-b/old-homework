@@ -1,0 +1,223 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{hyperref}
+\usepackage{listings}
+\usepackage{multimedia} % to embed movies in the PDF file
+\usepackage{graphicx}
+\usepackage{comment}
+\usepackage[english]{babel}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{wrapfig}
+\usepackage{multirow}
+\usepackage{verbatim}
+\usepackage{float}
+\usepackage{cancel}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{mathdots}
+\usepackage[margin=1.25 in]{geometry}
+\usepackage{/home/cade/Homework/latex-defs}
+
+
+\title{AMATH 569 Homework 6}
+\author{Cade Ballew \#2120804}
+\date{June 1, 2022}
+
+\begin{document}
+	
+\maketitle
+	
+\section{Problem 1}
+\subsection{Part a}
+Consider the $1$-dimensional heat equation for conduction in a copper rod:
+\begin{equation*}
+	\begin{split}
+		&\frac{\partial}{\partial t} u = \alpha^2 \frac{\partial^2}{\partial x^2} u, \ 0<x<L, \ t>0\\
+		&u(x,t) = 0 \quad \text{at} \ x=0 \ \text{and}\ x=L\\
+		&u(x,0) = f(x), \ 0<x<L.
+	\end{split}
+\end{equation*}
+To solve this using separation of variables, we let 
+\[
+u(x,t)=\phi(x)T(t).
+\]
+Then,
+\[
+\frac{T'(t)}{\alpha^2T(t)}=\frac{\phi''(x)}{\phi(x)}=-\lambda^2
+\]
+where $-\lambda^2$ must be constant as the first function depends only on $t$ while the second depends only on $x$. Then,
+\[
+T(t)=T(0)e^{-\alpha^2\lambda^2t}
+\]
+and 
+\[
+\phi''(x)=-\lambda^2\phi(x)
+\]
+with 
+\[
+\phi(0)=\phi(L)=0.
+\]
+The eigenfunctions are then given by
+\[
+\phi(x)=\phi_n(x)=\sin\left(\frac{n\pi x}{L}\right)
+\]
+with associated eigenvalues
+\[
+\lambda=\lambda_n=\frac{n\pi}{L}
+\]
+for $n=1,2,\ldots$. Then, 
+\[
+u(x,t)=\sum_{n=1}^{\infty}T_n(0)e^{-\alpha^2\left(\frac{n\pi}{L}\right)^2t}\sin\left(\frac{n\pi x}{L}\right)=\sum_{n=1}^{\infty}f_ne^{-n^2t/t_e}\sin\left(\frac{n\pi x}{L}\right)
+\]
+where $t_e=(L/\pi\alpha)^2$ and $f$ has sine series
+\[
+f(x)=\sum_{n=1}^{\infty}f_n\sin\left(\frac{n\pi x}{L}\right).
+\]
+
+\subsection{Part b}
+For $t>t_e$, the exponential term in our series will be maximized when $n$ is minimized. Since the sine term oscillates, the exponential alone will determine the dominant contribution, so the dominant mode is at $n=1$\footnote{Note that the other modes will decay much faster than the first.}. Thus,
+\[
+u(x,t)\approx f_1e^{-t/t_e}\sin\left(\frac{\pi x}{L}\right).
+\]
+%answer kk's weird question
+This implies that as time progresses, an initial condition which may not look like a sine wave but has a sine series looks like the first term of its sine series scaled by some time-dependent term. This term has the largest wavelength and fits between the boundaries. 
+
+\section{Problem 2}
+Consider sound waves in a box satisfying 
+\begin{equation*}
+	\begin{cases}
+		\text{PDE:}\ \frac{\partial^2}{\partial t^2}u - c^2 \nabla^2 u = 0 \ \text{in } V\\
+		\text{BC:}\ u = 0 \ \text{on} \ \partial V.
+	\end{cases}
+\end{equation*}
+Using separation of variables, 
+\[
+u(\vec x,t)=T(t)\phi(\vec x)
+\]
+which yields that 
+\[
+\frac{T''(t)}{c^2T(t)}=\frac{\nabla^2\phi(\vec x)}{\phi(\vec x)}=-\lambda^2
+\]
+where $-\lambda^2$ must be constant as the first function depends only on $t$ while the second depends only on $x$. Regardless of our domain $V$, this gives that
+\[
+T(t)=A\sin(c\lambda t)+B\cos(c\lambda t).
+\]
+
+\subsection{Part a}
+Let $V$ be a one-dimensional box given by $0<x<L$. Then, 
+\[
+\phi''(x)=-\lambda^2\phi(x)
+\]
+with $\phi(0)=\phi(L)=0$. The eigenfunctions are then given by
+\[
+\phi(x)=\phi_n(x)=\sin\left(\frac{n\pi x}{L}\right)
+\]
+with associated eigenvalues
+\[
+\lambda=\lambda_n=\frac{n\pi}{L}
+\]
+for $n=1,2,\ldots$. Then,
+\[
+u(x,t)=\sum_{n=1}^\infty\left(A_n\sin\left(\frac{cn\pi t}{L}\right)+B_n\cos\left(\frac{cn\pi t}{L}\right)\right)\sin\left(\frac{n\pi x}{L}\right).
+\]
+The quantized frequency of oscillation $\omega$ is then given by 
+\[
+\omega_n=c\lambda_n=\frac{cn\pi}{L}
+\]
+for $n=1,2,\ldots$. 
+
+\subsection{Part b}
+Now, let $V$ be a two-dimensional box given by $0<x<L$, $0<y<L$. Then, 
+\[
+\nabla^2\phi(\vec x)=-\lambda^2\phi(\vec x)
+\]
+with $\phi=0$ at $x=0$, $x=L$, $y=0$, $y=L$. The eigenfunctions are then given by
+\[
+\phi(\vec x)=\phi_{nm}(\vec x)=\sin\left(\frac{n\pi x}{L}\right)\sin\left(\frac{m\pi y}{L}\right)
+\]
+with associated eigenvalues
+\[
+\lambda=\lambda_{nm}=\frac{\pi\sqrt{n^2+m^2}}{L}.
+\]
+for $n,m=1,2,\ldots$.
+Then,
+\[
+u(\vec x,t)=\sum_{n,m=1}^\infty\left(A_{nm}\sin\left(\frac{c\pi\sqrt{n^2+m^2}t}{L}\right)+B_{nm}\cos\left(\frac{c\pi\sqrt{n^2+m^2}t}{L}\right)\right)\sin\left(\frac{n\pi x}{L}\right)\sin\left(\frac{m\pi y}{L}\right).
+\]
+The quantized frequency of oscillation $\omega$ is then given by 
+\[
+\omega_{nm}=c\lambda_{nm}=\frac{c\pi\sqrt{n^2+m^2}}{L}
+\]
+for $n,m=1,2,\ldots$. 
+
+\subsection{Part c}
+Now, let $V$ be a two-dimensional box given by $0<x<L$, $0<y<L$, $0<z<L$. Then, 
+\[
+\nabla^2\phi(\vec x)=-\lambda^2\phi(\vec x)
+\]
+with $\phi=0$ at $x=0$, $x=L$, $y=0$, $y=L$, $z=0$, $z=L$. The eigenfunctions are then given by
+\[
+\phi(\vec x)=\phi_{nm\ell}(\vec x)=\sin\left(\frac{n\pi x}{L}\right)\sin\left(\frac{m\pi y}{L}\right)\sin\left(\frac{\ell\pi z}{L}\right)
+\]
+with associated eigenvalues
+\[
+\lambda=\lambda_{nm\ell}=\frac{\pi\sqrt{n^2+m^2+\ell^2}}{L}.
+\]
+for $n,m,\ell=1,2,\ldots$.
+Then,
+\[
+u(\vec x,t)=\sum_{\substack{n=1,\\m=1,\\\ell=1}}^\infty\left(A_{nm\ell}\sin\left(\frac{c\pi\sqrt{n^2+m^2+\ell^2}t}{L}\right)+B_{nm\ell}\cos\left(\frac{c\pi\sqrt{n^2+m^2+\ell^2}t}{L}\right)\right)\sin\left(\frac{n\pi x}{L}\right)\sin\left(\frac{m\pi y}{L}\right)\sin\left(\frac{\ell\pi z}{L}\right).
+\]
+The quantized frequency of oscillation $\omega$ is then given by 
+\[
+\omega_{nm\ell}=c\lambda_{nm\ell}=\frac{c\pi\sqrt{n^2+m^2+\ell^2}}{L}
+\]
+for $n,m,\ell=1,2,\ldots$. 
+
+\section{Problem 3}
+Consider the Bessel equation as an eigenvalue problem
+\[
+(ry')'+\left(\lambda r-\frac{m^2}{r}\right)y=0
+\]
+for $0<r<a$ and y bounded at $r=0$ with $y(a)=0$. From page 170 of KK's 403 textbook, the eigenfunctions are given by 
+\[
+y(r)=\phi_j(r)=J_m(z_{mj}r/a)
+\]
+with associated eigenvalues 
+\[
+\lambda_j=(z_{mj}/a)^2
+\]
+for $n=1,2,\ldots$ and $z_{mj}$ is the $j$th root of $J_m(z)$. Now, consider eigenpairs $(\phi_k,\lambda_k)$ and $(\phi_j,\lambda_j)$. Multiplying the first associated eigenvalue problem by $\phi_j$ and the second by $\phi_k$, we have 
+\begin{align*}
+\phi_j(r\phi_k')'+\phi_j\left(\lambda_k r-\frac{m^2}{r}\right)\phi_k=0,\\
+\phi_k(r\phi_j')'+\phi_k\left(\lambda_j r-\frac{m^2}{r}\right)\phi_j=0.
+\end{align*}
+Subtracting, 
+\[
+\phi_j(r\phi_k')'-\phi_k(r\phi_j')'=(\lambda_j-\lambda_k)r\phi_k\phi_j.
+\]
+Now, note that 
+\[
+\text{LHS}=(\phi_j(r\phi_k')-\phi_k(r\phi_j'))',
+\]
+so we can integrate both sides to get that
+\[
+\left[\phi_j(r)(r\phi_k'(r))-\phi_k(r)(r\phi_j'(r))\right]_0^a=(\lambda_j-\lambda_k)\int_{0}^{a}r\phi_k(r)\phi_j(r)dr.
+\]
+Due to the boundary conditions on the eigenfunctions, we must have that $\text{LHS}=0$. Plugging in the known eigenpairs,
+\begin{align*}
+0&=\left(\frac{z_{mj}^2}{a^2}-\frac{z_{mk}^2}{a^2}\right)\int_{0}^aJ_m(z_{mj}r/a)J_m(z_{mk}r/a)rdr\\&=
+(z_{mj}^2-z_{mk}^2)\frac{1}{a^2}\int_{0}^aJ_m(z_{mj}r/a)J_m(z_{mk}r/a)rdr.
+\end{align*}
+Letting 
+\[
+I_{jk}=\frac{1}{a^2}\int_{0}^aJ_m(z_{mj}r/a)J_m(z_{mk}r/a)rdr,
+\]
+if $j\neq k$, then $z^2_{mj}\neq z^2_{mk}$, so it must hold that $I_{jk}=0$. If $j=k$, then
+\[
+I_{jk}=\frac{1}{a^2}\int_{0}^aJ_m(z_{mj}r/a)^2rdr.
+\]
+However, this is just some positive constant due to the squared term and the boundedness condition that the eignefunctions must satisfy. 
+
+\end{document}

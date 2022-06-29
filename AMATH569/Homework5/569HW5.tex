@@ -1,0 +1,351 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{hyperref}
+\usepackage{listings}
+\usepackage{multimedia} % to embed movies in the PDF file
+\usepackage{graphicx}
+\usepackage{comment}
+\usepackage[english]{babel}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{wrapfig}
+\usepackage{multirow}
+\usepackage{verbatim}
+\usepackage{float}
+\usepackage{cancel}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{/home/cade/Homework/latex-defs}
+
+
+\title{AMATH 569 Homework 5}
+\author{Cade Ballew \#2120804}
+\date{May 18, 2022}
+
+\begin{document}
+	
+\maketitle
+	
+\section{Problem 1}
+Consider the Green's function for the wave equation in two-dimensions governed by 
+\begin{equation*}
+	\begin{split}
+		&\frac{\partial^2}{\partial t^2}G - \big(\frac{\partial^2}{\partial x^2}+\frac{\partial^2}{\partial y^2}\big)G = \delta(t)\delta(x)\delta(y)\\
+		&G \to 0 \ \text{as} \ r \to \infty, \ \text{where} \ r^2 = x^2+y^2\\
+		&G = 0 \ \text{for}\  t<0.\\
+	\end{split}
+\end{equation*}
+
+\subsection{Part a}
+Let $\mathcal{F}$ denote the two-dimensional Fourier transform in $x$ and $y$. Letting $\mathcal{F}[G]=\iota$ and applying this to our PDE, 
+\begin{align*}
+\mathcal{F}[G_{tt}]=\int_{-\infty}^{\infty}\int_{-\infty}^{\infty}\frac{\partial^2}{\partial t^2}Ge^{i\omega_1x+i\omega_2y}dxdy=\frac{\partial^2}{\partial t^2}\int_{-\infty}^{\infty}\int_{-\infty}^{\infty}Ge^{i\omega_1x+i\omega_2y}dxdy=\iota_{tt}.
+\end{align*}
+We also can find that 
+\begin{align*}
+\int_{-\infty}^{\infty}G_{xx}e^{i\omega_1x+i\omega_2y}dx&=e^{i\omega_2y}\left(\left[G_xe^{i\omega_1x}\right]_{-\infty}^\infty-i\omega_1\int_{-\infty}^{\infty}G_xe^{i\omega_1x}dx\right)\\&=
+e^{i\omega_2y}\left(\left[G_xe^{i\omega_1x}\right]_{-\infty}^\infty-i\omega_1\left[G_xe^{i\omega_1x}\right]-\omega_1^2\int_{-\infty}^{\infty}Ge^{i\omega_1x}dx\right)\\&=
+-\omega_1^2\int_{-\infty}^{\infty}Ge^{i\omega_1x+i\omega_2y}dx
+\end{align*}
+if we assume that $G_x\to0$ as $x\to\pm\infty$. We can also interchange variable names to get that
+\[
+\int_{-\infty}^{\infty}G_{yy}e^{i\omega_1x+i\omega_2y}dy=-\omega_2^2\int_{-\infty}^{\infty}Ge^{i\omega_1x+i\omega_2y}dy
+\]
+if we assume that $G_y\to0$ as $x\to\pm\infty$. Then,
+\begin{align*}
+\mathcal{F}[u_{xx}+u_{yy}]=-(\omega_1^2+\omega_2^2)\int_{-\infty}^{\infty}\int_{-\infty}^{\infty}Ge^{i\omega_1x+i\omega_2y}dxdy=-k^2\iota
+\end{align*}
+if we let $k=\sqrt{\omega_1^2+\omega_2^2}$. Finally, 
+\begin{align*}
+\mathcal{F}[\delta(t)\delta(x)\delta(y)]=\delta(t)\int_{-\infty}^{\infty}\int_{-\infty}^{\infty}\delta(x)\delta(y)e^{i\omega_1x+i\omega_2y}dxdy=\delta(t).
+\end{align*}
+Thus, our system becomes
+\begin{equation*}
+	\begin{split}
+		&\frac{\partial^2}{\partial t^2}\iota +k^2\iota = \delta(t)\\
+		&\iota \to 0 \ \text{as} \ k \to \infty, \ \text{where} \ k^2 = \omega_1^2+\omega_2^2\\
+		&\iota = 0 \ \text{for}\  t<0.\\
+	\end{split}
+\end{equation*}
+Using the properties of the delta function, we can instead solve the PDE
+\[
+\frac{\partial^2}{\partial t^2}\iota +k^2\iota=0
+\] 
+if we enforce that $\iota=0$ at $t=0$ for continuity and integrate across the equation to get that as $\epsilon\to0^+$, 
+\begin{align*}
+\int_{0}^{\epsilon}\left(\frac{\partial^2}{\partial t^2}\iota +k^2\iota\right)dt=\iota_t\Big|_{t=\epsilon}=1=\int_{0}^{\epsilon}\delta(t)dt,
+\end{align*}
+meaning that we need $\iota_t=1$ for $t=0$. Plugging these in, our equation has general solution 
+\[
+\iota(k,t)=c_1\sin(kt)+c_2\cos(kt)
+\]
+which becomes 
+\[
+\iota(k,t)=\frac{1}{k}\sin(kt)
+\]
+after plugging in our initial conditions. Note that this satisfies the boundary condition. To find $G$, we use the 2-D inverse Fourier transform to get
+\begin{align*}
+G&=\frac{1}{(2\pi)^2}\int_{-\infty}^{\infty}\int_{-\infty}^{\infty}\frac{1}{k}\sin(kt)e^{-i(\omega_1x+\omega_2y)}d\omega_1d\omega_2%\\&=
+%\frac{1}{2\pi}\int_{-\infty}^{\infty}\frac{1}{2\pi}\int_{-\infty}^{\infty}\frac{1}{k}\sin(kt)e^{-i(\omega\cdot z)}d\omega_1d\omega_2\\&=
+%\frac{1}{2\pi}\int_{-\infty}^{\infty}\frac{1}{2\pi}\int_{-\infty}^{\infty}\frac{1}{k}\sin(kt)e^{-i|\omega||z|\cos(\theta+\phi)}d\omega_1d\omega_2
+\end{align*}
+%where $\omega=(\omega_1,\omega_2)$, $z=(x,y)$, and 
+Converting this to polar form,
+\begin{align*}
+G&=\frac{1}{2\pi}\int_{-\infty}^{\infty}\frac{1}{2\pi}\int_{-\pi-\phi}^{\pi-\phi}\frac{1}{k}\sin(kt)e^{-i(kx\cos\theta +ky\sin\theta )}kd\theta dk.
+\end{align*}
+where $\phi=\arctan(x/y)$. Using the trig identity found \href{https://en.wikibooks.org/wiki/Trigonometry/Simplifying_a_sin(x)_2B_b_cos(x)}{here}, we can rewrite this as
+\begin{align*}
+	G&=\frac{1}{2\pi}\int_{-\infty}^{\infty}\sin(kt)\frac{1}{2\pi}\int_{-\pi-\phi}^{\pi-\phi}e^{ikr\sin(\theta+\phi)}d\theta dk.
+\end{align*}
+Now, we perform the change of variables $\theta\to-(\theta+\phi)$ to get
+\begin{align*}
+	G&=\frac{1}{2\pi}\int_{-\infty}^{\infty}\sin(kt)\frac{1}{2\pi}\int_{\pi}^{-\pi}e^{ikr\sin(-\theta)}d(-\theta)dk\\&=
+	\frac{1}{2\pi}\int_{-\infty}^{\infty}\sin(kt)\frac{1}{2\pi}\int_{-\pi}^{\pi}e^{-ikr\sin\theta}d\theta dk.
+\end{align*}
+Looking up \href{https://i.imgur.com/mAzqFY8.jpg}{books} on Bessel functions, we find that 
+\[
+G = \frac{1}{2\pi}\int_{-\infty}^{\infty}\sin(kt)J_0(kr)dk.
+\]
+Consulting an integral table, we can then conclude that
+\[
+G = \frac{1}{2\pi}\frac{H(t-r)}{\sqrt{t^2-r^2}}.
+\]
+Since the derivative of a Heaviside function is a delta function, we can easily see that the additional assumptions that we imposed are satisfied by this function.  
+
+\subsection{Part b}
+Now, we let $\mathcal{L}$ denote the Laplace transform in $t$ and let $\tilde{G}$ the Laplace transform of $G$ so that we may transform the PDE. 
+\begin{align*}
+\mathcal{L}[G_{tt}]&=\int_{0}^{\infty}G_{tt}e^{st}dt=\left[G_te^{st}\right]_0^\infty-s\int_{0}^{\infty}G_te^{st}dt\\&=
+\left[G_te^{st}\right]_0^\infty-s\left[Ge^{st}\right]_0^\infty+s^2\int_{0}^{\infty}Ge^{st}dt=s^2\tilde{G}
+\end{align*}
+if we assume that $G,G_t=0$ for $t=0$, $t\to\infty$. We also see that
+\begin{align*}
+\mathcal{L}[\nabla^2 G]=\int_{0}^{\infty}\nabla^2G e^{st}dt=\nabla^2\int_{0}^{\infty}G e^{st}dt=\nabla^2\tilde{G}
+\end{align*}
+and
+\begin{align*}
+\mathcal{L}[\delta(t)\delta(x)\delta(y)]=\int_{0}^{\infty}\delta(t)\delta(x)\delta(y) e^{st}dt=\delta(x)\delta(y)\int_{0}^{\infty}\delta(t)e^{st}dt=\delta(x)\delta(y).
+\end{align*}
+Thus, our system becomes
+\begin{equation*}
+	\begin{split}
+		&s^2\tilde{G} - \big(\frac{\partial^2}{\partial x^2}+\frac{\partial^2}{\partial y^2}\big)\tilde{G} = \delta(x)\delta(y)\\
+		&\tilde G \to 0 \ \text{as} \ r \to \infty, \ \text{where} \ r^2 = x^2+y^2\\
+		&\tilde G = 0 \ \text{for}\  t<0.\\
+	\end{split}
+\end{equation*}
+Now, we use the fact that the Laplace operator is rotationally invariant (meaning that $\tilde{G}$ is as well) to rewrite our system in polar coordinates. Note\footnote{We showed this in class.}  that the RHS in polar coordinates is given by
+\[
+\frac{1}{\pi r}\delta(r)
+\]
+and the Laplacian is given by
+\[
+\frac{\partial^2}{\partial r^2}+\frac{1}{r}\frac{\partial}{\partial r}+\cancel{\frac{1}{r^2}\frac{\partial^2}{\partial \theta^2}}.
+\]
+Thus, our system becomes
+\begin{equation*}
+	\begin{split}
+		&s^2\tilde{G} - \frac{\partial^2}{\partial r^2}\tilde{G}-\frac{1}{r}\frac{\partial}{\partial r}\tilde{G}\ = \frac{1}{\pi r}\delta(r)\\
+		&\tilde G \to 0 \ \text{as} \ r \to \infty, \ \text{where} \ r^2 = x^2+y^2\\
+		&\tilde G = 0 \ \text{for}\  t<0.\\
+	\end{split}
+\end{equation*}
+Multiplying through by $r$, our RHS is zero when $r>0$, so we can consider the ODE
+\[
+r\tilde{G}''(r)+\tilde{G}'(r)-s^2r\tilde{G}(r)=0.
+\]
+Now, define the function $g(r)=\tilde{G}(r/s)$, so $g'(r)=\frac{1}{s}\tilde{G}'(r/s)$ and $g''(r)=\frac{1}{s^2}\tilde{G}''(r/s)$, so we have new ODE
+\[
+\frac{r}{s}s^2g''(r)+sg'(r)-s^2\frac{r}{s}g(r)=0
+\]
+which becomes
+\[
+rg''(r)+g'(r)-rg(r)=0
+\]
+after dividing through by $s$. This is a form of the modified Bessel equation which has general solution
+\[
+g(r)=c_1I_0(r)+c_2Y_0(r),
+\]
+so we have general solution
+\[
+\tilde{G}(r)=c_1I_0(sr)+c_2Y_0(sr).
+\]
+To find the boundary conditions that we need to impose, we need to integrate both sides of the system 
+\[
+\frac{\partial^2}{\partial r^2}\tilde{G}+\frac{1}{r}\frac{\partial}{\partial r}\tilde{G}-s^2\tilde{G}\ = -\frac{1}{\pi r}\delta(r).
+\]
+Namely, take $\epsilon>0$ small and set
+\begin{align*}
+\int_0^{2\pi}\int_0^\epsilon\left(\frac{\partial^2}{\partial r^2}\tilde{G}+\frac{1}{r}\frac{\partial}{\partial r}\tilde{G}-s^2\tilde{G}\right)rdrd\theta=-\int_0^{2\pi}\int_0^\epsilon\frac{1}{\pi r}\delta(r)rdrd\theta.
+\end{align*}
+Note that the RHS is $-1$ by construction. The LHS becomes
+\begin{align*}
+\int_0^{2\pi}\int_0^\epsilon\frac{\partial}{\partial r}\left(r\frac{\partial}{\partial r}\tilde{G}\right)drd\theta-s^2\int_0^{2\pi}\int_0^\epsilon r\tilde{G}drd\theta.
+\end{align*}
+As $\epsilon\to0$, the second term vanishes due to continuity of $G$. The remaining term can be written as 
+\begin{align*}
+\int_0^{2\pi}\int_0^\epsilon\frac{\partial}{\partial r}\left(r\frac{\partial}{\partial r}\tilde{G}\right)drd\theta=2\pi\left[r\tilde{G}'\right]_0^\epsilon=2\pi \epsilon\tilde{G}'(\epsilon).
+\end{align*}
+Thus, as $\epsilon\to0$, we need that 
+\[
+\epsilon\tilde{G}'(\epsilon)=-\frac{1}{2\pi}.
+\]
+Consulting DLMF for properties of the modified Bessel functions, we need that $c_1=0$ since we need that $\tilde{G}\to0$ as $r\to\infty$ and $I_0\to\infty$ as $r\to\infty$. Thus,
+\[
+\tilde{G}(r)=c_2K_0(sr).
+\]
+Then,
+\[
+\tilde{G}'(r)=-c_2sK_1(sr).
+\]
+As $\epsilon\to0^+$, 
+\[
+K_1(s\epsilon)\sim\half\Gamma(1)(\half s\epsilon)^{-1}=(s\epsilon)^{-1}.
+\]
+Thus, as $\epsilon\to0^+$, 
+\[
+\tilde{G}'(\epsilon)\sim-c_2,
+\]
+so our matching condition is met by taking $c_2=\frac{1}{2\pi}$. Thus,
+\[
+\tilde{G}=\frac{1}{2\pi}K_0(sr).
+\]
+Finally, we consult a Laplace transform table to conclude that 
+\[
+G = \frac{1}{2\pi}\frac{H(t-r)}{\sqrt{t^2-r^2}}.
+\]
+From this, it is easy to see that the assumptions we posed, namely that $G,G_t=0$ for $t=0$, $t\to\infty$ indeed hold.
+
+
+\section{Problem 2}
+\subsection{Part a}
+Consider the ODE 
+\[
+\frac{d^2 }{dx^2}u+\left(k_0^2+\frac{i\epsilon k_0}{c}\right)u=-\frac{\delta(x-y)}{c^2}, \quad -\infty<x<\infty
+\]
+where $\epsilon>0$ and $y$ is finite and subject to the boundary condition $u\to0$ as $x\to\pm\infty$. First, we consider the case where $x<y$ so that we may solve the homogeneous equation 
+\[
+\frac{d^2 }{dx^2}u+\left(k_0^2+\frac{i\epsilon k_0}{c}\right)u=0, \quad -\infty<x<y
+\]
+with boundary condition $u\to0$ as $x\to-\infty$. We find that the roots of the characteristic polynomial are given by
+\[
+\lambda_{1,2}=\pm\sqrt{-\left(k_0^2+\frac{i\epsilon k_0}{c}\right)}.
+\]
+With this being a square root in the complex plane, we need to choose a branch. We take the principal branch of the square root with branch cut $(-\infty,0]$. Assuming that $k_0,c>0$, let 
+\[
+\lambda_2=\sqrt{-\left(k_0^2+\frac{i\epsilon k_0}{c}\right)}
+\]
+which has negative real and positive imaginary part and let $\lambda_1=-\lambda_2$. Then, 
+\[
+u(x)=c_1e^{\lambda_1x}+c_2e^{\lambda_2x}.
+\]
+To enforce our boundary condition, we note that the second term exhibits exponential growth as $x\to-\infty$, so we need $c_2=0$ and
+\[
+u(x)=c_1e^{\lambda_1x}.
+\]
+If we instead consider $x>y$, our problem becomes \[
+\frac{d^2 }{dx^2}u+\left(k_0^2+\frac{i\epsilon k_0}{c}\right)u=0, \quad y<x<\infty
+\]
+with boundary condition $u\to0$ as $x\to\infty$. Which has the same general solution as the $x<y$ case. However, we now enforce the boundary condition by $c_1=0$ as the first term exhibits exponential growth as $x\to\infty$. Thus,
+\[
+u(x)=\begin{cases}
+	c_1e^{\lambda_1x}, \quad x<y\\
+	c_2e^{\lambda_2x}, \quad x>y.
+\end{cases}
+\]
+Now, we find $c_1,c_2$ by matching across $x=y$. We first make the substitution $\lambda_2=-\lambda_1$ and enforce $c_1e^{\lambda_1y}=c_2e^{-\lambda_1y}$, so
+$c_2=c_1e^{2\lambda_1y}$. Integrating across our differential equation with bounds $y^-,y^+$ which are arbitrarily close to $y$ from their respective sides, we get that 
+\[
+u'(y^+)-u'(y^-)=-\frac{1}{c^2}.
+\]
+Using our function values, this amounts to the condition that
+\begin{align*}
+c_1e^{2\lambda_1y}(-\lambda_1)e^{-\lambda_1y}-c_1\lambda_1e^{\lambda_1y}=-\frac{1}{c^2}
+\end{align*}
+which becomes
+\[
+2c_1\lambda_1e^{\lambda_1y}=\frac{1}{c^2},
+\]
+so
+\[
+c_1=\frac{1}{2c^2\lambda_1}e^{-\lambda_1y},\quad c_2=\frac{1}{2c^2\lambda_1}e^{\lambda_1y}.
+\]
+Thus, 
+\[
+u(x)=\begin{cases}
+	\frac{1}{2c^2\lambda_1}e^{\lambda_1(x-y)}, \quad x<y\\
+	\frac{1}{2c^2\lambda_1}e^{\lambda_1(y-x)}, \quad x>y
+\end{cases}
+\]
+which when written out in full is
+\[
+u(x)=\begin{cases}
+	\frac{-1}{2c^2\sqrt{-\left(k_0^2+\frac{i\epsilon k_0}{c}\right)}}e^{\sqrt{-\left(k_0^2+\frac{i\epsilon k_0}{c}\right)}(y-x)}, \quad x<y\\
+	\frac{-1}{2c^2\sqrt{-\left(k_0^2+\frac{i\epsilon k_0}{c}\right)}}e^{\sqrt{-\left(k_0^2+\frac{i\epsilon k_0}{c}\right)}(x-y)}, \quad x>y.
+\end{cases}
+\]
+
+\subsection{Part b}
+Solving the equation from part a with $\epsilon=0$ subject to the Sommerfeld radiation
+condition, we again first consider the case where $x<y$ which leads to the homogeneous equation
+\[
+\frac{d^2 }{dx^2}u+k_0^2u=0, \quad -\infty<x<y
+\] 
+which has general solution 
+\[
+u(x)=c_1e^{ik_0x}+c_2e^{-ik_0x}.
+\]
+Taking $k_0>0$, to impose Sommerfield's radiation condition, we need the first term to vanish, so we take $c_1=0$. Now, we consider $x>y$ which gives the homoegeneous equation
+\[
+\frac{d^2 }{dx^2}u+k_0^2u=0, \quad y<x<\infty
+\] 
+with the same general solution
+\[
+u(x)=c_1e^{ik_0x}+c_2e^{-ik_0x}.
+\]
+Now, we instead eliminate the second term by taking $c_2=0$. Thus, we have 
+\[
+u(x)=\begin{cases}
+	c_1e^{-ik_0x}, \quad x<y\\
+	c_2e^{ik_0x}, \quad x>y.
+\end{cases}
+\]
+We find $c_1,c_2$ by matching across $x=y$, taking $c_1e^{-ik_0y}=c_2e^{ik_0y}$, so $c_2=c_1e^{-2ik_0y}$. 
+Integrating across our differential equation with bounds $y^-,y^+$ which are arbitrarily close to $y$ from their respective sides, we get that 
+\[
+u'(y^+)-u'(y^-)=-\frac{1}{c^2}.
+\]
+This condition amounts to 
+\[
+(c_1e^{-2ik_0y})(ik_0)e^{ik_0y}-c_1(-ik_0)e^{-ik_0y}=-\frac{1}{c^2}
+\]
+which yields that 
+\[
+c_1=\frac{-1}{2c^2ik_0}e^{ik_0y}
+\]
+and 
+\[
+c_2=\frac{-1}{2c^2ik_0}e^{-ik_0y}.
+\]
+Thus,
+\[
+u(x)=\begin{cases}
+	\frac{i}{2c^2k_0}e^{ik_0(y-x)}, \quad x<y\\
+	\frac{i}{2c^2k_0}e^{ik_0(x-y)}, \quad x>y.
+\end{cases}
+\]
+This can alternatively be obtained by directly applying the formula at the bottom of page 3 of the radiation lecture which yields the same result via a simple calculation.\\
+Now, we verify that this matches our solution from part a by taking $\epsilon\to0^+$. Note that with our choice of branch,
+\begin{align*}
+\lim_{\epsilon\to0^+}\sqrt{-\left(k_0^2+\frac{i\epsilon k_0}{c}\right)}=\sqrt{-k_0^2}=ik_0,
+\end{align*}
+so $\lambda_1=-ik_0$ and 
+\[
+u(x)=\begin{cases}
+	\frac{i}{2c^2k_0}e^{ik_0(y-x)}, \quad x<y\\
+	\frac{i}{2c^2k_0}e^{ik_0(x-y)}, \quad x>y.
+\end{cases}
+\]
+which matches our new solution.
+\end{document}

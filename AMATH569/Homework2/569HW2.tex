@@ -1,0 +1,177 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{listings}
+\usepackage{multimedia} % to embed movies in the PDF file
+\usepackage{graphicx}
+\usepackage{comment}
+\usepackage[english]{babel}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{wrapfig}
+\usepackage{multirow}
+\usepackage{verbatim}
+\usepackage{float}
+\usepackage{cancel}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{/home/cade/Homework/latex-defs}
+
+
+\title{AMATH 569 Homework 2}
+\author{Cade Ballew \#2120804}
+\date{April 27, 2022}
+
+\begin{document}
+	
+\maketitle
+	
+\section{Problem 1}
+Consider the PDE 
+\begin{align*}
+&\nabla^2u=0, \quad y>0,~ -\infty<x<\infty\\
+&u(x,0)=f(x), \quad -\infty<x<\infty
+\end{align*}
+and assume that $f$ is of compact support and $u(x,t)\to0$ as $x\to\pm\infty$. Let $\mathcal{F}$ denote the Fourier transform applied in the $x$ domain and let
+\[
+U(x,y)=\mathcal{F}[u(x,y)].
+\]
+Then, 
+\begin{align*}
+\mathcal{F}[u_{xx}]&=\int_{-\infty}^\infty u_{xx}e^{i\omega x}dx=\left[u_xe^{i\omega x}\right]_{-\infty}^\infty-i\omega\int_{-\infty}^\infty u_{x}e^{i\omega x}dx\\&=\left[u_xe^{i\omega x}\right]_{-\infty}^\infty-i\omega\cancel{\left[ue^{i\omega x}\right]_{-\infty}^\infty}-\omega^2\int_{-\infty}^\infty ue^{i\omega x}dx\\&=
+-\omega^2\int_{-\infty}^\infty ue^{i\omega x}dx=-\omega^2U
+\end{align*}
+if we make the additional assumption that $u_x(x,t)\to0$ as $x\to\pm\infty$. We also have that 
+\begin{align*}
+\mathcal{F}[u_{yy}]=\int_{-\infty}^\infty u_{yy}e^{i\omega x}dx=\frac{\partial^2}{\partial y^2}\int_{-\infty}^\infty ue^{i\omega x}dx=U_{yy}.
+\end{align*}
+Thus, Fourier transforming our equation gives new equation
+\[
+-\omega^2U(x,y)+U_{yy}(x,y)=0.
+\]
+This is an ODE that can easily be solved to have general solution
+\[
+U(x,y)=c_1(\omega)e^{|\omega|y}+c_2(\omega)e^{-|\omega|y}.
+\]
+To find a particular solution, note that we now have initial condition
+\[
+U(\omega,0)=\mathcal{F}[u(x,0)]=F(\omega)
+\]
+if we set $F(\omega)=\mathcal{F}[f(x)]$. We now also make the assumption that $u(x,y)\to0$ as $y\to\infty$ which implies that $U(\omega,y)\to0$ as $y\to\infty$. The latter requires that $c_1(x)=0$ which means that former then gives that $c_2(\omega)=F(\omega)$. Thus, 
+\[
+U(x,y)=F(\omega)e^{-|\omega|y}.
+\]
+Our solution $u$ is then obtained by applying the inverse Fourier transform 
+\begin{align*}
+u(x,y)=\mathcal{F}^{-1}[U(\omega,y)]=\frac{1}{2\pi}\int_{-\infty}^\infty F(\omega)e^{-|\omega|y}e^{-i\omega x}d\omega.
+\end{align*}
+%From this, we can clearly see that the additional assumptions we made are valid. Namely, this function tends to 0 beyond all orders as $y\to\infty$ as does $u_x(x,y)$ as $x\to\pm\infty$. %ok you really need a better arguement for this
+If we wish to obtain a simplified solution, we need to apply the convolution theorem which says that 
+\[
+\mathcal{F}^{-1}[gh]=\mathcal{F}^{-1}[g]*\mathcal{F}^{-1}[h]
+\]
+for arbitrary functions $g,h$. Thus,
+\begin{align*}
+u(x,y)=\mathcal{F}^{-1}[F(\omega)]*\mathcal{F}^{-1}[e^{-|\omega y|}]=f(x)*\mathcal{F}^{-1}[e^{-|\omega y|}].
+\end{align*}
+We find that 
+\begin{align*}
+\mathcal{F}^{-1}[e^{-|\omega y|}]&=\frac{1}{2\pi}\int_{-\infty}^\infty e^{-|\omega|y}e^{-i\omega x}d\omega=\frac{1}{2\pi}\left(\int_{-\infty}^0 e^{\omega(y-ix)}d\omega+\frac{1}{2\pi}\int_{0}^\infty e^{-\omega(y+ix)}d\omega\right)\\&=
+\frac{1}{2\pi}\left(\frac{1}{y-ix}+\frac{1}{y+ix}\right)=\frac{1}{\pi}\frac{y}{x^2+y^2}.
+\end{align*}
+This gives that 
+\begin{align*}
+u(x,y)=f(x)*\frac{1}{\pi}\frac{y}{x^2+y^2}=\frac{1}{\pi}\int_{-\infty}^{\infty}f(\tau)\frac{y}{(x-\tau)^2+y^2}d\tau.
+\end{align*}
+Now, we verify that the assumptions we made earlier are in fact valid. Noting that $f$ has compact support, our integral essentially has finite bounds in practice, so we can push limits inside the integral. As $y\to\infty$, $\frac{y}{(x-\tau)^2+y^2}\to0$, so $u(x,y)\to0$ as $y\to\infty$. We can also compute
+\[
+u_x(x,y)=\frac{1}{\pi}\int_{-\infty}^{\infty}f(\tau)\frac{-2y(x-\tau)}{((x-\tau)^2+y^2)^2}d\tau.
+\]
+Clearly, our assumption that $u_x(x,t)\to0$ as $x\to\pm\infty$ hold here as well as the integrand tends to zero.
+
+
+\section{Problem 2}
+Now, we seek to solve the problem 
+\begin{align*}
+&\frac{\partial}{\partial t}u=\frac{\partial^2}{\partial x^2}u, \quad 0<t,~0<x<\infty\\
+&u(x,0)=0, \quad 0<x<\infty\\
+&u(0,t)=T_0, \quad t>0.
+\end{align*}
+\subsection{Part a}
+Consider the similarity transformation
+\[
+\eta=\frac{x}{t^\alpha}.
+\]
+Then,
+\begin{align*}
+\frac{\partial u}{\partial t}=\frac{\partial \eta}{\partial t}\frac{\partial u}{\partial \eta}=\frac{-\alpha x}{t^{\alpha+1}}\frac{\partial u}{\partial \eta}=-\frac{\alpha}{t}\eta\frac{\partial u}{\partial \eta},
+\end{align*}
+\begin{align*}
+\frac{\partial u}{\partial x}=\frac{\partial \eta}{\partial x}\frac{\partial u}{\partial \eta}=\frac{1}{t^\alpha}\frac{\partial u}{\partial \eta},
+\end{align*}
+and
+\begin{align*}
+\frac{\partial^2 u}{\partial x^2}=\frac{\partial}{\partial x}\left(\frac{1}{t^\alpha}\frac{\partial u}{\partial \eta}\right)=\frac{1}{t^\alpha}\left(\frac{\partial \eta}{\partial x}\frac{\partial}{\partial \eta}\left(\frac{\partial u}{\partial \eta}\right)\right)=\frac{1}{t^\alpha}\left(\frac{1}{t^\alpha}\frac{\partial^2 u}{\partial \eta^2}\right)=\frac{1}{t^{2\alpha}}\frac{\partial^2 u}{\partial \eta^2}.
+\end{align*}
+Thus, our differential equation becomes 
+\[
+-\frac{\alpha}{t}\eta\frac{\partial u}{\partial \eta}=\frac{1}{t^{2\alpha}}\frac{\partial^2 u}{\partial \eta^2},
+\]
+so we can eliminate $t$ by taking $\alpha=\half$. Adjusting our boundary/initial conditions for the change of variables $\eta=x/\sqrt{t}$, we now have
+\begin{align*}
+	-&\frac{1}{2}\eta\frac{\partial u}{\partial \eta}=\frac{\partial^2 u}{\partial \eta^2}\\
+	&u(\infty)=0,\\
+	&u(0)=T_0.
+\end{align*}
+To solve this ODE, we set $v=u'$ so that we have
+\[
+\frac{v'}{v}=-\frac{1}{2}
+\]
+which has solution
+\[
+v(\eta)=Ce^{-\eta^2/4}
+\]
+after integrating. Then,
+\[
+u(\eta)=\int_0^\eta Ce^{-(\eta/2)^2}d\eta=c_1\erf\left(\frac{\eta}{2}\right)+c_2.
+\]
+Noting that $\erf(0)=0$, $\erf(\infty)=1$, our second condition gives that $c_2=T_0$ which in combination with our second condition gives that $c_1=-T_0$. Thus,
+\[
+u(\eta)=-T_0\erf\left(\frac{\eta}{2}\right)+T_0=T_0\erfc\left(\frac{\eta}{2}\right).
+\]	
+Undoing our change of variables, we conclude that 
+\[
+u(x,t)=T_0\erfc\left(\frac{x}{2\sqrt{t}}\right).
+\]
+
+\subsection{Part b}
+Letting $\mathcal{L}$ denote the Laplace transform in $t$ and using a tilde to denote a function that has been transformed in this way, we now compute 
+\[
+\mathcal{L}[u_t(x,t)]=\int_0^\infty u_te^{-st}dt=\left[ue^{-st}\right]_0^\infty+s\int_0^\infty ue^{-st}dt=s\Tilde{u}(x,s)
+\]
+if we impose the additional assumption that $u(x,t)$ vanish as $t\to\infty$. We also have that
+\[
+\mathcal{L}[u_{xx}(x,t)]=\int_0^\infty u_{xx}e^{-st}dt=\frac{\partial^2}{\partial x^2}\int_0^\infty ue^{-st}dt=\Tilde{u}_{xx}(x,s).
+\]
+Thus, our PDE becomes
+\[
+s\Tilde{u}=\Tilde{u}_{xx},
+\]
+an ODE. Since we assume that $s>0$, this has general solution 
+\[
+\Tilde{u}(x,s)=c_1(s)e^{\sqrt{s}x}+c_2(s)e^{-\sqrt{s}x}.
+\]
+Now, we find one boundary condition by computing
+\[
+\tilde{u}(0,s)=\int_0^\infty u(0,t)e^{-st}dt=\int_0^\infty T_0e^{-st}dt=\frac{T_0}{s}.
+\]
+We also impose the assumption that $u(x,t)\to0$ as $x\to\infty$ which implies that $\Tilde{u}(x,s)\to0$ as $x\to\infty$ and allows us to conclude that $c_1(s)=0$ which then enables us to find that $c_2(s)=\frac{T_0}{s}$, so
+\[
+\Tilde{u}(x,s)=\frac{T_0}{s}e^{-\sqrt{s}x}.
+\]
+Now, we consult Wolfram-Alpha to compute the inverse transform
+\[
+u(x,t)=\mathcal{L}^{-1}[\Tilde{u}(x,s)]=T_0\erfc\left(\frac{x}{2\sqrt{t}}\right)
+\]
+which is the same solution we found in part a. From this solution, we notice that our assumption that $u(x,t)\to0$ as $t\to\infty$
+clearly holds since $\frac{x}{2\sqrt{t}}\to0$ as $t\to\infty$ and $\erfc0=0$. Also, $\erfc z\to0$ as $z\to\infty$, so our assumption that $u(x,t)\to0$ as $x\to\infty$ also clearly holds. 
+\end{document}

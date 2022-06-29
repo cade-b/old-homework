@@ -1,0 +1,64 @@
+clear
+
+phi = @(x) 20*pi*x.^3;
+dphi = @(x) 60*pi*x.^2;
+ddphi = @(x) 120*pi*x;
+a = 1/2;
+func = @(x) -20+a*ddphi(x).*cos(phi(x))-a*(dphi(x).^2).*sin(phi(x));
+ufunc = @(x) 1+12*x-10*x.^2+a*sin(phi(x))-(1+2*x);
+
+m = 19; h = 1/(m+1); %need m odd here
+m_c = (m-1)/2; h_c = h/2;
+x = linspace(0,1,m+2)';
+x = x(2:end-1);
+x_c = x(2:2:end);
+f = func(x);
+utrue = ufunc(x);
+
+
+% build FD matrix
+e = ones(m,1);
+A=spdiags([e -2*e e],[-1,0,1],m,m)/h^2;
+e_c = ones(m_c,1);
+A_c=spdiags([e_c -2*e_c e_c],[-1,0,1],m_c,m_c)/h_c^2;
+utrue = A\f;
+
+omega = 2/3;
+M = (2/3)*diag(diag(A));
+
+u0 = zeros(size(utrue));
+tol = 1e-6;
+
+[u,errvec,iter] = vcycle(A,f,A_c,M,u0,tol,utrue);
+
+function [u,errvec,iter] = vcycle(A,f,A_c,M,u0,tol,utrue)
+m = length(A);
+
+e = ones(m,1);
+Icf=spdiags([e/2 e e/2],[-1,0,1],m,m);
+Icf = Icf(:,2:2:end);
+Ifc = Icf'/2; 
+
+r = f-A*u0;
+u = u0; iter=0;
+errnorm=norm(u-utrue); %use true error to display convergence to a fixed tolerance
+while errnorm>tol
+    r_c = Ifc*r;
+    z_c = A_c\r_c;
+    z = Icf*z_c;
+    u = u+z;
+    r = f- A*u;
+
+    %smoothing step
+    y = M\r;
+    u = u+M\r;
+    r = f-A*u;
+    err = norm(u-utrue);
+    iter = iter+1;
+    errvec(iter) = err;
+end
+
+end
+
+
+

@@ -1,0 +1,273 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{listings}
+\usepackage{multimedia} % to embed movies in the PDF file
+\usepackage{graphicx}
+\usepackage{comment}
+\usepackage[english]{babel}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{subfigure}
+\usepackage{wrapfig}
+\usepackage{multirow}
+\usepackage{tikz}
+\usepackage{verbatim}
+\include{latex-defs}
+
+\title{AMATH 567 Homework 4}
+\author{Cade Ballew \#2120804}
+\date{October 27, 2021}
+
+\begin{document}
+
+\maketitle
+
+\section{Problem 1 (2.4.2)}
+Let $C$ be the unit circle centered at the origin.
+\subsection{Part a}
+Take $f(z)=1+2z+z^2$. Parameterize as $z=e^{i\theta}$, so $dz=ie^{i\theta}d\theta$. Then,
+\[
+\begin{split}
+\oint_Cf(z)dz&=\int_0^{2\pi}(1+2e^{i\theta}+e^{2i\theta})(ie^{i\theta}d\theta)=i\int_0^{2\pi}(e^{i\theta}+2e^{2i\theta}+e^{3i\theta})d\theta\\&=
+\left[e^{i\theta}+e^{2i\theta}+\frac{e^{3i\theta}}{3}\right]_0^{2\pi}=\frac{7}{3}-\frac{7}{3}=0
+\end{split}
+\]
+\subsection{Part c}
+Let $f(z)=1/\overline{z}$ and parameterize as $z=e^{i\theta}$, so $dz=ie^{i\theta}d\theta$ and note that $\overline{z}=e^{-i\theta}$, so $1/\overline{z}=e^{i\theta}$ because we are on the unit circle. Then,
+\[
+\oint_Cf(z)dz=\int_0^{2\pi}e^{i\theta}(ie^{i\theta}d\theta)=\left[\frac{e^{2i\theta}}{2}\right]_0^{2\pi}=\frac{1}{2}-\frac{1}{2}=0.
+\]
+\subsection{Part e}
+Let $f(z)=e^{\overline{z}}$. Per the hint, consider the series expansion $e^{\overline{z}}=\sum_{j=0}^\infty \frac{\overline{z}^j}{j!}$ and parameterize this as $z=e^{i\theta}$, so $dz=ie^{i\theta}d\theta$ and again note that $\overline{z}=e^{-i\theta}$. Then, 
+\[
+\begin{split}
+\oint_Cf(z)dz&=\int_0^{2\pi}\sum_{j=0}^\infty \frac{e^{-ij\theta}}{j!}(ie^{i\theta}d\theta)=\sum_{j=0}^\infty\frac{1}{j!}\int_0^{2\pi}ie^{i(1-j)\theta}d\theta\\&=
+\int_0^{2\pi}ie^{i\theta}d\theta+\int_0^{2\pi}id\theta+\sum_{j=2}^\infty\frac{1}{j!}\int_0^{2\pi}ie^{i(1-j)\theta}d\theta\\&=
+\left[e^{i\theta}\right]_0^{2\pi}+\left[i\theta\right]_0^{2\pi}+\sum_{j=2}^\infty\frac{1}{j!}\left[\frac{e^{i(1-j)\theta}}{1-j}\right]_0^{2\pi}=2\pi i
+\end{split}
+\]
+Note that we used Fubini's theorem to switch the integral and summation in the second step (we can do this because the series is absolutely convergent) and used the $2\pi$-periodicity of $e^{i\theta}$ in the final.
+
+\section{Problem 2 (2.4.7)} 
+Let $C$ be an open upper semicircle of radius $R$ with its center at the origin and consider $\int_C f(z)dz$ where $f(z)=1/(z^2+a^2)$ and we take $R>a$. Then, by the reverse triangle inequality and taking $z$ to be on $C$, 
+\[
+|z^2+a^2|=|\geq\big||z^2|-|-a^2|\big|=|R^2-a^2|=R^2-a^2.
+\]
+Thus,
+\[
+|f(z)|=\bigg|\frac{1}{z^2+a^2}\bigg|\leq\frac{1}{R^2-a^2}
+\]
+for $z$ on $C$. Take $M$ to be equal to this. Note that the arclength of $C$ is given by $L=\pi R$. Then, assuming continuity of $f$ (which is clear from looking at the function), by theorem 2.4.2 in the text, we have that 
+\[
+\bigg|\int_C f(z)dz\bigg|\leq ML=\frac{\pi R}{R^2-a^2}
+\]
+for $R>a$. 
+
+\section{Problem 3 (2.4.8)}
+Now, let $C$ be an arc of the circle $|z|=R$ of angle $\pi/3$ where $R>1$. Let $f(z)=\frac{1}{z^3+1}$. Then, by the reverse triangle inequality and taking $z$ to be on $C$, 
+\[
+|z^3+1|\geq\big||z^3|-|-1|\big|=|R^3-1|=R^3-1.
+\]
+Thus, 
+\[
+|f(z)|=\bigg|\frac{1}{z^3+1}\bigg|\leq\frac{1}{R^3-1}
+\]
+for $z$ on $C$. Take $M$ to be equal to this and note that $C$ has arclength $L=\frac{\pi}{3}R$. Then, we again invoke theorem 2.4.2 in the text (which again assumes that $f$ is continuous) to get that 
+\[
+\bigg|\int_C f(z)dz\bigg|\leq ML=\frac{\pi}{3}\bigg(\frac{R}{R^3-1}\bigg).
+\]
+Take the limit of both sides to get 
+\[
+\lim_{R\to\infty}\bigg|\int_C f(z)dz\bigg|\leq\lim_{R\to\infty}\frac{\pi}{3}\bigg(\frac{R}{R^3-1}\bigg)=0.
+\]
+Of course, because the complex modulus is nonnegative, we must have that $\lim_{R\to\infty}\int_C f(z)dz=0$.
+
+\section{Problem 4 (2.5.1)}
+Let $C$ be the unit circle centered at the origin.
+\subsection{Part a}
+Take $f(z)=e^{iz}$. This function is entire, so by Cauchy's theorem, $\oint_C f(z)dz=0$.
+\subsection{Part b}
+Take $f(z)=e^{z^2}$. This function is entire, so by Cauchy's theorem, $\oint_C f(z)dz=0$.
+\subsection{Part c}
+Take $f(z)=\frac{1}{z-1/2}$. This function is analytic except for a singularity at $z=\frac{1}{2}$, so we use Cauchy's theorem to deform the contour around this, parameterizing the deformed contour $C_1$ by $z-\frac{1}{2}=Re^{i\theta}$ so $dz=iRe^{i\theta}$. Then,
+\[
+\oint_C f(z)dz=\oint_{C_1} \frac{dz}{z-1/2}=\int_0^{2\pi}\frac{iRe^{i\theta}d\theta}{Re^{i\theta}}=2\pi i.
+\]
+\subsection{Part d}
+Take $f(z)=\frac{1}{z^2-4}$. This function is analytic except for singularities at $z=\pm2$, so $f$ is analytic in and on $C$. Thus, Cauchy's theorem gives that $\oint_C f(z)dz=0$.
+\subsection{Part e}
+Take $f(z)=\frac{1}{2z^2+1}$. This function is analytic except for singularities at $z=\pm i/\sqrt{2}$. Consider the partial fractions decomposition 
+\[
+\frac{1}{2i\sqrt2}\bigg(\frac{1}{z-i/\sqrt{2}}-\frac{1}{z+i/\sqrt{2}}\bigg)=\frac{1}{2i\sqrt2}\frac{i\sqrt{2}}{z^2+\frac{1}{2}}=\frac{1}{2z^2+1}.
+\]
+Thus, we can write
+\[
+\oint_C f(z)dz=\frac{1}{2i\sqrt2}\bigg(\oint_C\frac{1}{z-i/\sqrt{2}}dz-\oint_C\frac{1}{z+i/\sqrt{2}}dz\bigg)
+\]
+For the first integral, use Cauchy's theorem to deform the contour around the singularity $z=i/\sqrt{2}$ (as the integrand is analytic except for this singularity). Parameterize as $Re^{i\theta}=z-i/\sqrt{2}$, so $dz=iRe^{i\theta}d\theta$. Then,
+\[
+\oint_C\frac{1}{z-i/\sqrt{2}}dz=\int_0^{2\pi}\frac{iRe^{i\theta}d\theta}{Re^{i\theta}}=\int_0^{2\pi}id\theta=2\pi i.
+\]
+Similarly, evaluate the second integral by using Cauchy's theorem (the integrand is again analytic except for this singularity) to deform the contour around the singularity $z=-i/\sqrt{2}$. Parameterize as $Re^{i\theta}=z+i/\sqrt{2}$, so $dz=iRe^{i\theta}d\theta$. Then,
+\[
+\oint_C\frac{1}{z+i/\sqrt{2}}dz=\int_0^{2\pi}\frac{iRe^{i\theta}d\theta}{Re^{i\theta}}=\int_0^{2\pi}id\theta=2\pi i.
+\]
+Thus,
+\[
+\oint_C f(z)dz=\frac{1}{2i\sqrt2}\bigg(\oint_C\frac{1}{z-i/\sqrt{2}}dz-\oint_C\frac{1}{z+i/\sqrt{2}}dz\bigg)=\frac{1}{2i\sqrt2}(2\pi i-2\pi i)=0.
+\]
+\subsection{Part f}
+Take $f(z)=\sqrt{z-4}$. If we let the branch cut be from 4 to infinity, then $f$ is analytic inside and on $C$, so Cauchy's theorem gives that $\oint_C f(z)dz=0$.
+
+\section{Problem 5 (2.5.5)}
+Let $f(z)= e^{iz^2}$ and consider the controur $I_R=\oint_{C_{(R)}} f(z)dz$ where $C_{(R)}$ is the closed circular sector in the upper half plane with boundary points 0, $R$, and $Re^{i\pi/4}$. $f$ is entire, so Cauchy's theorem gives that $I_R=0$. Now, consider $C_{1(R)}$ to be the line integral along the circular sector from $R$ to $Re^{i\pi/4}$ and $C_{2(R)}$ to be the line integral from $Re^{i\pi/4}$ to the origin. Then, 
+\[
+I_R=\oint_{C(R)} f(z)dz=\int_0^R f(x)dx +\oint_{C_{1(R)}} f(z)dz+\oint_{C_{2(R)}} f(z)dz.
+\]
+Parameterize the middle integral by $z=Re^{i\theta}$ which gives $dz=iRe^{i\theta}$. Then, by the triangle inequality for integrals, 
+\[
+\begin{split}
+\bigg|\oint_{C_{1(R)}}f(z)dz\bigg|&=\bigg|\int_0^{\pi/4}e^{iR^2e^{2i\theta}}iRe^{i\theta}d\theta\bigg|=\bigg|iR\int_0^{\pi/4}e^{iR^2(\cos{2\theta}+i\sin{2\theta})}e^{i\theta}d\theta\bigg|\\&\leq
+|iR|\int_0^{\pi/4}\underbrace{|e^{iR^2\cos{2\theta}}|}_{=1}|\underbrace{e^{-R^2\sin{2\theta}}}_{>0}|\underbrace{|e^{i\theta}|}_{=1}d\theta\\&=
+R\int_0^{\pi/4}e^{-R^2\sin{2\theta}}d\theta.
+\end{split}
+\]
+Invoking the hint that $\sin{x}\geq \frac{2x}{\pi}$ for $x$ in $[0,\pi/2]$ (so this applies to $\sin{2\theta}$ for $\theta\in[0,\pi/4]$, the fact that $R^2>0$ gives that $-R^2\sin{2\theta}\leq -R^2\frac{4\theta}{\pi}$. Thus,
+\[
+\begin{split}
+\bigg|\oint_{C_{1(R)}}f(z)dz\bigg|&\leq R\int_0^{\pi/4}e^{-R^2\frac{4\theta}{\pi}}d\theta=R\left[\frac{-\pi}{4R^2}e^{-R^2\frac{4\theta}{\pi}}\right]_0^{\pi/4}\\&=
+R\bigg(\frac{-\pi}{4R^2}e^{-R^2}+\frac{-\pi}{4R^2}\bigg)=\frac{\pi}{4R}(1-e^{-R^2}).
+\end{split}
+\]
+Taking the limit of both sides, 
+\[
+\lim_{R\to\infty}\bigg|\oint_{C_{1(R)}}f(z)dz\bigg|\leq\lim_{R\to\infty}\frac{\pi}{4R}(1-e^{-R^2})=0. 
+\]
+Thus, nonnegativity of the absolute value function gives that $\lim_{R\to\infty}\oint_{C_{1(R)}}f(z)dz=0$. \\
+Now, look at the third integral in the sum that makes up $I_R$. Parameterize this as $z=re^{i\pi/4}$, $dz=e^{i\pi/4}dr$. Then, 
+\[
+\oint_{C_{2(R)}} f(z)dz=\int_R^0e^{i(re^{i\pi/4})^2}e^{i\pi/4}dr=-e^{i\pi/4}\int_0^Re^{-r^2}dr.
+\]
+Now, we can take the limit of both sides of the equation $I_R=0$ to get that
+\[
+\begin{split}
+0&=\lim_{R\to\infty}\bigg(\int_0^R f(x)dx +\oint_{C_{1(R)}} f(z)dz+\oint_{C_{2(R)}} f(z)dz\bigg)\\&=
+\lim_{R\to\infty}\bigg(\int_0^Rf(x)dx-e^{i\pi/4}\int_0^Re^{-r^2}dr\bigg)+\lim_{R\to\infty}\oint_{C_{1(R)}}f(z)dz\\&=
+\lim_{R\to\infty}\bigg(\int_0^Re^{ix^2}dx-e^{i\pi/4}\int_0^Re^{-r^2}dr\bigg)
+\end{split}
+\]
+Thus, by the definition of integrals with bounds at infinity,
+\[
+\int_0^{\infty}e^{ix^2}dx=e^{i\pi/4}\int_0^\infty e^{-r^2}dr=e^{i\pi/4}\sqrt{\pi}/2
+\]
+by a well-known result of real integration.
+
+\section{Problem 6 (2.5.6)} 
+Take $f(z)=1/(z^2+1)$ and consider the contour $C_{(R)}$ that is the closed semicircle in the upper half plane with endpoints at $(-R,0)$ and $(R,0)$ plus the $x$ axis. Per the hint in the text, 
+\[
+\oint_{C_{(R)}}f(z)dz=\oint_{C_{(R)}}-\frac{1}{2i}\bigg(\frac{1}{z+i}-\frac{1}{z-i}\bigg)=-\frac{1}{2i}\oint_{C_{(R)}}\frac{dz}{z+i}+\frac{1}{2i}\oint_{C_{(R)}}\frac{dz}{z-i}
+\]
+The function in the first integrand is analytic except for a singularity at $z=-i$ which is not in or on $C_{(R)}$, so Cauchy's theorem gives that the first integral is 0. To evaluate the second integral, we use Cauchy's theorem to deform the contour around the only sigularity of its integrand which is $z=i$. (Of course, this implicitly assumes that $R>1$ which we can do, because we later let $R\to\infty$.) Parameterize as $z-i=re^{i\theta}$ which gives $dz=ire^{i\theta}$, so 
+\[
+\oint_{C_{(R)}}f(z)dz=\frac{1}{2i}\int_0^{2\pi}\frac{ire^{i\theta}}{re^{i\theta}}d\theta=\pi.
+\]
+Knowing this, we now consider $C_1$ to be the contour along the open semicircle in the upper half plane. Then, $\oint_{C_{(R)}}f(z)dz=\oint_{C_1}f(z)dz+\int_{-R}^Rf(x)dx.$ Now, first integral can be bounded by the result of problem 2, because $f(z)=1/(z^2+1)$ matches the functional form required if we take $a=1$, and we have already assumed that $R>1=a$. Thus, 
+\[
+\bigg|\int_{C_1} f(z)dz\bigg|\leq \frac{\pi R}{R^2-1}.
+\]
+Notice that if we take the limit of both sides, then, 
+\[
+\lim_{R\to\infty}\bigg|\int_{C_1} f(z)dz\bigg|\leq\lim_{R\to\infty}\frac{\pi R}{R^2-1}=0.
+\]
+Then, the nonnegativity of the absolute value function gives that $\lim_{R\to\infty}\int_{C_1} f(z)dz=0$. Finally, take the limit of both sides of the equation $\pi=\oint_{C_{(R)}}f(z)dz$ to get that 
+\[
+\begin{split}
+\pi&=\lim_{R\to\infty}\bigg(\int_{-R}^Rf(x)dx+\int_{C_1} f(z)dz\bigg)\\&=
+\lim_{R\to\infty}\int_{-R}^Rf(x)dx+\lim_{R\to\infty}\int_{C_1} f(z)dz=\int_{-\infty}^\infty \frac{dx}{x^2+1}.
+\end{split}
+\]
+Confirming this result via standard integration techniques, 
+\[
+\int_{-\infty}^\infty \frac{dx}{x^2+1}=\left[\arctan{x}\right]_{-\infty}^\infty=\frac{\pi}{2}-\frac{-\pi}{2}=\pi.
+\]
+
+\section{Problem 7}
+Now, take $f(z)=1/(z^4+1)$ and consider the same contour $C_{(R)}$ as in problem 6. We evaluate $\oint_{C(R)} f(z)dz$ using the same method as problem 6, starting with the partial fractions decomposition of $f$. From class on Monday, we have a general form for such a decomposition for a function $\frac{p(x)}{q(x)}=\sum_j \frac{A_j}{x-x_j}$ where $A_j=\frac{p(x_j)}{q'(x_j)}$. The function $z^4+1=0$ has roots $z=e^{i\pi/4},e^{3i\pi/4},e^{5i\pi/4},e^{7i\pi/4}$ which can be found by solving $z^4=-1=e^{i(\pi+2\pi k)}$ for $k\in\mathbb{Z}$, so we write
+\[
+f(z)=\frac{A_1}{z-e^{i\pi/4}}+\frac{A_2}{z-e^{3i\pi/4}}+\frac{A_3}{z-e^{5i\pi/4}}+\frac{A_4}{z-e^{7i\pi/4}}
+\]
+and calculate
+\begin{align*}
+    A_1&=\frac{1}{4(e^{i\pi/4})^3}=\frac{1}{4}e^{-3i\pi/4}=\frac{1}{4}e^{5i\pi/4}\\
+    A_2&=\frac{1}{4(e^{3i\pi/4})^3}=\frac{1}{4}e^{-9i\pi/4}=\frac{1}{4}e^{7i\pi/4}\\
+    A_3&=\frac{1}{4(e^{5i\pi/4})^3}=\frac{1}{4}e^{-15i\pi/4}=\frac{1}{4}e^{i\pi/4}\\
+    A_4&=\frac{1}{4(e^{7i\pi/4})^3}=\frac{1}{4}e^{-21i\pi/4}=\frac{1}{4}e^{3i\pi/4}
+\end{align*}
+This gives that 
+\[
+\begin{split}
+\oint_{C(R)} f(z)dz=\frac{1}{4}\bigg(e^{5i\pi/4}\oint_{C(R)}\frac{dz}{z-e^{i\pi/4}}+e^{7i\pi/4}\oint_{C(R)}\frac{dz}{z-e^{3i\pi/4}}\\+e^{i\pi/4}\oint_{C(R)}\frac{dz}{z-e^{5i\pi/4}}+e^{3i\pi/4}\oint_{C(R)}\frac{dz}{z-e^{7i\pi/4}}\bigg).
+\end{split}
+\]
+We know that the last two integrals evaluate to 0 by Cauchy's theorem because they are analytic everywhere except for singularities that lie outside $C_{(R)}$. To evaluate the two remaining integrals, parameterize as $z-e^{i\pi/4}=Re^{i\theta}$ in the first and $z-e^{3i\pi/4}=Re^{i\theta}$ in the second; $dz=iRe^{i\theta}$ in both cases. Then, 
+\[
+\begin{split}
+\oint_{C(R)} f(z)dz&=\frac{e^{5i\pi/4}}{4}\int_0^{2\pi}\frac{iRe^{i\theta}}{Re^{i\theta}}d\theta+\frac{e^{7i\pi/4}}{4}\int_0^{2\pi}\frac{iRe^{i\theta}}{Re^{i\theta}}d\theta\\&=
+\frac{\pi i}{2}(e^{5i\pi/4}+e^{7i\pi/4})=\frac{\pi i}{2}(-i\sqrt{2})=\frac{\pi}{\sqrt{2}}.
+\end{split}
+\]
+Now, we cannot use the result from problem 2 to show that the integral along the open semicircle in the upper half plane vanishes as $R\to\infty$ (call this $C_1$ again), but the proof is as simple as changing the exponent on $z$ (we will actually show this for an arbitrary $n\geq2$ that is an integer to use in the general case later). Namely, take $R>1$ and $z=Re^{i\theta}$. Then, by the reverse triangle inequality (again implicitly assuming that $R>1$), 
+\[
+|z^n+1|=|\geq\big||z^n|-|-1|\big|=|R^n-1|=R^n-1.
+\]
+Then,
+\[
+|f(z)|=\bigg|\frac{1}{z^n+1}\bigg|\leq\frac{1}{R^n-1}
+\]
+for $z$ on $C_1$, meaning that we apply theorem 2.4.2 (noting that the arclength $L=\pi R$ and that $f$ is continuous) to get that 
+\[
+\bigg|\int_{C_1} f(z)dz\bigg|\leq \frac{\pi R}{R^n-1}.
+\]
+Now, we can write $\oint_{C_{(R)}}f(z)dz=\oint_{C_1}f(z)dz+\int_{-R}^Rf(x)dx$ and take the limit of both sides to get that
+\[
+\begin{split}
+\frac{\pi}{\sqrt{2}}&=\lim_{R\to\infty}\bigg(\int_{-R}^Rf(x)dx+\int_{C_1} f(z)dz\bigg)\\&=
+\lim_{R\to\infty}\int_{-R}^Rf(x)dx+\lim_{R\to\infty}\int_{C_1} f(z)dz=\int_{-\infty}^\infty \frac{dx}{x^4+1}.
+\end{split}
+\]
+\\Now, consider the general case $f(z)=1/(z^n+1)$ for an integer $n\geq2$. In the case where $n$ is odd, we run into issues when attempting to use this approach; namely, we encounter a singularity on the real line at $z=-1$, because $(-1)^n+1=0$ for odd $n$. Because this singularity is on our contour, we cannot apply Cauchy's theorem to deform our contour and solve the integral (specifically the integral of the partial fraction with $z+1$ in the denominator), because we cannot encircle $z=-1$ without exiting our contour. We also haven't discussed in class how to approach singularities that occur on a contour. However, for the case where $n$ is even, $z=-1$ will not be a singularity, nor will there be any singularities on the real line, so we can just encircle the $n/2$ singularities in the upper semicircle (we know that there are this many here because they are just the roots of unity rotated as we will see later). As before, solve the integral, and use the previously derived bound to get that the integral along the semicircle vanishes. \\
+Now, in search of the extra credit that Bernard hinted at, we derive a general value for $\int_{-\infty}^\infty \frac{dx}{x^n+1}$ where $n\geq2$ is even. First, solve $z^n+1=0$ which gives roots $z_k=(e^{i(\pi+2\pi k)})^{1/n}=e^{i\pi/n}e^{i2(k-1)\pi/n}$ for $k=1,\ldots,n$. Now, we write a partial fractions decomposition of $f$ using the general form above.
+\[
+\frac{1}{z^n+1}=\sum_{k=1}^n\frac{\frac{1}{nz_k^{n-1}}}{z-z_k}=\frac{1}{n}\sum_{k=1}^n\frac{z_k}{z_k^n}\frac{1}{z-z_k}.
+\]
+Then, we write 
+\[
+\oint_{C(R)} f(z)dz=\oint_{C(R)}\frac{1}{n}\sum_{k=1}^n\frac{z_k}{z_k^n}\frac{1}{z-z_k}dz=\frac{1}{n}\sum_{k=1}^n\frac{z_k}{z_k^n}\oint_{C(R)}\frac{1}{z-z_k}dz
+\]
+However, only the first $n/2$ singularities occur inside $C(R)$, because, as one can see above, the singularities are just the roots of unity rotated by $\pi/n$. Thus, the final $n/2$ terms of this summation are 0 by Cauchy's theorem. For the first $n/2$ terms, the intergral can be parameterized by $z-z_k=Re^{i\theta}$, $dz=iRe^{i\theta}$ after deforming the contour which gives
+\[
+\oint_{C(R)} f(z)dz=\frac{1}{n}\sum_{k=1}^{n/2}\frac{z_k}{z_k^n}\int_0^{2\pi}\frac{iRe^{i\theta}}{Re^{i\theta}}d\theta=\frac{1}{n}\sum_{k=1}^{n/2}\frac{z_k}{z_k^n}2\pi i=\frac{2\pi i}{n}\sum_{k=1}^{n/2}\frac{z_k}{z_k^n}.
+\]
+Now, note that $z_k=z_1e^{i2\pi(k-1)/n}$, so 
+\begin{align*}
+\oint_{C(R)} f(z)dz&=\frac{2\pi i}{n}\sum_{k=1}^{n/2}\frac{z_1e^{i2\pi(k-1)/n}}{z_1^n(e^{i2\pi(k-1)/n})^n}=\frac{2\pi i}{n}\frac{1}{z_1^{n-1}}\sum_{k=1}^{n/2}\bigg(\frac{e^{i2\pi/n}}{e^{i2\pi}}\bigg)^{k-1}\\&=
+\frac{2\pi i}{n}\frac{1}{z_1^{n-1}}\sum_{k=0}^{n/2-1}\bigg(\frac{e^{i2\pi/n}}{e^{i2\pi}}\bigg)^k=\frac{2\pi i}{n}\frac{1}{z_1^{n-1}}\sum_{k=0}^{n/2-1}(e^{i2\pi/n})^k\\&=
+\frac{2\pi i}{n}\frac{1}{z_1^{n-1}}\bigg(\frac{1-(e^{i2\pi/n})^{n/2}}{1-e^{i2\pi/n}}\bigg)=\frac{2\pi i}{n}\frac{1}{z_1^{n-1}}\bigg(\frac{1-(e^{i\pi})}{1-e^{i2\pi/n}}\bigg)\\&=
+\frac{2\pi i}{n}\frac{1}{z_1^{n-1}}\bigg(\frac{2}{1-e^{i2\pi/n}}\bigg)
+\end{align*}
+where we have used the well-known formula for the sum of a geometric series with leading term 1 and $n/2$ terms. Now, observe that $z_1^{n-1}=e^{i\pi(n-1)/n}=e^{i\pi}e^{-i\pi/n}=-e^{-i\pi/n}$ which gives that 
+\begin{align*}
+\oint_{C(R)} f(z)dz&= \frac{2\pi i}{n}\frac{1}{-e^{-i\pi/n}}\bigg(\frac{2}{1-e^{i2\pi/n}}\bigg)\\&=
+\frac{2\pi }{n}\frac{1}{e^{-i\pi/n}}\frac{2}{-e^{i\pi/n}(e^{-i\pi/n}-e^{i\pi/n})}=\frac{2\pi i}{n}\frac{2i}{(e^{i\pi/n}-e^{-i\pi/n})}\\&=
+\frac{2\pi}{n}\frac{1}{\sin(\pi/n)}=2\frac{\pi/n}{\sin(\pi/n)}
+\end{align*}
+by the definition of the complex sine. Now, we use the bound on the absolute value of the integral of $f$ over $C_1$ that we obtained earlier to get that   
+\[
+\begin{split}
+2\frac{\pi/n}{\sin(\pi/n)}&=\lim_{R\to\infty}\bigg(\int_{-R}^Rf(x)dx+\int_{C_1} f(z)dz\bigg)\\&=
+\lim_{R\to\infty}\int_{-R}^Rf(x)dx+\lim_{R\to\infty}\int_{C_1} f(z)dz=\int_{-\infty}^\infty \frac{dx}{x^n+1}.
+\end{split}
+\]
+for any even $n\geq2$.
+
+\end{document}

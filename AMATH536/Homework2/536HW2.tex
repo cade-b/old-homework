@@ -1,0 +1,213 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{listings}
+\usepackage{multimedia} % to embed movies in the PDF file
+\usepackage{graphicx}
+\usepackage{comment}
+\usepackage[english]{babel}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{wrapfig}
+\usepackage{multirow}
+\usepackage{verbatim}
+\usepackage{float}
+\usepackage{cancel}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{/home/cade/Homework/latex-defs}
+
+
+\title{AMATH 536 Problem Set 2}
+\author{Cade Ballew \#2120804}
+\date{April 25, 2022}
+
+\begin{document}
+	
+\maketitle
+	
+\section{Problem 1}
+\subsection{Part a}
+Let $X$ be a r.v. that denotes the number of individuals in the normal population and let $Y$ be a r.v. that denotes the number of individuals in the mutant population. Assume that $X(0)=a, Y(0)=0$, both $X$ and $Y$ have growth rate $\lambda$, and division of normal bacteria produces a mutant with probability $p$. We compute
+$$P\{X(t+\Delta t)-X(t)=1, Y(t+\Delta t)-Y(t)=0 | X(t),Y(t)\}=(1-p)\lambda\Delta tX(t)+\oo(\Delta t)  $$ 
+and
+$$P\{X(t+\Delta t)-X(t)=0, Y(t+\Delta t)-Y(t)=1 | X(t),Y(t)\}=p\lambda\Delta tX(t)+\lambda\Delta tY(t)+\oo(\Delta t).  $$ 
+Dividing through by $\Delta t$, we see by definition that
+\[
+f_{10}(X,Y)=\lambda(1-p)X(t)+\oo(1)
+\]
+and
+\[
+f_{01}(X,Y)=\lambda (pX(t)+Y(t))+\oo(1).
+\]
+Now, note that the probability of more than one event occurring in a small time interval $\Delta t$ is $\oo(\Delta t)$, meaning that $f_{ij}(X,Y)=\oo(1)$ for $i,j\geq1$. Sending $\Delta t\to0$ allows us to drop these asymptotic terms, so we can write
+\[
+\begin{cases}
+	f_{10}(X,Y)=\lambda(1-p)X(t)\\
+	f_{01}(X,Y)=\lambda (pX(t)+Y(t))\\
+	f_{ij}(X,Y)=0, \quad i,j\geq1.
+\end{cases}
+\]
+
+\subsection{Part b}
+Now, we use this this to write the PDE
+\begin{align*}
+\frac{\partial M(\theta,\phi,t)}{\partial t}&=\sump_{j,k}(e^{j\theta+k\phi}-1)f_{jk}\left(\frac{\partial}{\partial \theta},\frac{\partial}{\partial \phi}\right) M(\theta,\phi,t)\\&=
+(e^{\theta}-1)f_{10}\left(\frac{\partial}{\partial \theta},\frac{\partial}{\partial \phi}\right) M(\theta,\phi,t)+(e^{\phi}-1)f_{01}\left(\frac{\partial}{\partial \theta},\frac{\partial}{\partial \phi}\right) M(\theta,\phi,t)\\&=
+(1-p)\lambda(e^\theta-1)\frac{\partial M(\theta,\phi,t)}{\partial \theta}+\lambda(e^\phi-1)\left(p\frac{\partial M(\theta,\phi,t)}{\partial \theta}+\frac{\partial M(\theta,\phi,t)}{\partial \phi}\right). 
+\end{align*}
+Note that an initial condition is given by
+\[
+M(\theta, \phi,0)=P(e^\theta,e^\phi,0)=\sum_{m,n}p_{mn}(0)e^{m\theta+n\phi}=e^{a\theta}.
+\]
+
+\subsection{Part c}
+To derive the PDE for the cumulant-generating function, we note that $K=\log M$, so 
+\[
+\frac{\partial K}{\partial t}=\frac{\partial K}{\partial M}\frac{\partial M}{\partial t}=\frac{1}{M}\frac{\partial M}{\partial t}.
+\]
+Note that we get a similar result by replacing $t$ with $\theta$ or $\phi$. Then, we can rewrite our PDE as
+\begin{align*}
+	M\frac{\partial K(\theta,\phi,t)}{\partial t}&=
+	M(1-p)\lambda(e^\theta-1)\frac{\partial K(\theta,\phi,t)}{\partial \theta}+M\lambda(e^\phi-1)\left(p\frac{\partial K(\theta,\phi,t)}{\partial \theta}+\frac{\partial K(\theta,\phi,t)}{\partial \phi}\right),
+\end{align*}
+so
+\begin{align*}
+	\frac{\partial K(\theta,\phi,t)}{\partial t}&=
+	(1-p)\lambda(e^\theta-1)\frac{\partial K(\theta,\phi,t)}{\partial \theta}+\lambda(e^\phi-1)\left(p\frac{\partial K(\theta,\phi,t)}{\partial \theta}+\frac{\partial K(\theta,\phi,t)}{\partial \phi}\right)
+\end{align*}
+with initial condition 
+\[
+K(\theta, \phi,0)=\log M(\theta, \phi,0)=\log e^{a\theta}=a\theta.
+\]
+
+\subsection{Part d}
+Now, let
+\[
+K(\theta,\phi,t)=\sump_{j,k}\frac{k_{jk}(t)\theta^j\phi^k}{j!k!}.
+\]
+Then, we compute
+\[
+\frac{\partial K}{\partial t}=\sump_{j,k}\frac{k_{jk}'(t)\theta^j\phi^k}{j!k!},
+\]
+\[
+\frac{\partial K}{\partial \theta}=\sum_{j=1}^\infty\sum_{k=0}^\infty\frac{k_{jk}(t)\theta^{j-1}\phi^k}{(j-1)!k!},
+\]
+\[
+\frac{\partial K}{\partial \phi}=\sum_{j=0}^\infty\sum_{k=1}^\infty\frac{k_{jk}(t)\theta^{j}\phi^{k-1}}{j!(k-1)!}.
+\]
+Substituting this into part c, 
+\begin{align*}
+\sump_{j,k}\frac{k_{jk}'(t)\theta^j\phi^k}{j!k!}&=\lambda\left((1-p)\sum_{\ell=1}^{\infty}\frac{\theta^\ell}{\ell!}+p\sum_{\ell=1}^{\infty}\frac{\phi^\ell}{\ell!}\right)\sum_{j=1}^\infty\sum_{k=0}^\infty\frac{k_{jk}(t)\theta^{j-1}\phi^k}{(j-1)!k!}\\&+\lambda\sum_{\ell=1}^{\infty}\frac{\phi^\ell}{\ell!}\sum_{j=0}^\infty\sum_{k=1}^\infty\frac{k_{jk}(t)\theta^{j}\phi^{k-1}}{j!(k-1)!}.
+\end{align*}
+
+\subsection{Part e}
+Now, we use Mathematica\footnote{See Appendix A for code} to equate coefficients of $\theta$, $\phi$, $\theta^2$, $\theta \phi$ and $\phi^2$ on both sides of this expression.  This yields the system of ODEs
+\begin{align*}
+&k_{10}'(t)=\lambda(1-p)k_{10}(t)\\
+&k_{01}'(t)=\lambda(k_{01}(t)+pk_{10}(t))\\
+&k_{11}'(t)=\lambda((2-p)k_{11}(t)+pk_{20}(t))\\
+&k_{20}'(t)=\lambda(1-p)(k_{10}(t)+2k_{20}(t))\\
+&k_{02}'(t)=\lambda(k_{01}(t)+2k_{02}(t)+p(k_{10}(t)+2k_{11}(t))).
+\end{align*}
+Since our initial condition only has one term, it is clear that $k_{10}(0)=a$ and $k_{ij}(0)=0$ for all other $i,j$. 
+
+\subsection{Part f}
+With Mathematica, we find that the solution to this system is given by
+\begin{align*}
+&k_{10}(t)=ae^{(1-p)\lambda t}\\
+&k_{01}(t)=a(e^{\lambda t}-e^{(1-p)\lambda t})\\
+&k_{11}(t)=\frac{1}{2}a(1-p)p(e^{(1-p)\lambda t}-e^{(2-p)\lambda t}+e^{(1-p)\lambda t}\lambda t)\\
+&k_{20}(t)=\frac{1}{2}ae^{(1-p)\lambda t}(1-p)\lambda t\\
+&k_{02}(t)=-\frac{a}{2p}(e^{\lambda t}(1-p\lambda t)-e^{(1-p)\lambda t}(-1+p^3-p^2\lambda t+p^3\lambda t)-e^{(2-p)\lambda t}p^3).
+\end{align*}
+Of course, this means that
+\begin{align*}
+	E[X(t)]&=ae^{(1-p)\lambda t}\\
+	E[Y(t)]&=a(e^{\lambda t}-e^{(1-p)\lambda t})\\
+	\Var[X(t)]&=\frac{1}{2}ae^{(1-p)\lambda t}(1-p)\lambda t\\
+	\Var[Y(t)]&=-\frac{a}{2p}(e^{\lambda t}(1-p\lambda t)-e^{(1-p)\lambda t}(-1+p^3-p^2\lambda t+p^3\lambda t)-e^{(2-p)\lambda t}p^3).
+\end{align*}
+
+\section{Problem 2}
+\subsection{Part a}
+Consider a biased random walk with probability $p=b/(b+d)$ of moving $+1$ and $1-p$ of moving $-1$. Assuming that we start at position $x$, let $X_n$ denote the position of the walker at time $n$. Then,
+\[
+\Prob(X_{2n}=x)=\binom{2n}{n}p^n(1-p)^n
+\] 
+for $n\geq1$ as we must make each move an equal amount of times and there are $\binom{2n}{n}$ ways to do this. Now, let $N_x$ denote the number of returns to $x$. Then, using Mathematica to compute the sum,
+\[
+E[N_x]=\sum_{n=1}^{\infty}\Prob(X_{2n}=x)=\frac{1}{\sqrt{(2p-1)^2}}-1.
+\]
+Of course, this implicitly assumes that $p\neq\frac{1}{2}$. In that case,
+\[
+E[N_x]=\sum_{n=1}^{\infty}\binom{2n}{n}\frac{1}{2^{2n}}=\infty.
+\]
+
+\subsection{Part b}
+To compute the expected number of times a surviving birth-death process will visit a (large) positive integer $x$, we note that each $x$ is visited at least once and use that first visit to initialize our random walk. This means that the expected total visits are given by 
+\[
+E[N_x]+1=\begin{cases}
+	\frac{1}{\sqrt{(2p-1)^2}}, \quad p\neq\half\\
+	\infty, \quad p=\half.
+\end{cases}
+\]
+
+\subsection{Part c}
+If we assume that each birth of a birth-death process can result in one normal cell and one mutant with some small probability $u$, there are currently $x$ normal cells, and at most one mutant can be produced before leaving state $x$, the probability that a mutant will be produced before the number of normal cells changes to $x-1$ or $x+1$ is simply the probability that the next event is a birth which results in a mutant. This is given by
+\[
+pu=\frac{bp}{b+d}.
+\]
+
+\subsection{Part d}
+Now, the expected number of mutants produced when there are exactly $x$ normal cells is simply given by the expected number of visits to $x$ multiplied by the probability of producing a mutant at state $x$. Thus, it is given by
+\[
+\begin{cases}
+\frac{bp}{(b+d)\sqrt{(2p-1)^2}}, \quad p\neq\half\\
+\infty, \quad p=\half.
+\end{cases}
+\]
+Of course, if our random walk is truly biased, we need not consider the $p=\half$ case for any part of these problems meaning that all values are finite. 
+
+\section{Appendix A}
+The following Mathematica code was used to solve problem 1.
+\begin{lstlisting}[language=Mathematica]
+	K = k10[t]*\[Theta] + k01[t] \[Phi] + k11[t]*\[Theta]*\[Phi] + 
+	k20[t]*\[Theta]^2/2 + k02[t]*\[Phi]^2/2
+	spaceder[\[Theta]_, \[Phi]_] = \[Lambda]*((1 - p)*(E^\[Theta] - 1) + 
+	p*(E^\[Phi] - 1))*D[K, \[Theta]] + \[Lambda]*(E^\[Phi] - 1)*
+	D[K, \[Phi]]
+	timeder[\[Theta]_, \[Phi]_] = D[K, t]
+	spacederseries = 
+	Normal[Series[spaceder[\[Theta]*g, \[Phi]*g], {g, 0, 2}]] /. g -> 1
+	timederseries = 
+	Normal[Series[timeder[\[Theta]*g, \[Phi]*g], {g, 0, 2}]] /. g -> 1
+\end{lstlisting}
+After noticing the coefficients on the LHS series, we can use
+\begin{lstlisting}[language=Mathematica]
+	c10 = FullSimplify[
+	Coefficient[spacederseries, \[Theta]] /. \[Phi] -> 0]
+	c01 = FullSimplify[
+	Coefficient[spacederseries, \[Phi]] /. \[Theta] -> 0]
+	c11 = FullSimplify[Coefficient[spacederseries, \[Phi]*\[Theta]]]
+	c20 = 2*FullSimplify[Coefficient[spacederseries, \[Theta], 2]]
+	c02 = 2*FullSimplify[Coefficient[spacederseries, \[Phi], 2]]
+	diffeqn = { k10'[t] == d10,
+		k01'[t] == d01,
+		k11'[t] == d11,
+		k20'[t] == d20,
+		k02'[t] == d02,
+		k10[0] == a,
+		k01[0] == 0,
+		k11[0] == 0,
+		k20[0] == 0,
+		k02[0] == 0
+	}
+	ans = FullSimplify[DSolve[ODEsystem, {k10, k01, k11, k20, k02}, t]]
+\end{lstlisting}
+The following Mathematica code was used to compute infinite sums in problem 2.
+\begin{lstlisting}[language=Mathematica]
+	FullSimplify[Sum[Binomial[2 n, n] p^n (1 - p)^n, {n, 1, Infinity}]]
+	FullSimplify[Sum[Binomial[2 n, n] (1/2)^2 n, {n, 1, Infinity}]]
+\end{lstlisting}
+
+\end{document}

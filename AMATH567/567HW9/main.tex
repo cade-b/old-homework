@@ -1,0 +1,273 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{listings}
+\usepackage{multimedia} % to embed movies in the PDF file
+\usepackage{graphicx}
+\usepackage{comment}
+\usepackage[english]{babel}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{subfigure}
+\usepackage{wrapfig}
+\usepackage{multirow}
+\usepackage{tikz}
+\usepackage{verbatim}
+\include{latex-defs}
+
+\title{AMATH 567 Homework 9}
+\author{Cade Ballew \#2120804}
+\date{December 1, 2021}
+
+\begin{document}
+
+\maketitle
+
+\section{Problem 1 (4.2.1)}
+\subsection{Part c}
+Consider the contour $C=C_1+C_R$ where $C_1$ is the line on the real axis from $-R$ to $R$ and $C_R$ is the upper semicircle of radius $R$ from $R$ to $-R$ as defined in the text. Then, for sufficiently large $R$ and taking $a\neq b$ with $a,b\in\real$, the residue theorem gives that 
+\begin{align*}
+\oint_C\frac{dz}{(z^2 + a^2)(z^2 + b^2)}&=2\pi i\Res_{z=|a|i}\frac{1}{(z^2 + a^2)(z^2 + b^2)}+2\pi i\Res_{z=|b|i}\frac{1}{(z^2 + a^2)(z^2 + b^2)}\\&=
+2\pi i\lim_{z\to|a|i}\frac{1}{(z + |a|i)(z^2 + b^2)}+2\pi i\lim_{z\to|b|i}\frac{1}{(z + |b|i)(z^2 + a^2)}\\&=
+\frac{2\pi i}{2|a|i(-a^2 + b^2)}+\frac{2\pi i}{2|b|i(-b^2 + a^2)}=\frac{\pi(-|b|+|a|)}{|ab|(a^2-b^2)}\\&=
+\frac{\pi}{|ab|(|a|+|b|)}.
+\end{align*}
+Now, letting $f(z)=\frac{1}{(z^2 + a^2)(z^2 + b^2)}$, theorem 4.2.1 in the text gives that 
+\[
+\lim_{R\to\infty}\int_{C_R}f(z)dz=0
+\]
+because the denominator is degree 4 and the numerator is degree 0. Also,
+\[
+\lim_{R\to\infty}\int_{C_1}f(z)dz=\lim_{R\to\infty}\int_{-R}^Rf(z)dz=\int_{-\infty}^\infty f(x)dx
+\]
+by definition. Thus, we can take the limit as $R\to\infty$ of both sides of the equation $\oint_{C}f(z)dz=\int_{C_1}f(z)dz+\int_{C_R}f(z)dz$ to get that 
+\[
+\int_{-\infty}^\infty f(x)dx = \frac{\pi}{|ab|(|a|+|b|)}.
+\]
+Now, we simply use the fact that $f$ is even as a function of $x$ to conclude that 
+\[
+\int_{0}^\infty \frac{1}{(x^2 + a^2)(x^2 + b^2)}dx = \frac{\pi}{2|ab|(|a|+|b|)}.
+\]
+Now, in search of extra credit, consider the case where $a=b$. Namely, $f(z)=\frac{1}{(z^2+a^2)^2}$. Then, for the same contour $C$ sufficiently large, the residue theorem and theorem 4.2 in the notes give that 
+\begin{align*}
+\oint_Cf(z)dz&=2\pi i\Res_{z=|a|i}\frac{1}{(z+|a|i)^2(z-|a|i)^2}=2\pi i\lim_{z\to|a|i}\frac{d}{dz}\frac{1}{(z+|a|i)^2}\\&=2\pi i\lim_{z\to|a|i}\frac{-2}{(z+|a|i)^3}=2\pi i\frac{-2}{8|a|^3(-i)}=\frac{\pi}{2|a|^3}.
+\end{align*}
+The remaining manipulations we did are not affected by the fact that $a=b$ now, because the degree of the polynomial in the denominator of $f$ is unchanged. Thus, 
+\[
+\int_{0}^\infty \frac{1}{(x^2 + a^2)(x^2 + b^2)}dx =\frac{1}{2}\oint_Cf(z)dz=\frac{\pi}{4|a|^3}.
+\]
+
+\section{Problem 2 (4.2.2)} 
+\subsection{Part b}
+Consider the same contour $C=C_1+C_R$ as in problem 1 and let
+\[
+f(z)=\frac{e^{ikz}}{(z^2 + a^2)(z^2 + b^2)}
+\]
+where $a^2, b^2, k > 0$. Then, if we let $a\neq b$, the residue theorem gives that 
+\begin{align*}
+\oint_Cf(z)&=2\pi i\Res_{z=|a|i}\frac{e^{ikz}}{(z^2 + a^2)(z^2 + b^2)}+2\pi i\Res_{z=|b|i}\frac{e^{ikz}}{(z^2 + a^2)(z^2 + b^2)}\\&=
+2\pi i\lim_{z\to|a|i}\frac{e^{ikz}}{(z + |a|i)(z^2 + b^2)}+2\pi i\lim_{z\to|b|i}\frac{e^{ikz}}{(z + |b|i)(z^2 + a^2)}\\&=
+\frac{2\pi ie^{-k|a|}}{2|a|i(-a^2 + b^2)}+\frac{2\pi ie^{-k|b|}}{2|b|i(-b^2 + a^2)}=\frac{\pi(-e^{-k|a|}|b|+e^{-k|b|}|a|)}{|ab|(a^2-b^2)}.
+\end{align*}
+If we consider the case where $a=b$, then $f(z)=\frac{e^{ikz}}{(z^2 + a^2)^2}$ and the residue theorem and theorem 4.2 in the lecture notes give that 
+\begin{align*}
+\oint_Cf(z)dz&=2\pi i\Res_{z=|a|i}\frac{e^{ikz}}{(z+|a|i)^2(z-|a|i)^2}=2\pi i\lim_{z\to|a|i}\frac{d}{dz}\frac{e^{ikz}}{(z+|a|i)^2}\\&=2\pi i\lim_{z\to|a|i}\frac{ike^{ikz}(z+a|i|)^2-2e^{ikz}(z+|a|i)}{(z+|a|i)^4}=2\pi i\frac{ike^{-k|a|}2|a|i-2e^{-k|a|}}{8|a|^3(-i)}\\&=
+\frac{-4\pi k|a|e^{-k|a|}-4\pi e^{-k|a|}}{-8|a|^3}=\frac{\pi e^{-k|a|}(k|a|+1)}{2|a|^3}.
+\end{align*}
+Note that in both cases, we have obtained a real number. Now, Jordan's lemma gives that 
+\[
+\lim_{R\to\infty}\int_{C_R}f(z)dz=0
+\]
+because the polynomial in the denominator is degree 4 and the polynomial in the numerator is degree 0. Also,
+\[
+\lim_{R\to\infty}\int_{C_1}f(z)dz=\lim_{R\to\infty}\int_{-R}^Rf(z)dz=\int_{-\infty}^\infty f(x)dx
+\]
+by definition. Thus, we can take the limit as $R\to\infty$ of both sides of the equation $\oint_{C}f(z)dz=\int_{C_1}f(z)dz+\int_{C_R}f(z)dz$ to get that 
+\[
+\int_{-\infty}^\infty f(x)dx = \frac{\pi(-e^{-k|a|}|b|+e^{-k|b|}|a|)}{|ab|(a^2-b^2)}
+\]
+in the case where $a\neq b$ and 
+\[
+\int_{-\infty}^\infty f(x)dx = \frac{\pi e^{-k|a|}(k|a|-1)}{2|a|^3}
+\]
+in the case where $a=b$. Now, Euler's formula gives that 
+\[
+\int_{-\infty}^\infty\frac{e^{ikx}}{(x^2 + a^2)(x^2 + b^2)}dz=\int_{-\infty}^\infty \frac{\cos(kx)}{(x^2 + a^2)(x^2 + b^2)}dx+i\int_{-\infty}^\infty \frac{\sin(kx)}{(x^2 + a^2)(x^2 + b^2)}.
+\]
+Thus, 
+\[
+\int_{-\infty}^\infty \frac{\cos(kx)}{(x^2 + a^2)(x^2 + b^2)}dx = \Re\left(\int_{-\infty}^\infty f(x)dx\right)=\frac{\pi(-e^{-k|a|}|b|+e^{-k|b|}|a|)}{|ab|(a^2-b^2)}
+\]
+when $a\neq b$ and 
+\[
+\int_{-\infty}^\infty \frac{\cos(kx)}{(x^2 + a^2)(x^2 + b^2)}dx = \Re\left(\int_{-\infty}^\infty f(x)dx\right)=\frac{\pi e^{-k|a|}(k|a|+1)}{2|a|^3}
+\]
+when $a=b$.
+
+\subsection{Part h}
+Consider the substitution 4.2.7 in the text where we consider $z$ on the unit circle and take $z=e^{i\theta}$ which gives that $dz=ie^{i\theta}d\theta=izd\theta$ and $\sin\theta=(z-1/z)/2i$. Let $C$ be the unit circle. Then, 
+\begin{align*}
+\int_0^{2 \pi} \frac{1}{(5 - 3 \sin\theta)^2} d \theta&=\oint_C\frac{1}{(5-\frac{3}{2i}(z-1/z))^2}\frac{dz}{iz}=\oint_C\frac{1}{\left(\frac{1}{2iz}(10iz-3(z^2-1))\right)}\frac{dz}{iz}\\&=
+\oint_C\frac{(2iz)^2}{iz}\frac{dz}{(3z^2-10iz-3)^2}=4i\oint_C\frac{z}{(3z-i)^2(z-3i)^2}dz\\&=
+\frac{4i}{9}\oint_C\frac{z}{(z-i/3)^2(z-3i)^2}dz
+\end{align*}
+Now, we note that the integrand has only one singularity inside $C$ at $z=i/3$ and apply the residue theorem and theorem 4.2 in the lecture notes to get 
+\begin{align*}
+\int_0^{2 \pi} \frac{1}{(5 - 3 \sin\theta)^2} d\theta&=\frac{4i}{9}2\pi i\Res_{z=i/3}\frac{z}{(z-i/3)^2(z-3i)^2}=-\frac{8\pi}{9}\lim_{z\to i/3}\frac{d}{dz}\frac{z}{(z-3i)^2}\\&=
+-\frac{8\pi}{9}\lim_{z\to i/3}\frac{(z-3i)^2-2z(z-3i)}{(z-3i)^4}=-\frac{8\pi}{9}\frac{-8i/3-2i/3}{(-8i/3)^3}\\&=
+\frac{8\pi}{9}\frac{10i/3}{i}\left(\frac{3}{8}\right)^3=\frac{10\pi}{9}\left(\frac{3}{8}\right)^2=\frac{10\pi}{64}=\frac{5\pi}{32}.
+\end{align*}
+
+\section{Problem 3 (4.2.4)}
+Let $C$ be a rectangular contour with corners at $\pm R$ and $\pm R + i$. Let $C_1$ denote the line from $-R$ to $R$, $C_2$ denote the line from $R$ to $R+i$, $C_3$ denote the line from $R+i$ to $-R+i$, and $C_4$ denote the line from $-R+i$ to $-R$. \\Now, notice that $f(z)=\frac{\cosh(az)}{\cosh(\pi z)}$ ($|a|<\pi$, $a$ real) has simple poles at the zeroes of $\cosh(\pi z)$ which occur at $i\left(\frac{1}{2}+k\right)$ for any $k\in\mathbb{Z}$ (we found this on homework 2). The only one of these singularities that occurs inside $C$ is at $z=i/2$. Then, by the residue theorem, 
+\begin{align*}
+\oint_Cf(z)dz&=2\pi i\Res_{z=i/2}\frac{\cosh(az)}{\cosh(\pi z)}=2\pi i\lim_{z\to i/2}\frac{\cosh(az)(z-i/2)}{\cosh(\pi z)}\\&=
+2\pi i\lim_{z\to i/2}\frac{\cosh(az)+a(z-i/2)\sinh(az)}{\pi\sinh(\pi z)}=2\pi i\frac{\cosh(ai/2)}{\pi\sinh(ai/2)}\\&=
+2\pi i\frac{\cosh(ai/2)}{\pi i}=2\cosh\frac{ai}{2}=2\cos\frac{a}{2}
+\end{align*}
+by L'Hopital's rule and the fact that $\cosh iz = \cos z$.\\
+Now, break this integral up into its components. Namely, let $I_k=\oint_{C_k}f(z)dz$ for $k=1,2,3,4$. Then, $I_1=\int_{-R}^Rf(x)dx$. To analyze $I_3$ we use the sum formula for the hyperbolic cosine to get
+\begin{align*}
+I_3&=\int_R^{-R}\frac{\cosh(a(x+i))}{\cosh(\pi(x+i))}dx=-\int_{-R}^R\frac{\cosh(ax)\cosh(ia)+\sinh(ax)\sinh(ia)}{\cosh(\pi x)\underbrace{\cosh(i\pi)}_{-1}+\sinh(\pi x)\underbrace{\sinh(i\pi)}_0}dx\\&=
+\cosh(ia)\int_{-R}^R\frac{\cosh(ax)}{\cosh(\pi x)}dx+\sinh(ia)\int_{-R}^R\underbrace{\frac{\sinh(ax)}{\cosh(\pi x)}}_{\text{odd function}}dx\\&=
+\cosh(ia)I_1=\cos aI_1.
+\end{align*}
+Now, look to bound $f$. If we let $z=x+iy$, 
+\[
+|f(z)|=\left|\frac{e^{a z}+e^{-a z}}{e^{\pi z}+e^{-\pi z}}\right|=\left|\frac{e^{a x}e^{aiy}+e^{-a x}e^{-aiy}}{e^{\pi x}e^{i\pi y}+e^{-\pi x}e^{-i\pi y}}\right|
+\]
+By the triangle inequality and symmetry, we have that 
+\[
+|e^{a x}e^{aiy}+e^{-a x}e^{-aiy}|\leq|e^{a x}e^{ia y}|+|e^{-a x}e^{-ia y}|=|e^{ax}|+|e^{-ax}|=e^{|ax|}+e^{-|ax|}.
+\]
+By the reverse triangle inequality and symmetry, 
+\[
+|e^{\pi x}e^{i\pi y}+e^{-\pi x}e^{-i\pi y}|\geq\left||e^{\pi x}e^{i\pi y}|-|-e^{-\pi x}e^{-i\pi y}|\right|=\left||e^{\pi x}|-|e^{-\pi x}|\right|=e^{\pi|x|}-e^{-\pi|x|}.
+\]
+Thus,
+\begin{align*}
+|f(z)|&\leq\frac{e^{|ax|}+e^{-|ax|}}{e^{\pi|x|}-e^{-\pi|x|}}=\frac{e^{|ax|}}{e^{\pi|x|}}\frac{1+e^{-2|ax|}}{1-e^{-2\pi|x|}}=\frac{(e^{|x|})^{|a|}}{(e^{|x|)^\pi}}\frac{1+e^{-2|ax|}}{1-e^{-2\pi|x|}}\\&=
+e^{|x|(|a|-\pi)}\frac{1+e^{-2|ax|}}{1-e^{-2\pi|x|}}.
+\end{align*}
+Note that as $|x|\to\infty$, the RHS tends to 0, because $|a|-\pi<0$, and $e^{-b}\to0$ as $b\to\infty$. As $R\to\infty$,  $|x|\to\infty$ on both $C_2$ and $C_4$, meaning that $|f(z)|\to0$ $C_2$ and $C_4$. Thus, as $R\to\infty$, $I_2=I_4=0$, because the modulus of an integral is bounded by the maximum value of the integrand on the contour times the length of said contour (theorem 2.4.2 in the text). \\
+From above we have that $2\cos\frac{a}{2}=I_1+I_2+I_3+I_4$. Taking the limit of both sides, we have $2\cos\frac{a}{2}=\lim_{R\to\infty}(I_1+\cos aI_1)$. Note that $\lim_{R\to\infty}I_1=\int_{-\infty}^\infty f(x)dx$. Thus,
+\[
+\int_{-\infty}^\infty f(x)dx=\frac{2\cos\frac{a}{2}}{1+\cos a}=\frac{2\cos\frac{a}{2}}{2\cos^2\frac{a}{2}}=\sec\frac{a}{2}
+\]
+by the double angle formula. Now, we simply use the fact that $f$ is even as a function of $x$ to conculde that 
+\[
+\int_0^\infty \frac{\cosh(ax)}{\cosh(\pi x)} d x = \frac{1}{2} \sec\left(\frac{a}{2}\right).
+\]
+
+\section{Problem 4}
+\subsection{Part a}
+Let $f(z)$ be analytic at $z=k$ ($k \in \mathbb{Z}$). Then, by theorem 4.2 in the lecture notes and L'Hopital's rule, 
+\[
+\Res_{z=k}f(z)\cot(\pi z)=\lim_{z\to k}\frac{f(z)(z-k)}{\tan(\pi z)}=\lim_{z\to k}\frac{f'(z)(z-k)+f(z)}{\pi\sec^2(\pi z)}=\frac{f(k)}{\pi\sec^2(\pi k)}=\frac{1}{\pi}f(k).
+\]
+\subsection{Part b}
+Let $\Gamma_N$ be a square contour with corners at $(N+1/2)(\pm 1\pm i)$, $N \in \mathbb{Z}^+$. Let $\Gamma_1$ represent the bottom of this square, $\Gamma_2$ the right, $\Gamma_3$ the top, and $\Gamma_4$ the left. Repeating an argument from homework 8, if we let $z=x+iy$, the definition of the complex cotangent gives that
+\[
+\cot(\pi z)=i\frac{e^{i\pi z}+e^{-i\pi z}}{e^{i\pi z}-e^{-i\pi z}}= i\frac{e^{i\pi x}e^{-\pi y}+e^{-i\pi x}e^{\pi y}}{e^{i\pi x}e^{-\pi y}-e^{-i\pi x}e^{\pi y}}.
+\]
+Now, by the triangle inequality
+\[
+|e^{i\pi x}e^{-\pi y}+e^{-i\pi x}e^{\pi y}|\leq|e^{i\pi x}e^{-\pi y}|+|e^{-i\pi x}e^{\pi y}|=e^{-\pi y}+e^{\pi y}=e^{-\pi |y|}+e^{\pi |y|}
+\]
+where the last step follows by symmetry. Similarly, the reverse triangle inequality gives that 
+\[
+|e^{i\pi x}e^{-\pi y}-e^{-i\pi x}e^{\pi y}|\geq\left||e^{i\pi x}e^{-\pi y}|-|e^{-i\pi x}e^{\pi y}|\right|=|e^{-\pi y}-e^{\pi y}|=e^{\pi |y|}-e^{-\pi |y|}
+\]
+where the last step follows from symmetry and the fact that $e^a\geq e^{-a}$ for $a\geq0$. Then, 
+\begin{align*}
+|\cot(\pi z)|&=\left|i\frac{e^{i\pi x}e^{-\pi y}+e^{-i\pi x}e^{\pi y}}{e^{i\pi x}e^{-\pi y}-e^{-i\pi x}e^{\pi y}}\right|\leq\frac{e^{-\pi |y|}+e^{\pi |y|}}{e^{\pi |y|}-e^{-\pi |y|}}\\&=
+\frac{e^{\pi |y|}+e^{-\pi |y|}}{e^{\pi |y|}-e^{-\pi |y|}}=\coth(\pi|y|)=\frac{e^{2\pi |y|}+1}{e^{2\pi |y|}-1}.
+\end{align*} 
+Thus, on $\Gamma_1$ and $\Gamma_3$, 
+\begin{align*}
+|\cot(\pi z)|&\leq\coth(\pi|y|)=\coth(\pi(N+\frac{1}{2}))\leq\coth(\pi/2)=\frac{e^\pi+1}{e^\pi-1}=1+\frac{2}{e^\pi-1}\\&<
+1+\frac{1}{2^3-1}=\frac{9}{7}<2
+\end{align*}
+by the fact that $\coth(z)$ is monotonically  decreasing for $z>0$ and $e>2,\pi>3$. 
+On $\Gamma_2$ and $\Gamma_4$, 
+\begin{align*}
+|\cot(\pi z)|&=\left|i\frac{e^{2i\pi x}e^{-2\pi y}+1}{e^{2i\pi x}e^{-2\pi y}-1}\right|=\left|\frac{e^{\pm i\pi2(N+1/2) x}e^{-2\pi y}+1}{e^{\pm i\pi2(N+1/2) x}e^{-2\pi y}-1}\right|=\left|\frac{-e^{-2\pi y}+1}{-e^{-2\pi y}-1}\right|\\&=
+\left|\frac{1-e^{-2\pi y}}{1+e^{-2\pi y}}\right|=\left|\frac{e^{\pi y}-e^{-\pi y}}{e^{\pi y}+e^{-\pi y}}\right|=|\tanh(y)|\leq1<2
+\end{align*}
+by the definition and range of the hyperbolic tangent on the real line. 
+Thus, $|\cot(\pi z)|\leq2$ for $z$ on all of $\Gamma_N$. 
+
+\subsection{Part c}
+Suppose $f(z)=p(z)/q(z)$, where $p(z)$ and $q(z)$ are polynomials, so that the degree of $q(z)$ is at least two more than	the degree of $p(z)$. We apply theorem 2.4.2 in the text to find that 
+\begin{align*}
+\lim_{N\to \infty}\left|\oint_{\Gamma_N}\frac{p(z)}{q(z)}\cot(\pi z)dz\right|\leq\lim_{N\to \infty}\sup_{z\in\Gamma_N}\left|\frac{p(z)}{q(z)}\cot(\pi z)\right|L
+\end{align*}
+where $L$ is the length of $\Gamma_N$. From the definition of $\Gamma_N$, $L=4*2(N+1/2)$, so 
+\begin{align*}
+\lim_{N\to \infty}\left|\oint_{\Gamma_N}\frac{p(z)}{q(z)}\cot(\pi z)dz\right|&\leq\lim_{N\to \infty}\sup_{z\in\Gamma_N}\left|\frac{p(z)}{q(z)}\right||\cot(\pi z)|8\left(N+\frac{1}{2}\right)\\&\leq
+16\left(N+\frac{1}{2}\right)\sup_{z\in\Gamma_N}\left|\frac{p(z)}{q(z)}\right|
+\end{align*}
+by part b. Now, let $p(z)=a_mz^m+\ldots+a_0$ and $q(z)=b_rz^r+\ldots+b_0$ where $r\geq m+2$. Then, by the triangle inequality and reverse triangle inequality, 
+\begin{align*}
+\left|\frac{p(z)}{q(z)}\right|=\frac{|a_mz^m+\ldots+a_0|}{|b_rz^r+\ldots+b_0|}\leq\frac{|a_m||z|^m+\ldots+|a_0|}{\left||b_r||z|^r-\ldots-|b_0|\right|}
+\end{align*}
+If we consider $N$ large enough so that $|b_r||z|^r\geq|b_{r-1}||z|^{r-1}-\ldots-|b_0|$ for $z\in\Gamma_N$ and also note that $N+\frac{1}{2}\leq|z|\leq\sqrt{2}\left(N+\frac{1}{2}\right)$ if $z\in\Gamma_N$ because the maximum modulus on a square is achieved at the corners and the minimum on the real or imaginary axes, 
+\begin{align*}
+\lim_{N\to \infty}\left|\oint_{\Gamma_N}\frac{p(z)}{q(z)}\cot(\pi z)dz\right|&\leq\lim_{N\to \infty}16\left(N+\frac{1}{2}\right)\frac{|a_m|(\sqrt{2}\left(N+\frac{1}{2}\right))^m+\ldots+|a_0|}{|b_r|\left(N+\frac{1}{2}\right)^r-|b_{r-1}|\left(\sqrt{2}\left(N+\frac{1}{2}\right)\right)^{r-1}-\ldots-|b_0|}\\&=0
+\end{align*}
+by the properties of real limits because this is equivalent to having $N^{m+1}$ in the numerator and $N^r$ in the denominator and $r>m+1$.
+
+\subsection{Part d}
+Suppose that $q(z)$ has no roots at the integers and let $\{z_j\}$ represent the roots of $q(z)$. Then, as $N\to\infty$, part c and the residue theorem (noting that the singularities of $\cot(\pi z)$ occur at the integers) give that 
+\[
+0=\oint_{\Gamma_N}f(z)\cot(\pi z)dz=2\pi i\left(\sum_j\Res_{z=z_j} f(z)\cot(\pi z)+\sum_{k=-\infty}^\infty\Res_{z=k}f(z)\cot(\pi z)\right)
+\]
+Thus, 
+\[
+\sum_j\Res_{z=z_j} f(z)\cot(\pi z)=-\sum_{k=-\infty}^\infty\Res_{z=k}f(z)\cot(\pi z)=-\sum_{k=-\infty}^\infty\frac{f(k)}{\pi}
+\]
+by part a. Thus,
+\[
+\sum_{k=-\infty}^\infty\frac{p(k)}{q(k)}=-\pi\sum_j\Res_{z=z_j} f(z)\cot(\pi z).
+\]
+
+\section{Problem 5}
+\subsection{Part a}
+Note that the function $\frac{1}{z^2+1}=\frac{1}{(z-i)(z+i)}$ has simple poles at $z=\pm i$. Using the result of problem 4,
+\begin{align*}
+\sum_{k=-\infty}^\infty \frac{1}{k^2+1}&=-\pi\left(\Res_{z=i}\frac{\cot(\pi z)}{z^2+1}+\Res_{z=-i}\frac{\cot(\pi z)}{z^2+1}\right)=-\pi\lim_{z\to i}\frac{\cot(\pi z)}{z+i}-\pi\lim_{z\to -i}\frac{\cot(\pi z)}{z-i}\\&=
+\frac{-\pi}{2i}\cot(\pi i)+\frac{\pi}{2i}\cot(-\pi i).
+\end{align*}
+Now, the fact that $\cot(z)$ is odd as a function of $z$ and that $\coth{z}=i\cot(iz)$ gives that
+\[
+\sum_{k=-\infty}^\infty \frac{1}{k^2+1}=\frac{-\pi}{2i}\cot(\pi i)+\frac{-\pi}{2i}\cot(\pi i)=-\frac{\pi}{i}\cot(\pi i)=\pi\coth\pi.
+\]
+\subsection{Part b}
+Now, note that 
+\[
+\frac{1}{z^4+1}=\frac{1}{(z+\sqrt i)(z-\sqrt{i})(z+i\sqrt i)(z-i\sqrt{i})}.
+\]
+Similarly to part a (again using the fact that cotangent is an odd function), we have that
+\begin{align*}
+\sum_{k=-\infty}^\infty \frac{1}{k^4+1}&=-\pi\biggr(\Res_{z=\sqrt i}\frac{\cot(\pi z)}{(z+\sqrt i)(z-\sqrt{i})(z^2+i)}+\Res_{z=-\sqrt i}\frac{\cot(\pi z)}{(z+\sqrt i)(z-\sqrt{i})(z^2+i)}\\&+
+\Res_{z=-i\sqrt i}\frac{\cot(\pi z)}{(z+i\sqrt i)(z-i\sqrt{i})(z^2-i)}+\Res_{z=i\sqrt i}\frac{\cot(\pi z)}{(z+i\sqrt i)(z-i\sqrt{i})(z^2-i)}\biggr)\\&=
+-\pi\left(\frac{\cot(\pi\sqrt{i})}{2i(2\sqrt{i})}+\frac{\cot(-\pi\sqrt{i})}{2i(-2\sqrt{i})}+\frac{\cot(-\pi i\sqrt{i})}{-2i\sqrt{i}(-2i)}+\frac{\cot(\pi i\sqrt{i})}{2i\sqrt{i}(-2i)}\right)\\&=
+-\pi\left(\frac{\cot(\pi\sqrt{i})}{4i\sqrt{i}}+\frac{\cot(\pi\sqrt{i})}{4i\sqrt{i}}+\frac{\cot(\pi i\sqrt{i})}{4\sqrt{i}}+\frac{\cot(\pi i\sqrt{i})}{4\sqrt{i}}\right)\\&=
+-\pi\left(\frac{\cot(\pi\sqrt{i})}{2i\sqrt{i}}+\frac{\cot(\pi i\sqrt{i})}{2\sqrt{i}}\right)=-\pi\left(\frac{-\sqrt{i}}{2}\cot(\pi\sqrt{i})-\frac{i\sqrt{i}}{2}\cot(\pi i\sqrt{i})\right)\\&=
+\frac{\pi}{2}\left(e^{\frac{i\pi}{4}}\cot(\pi e^{\frac{i\pi}{4}})+e^{\frac{3i\pi}{4}}\cot(\pi e^{\frac{3i\pi}{4}})\right).
+\end{align*}
+However, we know the answer should be a real number. To verify this, we input our result into Wolfram-Alpha which gives
+\[
+\frac{\pi}{2}\left(e^{\frac{i\pi}{4}}\cot(\pi e^{\frac{i\pi}{4}})+e^{\frac{3i\pi}{4}}\cot(\pi e^{\frac{3i\pi}{4}})\right)=-\frac{\pi(\sin(\sqrt{2}\pi)+\sinh(\sqrt{2}\pi))}{\sqrt{2}(\cos(\sqrt{2}\pi)\cosh(\sqrt{2}\pi))}
+\]
+which is clearly a real number. 
+
+\subsection{Part c}
+Now, we use the result from problem 4 and theorem 4.2 in the lecture notes to compute
+\begin{align*}
+\sum_{k=-\infty}^\infty \frac{1}{(4k^2-1)^2}&=-\pi\left(\Res_{z=-1/2}\frac{\cot(\pi z)}{16(z-1/2)^2(z+1/2)^2}+\Res_{z=1/2}\frac{\cot(\pi z)}{16(z-1/2)^2(z+1/2)^2}\right)\\&=
+-\frac{\pi}{16}\lim_{z\to-1/2}\frac{d}{dz}\frac{\cot(\pi z)}{(z-1/2)^2}-\frac{\pi}{16}\lim_{z\to1/2}\frac{d}{dz}\frac{\cot(\pi z)}{(z+1/2)^2}\\&=
+-\frac{\pi}{16}\lim_{z\to-1/2}\frac{-\pi\csc^2(\pi z)(z-\frac{1}{2})^2-2(z-\frac{1}{2})\cot(\pi z)}{(z-1/2)^4}\\&-\frac{\pi}{16}\lim_{z\to1/2}\frac{-\pi\csc^2(\pi z)(z+\frac{1}{2})^2-2(z+\frac{1}{2})\cot(\pi z)}{(z-1/2)^4}\\&=
+-\frac{\pi}{16}(-\pi)-\frac{\pi}{16}(-\pi)=\frac{\pi^2}{8}.
+\end{align*}
+
+\end{document}

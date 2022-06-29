@@ -1,0 +1,143 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{listings}
+\usepackage{multimedia} % to embed movies in the PDF file
+\usepackage{graphicx}
+\usepackage{comment}
+\usepackage[english]{babel}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{subfigure}
+\usepackage{wrapfig}
+\usepackage{multirow}
+\usepackage{tikz}
+\usepackage{verbatim}
+\include{latex-defs}
+\oddsidemargin=10pt
+
+
+\title{AMATH 515 Homework 0}
+\author{Cade Ballew}
+\date{January 12, 2022}
+
+\begin{document}
+
+\maketitle
+
+\section{Problem 2}
+\subsection{Part a}
+For $f(x)=\sin(x_1 + x_2 + x_3 + x_4)$, 
+\[
+\nabla f(x) = \begin{bmatrix} \cos(x_1 + x_2 + x_3 + x_4) \\ \cos(x_1 + x_2 + x_3 + x_4) \\\cos(x_1 + x_2 + x_3 + x_4) \\\cos(x_1 + x_2 + x_3 + x_4) \end{bmatrix}
+\]
+and 
+\[
+\nabla^2 f(x) = 
+\begin{bmatrix} -\sin(x_1 + x_2 + x_3 + x_4)  & -\sin(x_1 + x_2 + x_3 + x_4)  &-\sin(x_1 + x_2 + x_3 + x_4)  &-\sin(x_1 + x_2 + x_3 + x_4)  \\
+-\sin(x_1 + x_2 + x_3 + x_4)  & -\sin(x_1 + x_2 + x_3 + x_4)  &-\sin(x_1 + x_2 + x_3 + x_4)  &-\sin(x_1 + x_2 + x_3 + x_4)  \\
+-\sin(x_1 + x_2 + x_3 + x_4)  & -\sin(x_1 + x_2 + x_3 + x_4)  &-\sin(x_1 + x_2 + x_3 + x_4)  &-\sin(x_1 + x_2 + x_3 + x_4)  \\
+-\sin(x_1 + x_2 + x_3 + x_4)  & -\sin(x_1 + x_2 + x_3 + x_4)  &-\sin(x_1 + x_2 + x_3 + x_4)  &-\sin(x_1 + x_2 + x_3 + x_4) 
+\end{bmatrix}.
+\]
+
+\subsection{Part b}
+For $f(x) = \|x\|^2 = x_1^2 + x_2^2 + x_3^2 + x_4^2$,
+\[
+\nabla f(x) = \begin{bmatrix} 2x_1 \\ 2x_2 \\2x_3 \\2x_4 \end{bmatrix}
+\]
+and 
+\[
+\nabla^2 f(x) = 
+\begin{bmatrix} 2  & 0  &0  &0  \\
+0  & 2  &0  &0 \\
+0  & 0  &2  &0  \\
+0  & 0  &0  &2
+\end{bmatrix}.
+\]
+
+\subsection{Part c}
+For $f(x) = \ln(x_1x_2x_3x_4)$,
+\[
+\nabla f(x) = \begin{bmatrix} \frac{1}{x_1} \\ \frac{1}{x_2} \\\frac{1}{x_3} \\\frac{1}{x_4} \end{bmatrix}
+\]
+and 
+\[
+\nabla^2 f(x) = 
+\begin{bmatrix} -\frac{1}{x_1^2}  & 0  &0  &0  \\
+0  & -\frac{1}{x_2^2}  &0  &0 \\
+0  & 0  &-\frac{1}{x_3^2}  &0  \\
+0  & 0  &0  &-\frac{1}{x_4^2}
+\end{bmatrix}.
+\]
+
+\section{Problem 3} 
+\subsection{Part a}
+Because the matrix \[
+\begin{bmatrix}
+1 & 0 & 0 & 0 \\
+\pi & 2 & 0 & 0 \\
+64 & -15 & 3 & 0 \\ 
+321 & 0 & 0 & 5 
+\end{bmatrix}
+\]
+is lower triangular, its eigenvalues are simply its diagonal entries $1, 2, 3, 5$.
+
+\subsection{Part b}
+The matrix 
+\[
+A = \begin{bmatrix}
+1 \\ 0 \\ 1
+\end{bmatrix} 
+\begin{bmatrix}
+1 & 1 & 1
+\end{bmatrix} =
+\begin{bmatrix}
+1&1&1\\
+0&0&0\\
+1&1&1
+\end{bmatrix}
+\]
+has all linearly dependent columns, so a basis for its range space can be given by just one of them, namely 
+\[\begin{bmatrix}
+1 \\0\\1
+\end{bmatrix}.\]
+A vector in the nullspace of A must satisfy 
+\[
+\begin{bmatrix}
+1&1&1\\
+0&0&0\\
+1&1&1
+\end{bmatrix}
+\begin{bmatrix}
+x_1\\x_2\\x_3
+\end{bmatrix}
+=\begin{bmatrix}
+0\\0\\0
+\end{bmatrix}
+\],
+so satisfy $x_1+x_2+x_3=0$. Thus, it must have the form
+\[
+\begin{bmatrix}
+x_1\\x_2\\-x_1-x_2
+\end{bmatrix}
+=x_1\begin{bmatrix}
+1\\0\\-1
+\end{bmatrix}+x_2\begin{bmatrix}
+0\\1\\-1
+\end{bmatrix},
+\]
+so a basis for the nullspace of A is given by
+\[
+\left\{\begin{bmatrix}
+1\\0\\-1
+\end{bmatrix},\begin{bmatrix}
+0\\1\\-1
+\end{bmatrix}\right\}.
+\]
+
+\subsection{Part c}
+If $A$ is a $10 \times 5$ matrix, and $b$ is a vector in $\mathbb{R}^{10}$, then $A^TA$ is $5\times5$ and $A^Tb$ is $5\times1$.\\
+The system $Ax=b$ could have zero or infinitely many solutions.\\
+The system $A^TAx=A^Tb$ may have one or infinitely many solutions. \\
+If the columns of $A$ are linearly independent, the system $Ax=b$ has infinitely many solutions and the system $A^TAx=A^Tb$ has one solution.
+\end{document}

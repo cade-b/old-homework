@@ -1,0 +1,235 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{listings}
+\usepackage{multimedia} % to embed movies in the PDF file
+\usepackage{graphicx}
+\usepackage{comment}
+\usepackage[english]{babel}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{subfigure}
+\usepackage{wrapfig}
+\usepackage{multirow}
+\usepackage{verbatim}
+\include{latex-defs}
+
+
+\title{AMATH 568 Homework 6}
+\author{Cade Ballew \#2120804}
+\date{February 16, 2022}
+
+\begin{document}
+	
+\maketitle
+	
+\section{Problem 1}
+Considering the boundary-value problem
+  \begin{align*}
+    \begin{cases} y_1''(x) + \frac{1}{16} y_1(x) = f(x), \quad x \in (-\pi,\pi),\\
+      y_1(-\pi) = 0,\\
+      y_1(\pi) = 0, \end{cases}
+  \end{align*}
+for a continuous function $f: [\pi,\pi] \to \mathbb R$, we apply the method of variation of parameters to solve for $y_1$. Solving the homogeneous equation
+\[
+y_1''(x) + \frac{1}{16} y_1(x) = 0,
+\]
+we get characteristic polynomial $r^2+1/16=0$, so $r=\pm i/4$ and a general solution is given by $2c_1\cos(x/4)+2c_2\sin(x/4)=c_1c(x)+c_2s(x)$. Then, by (7.14) in the text, variation of parameters gives that a general solution to our original equation is given by
+\[
+y_1(x)=s(x)\int_{x_0}^x\frac{c(t)f(t)}{W[c,s](t)}dt-c(x)\int_{x_0}^x\frac{s(t)f(t)}{W[c,s](t)}dt+c_1c(x)+c_2s(x).
+\]
+First, compute the Wronskian
+\[
+W[c,s](x)=\det\begin{pmatrix}c(x) &s(x)\\c'(x)&s'(x)\end{pmatrix}=\det\begin{pmatrix}2\cos{\frac{x}{4}} &2\sin{\frac{x}{4}}\\-\frac{1}{2}\sin{\frac{x}{4}}&\frac{1}{2}\cos{\frac{x}{4}}\end{pmatrix}=\cos^2\frac{x}{4}+\sin^2\frac{x}{4}=1.
+\]
+Now, we take $x_0=-\pi$ and impose our boundary conditions. 
+\[
+0=y_1(-\pi)=c_1c(-\pi)+c_2s(-\pi)=\sqrt{2}c_1-\sqrt{2}c_2,
+\]
+so $c_1=c_2$. Making this substitution,
+\[
+0=y_1(\pi)=s(\pi)\int_{-\pi}^\pi c(t)f(t)dt-c(\pi)\int_{-\pi}^\pi s(t)f(t)dt+c_1(c(\pi)+s(\pi)),
+\]
+$c(\pi)+s(\pi)=2\sqrt{2}$, so $s(\pi)/(c(\pi)+s(\pi))=c(\pi)/(c(\pi)+s(\pi))=1/2$ and
+\begin{align*}
+c_2=c_1=\frac{1}{2}\int_{-\pi}^\pi s(t)f(t)dt-\frac{1}{2}\int_{-\pi}^\pi c(t)f(t)dt.
+\end{align*}
+Thus,
+\begin{align*}
+y_1(x)&=c(x)\left(-\int_{-\pi}^x s(t)f(t)dt+\frac{1}{2}\int_{-\pi}^\pi s(t)f(t)dt-\frac{1}{2}\int_{-\pi}^\pi c(t)f(t)dt\right)\\&+s(x)\left(\int_{-\pi}^x c(t)f(t)dt+\frac{1}{2}\int_{-\pi}^\pi s(t)f(t)dt-\frac{1}{2}\int_{-\pi}^\pi c(t)f(t)dt\right)\\&=
+c(x)\left(\int_x^{-\pi} s(t)f(t)dt+\int_{-\pi}^\pi s(t)f(t)dt-\frac{1}{2}\int_{-\pi}^\pi s(t)f(t)dt-\frac{1}{2}\int_{-\pi}^\pi c(t)f(t)dt\right)\\&+s(x)\left(\int_{-\pi}^x c(t)f(t)dt-\frac{1}{2} \int_{-\pi}^\pi [c(t) - s(t)] f(t) dt\right)\\&=
+c(x) \left(\int_x^\pi s(t) f(t) d t  - \frac{1}{2} \int_{-\pi}^\pi [s(t) + c(t)] f(t) d t  \right) \\
+    & + s(x) \left(\int_{-\pi}^x c(t) f(t) d t - \frac{1}{2} \int_{-\pi}^\pi [c(t) - s(t)] f(t) d t \right).
+\end{align*}
+
+\section{Problem 2}
+Considering the nonlinear boundary-value problem
+  \begin{align*}
+    \begin{cases} y''(x;\epsilon) + \left(\frac{\sigma}{2} \right)^2 y(x;\epsilon) + \epsilon \sin y(x;\epsilon) = 0, \quad x \in (-\pi,\pi), ~~ 0 < \epsilon \ll 1,\\
+      y(-\pi) = 1,\\
+      y(\pi) = 0, \end{cases}
+  \end{align*}
+we first take $\sigma = 1/2$ and $y(x;\epsilon) = \sum_{n=0}^\infty \epsilon^n y_n(x)$. Note that this is a regularly perturbed problem, because it has a solution when we take $\epsilon=0$ which we can see when solving for $y_0(x)$. Plugging in our expansion for $y$ and matching powers of $\epsilon$, $y_0$ must satisfy the BVP
+  \begin{align*}
+    \begin{cases} y''_0(x) +  \frac{1}{16} y_0(x) = 0, \quad x \in (-\pi,\pi),\\
+      y_0(-\pi) = 1,\\
+      y_0(\pi) = 0. \end{cases}
+  \end{align*}
+We know from problem 1 that a general solution to this problem is given by
+\[
+y_0=c_1c(x)+c_2s(x).
+\]
+Plugging in the boundary conditions, we get the system
+\begin{align*}
+1=y_0(-\pi)=\sqrt{2}(c_1-c_2)\\
+0=y_0(\pi)=\sqrt{2}(c_1+c_2)
+\end{align*}
+which gives that $c_1=\frac{1}{2\sqrt{2}}$, $c_2=-\frac{1}{2\sqrt{2}}$, so
+\[
+y_0(x)=\frac{1}{2\sqrt{2}}c(x)-\frac{1}{2\sqrt{2}}s(x).
+\]
+Now, looking at the terms with $\epsilon^1$, we see that $y_1$ must satisfy the BVP 
+\begin{align*}
+    \begin{cases} y_1''(x) + \frac{1}{16} y_1(x) +\sin(y_0(x))=0, \quad x \in (-\pi,\pi),\\
+      y_1(-\pi) = 0,\\
+      y_1(\pi) = 0, \end{cases}
+  \end{align*}
+but this is precisely the BVP that we solved in problem 1 if we take $$f(x)=-\sin(y_0(x))=-\sin\left(\frac{1}{2\sqrt{2}}c(x)-\frac{1}{2\sqrt{2}}s(x)\right).$$
+Thus, we can use our prior work to conclude that 
+\begin{align*}
+y_1(x)&=-c(x) \left(\int_x^\pi s(t)\sin\left(\frac{1}{2\sqrt{2}}c(t)-\frac{1}{2\sqrt{2}}s(t)\right) d t  - \frac{1}{2} \int_{-\pi}^\pi [s(t) + c(t)] \sin\left(\frac{1}{2\sqrt{2}}c(t)-\frac{1}{2\sqrt{2}}s(t)\right) d t  \right) \\
+    & - s(x) \left(\int_{-\pi}^x c(t) \sin\left(\frac{1}{2\sqrt{2}}c(t)-\frac{1}{2\sqrt{2}}s(t)\right) d t - \frac{1}{2} \int_{-\pi}^\pi [c(t) - s(t)] \sin\left(\frac{1}{2\sqrt{2}}c(t)-\frac{1}{2\sqrt{2}}s(t)\right) d t \right).
+\end{align*}
+If we instead consider $\sigma=2$, our problem is singularly perturbed, because it is no longer possible to find a function that satisfies the boundary conditions when $\epsilon=0$. More explicitly, the BVP 
+\begin{align*}
+\begin{cases} y_0''(x) + y_0(x)=0, \quad x \in (-\pi,\pi),\\
+      y_0(-\pi) = 1,\\
+      y_0(\pi) = 0 \end{cases}
+\end{align*}
+has characteristic polynomial $r^2+1$ with roots $r=\pm i$ which yields a general solution of 
+\[
+y_0(x)=c_1\cos{x}+c_2\sin{x}.
+\]
+Imposing the first boundary condition requires $1=y(-\pi)=-c_1$, but imposing the second requires $0=y(\pi)=c_1$. Clearly, these cannot both hold simultaneously. 
+
+\section{Problem 3}
+\subsection{Part a}
+Now, define an integral operator $\mathcal{L}$ such that $\mathcal{L}f=y_1$ where $y_1$ is as found in problem 1. Then, by the triangle inequality
+\begin{align*}
+\|\mathcal L f\|_\infty&=\max_{-\pi \leq x \leq \pi}\biggr|c(x) \left(\int_x^\pi s(t) f(t) d t  - \frac{1}{2} \int_{-\pi}^\pi [s(t) + c(t)] f(t) d t  \right) \\
+    & + s(x) \left(\int_{-\pi}^x c(t) f(t) d t - \frac{1}{2} \int_{-\pi}^\pi [c(t) - s(t)] f(t) d t \right)\biggr|\\&\leq
+\max_{-\pi \leq x \leq \pi}\biggr\{|c(x)| \left(\int_x^\pi |s(t)| |f(t)| d t  + \frac{1}{2} \int_{-\pi}^\pi |s(t) + c(t)| |f(t)| d t  \right) \\
+    & + |s(x)| \left(\int_{-\pi}^x |c(t)| |f(t)| d t + \frac{1}{2} \int_{-\pi}^\pi |c(t) - s(t)| |f(t)| d t \right)\biggr\}.
+\end{align*}
+Now, note that $|c(x)|,|s(x)|\leq2$ for all $x\in\real$, so $|c(x)-s(x)|,|c(x)+s(x)|\leq4$ by the triangle inequality as well. Then, 
+\begin{align*}
+ \|\mathcal L f\|_\infty&\leq   \max_{-\pi \leq x \leq \pi}\biggr\{2 \left(\int_x^\pi 2 |f(t)| d t  + \frac{1}{2} \int_{-\pi}^\pi 4 |f(t)| d t  \right) \\
+    & + 2 \left(\int_{-\pi}^x 2 |f(t)| d t + \frac{1}{2} \int_{-\pi}^\pi 4 |f(t)| d t \right)\biggr\}\\&=
+    \max_{-\pi \leq x \leq \pi}\biggr\{4 \int_x^\pi  |f(t)| d t  +  8\int_{-\pi}^\pi  |f(t)| d t    + 4\int_{-\pi}^x  |f(t)| d t\biggr\}\\&=
+    \max_{-\pi \leq x \leq \pi}\biggr\{ 12\int_{-\pi}^\pi  |f(t)| d t   \biggr\}\leq\max_{-\pi \leq x \leq \pi}\biggr\{ 12\int_{-\pi}^\pi  \max_{-\pi \leq x \leq \pi}|f(x)| d t   \biggr\}\\&=
+    \max_{-\pi \leq x \leq \pi}\biggr\{12 \max_{-\pi \leq x \leq \pi}|f(x)|\int_{-\pi}^\pi   d t   \biggr\}=\max_{-\pi \leq x \leq \pi}\biggr\{ 24\pi\max_{-\pi \leq x \leq \pi}|f(x)| \biggr\}\\&=
+    24\pi \max_{-\pi \leq x \leq \pi}|f(x)|=24\pi\|f\|_\infty. 
+\end{align*}
+Thus, $\|\mathcal L f\|_\infty \leq C \|f\|_\infty$ where $C\geq24\pi>0$.
+
+\subsection{Part b}
+Now, consider $Y(x;\epsilon) = y(x;\epsilon) - y_0(x)$ where $y,y_0$ satisfy their respective differential equations as in problem 2. Then,
+\begin{align*}
+&Y''(x;\epsilon) + \left(\frac{\sigma}{2} \right)^2 Y(x;\epsilon) + \epsilon \sin \left( Y(x;\epsilon) + y_0(x) \right)\\&=
+y''(x;\epsilon) -y_0(x) +\left(\frac{\sigma}{2} \right)^2 (y(x;\epsilon)-y_0(x)) + \epsilon \sin y(x;\epsilon)\\&=
+\left(y''(x;\epsilon) + \left(\frac{\sigma}{2} \right)^2 y(x;\epsilon) + \epsilon \sin y(x;\epsilon)\right)-\left(y_0''(x)+\left(\frac{\sigma}{2} \right)^2y_0(x)\right)=0.
+\end{align*}
+Similarly,
+\[
+Y(-\pi)=y(-\pi)-y_0(-\pi)=1-1=0
+\]
+and 
+\[
+Y(\pi)=y(\pi)-y_0(\pi)=0-0=0,
+\]
+so $Y$ must satisfy the BVP
+\begin{align*}
+    \begin{cases} Y''(x;\epsilon) + \left(\frac{\sigma}{2} \right)^2 Y(x;\epsilon) + \epsilon \sin \left( Y(x;\epsilon) + y_0(x) \right) = 0, \quad x \in (-\pi,\pi),\\
+      Y(-\pi) = 0,\\
+      Y(\pi) = 0. \end{cases}
+    \end{align*}
+Now, observe that this is the BVP from problem 1 taken with $f(x)=-\epsilon \sin \left( Y(x;\epsilon) + y_0(x) \right)$. Thus, the result of problem 1 tells us that if a solution to this BVP exists, it is given by
+\[
+Y = -\epsilon \mathcal L \sin(Y + y_0).
+\]
+Also, if such a function exists, it clearly solves the BVP. Thus, a solution to this BVP exists iff a solution to the above fixed point problem exists.
+
+\subsection{Part c}
+Considering $V,Y$, real valued and continuous on $[-\pi,\pi]$, note that the operator $\mathcal{L}$ is linear, because all integrals in $\mathcal{L}$ involve $f$ and integrals are known to be linear operators. Thus,
+\begin{align*}
+&\|\epsilon \mathcal L \sin(Y + y_0) - \epsilon \mathcal L \sin(V + y_0)\|_\infty=\| \mathcal L (\epsilon(\sin(Y + y_0) - \sin(V + y_0)))\|_\infty\\&\leq
+C\|  \epsilon(\sin(Y + y_0) - \sin(V + y_0))\|_\infty= C\max_{-\pi \leq x \leq \pi}\left|\epsilon(  \sin(Y + y_0) - \sin(V + y_0))(x)\right|\\&=
+\epsilon C\max_{-\pi \leq x \leq \pi}\left|  \sin(Y(x) + y_0(x)) - \sin(V(x) + y_0(x))\right|.
+\end{align*}
+Now, we apply the hint that the MVT implies that $\sin(x) - \sin(y) = \cos(\xi)(x-y)$ for $\xi$ between $x$ and $y$ for $x=\sin(Y(x') + y_0(x'))$ and $y=\sin(V(x') + y_0(x'))$ where
+\[
+x'=\arg\max_{-\pi \leq x \leq \pi}\left|\sin(Y(x) + y_0(x)) - \sin(V(x) + y_0(x))\right|.
+\]
+Then, 
+\[
+\sin(Y(x') + y_0(x')) - \sin(V(x') + y_0(x'))=\cos\xi (Y(x')-V(x')),
+\]
+for some $\xi$ between $Y(x') + y_0(x')$ and $V(x') + y_0(x')$, so
+\begin{align*}
+&\max_{-\pi \leq x \leq \pi}\left|  \sin(Y(x) + y_0(x)) - \sin(V(x) + y_0(x))\right|\\&=|\sin(Y(x') + y_0(x')) - \sin(V(x') + y_0(x'))|\\&=
+|\cos\xi (Y(x')-V(x'))|\leq\max_{-\pi \leq x \leq \pi}|\cos\xi (Y(x)-V(x))|.
+\end{align*}
+Thus,
+\begin{align*}
+&\|\epsilon \mathcal L \sin(Y + y_0) - \epsilon \mathcal L \sin(V + y_0)\|_\infty\leq\epsilon C\max_{-\pi \leq x \leq \pi}\left| \cos\xi (Y(x)-V(x))\right|\\&=
+\epsilon C\underbrace{|\cos\xi|}_{\leq1}\max_{-\pi \leq x \leq \pi}\left| Y(x)-V(x)\right|\leq\epsilon C\|V-Y\|_\infty.
+\end{align*}
+Thus, if we take $0<\epsilon< \frac{1}{C}=\frac{1}{24\pi}$ and $L=\epsilon C$, then 
+\begin{align*}
+      \|\epsilon \mathcal L \sin(Y + y_0) - \epsilon \mathcal L \sin(V + y_0)\|_\infty \leq L \|V -Y\|_\infty, \quad 0 < L < 1.
+\end{align*}
+Now, we can invoke theorem 6.2 in the text by taking $\mathcal{B}$ to be the space of real-valued functions on the interval $[-\pi,\pi]$ taken with the infinity norm. This space is known to be complete, so $\mathcal{B}$ is a Banach space. We take $X$ to be the subset of bounded functions in $\mathcal{B}$ and consider $T_\epsilon:X\to X$ such that $T_\epsilon(Y)=-\epsilon \mathcal L \sin(Y + y_0)$. Taking $\rho=L$, then there exists a unique $f\in X$ such that $f=T_\epsilon(f)$, i.e. a solution to the problem $Y = -\epsilon \mathcal L \sin(Y + y_0)$ both exists and is unique. Therefore, we know that a solution our original differential equation both exists and is unique. 
+
+\subsection{Part d}
+Now that we know that there is in fact a solution such that $Y = -\epsilon \mathcal L \sin(Y + y_0)$, then by part a,
+\begin{align*}
+\|Y\|_\infty&=\|-\epsilon \mathcal L \sin(Y + y_0)\|_\infty=\epsilon\|\mathcal{L} \sin(Y + y_0)\|_\infty\leq C\epsilon\|\sin(Y+y_0)\|_\infty\\&=
+C\epsilon\max_{-\pi \leq x \leq \pi}\underbrace{|\sin(Y(x)+y_0(x))|}_{\leq1}\leq C\epsilon.
+\end{align*}
+Thus, $\|Y\|_\infty=\OO(\epsilon)$ as $\epsilon\to0$ by definition.
+
+\section{Problem 4}
+Now consider $W(x;\epsilon) = y(x;\epsilon) - y_0(x) - \epsilon y_1(x)$. Then, using the differential equations that $y$, $y_0$, $y_1$ must satisfy,
+\begin{align*}
+&W''(x;\epsilon)+\left(\frac{\sigma}{2} \right)^2 W(x;\epsilon) + \epsilon \sin \left( W(x;\epsilon) + y_0(x) +\epsilon y_1(x)\right)-\epsilon\sin(y_0(x))\\&=
+y''(x;\epsilon) -y_0''(x)-\epsilon y_1''(x) +\left(\frac{\sigma}{2} \right)^2 (y(x;\epsilon)-y_0(x)-\epsilon y_1(x)) + \epsilon \sin y(x;\epsilon)-\epsilon\sin(y_0(x))\\&=
+\left(y''(x;\epsilon) + \left(\frac{\sigma}{2} \right)^2 y(x;\epsilon) + \epsilon \sin y(x;\epsilon)\right)-\left(y_0''(x)+\left(\frac{\sigma}{2} \right)^2y_0(x)\right)-\epsilon\left(y_1''(x)+\left(\frac{\sigma}{2} \right)^2y_1(x)+\sin(y_0(x))\right)\\&=0.
+\end{align*}
+Also, we have boundary conditions
+\begin{align*}
+&W(-\pi)=y(\pi)-y_0(-\pi)-\epsilon y_1(-\pi)=1-1-0=0\\
+&W(\pi)=y(\pi)-y_0(\pi)-\epsilon y_1(\pi)=0-0-0=0.
+\end{align*}
+Thus, $W$ satisfies the BVP
+\begin{align*}
+    \begin{cases} W''(x;\epsilon)+\left(\frac{\sigma}{2} \right)^2 W(x;\epsilon) + \epsilon \sin \left( W(x;\epsilon) + y_0(x) +\epsilon y_1(x)\right)-\epsilon\sin(y_0(x)) = 0, \quad x \in (-\pi,\pi),\\
+      Y(-\pi) = 0,\\
+      Y(\pi) = 0. \end{cases}
+    \end{align*}
+which is equivalent to the fixed point problem
+\[
+W=-\epsilon\mathcal{L}(\sin(W+y_0+\epsilon y_1)-\sin(y_0)).
+\]
+Since we know that $Y$ and therefore $W$ exists, we can use the linearity of $W$ (which is clear since it's an integral operator), the result of part a, and the Taylor expansion of $\sin(y(x))$ (as on page 2 of part 5 of the lecture notes) to find
+\begin{align*}
+\|W\|_\infty&=\|-\epsilon\mathcal{L}(\sin(W+y_0+\epsilon y_1)-\sin(y_0))\|_\infty\leq \epsilon C \|\sin(W+y_0+\epsilon y_1)-\sin(y_0)\|_\infty\\&=
+\epsilon C\|\sin(y)-\sin(y_0)\|_\infty=\epsilon C\|\sin(y_0)+\epsilon\cos(y_0)y_1+\OO(\epsilon^2)-\sin(y_0)\|_\infty\\&=
+\epsilon^2C\|\cos(y_0)y_1+\OO(\epsilon)\|_\infty
+\end{align*}
+Since our functions are defined on a bounded interval and continuous, we know that they must be bounded on that interval. In particular, this means that 
+\begin{align*}
+\|W\|_\infty&\leq \epsilon^2C \max_{-\pi \leq x \leq \pi} |\cos(y_0(x))y_1(x)+\OO(\epsilon)|=\epsilon^2C\max_{-\pi \leq x \leq \pi} \underbrace{|\cos(y_0(x))|}_{\leq1}|y_1(x)|+\OO(\epsilon^3)\\&\leq
+\epsilon^2C M+\OO(\epsilon^3)
+\end{align*}
+for some $M>0$. Clearly, this means that $\|W\|_\infty=\OO(\epsilon^2)$ as $\epsilon\to0$.
+
+\end{document}

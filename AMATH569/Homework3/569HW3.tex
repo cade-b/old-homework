@@ -1,0 +1,188 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{listings}
+\usepackage{multimedia} % to embed movies in the PDF file
+\usepackage{graphicx}
+\usepackage{comment}
+\usepackage[english]{babel}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{wrapfig}
+\usepackage{multirow}
+\usepackage{verbatim}
+\usepackage{float}
+\usepackage{cancel}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{/home/cade/Homework/latex-defs}
+
+
+\title{AMATH 569 Homework 3}
+\author{Cade Ballew \#2120804}
+\date{May 4, 2022}
+
+\begin{document}
+	
+\maketitle
+	
+\section{Problem 1}
+Consider the problem
+\begin{align*}
+	&\frac{\partial}{\partial t}u-D\frac{\partial^2}{\partial x^2}u=\delta(x-\xi)\delta(t-\tau), \quad -\infty<x<\infty,~t>0,~-\infty<\xi<\infty,~\tau>0\\
+	&u(x,t)\to0~\text{as}~x\to\pm\infty,~t>0,\\
+	&u(x,0)=0, \quad -\infty<x<\infty.
+\end{align*}
+
+\subsection{Part a}
+First taking the Fourier transform in $x$ and letting 
+\[
+U(\omega,t)=\mathcal{F}[u(x,t)],
+\]
+\begin{align*}
+	\mathcal{F}[u_{t}]=\int_{-\infty}^\infty u_{t}e^{i\omega x}dx=\frac{\partial}{\partial t}\int_{-\infty}^\infty ue^{i\omega x}dx=U_{t}.
+\end{align*}
+Also,
+\begin{align*}
+	\mathcal{F}[u_{xx}]&=\int_{-\infty}^\infty u_{xx}e^{i\omega x}dx=\left[u_xe^{i\omega x}\right]_{-\infty}^\infty-i\omega\int_{-\infty}^\infty u_{x}e^{i\omega x}dx\\&=\left[u_xe^{i\omega x}\right]_{-\infty}^\infty-i\omega\cancel{\left[ue^{i\omega x}\right]_{-\infty}^\infty}-\omega^2\int_{-\infty}^\infty ue^{i\omega x}dx\\&=
+	-\omega^2\int_{-\infty}^\infty ue^{i\omega x}dx=-\omega^2U
+\end{align*}
+if we make the additional assumption that $u_x(x,t)\to0$ as $x\to\pm\infty$. Finally, 
+\begin{align*}
+\mathcal{F}[\delta(x-\xi)\delta(t-\tau)]&=\int_{-\infty}^\infty \delta(x-\xi)\delta(t-\tau)e^{i\omega x}dx=\delta(t-\tau)\int_{-\infty}^\infty \delta(x-\xi)e^{i\omega x}dx\\&=
+\delta(t-\tau)e^{i\omega \xi}.
+\end{align*}
+Thus, our PDE can be rewritten as
+\[
+U_t(\omega,t)+D\omega^2U(\omega,t)=\delta(t-\tau)e^{i\omega \xi}.
+\]
+Now, we take the Laplace transform in $t$ letting \[
+\Tilde{U}(\omega,s)=\mathcal{L}[U(\omega,t)].
+\]
+Then, 
+\[
+\mathcal{L}[U_t(x,t)]=\int_0^\infty U_te^{-st}dt=\left[Ue^{-st}\right]_0^\infty+s\int_0^\infty Ue^{-st}dt=s\Tilde{U}(\omega,s)
+\]
+if we impose the additional assumption that $u(x,t)$ vanish as $t\to\infty$. Also,
+\begin{align*}
+\mathcal{L}[\delta(t-\tau)e^{i\omega \xi}]=\int_0^\infty\delta(t-\tau)e^{i\omega \xi}e^{-st}dt=e^{i\omega\xi}\int_0^\infty\delta(t-\tau)e^{-st}dt=e^{i\omega\xi}e^{-s\tau}.
+\end{align*}
+Thus, we now have that
+\[
+(s+D\omega^2)\Tilde{U}(\omega,s)=e^{i\omega\xi}e^{-s\tau},
+\]
+so
+\[
+\Tilde{U}(\omega,s)=\frac{e^{i\omega\xi-s\tau}}{s+D\omega^2}.
+\]
+To compute the inverse Laplace transform,
+\[
+U(\omega,t)=\mathcal{L}^{-1}[\Tilde{U}(\omega,s)]=\int_{-i\infty}^{i\infty}\frac{e^{i\omega\xi-s\tau}e^{st}}{s+D\omega^2}ds%=H(t-\tau)e^{-D\omega^2(t-\tau)+i\xi\omega},
+\]
+we first consider the case where $t<\tau$. Here, we observe exponential decay in the right half plane, so we draw a Bromwich contour in the right half plane in order to invoke Jordan's lemma to find that the integral along the circular arc vanishes. Since the integrand is analytic in the left half plane, Cauchy's theorem says that the integral around the whole contour is zero meaning that 
+\[
+\int_{-i\infty}^{i\infty}\frac{e^{i\omega\xi-s\tau}e^{st}}{s+D\omega^2}ds=0.
+\]
+In the case where $t>\tau$, we have exponential decay in the left half plane, so we draw a Bromwich contour on this side and again invoke Jordan's lemma to get that the integral along the arc vanishes. As we have only one isolated singularity at $s=-D\omega^2$ in this region, we use the residue theorem to find that 
+\begin{align*}
+\int_{-i\infty}^{i\infty}\frac{e^{i\omega\xi-s\tau}e^{st}}{s+D\omega^2}ds=\Res_{s=-D\omega^2}\frac{e^{i\omega\xi-s\tau}e^{st}}{s+D\omega^2}=\lim_{s\to-D\omega^2}e^{i\omega\xi+s(t-\tau)}=e^{i\omega \xi-D\omega^2(t-\tau)}.
+\end{align*}
+%\[
+%u(x,t)=\mathcal{F}^{-1}[U(\omega,t)]=\frac{H(t-\tau)e^{-\frac{(x-\xi)^2}{4D(t-\tau)}}}{\sqrt{2D(t-\tau)}}.
+%\]
+Thus, 
+\[
+U(\omega,t)=\begin{cases}
+	0,\quad t<\tau\\
+	e^{i\omega \xi-D\omega^2(t-\tau)},\quad t>\tau
+\end{cases}=H(t-\tau)e^{i\omega \xi-D\omega^2(t-\tau)}
+\]
+where $H$ denotes the Heaviside function. Finally, we apply the inverse Fourier transform to this to get 
+\begin{align*}
+u(x,t)&=\mathcal{F}^{-1}[U(\omega,t)]=\frac{1}{2\pi}\int_{-\infty}^{\infty}H(t-\tau)e^{i\omega \xi-D\omega^2(t-\tau)}e^{-i\omega x}d\omega\\&=
+\frac{H(t-\tau)}{2\pi}\int_{-\infty}^{\infty}e^{-(i\omega (x-\xi)+D\omega^2(t-\tau))}d\omega\\&=
+\frac{H(t-\tau)}{2\pi}\int_{-\infty}^{\infty}e^{-D(t-\tau)\left(\omega^2+\frac{i\omega(x-\xi)}{D(t-\tau)}\right)}d\omega\\&=
+\frac{H(t-\tau)}{2\pi}\int_{-\infty}^{\infty}e^{-D(t-\tau)\left(\left(\omega+\frac{i(x-\xi)}{2D(t-\tau)}\right)^2+\frac{(x-\xi)^2}{4(D(t-\tau))^2}\right)}d\omega\\&=
+\frac{H(t-\tau)}{2\pi}e^{-\frac{(x-\xi)^2}{4D(t-\tau)}}\int_{-\infty}^{\infty}e^{-D(t-\tau)\left(\omega+\frac{i(x-\xi)}{2D(t-\tau)}\right)^2}d\omega.
+\end{align*}
+Now, our remaining integral is a Gaussian and it is well known that
+\[
+\int_{-\infty}^{\infty}e^{-au}du=\sqrt{\frac{\pi}{a}}
+\]
+for $a>0$. Thus, for $t>\tau$,
+\[
+u(x,t)=\frac{H(t-\tau)}{2\pi}e^{-\frac{(x-\xi)^2}{4D(t-\tau)}}\sqrt{\frac{\pi}{D(t-\tau)}}=\frac{H(t-\tau)e^{-\frac{(x-\xi)^2}{4D(t-\tau)}}}{\sqrt{4\pi D(t-\tau)}}
+\] 
+We abuse notation to use this definition for $t<\tau$ as well by noting that $H(t-\tau)=0$, so even if the rest of this term is not well-defined, $u$ is known to be zero. From this solution, we can see that the assumptions we posed are indeed valid. Namely, $u(x,t)\to0$ as $t\to\infty$ and $u_x(x,t)\to0$ as $x\to\pm\infty$.
+
+\subsection{Part b}
+Now, we consider the PDE after the Fourier transform step 
+\[
+U_t(\omega,t)+D\omega^2U(\omega,t)=\delta(t-\tau)e^{i\omega \xi}
+\]
+and solve it directly via %integrating factor. 
+%\[
+%e^{D\omega^2t}U_t(\omega,t)+D\omega^2U(\omega,t)=\delta(t-\tau)e^{i\omega \xi+D\omega^2t},
+%\]
+%so 
+%\[
+%\int \frac{\partial}{\partial t}(e^{D\omega^2t}U(\omega,t))dt=\int\delta(t-\tau)e^{i\omega \xi+D\omega^2t}dt
+%\]
+%meaning that 
+%\[
+%e^{D\omega^2t}U(\omega,t)=H(t-\tau)e^{i\omega \xi+D\omega^2\tau}+C(\omega).
+%\]
+%Now, we note that the initial condition $u(x,0)=0$ implies that $U(\omega,0)=0$, so we plug this in to find that $C(\omega)=0$. Thus, 
+%\[
+%e^{D\omega^2t}U(\omega,t)=H(t-\tau)e^{i\omega \xi+D\omega^2\tau},
+%\]
+%and
+%\[
+%U(\omega,t)=H(t-\tau)e^{i\omega \xi-D\omega^2(t-\tau)}.
+%\]
+matching. Noting that $\delta(t-\tau)=0$ for $t\neq\tau$, we have 
+\begin{align*}
+U_t+D\omega^2U=0, \quad t<\tau\\
+U_t+D\omega^2U=0,\quad t>\tau\\
+\end{align*}
+noting that the initial condition $u(x,0)=0$ implies that $U(\omega,0)=0$. Our ODE has general solution
+\[
+U(\omega,t)=\begin{cases}
+C_1(\omega)e^{-D\omega^2t},\quad t<\tau\\
+C_2(\omega)e^{-D\omega^2t},\quad t>\tau,
+\end{cases}
+\]
+but since we assume $\tau>0$, we can plug in the initial condition for find that $C_1(\omega)=0$, so
+\[
+U(\omega,t)=\begin{cases}
+	0,\quad t<\tau\\
+	C_2(\omega)e^{-D\omega^2t},\quad t>\tau.
+\end{cases}
+\]
+To find $C_2(\omega)$, we find a matching condition across $t=\tau$ by integrating across an infinitesimally small region around $t=\tau$. Namely,
+\begin{align*}
+\int_{\tau^-}^{\tau^+}(U_t(\omega,t)+D\omega^2U(\omega,t))dt=\int_{\tau^-}^{\tau^+}\delta(t-\tau)e^{i\omega \xi}dt=e^{i\omega\tau}.
+\end{align*}
+Assuming that $U$ is finite in this region, 
+\begin{align*}
+\int_{\tau^-}^{\tau^+}(U_t(\omega,t)+D\omega^2U(\omega,t))dt&=\int_{\tau^-}^{\tau^+}U_t(\omega,t)dt+D\omega^2\cancel{\int_{\tau^-}^{\tau^+}U(\omega,t)}\\&=
+\left[U(\omega,t)\right]_{\tau^-}^{\tau^+}=U(\omega,\tau^+)-U(\omega,\tau^-).
+\end{align*}
+We now know that $U(\omega,\tau^-)=0$, so our matching condition requires that 
+\[
+C_2(\omega)e^{-D\omega^2\tau}=e^{i\omega\tau},
+\]
+meaning that $C_2(\omega)=e^{i\omega\tau+D\omega^2\tau}$,
+so 
+\[
+U(\omega,t)=\begin{cases}
+	0,\quad t<\tau\\
+	e^{i\omega \xi-D\omega^2(t-\tau)},\quad t>\tau
+\end{cases}=H(t-\tau)e^{i\omega \xi-D\omega^2(t-\tau)}.
+\]
+Note that this is the same as what we found in part a and we can again compute
+\[
+u(x,t)=\mathcal{F}^{-1}[U(\omega,t)]=\frac{H(t-\tau)e^{-\frac{(x-\xi)^2}{4D(t-\tau)}}}{\sqrt{4D(t-\tau)}}.
+\]
+Once again, the assumption $u_x(x,t)\to0$ as $x\to\pm\infty$ that we made is valid here. 
+
+\end{document}

@@ -1,0 +1,360 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{listings}
+\usepackage{multimedia} % to embed movies in the PDF file
+\usepackage{graphicx}
+\usepackage{comment}
+\usepackage[english]{babel}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{wrapfig}
+\usepackage{multirow}
+\usepackage{verbatim}
+\usepackage{float}
+\usepackage{cancel}
+\usepackage{caption}
+\usepackage{subcaption}
+\include{latex-defs}
+
+
+\title{AMATH 515 Homework 3}
+\author{Cade Ballew}
+\date{March 9, 2022}
+
+\begin{document}
+	
+\maketitle
+	
+\section{Problem 1}
+\subsection{Part a}
+Let $f(x) = \delta_{\mathbb{B}_{\infty}}(x)$. Then, 
+\[
+f^*(z)=\sup_x \left\{ z^Tx - \delta_{\mathbb{B}_{\infty}}(x)\right\}=\sup_{x\in\mathbb{B}_{\infty}}z^Tx.
+\]
+This supremum is clearly obtained by taking
+\[
+x_i=\begin{cases}
+1, &z_i>0\\
+-1, &z_i<0.\\\end{cases}
+\]
+Thus, 
+\[
+f^*(z)=\sum_{i=1}^n|z_i|=\|z\|_1.
+\]
+
+\subsection{Part b}
+Let $f(x) = \delta_{\mathbb{B}_2}(x)$. Then, by the Cauchy-Schwarz inequality,
+\[
+f^*(z)=\sup_x \left\{ z^Tx - \delta_{\mathbb{B}_{2}}(x)\right\}=\sup_{x\in\mathbb{B}_{2}}z^Tx\leq\sup_{\|x\|<1}\|z\|\|x\|\leq\|z\|.
+\]
+However, this bound is attained by taking $x=z/\|z\|$ (which is on the boundary of the ball) which gives that $z^Tx=\|z\|$. Thus, this is bound is in fact the supremum, so 
+\[
+f^*(z)=\|z\|.
+\]
+
+\subsection{Part c}
+Let $f(x)=\exp(x)$ where $x\in\real$. Then,
+\[
+f^*(z)=\sup_x \left\{ z^Tx - \exp(x)\right\}=\sup_x \left\{ zx - \exp(x)\right\},
+\]
+because $z$ and $x$ are scalars. Setting the derivative with respect to $x$ equal to zero to find the $x$ that maximizes this quantity,
+\[
+0=z-\exp(x),
+\]
+so $x=\log(z)$ which gives that 
+\[
+f^*(z)=z\log(z)-\exp(\log(z))=z(\log(z)-1).
+\]
+
+\subsection{Part d}
+Let $f(x) =  \log(1+\exp(x))$ be a scalar function. Then,
+\[
+f^*(z)=\sup_x \left\{ zx - \log(1+\exp(x))\right\}.
+\]
+Setting the derivative equal to 0,
+\[
+0=z-\frac{e^x}{1+e^x}.
+\]
+We can write this as 
+\[
+e^x=\frac{z}{1-z},
+\]
+so $x=\log{\frac{z}{1-z}}$ and 
+\[
+f^*(z)=z\log{\frac{z}{1-z}}-\log\left(1+\frac{z}{1-z}\right)=z\log\frac{z}{1-z}-\log\frac{1}{1-z}.
+\]
+
+\subsection{Part e}
+Let $f(x) = x\log(x)$ be a scalar function. Then,
+\[
+f^*(z)=\sup_x \left\{ zx - x\log(x)\right\}.
+\]
+Setting the derivative equal to 0,
+\[
+0=z-(\log{x}+1),
+\]
+so $x=\exp(z-1)$ and
+\[
+f^*(z)=z\exp(z-1)-\exp(z-1)(z-1)=\exp(z-1).
+\]
+
+\section{Problem 2}
+Let $g$ be a given convex function.
+\subsection{Part a}
+If $f(x)=\lambda g(x)$, then
+\begin{align*}
+f^*(z)&=\sup_x \left\{ z^Tx - \lambda g(x)\right\}=\sup_x \left\{ \lambda\left(\frac{1}{\lambda}z^Tx - g(x)\right)\right\}\\&=
+\lambda\sup_x \left\{ \left(\frac{z}{\lambda}\right)^Tx - g(x)\right\}=\lambda g^*\left(\frac{z}{\lambda}\right).
+\end{align*}
+
+\subsection{Part b}
+If $f(x) = g(x-a) + \langle x, b \rangle$, then
+\begin{align*}
+f^*(z)&=\sup_x \left\{ z^Tx - g(x-a) - b^Tx\right\}=\sup_x \left\{ (z-b)^Tx - g(x-a)\right\}\\&=
+\sup_x \left\{ (z-b)^Tx - g(x-a)\right\}=\sup_x \left\{ (z-b)^T(x-a) - g(x-a)+(z-b)^Ta\right\}.
+\end{align*}
+Now, we rename $x'=x-a$ to get
+\begin{align*}
+f^*(z)&=\sup_{x'} \left\{ (z-b)^Tx' - g(x')+(z-b)^Ta\right\}\\&=
+\sup_{x'} \left\{ (z-b)^Tx' - g(x')\right\}+a^T(z-b)=g^*(z-b)+a^T(z-b).
+\end{align*}
+
+\subsection{Part c}
+If $f(x) = \inf_z \left\{g(x,z)\right\}$, then
+\begin{align*}
+f^*(z)&=\sup_x \left\{ z^Tx - \inf_y \left\{g(x,y)\right\}\right\}=\sup_x \left\{ z^Tx + \sup_y \left\{-g(x,y)\right\}\right\}\\&=
+\sup_{x,y} \left\{ z^Tx -g(x,y)\right\}.
+\end{align*}
+Now, note that
+\begin{align*}
+g^*(z,w)=\sup_{x,y} \left\{ z^Tx+w^Ty -g(x,y)\right\},
+\end{align*}
+so clearly,
+\[
+f^*(z)=g^*(z,0).
+\]
+\subsection{Part d}
+If $f(x) = \inf_z \left\{\frac{1}{2}\|x-z\|^2 + g(z)\right\}$, define $h(x,y)=\frac{1}{2}\|x-y\|^2 + g(y)$ and compute
+\begin{align*}
+h^*(z,w)&=\sup_{x,y} \left\{ z^Tx+w^Ty -\frac{1}{2}\|x-y\|^2 - g(y)\right\}\\&=
+\sup_{x,y} \left\{ z^T(x-y)+(w+z)^Ty -\frac{1}{2}\|x-y\|^2 - g(y)\right\}.
+\end{align*}
+Now, define $x'=x-y$ to get
+\begin{align*}
+h^*(z,w)&=\sup_{x',y} \left\{ z^Tx'+(w+z)^Ty -\frac{1}{2}\|x'\|^2 - g(y)\right\}\\&=
+\sup_{x'} \left\{ z^Tx'-\frac{1}{2}\|x'\|^2\right\} +\sup_{y}\left\{(w+z)^Ty - g(y)\right\}\\&=
+p^*(z)+g^*(w+z) 
+\end{align*}
+where $p(x)=\frac{1}{2}\|x\|^2$. From page 8 of lecture 12, we know that $p^*(z)=p(z)$, so 
+\[
+h^*(z,w)=\frac{1}{2}\|z\|^2+g^*(w+z).
+\]
+Now, we can apply part c of this problem to conclude that
+\[
+f^*(z)=h^*(z,0)=\frac{1}{2}\|z\|^2+g^*(z).
+\]
+% Now, we find $x$ by computing the gradient with respect to $x$ and setting it equal to 0.
+% \[
+% 0=z-(x-y),
+% \]
+% so $x=y+z$. Then,
+% \begin{align*}
+% f^*(x)&=h^*(z,0)=\sup_{y} \left\{ z^T(y+z) -\frac{1}{2}\|z\|^2 - g(y)\right\}\\&=\sup_{y} \left\{ z^Ty +\frac{1}{2}\|z\|^2 - g(y)\right\}=\sup_{y} \left\{ z^Ty  - g(y)\right\}+\frac{1}{2}\|z\|^2
+% \end{align*}
+
+\section{Problem 3}
+\subsection{Part a}
+Let $f$ be a closed proper convex function. To derive the Moreau identity, we first remark that for a closed proper convex function $g$, $u=\prox_g(v)$ iff $v-u\in\partial g(u)$. To see this, note that
+\[
+\prox_g(v)\arg\min_x\left\{\frac{1}{2}\|x-v\|^2+g(x)\right\},
+\]
+so the convexity of $g$ and the differentiability of the 2-norm gives that $u=\prox_g(v)$ iff $u$ minimizes the interior quantity iff $(u-v)+\partial g(u)\ni0$ which occurs iff $v-u\in\partial g(u)$. Using this, let $x=\prox_f(z)$. Then, $z-x\in\partial f(x)$. Now, we apply the Fenchel flip to get that $x\in\partial f^*(z-x)$. This means that 
+\[
+\underbrace{z}_{v}-\underbrace{(z-x)}_{u}\in\partial f^*(\underbrace{z-x}_u),
+\]
+so we again apply our property to get that this is true iff
+\[
+z-x=\prox_{f^*}(z).
+\]
+Thus,
+\[
+\mbox{prox}_{f}(z) + \mbox{prox}_{f^*}(z)=x+(z-x)=z.
+\]
+
+\subsection{Part b}
+From part a and problem 1 part a, we know that
+\[
+z=\prox_{\mathbb{B}_{\infty}}(z)+\prox_{\mathbb{B}_{\infty}^*}(z)=\prox_{\mathbb{B}_{\infty}}(z)+\prox_{\|\cdot\|_1}(z).
+\]
+Thus,
+\[
+\prox_{\|\cdot\|_1}(z)=z-\prox_{\mathbb{B}_{\infty}}(z).
+\]
+From homework 2, we know that the elements of $\prox_{\mathbb{B}_{\infty}}(z)$ are given by
+\[
+\prox_{\mathbb{B}_{\infty}}(z)_i=\begin{cases}
+1, &z_i>1\\
+-1, &z_i<-1\\
+z_i, &|z_i|\leq 1.
+\end{cases}
+\]
+Thus, the elements of $\prox_{\|\cdot\|_1}(z)$ are given by
+\[
+\prox_{\|\cdot\|_1}(z)_i=\begin{cases}
+z_i-1, &z_i>1\\
+z_i+1, &z_i<-1\\
+0, &|z_i|\leq 1
+\end{cases}
+\]
+which matches what we derived on homework 2.\\
+Similarly, problem 1 part b tells us that
+\[
+z=\prox_{\mathbb{B}_{2}}(z)+\prox_{\mathbb{B}_{2}^*}(z)=\prox_{\mathbb{B}_{2}}(z)+\prox_{\|\cdot\|_2}(z),
+\]
+so 
+\[
+\prox_{\|\cdot\|_2}(z)=z-\prox_{\mathbb{B}_{2}}(z).
+\]
+From lecture 9 page 8, we know that 
+\[
+\prox_{\mathbb{B}_{2}}(z)=\begin{cases}
+z, &\|z\|\leq1\\
+\frac{z}{\|z\|}, &\|z\|>1.\end{cases}
+\]
+Thus,
+\[
+\prox_{\|\cdot\|_2}(z)=\begin{cases}
+0, &\|z\|\leq1\\
+z-\frac{z}{\|z\|}, &\|z\|>1\end{cases}
+\]
+which matches what we derived on homework 2. 
+
+\section{Problem 4}
+\subsection{Part a}
+Consider 
+\[
+\min_{x} \sum_{i=1}^n g(\langle a_i, x\rangle) - b^TAx + R(x),
+\]
+where $g$ is convex and $R$ is any regularizer. From lecture 13 page 11, we know that the problem
+\[
+\min_{x} f(Qx-d)+h(x)+c^Tx
+\]
+has dual
+\[
+\sup_z -z^Td-f^*(z)-h^*(-Q^Tz-c).
+\]
+To write our problem in this form, take $Q=A$, $d=0$, $h(x)=R(x)$, $c=-A^Tb$ ($c^T=-b^TA$), and $f(x)=\sum_{i=1}^n g(x_i)$.
+Now, compute
+\begin{align*}
+f^*(z)&=\sup_x \left\{ z^Tx - \sum_{i=1}^n g(x_i)\right\}=\sup_{x_1,\ldots,x_n} \left\{\sum_{i=1}^n (z_ix_i-g(x_i))\right\}\\&=
+\sum_{i=1}^n\sup_{x_i} \left\{z_ix_i-g(x_i)\right\}=\sum_{i=1}^ng^*(z_i).
+\end{align*}
+Thus, our problem has dual
+\[
+\sup_z \left\{-\sum_{i=1}^ng^*(z_i)-R^*(-A^Tz+A^Tb)\right\}=\sup_z \left\{-\sum_{i=1}^ng^*(z_i)-R^*(A^T(b-z))\right\}.
+\]
+
+\subsection{Part b}
+Now, we compute the dual of 
+\[
+\min_x \sum_{i=1}^n \log(1+\exp(\langle a_i, x \rangle))  - b^TAx  + \frac{\lambda}{2}\|x\|^2. 
+\]
+by taking $g(x)=\log(1+\exp(x))$ and $R(x)=\frac{\lambda}{2}\|x\|^2$. From problem 1 part d, we know that 
+\[
+g^*(z)=z\log\frac{z}{1-z}-\log\frac{1}{1-z}.
+\]
+From problem 2 part a and the conjugate of $\frac{1}{2}\|x\|^2$ that we already established, we find that
+\[
+R^*(z)=\frac{\lambda}{2}\|z/\lambda\|^2=\frac{1}{2\lambda}\|z\|^2.
+\]
+Thus, the dual of our problem is given by
+\[
+\sup_z \left\{-\sum_{i=1}^n\left(z_i\log\frac{z_i}{1-z_i}-\log\frac{1}{1-z_i}\right)-\frac{1}{2\lambda}\|A^T(b-z)\|^2\right\}.
+\]
+\subsection{Part c}
+Now, we compute the dual of 
+\[
+\min_x \sum_{i=1}^n \exp(\langle a_i, x \rangle) - b^TAx +  \lambda\|x\|_1. 
+\]
+by taking $g(x)=\exp(x)$ and $R(x)=\lambda\|x\|_1$. From problem 1 part c, we have that 
+\[
+g^*(z)=z(\log(z)-1).
+\]
+We also know from problem 1 part a that $\delta^*_{\mathbb{B}_{\infty}}(z)=\|z\|_1$, so using the fact that the 1-norm is closed convex, $\|z\|^*_1=\delta_{\mathbb{B}_{\infty}}(z)$ ($f^{**}=f$ under these conditions from lecture 12 page 13). Applying problem 2 part a,
+\[
+R^*(z)=\lambda\delta_{\mathbb{B}_{\infty}}(z/\lambda)=\delta_{\mathbb{B}_{\infty}}(z/\lambda)=\delta_{\lambda\mathbb{B}_{\infty}}(z).
+\]
+Thus, the dual of our problem is given by
+\[
+\sup_z \left\{-\sum_{i=1}^nz_i(\log(z_i)-1)-\delta_{\lambda\mathbb{B}_{\infty}}(A^T(b-z))\right\}.
+\]
+
+\section{Problem 5}
+\subsection{Part a}
+Consider the Capped Simplex $\Delta_k$
+\[
+\Delta_k := \left\{x: 1^Tx = k, \quad 0 \leq x_i \leq 1 \quad \forall i. \right\}
+\]
+and the projection problem is given by 
+\[
+\mbox{proj}_{\Delta_k}(y) = \arg\min_{x \in \Delta_k} \frac{1}{2}\|x-y\|^2.
+\]
+From lecture 13 page 13, we know that the dual constraint for the condition $1^Tx = k$ is given by 
+\[
+\sup_z z(1^Tx - k),
+\]
+so we can write our dual problem as 
+\[
+\sup_z\min_{x\in[0,1]^n}\left\{\frac{1}{2}\|x-y\|^2+z(1^Tx - k)\right\}.
+\]
+Taking the gradient the interior and setting it equal to zero to minimize with respect to x. 
+\[
+0=(x-y)+z1
+\]
+which gives $x^*=y-z1$. However, we need to ensure that $x^*\in[0,1]^n$ which we do by projecting onto that space as
+\[
+x^*_i=\begin{cases}
+y_i-z, &0\leq y_i-z\leq1\\
+1, &y_i-z>1\\
+0, &y_i-z<0.
+\end{cases}
+\]
+Plugging this in for $x$, our dual problem becomes
+\[
+\sup_z \sum_{i=1}^n f(z)_i
+\]
+where 
+\[
+f(z)_i=\begin{cases}
+-\frac{z^2}{2}+zy_i, &0\leq y_i-z\leq1\\
+\frac{(y_i-1)^2}{2}+z, &y_i-z>1\\
+\frac{y_i^2}{2}, &y_i-z<0.
+\end{cases}
+\]
+
+\subsection{Part b}
+To solve this dual, we note that our function is separable, so we set its gradient equal to 0 by computing
+\[
+f(z)'_i=\begin{cases}
+-z+y_i, &0\leq y_i-z\leq1\\
+1, &y_i-z>1\\
+0, &y_i-z<0.
+\end{cases}
+\]
+and writing
+\[
+0=\sum_{i=1}^n f'(z)_i.
+\]
+We find the solution to numerically which yields an optimal $z^*$.
+
+\subsection{Part c}
+Once we find an optimal $z^*$, we can then find our optimal $x^*$ as described above, meaning that elementwise,
+\[
+\mbox{proj}_{\Delta_k}(y)_i=x^*_i=\begin{cases}
+y_i-z^*, &0\leq y_i-z\leq1\\
+1, &y_i-z>1\\
+0, &y_i-z<0.
+\end{cases}
+\]
+
+\end{document}
