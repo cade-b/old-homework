@@ -1,4 +1,4 @@
-# Homework
+# old-homework
 Unless otherwise stated, this repo contains my (uncorrected) solutions to assignments from my courses at the University of Washington. I've made this repo public as a resource, but please practice academic integrity when viewing said resource. 
 
 A few comments:
