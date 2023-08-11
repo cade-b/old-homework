@@ -10,10 +10,16 @@ The latex-defs.sty and jlcode.sty files will often be required to compile my .te
 # Course textbooks:
 AMATH 561: Exercise numbers refer to unpublished course notes by Matthew Lorig
 
-AMATH 567: Complex Variables: Introduction and Applications by Mark Ablowitz and Athanassios Fokas
+AMATH 567: Complex Variables: Introduction and Applications by M. J. Ablowitz and A. S. Fokas
 
-AMATH 568: Applied Asymptotic Analysis by Peter Miller
+AMATH 568: Applied Asymptotic Analysis by P. D. Miller 
 
 AMATH 570: Approximation Theory and Approximation Practice, Extended Edition by L. N. Trefethen (ATAP) and Spectral Methods in MATLAB by L. N. Trefethen (SMM)
+
+AMATH 573: Exercise numbers refer to unpublished course notes by Bernard Deconinck
+
+AMATH 574: Finite Volume Methods for Hyperbolic Problems by R. J. LeVeque
+
+AMATH 575: Introduction to Applied Nonlinear Dynamical Systems and Chaos by S. Wiggins
 
 AMATH 585/6: Finite Difference Methods for Ordinary and Partial Differential Equations, Steady State and Time Dependent Problems by R. J. LeVeque
