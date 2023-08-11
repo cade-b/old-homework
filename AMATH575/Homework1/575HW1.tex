@@ -1,0 +1,300 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{hyperref}
+\usepackage{listings}
+\usepackage{multimedia} % to embed movies in the PDF file
+\usepackage{graphicx}
+\usepackage{comment}
+\usepackage[english]{babel}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{wrapfig}
+\usepackage{multirow}
+\usepackage{verbatim}
+\usepackage{float}
+\usepackage{cancel}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{mathdots}
+\usepackage{/home/cade/Homework/latex-defs}
+
+
+\title{AMATH 575 Problem Set 1}
+\author{Cade Ballew \#2120804}
+\date{April 12, 2023}
+
+\begin{document}
+	
+\maketitle
+	
+\section{Problem 1}
+\subsection{Part a}
+No, a system of the form 
+\begin{eqnarray*} 
+	\dot x &=& f(x) \\
+	\dot y &=& g(y) 
+\end{eqnarray*}
+cannot produce an oscillatory solution. Since the system decouples, it suffices to consider the 1D ODE $\dot x = f(x)$; if a periodic solution to it cannot exist, clearly one cannot exist for our 2D system. To see that a oscillatory solution cannot exist, consider the integral 
+\[
+I(t)=\int_{t}^{t+T}f(x(t'))\dot x(t')dt',
+\]
+where $T>0$ WLOG. Performing the substitution $u=x(t')$, we have that 
+\[
+I(t)=\int_{x(t)}^{x(t+T)}f(u)du=0,
+\]
+since $x(t)=x(t+T)$ for all $t$. However, by the original ODE,
+\[
+I(t)=\int_{t}^{t+T}f(x(t'))^2dt',
+\]
+which can only be zero for all $t$ if $f(x(t'))=0$ identically. Thus, $\dot x=0$, so $x(t)$ is constant in time, and therefore not an oscillatory solution.
+\subsection{Part b}
+Yes, a system of the form 
+\begin{eqnarray*} 	x_{n+1} &=& f(x_n) \\
+	y_{n+1} &=& g(y_n) 
+\end{eqnarray*}
+can produce an oscillatory solution. To see this, consider $f(x)=g(x)=1-x$ with initial condition $(x_0,y_0)=(0,0)$. Then, $(x_n,y_n)=(x_{n+2N},y_{n+2N})$ for any integer $N$ since $f(0)=g(0)=1,f(1)=g(1)=0$.
+
+\section{Problem 2}
+To find the equilibria of the system $\dot x = 0$, $\dot y = \mu x$, we first observe that if $\mu=0$, then the dynamics are identically zero, and all $(x,y)\in\real^2$ are equilibria. These equilibria are Lyapunov stable, because all other points are stationary, so given $\epsilon>0$, $\delta=\epsilon$ satisfies the definition; however, this stationary behavior implies that they are not asymptotically stable, because solutions cannot converge to each other. If we take $\mu\neq0$, then the equilibria are given by $(0,y)$ for any $y\in\real$. These equilibria are neither Lyapunov nor asymptotically stable. We can see this by solving the system explicitly which gives that
+\begin{eqnarray*} 
+	x &=& x_0, \\
+	y &=& \mu x_0t+y_0. 
+\end{eqnarray*}
+From this, we can see that a point $(\epsilon_1,\bar y+\epsilon_2)$ moves away from an equilibrium $(0,\bar y)$ if $\epsilon_1\neq0$.
+
+Now, consider the system $\dot x = 0$, $\dot y = \mu y$. In the case $\mu=0$, this is exactly the same as $\mu=0$ in the first system, so $(x,y)\in\real^2$ are equilibria which are Lyapunov but not asymptotically stable. If $\mu\neq0$, the equilibria are given by $(x,0)$ for any $x\in\real$. Their stability depends on the sign of $\mu$ which we can see by solving the system explicitly with separation of variables to get
+\begin{eqnarray*} 
+	x &=& x_0, \\
+	y &=& y_0e^{\mu t}. 
+\end{eqnarray*}
+If $\mu>0$, the equilibria are neither Lyapunov nor asymptotically stable, as a point $(\bar x+\epsilon_1,\epsilon_2)$ moves away from an equilibrium $(\bar x,0)$ if $\epsilon_2\neq0$. If $\mu<0$, the equilibria are Lyapunov stable but not asymptotically stable, because $(\bar x+\epsilon_1,\epsilon_2)$ converges to $(\bar x+\epsilon_1,0)$, always staying within an $\epsilon$-neighborhood, but never converging to the equilibrium.
+
+\section{Problem 3}
+Consider the 2D system
+\begin{eqnarray*} 
+	\dot x &=& -y + \mu (x^2 + y^2)x  \\
+	\dot y &=& x + \mu (x^2 + y^2) y
+\end{eqnarray*}
+where $\mu$ is an arbitrary real parameter. We solve this system explicitly by transforming into polar coordinates as 
+\begin{eqnarray*} 
+	\dot r\cos\theta-r\sin\theta\dot\theta &=& -r\sin\theta + \mu r^3\cos\theta  \\
+	\dot r\sin\theta+r\cos\theta\dot\theta &=& r\cos\theta + \mu r^3\sin\theta
+\end{eqnarray*}
+Multiplying the first equation by $\cos\theta$ and the second by $\sin\theta$, we get
+\[
+\dot r=\mu r^3.
+\]
+Solving this via separation of variables, we get 
+\[
+r(t) = \pm\frac{1}{\sqrt{\frac{1}{r_0^2}-2\mu t}}.
+\]
+Noting that we need $r\geq0$, we restrict this to
+\[
+r(t) = \frac{1}{\sqrt{\frac{1}{r_0^2}-2\mu t}},
+\]
+which is only valid if $r_0\neq0$. In that case, $(x_0,y_0)=(0,0)$, so clearly we have a fixed point. 
+
+\subsection{Part a}
+To find fixed points, we first consider the case $\mu=0$. In this case, $(0,0)$ is the only fixed point, and the exact solution is given by
+\begin{eqnarray*} 
+	x &=& x_0\cos t-y_0\sin t, \\
+	y &=& y_0\cos t+x_0\sin t. 
+\end{eqnarray*}
+From this, we can see that $(0,0)$ is Lyapunov stable but not asymptotically stable. This is because the oscillatory behavior of sine and cosine ensures that a point $(\epsilon_1,\epsilon_2)$ remains in a neighborhood of $(0,0)$ but will never converge to it. We can also see this from our above expression for $r(t)$ which tells us that the distance from the origin remains constant in time. 
+
+If $\mu\neq0$, our exact solution for $r(t)$ changes in time for all $r_0\neq0$, so $(0,0)$ is again the only fixed point. If $\mu<0$, $r(t)$ shrinks in time and converges to zero, so it is asymptotically stable. If $\mu>0$, $r(t)$ grows until the solution blows up, so it is neither Lyapunov nor asymptotically stable
+\subsection{Part b}
+For the case $\mu=0$, the solution that we worked out in part a consists only of continuous functions, so the solution exists for all initial values in both forward and reverse time. When $\mu\neq0$, we can see that $r(t)$ exists when $1/r_0^2>2\mu t$. If $\mu<0$ this means that the solution is defined for $t>\frac{1}{2\mu r_0}$, and for $\mu>0$, it's defined for $t<\frac{1}{2\mu r_0}$.
+
+\section{Problem 4}
+Consider:  $$\frac{d^2x}{dt^2} + (x^2 - v) \frac{dx}{dt} + x =0, $$ where $v$ is a parameter that can take any real value. To write this as a dynamical system, we define $y=\dot x$ and find the system 
+\begin{eqnarray*} 
+	\dot x &=& y  \\
+	\dot y &=& -x -(x^2-v)y.
+\end{eqnarray*}
+\subsection{Part a}
+Setting both derivatives to zero, we find that the only fixed point is $(0,0)$. At this fixed point, the Jacobian is given by
+\[
+Df(0,0)=\begin{pmatrix}
+	0 &1\\
+	-1&v
+\end{pmatrix}.
+\]
+
+\subsection{Part b}
+To evaluate the stability of our fixed point, we first find that the eigenvalues of $Df(0,0)$ are given by 
+\[
+\frac{v\pm\sqrt{v^2-4}}{2}.
+\]
+Observing that $|v|>\sqrt{v^2-4}$, the sign of our eigenvalues will be equivalent to the sign of $v$ provided that $\sqrt{v^2-4}\in\real$. This will also hold when $-2<v<2$ since $\sqrt{v^2-4}\in i\real$. Thus, we have asymptotic stability when $v<0$ since all eigenvalues have negative real part and instability when $v>0$ since all eigenvalues\footnote{Of course, we only need one.} have positive real part. If $v=0$, this test fails, and we must look back at our system now given by
+\begin{eqnarray*} 
+	\dot x &=& y  \\
+	\dot y &=& -x -x^2y.
+\end{eqnarray*}
+Define the Lyapunov function $V(x,y)=x^2+y^2$. Clearly, this is zero at our fixed point and positive elsewhere. Furthermore, we have that 
+\[
+\dot V(x,y)=2x\dot x+2y\dot y=2xy-2y(x+x^2y)=-x^2y^2.
+\]
+Thus, $\dot V(x,y)<0$ when $(x,y)\neq0$, so $(0,0)$ is asymptotically stable when $v\leq0$ and unstable when $v>0$.
+
+\section{Problem 5}
+Consider a general description of a network of $N$ nonlinearly coupled units is given by
+\[
+\frac {d u_i}{dt} = -u_i + \sum_{j=1}^N w_{ij} g(u_j).
+\]
+For linear interactions $g(y)=y$, we can see that the Jacobian at the origin $Jf(0)$ has $(i,j)$th entry $-\delta_{ij}+w_{ij}$, i.e. $Jf(0)=-I+W$. The Gershgorin circle theorem tells us that the eigenvalues will be located in the union of the disks centered at $-1+w_{ii}$ with radii $\sum_{j\neq i}|w_{ij}|$. To ensure that all of the eigenvalues have negative real part, it suffices to enforce that these disks do not cross into the closed right half plane. This is accomplished if we enforce the bound on the weights
+\[
+-1+w_{ii}+\sum_{i\neq j}|w_{ij}|<0,
+\]
+for $i=1,\ldots,N$.
+
+\subsection{Part a}
+Consider the ``energy function" \[ H=-1/2 \sum_{ij} w_{ij} V_i V_j + \sum_i \int_0^{V_i} g^{-1}(V) dV \]
+where $V_i=g(u_i)$ and assume that $W$ is symmetric. By the fundamental theorem of calculus, and the symmetry of $W$, we compute
+\begin{align*}
+\frac{dH}{dt}&=-\frac{1}{2}\sum_{i,j}w_{ij}\left(\dot V_iV_j+\dot V_jV_i\right)+\sum_iu_i\dot V_i\\&=
+-\frac{1}{2}\sum_{i,j}w_{ij}\dot V_iV_j-\frac{1}{2}\sum_{i,j}w_{ji}\dot V_iV_j+\sum_iu_i\dot V_i\\&=
+\sum_{i,j}w_{ij}\dot V_iV_j+\sum_iu_i\dot V_i=\sum_i\left(u_i-\sum_jw_{ij}V_j\right)\dot V_i\\&=
+-\sum_i\dot u_i\dot V_i=-\sum_i\dot u_i^2g'(u_i)\leq0,
+\end{align*}
+since $g$ is smooth and monotonically increasing.
+\subsection{Part b}
+If $\bar u$ is an equilibrium of this system, we have that it is asymptotically stable if $H(\bar u)=0$, $H(u)>0$ for $u\neq \bar u$, and $\frac{dH}{dt}(u)<0$ for $u\neq\bar u$, all in some neighborhood of $\bar u$.
+\subsection{Part c}
+Consider the case where $N=1$, $w_{11}=1$, and $g(x)=\tanh x$. Then, the system reduces to 
+\[
+\dot u=-u+\tanh u,
+\]
+which has an equilibrium at $\bar u=0$ since $\tanh0=0$. Then, we have 
+\begin{align*}
+H(u)=-\frac{1}{2}\tanh^2u+\int_{0}^{\tanh u}\tanh^{-1}(V)dV= -\frac{1}{2}\tanh^2u+\tanh u+\log (\sech u),
+\end{align*}
+where we have evaluated the integral using Mathematica. Since $\sech0=1$, we have that $H(0)=0$. Furthermore, Mathematica gives that $H(u)>0$ for all nonzero $u\in\real$, so we need only to show that $\frac{dH}{dt}<0$ for nonzero $u$. From part a, 
+\begin{align*}
+\frac{dH}{dt}=-\dot u^2\sech^2u=-(-u+\tanh u)^2\sech^2u.
+\end{align*}
+Since $\sech^2x>0$ for all $x\in\real$, we need only worry about points where $x=\tanh x$. From Mathematica, this occurs only when $x=0$, so we have that $\frac{dH}{dt}=0$ only at this fixed point $\bar u=0$, and $\frac{dH}{dt}<0$ for nonzero $u$. Thus, the fixed point $\bar u=0$ is asymptotically stable.
+
+\subsection{Part d}
+If $w$ is instead anti-symmetric, we have instead that 
+\begin{align*}
+	\frac{dH}{dt}&=-\frac{1}{2}\sum_{i,j}w_{ij}\left(\dot V_iV_j+\dot V_jV_i\right)+\sum_iu_i\dot V_i\\&=
+	-\frac{1}{2}\sum_{i,j}w_{ij}\dot V_iV_j+\frac{1}{2}\sum_{i,j}w_{ji}\dot V_iV_j+\sum_iu_i\dot V_i\\&=
+	\sum_iu_i\dot V_i=\sum_iu_i\dot u_ig'(u_i).
+\end{align*}
+To see that this is not necessarily nonpositive, consider the matrix
+\[
+W=\begin{pmatrix}
+	0&1\\
+	-1&0
+\end{pmatrix},
+\]
+and $g(x)=\tanh x$. Then, 
+\begin{eqnarray*} 
+	\dot u_1 &=& -u_1+\tanh u_2  \\
+	\dot u_2 &=& -u_2-\tanh u_1,
+\end{eqnarray*}
+so
+\begin{align*}
+\frac{dH}{dt}=u_1 \text{sech}^2(u_1) (\tanh (u_2)-u_1)+u_2 \text{sech}^2(u_2) (\tanh (u_1)-u_2).
+\end{align*}
+Using Mathematica, we find that 
+\[
+\frac{dH}{dt}(1/4,5)\approx0.171914>0,
+\]
+so the nonpositivity of $\frac{dH}{dt}$ does not hold in general.
+
+\section{Problem 6}
+Consider a specific case of the Lorenz equations given by
+\begin{equation*}
+	\left\{\begin{array}{l}
+		x^{\prime}=10(-x+y) \\
+		y^{\prime}=r x-y-x z \\
+		z^{\prime}=-\frac{8}{3} z+x y
+	\end{array}\right.
+\end{equation*}
+
+\subsection{Part a}
+Using Mathematica, set $x'=y'=z'=0$ and solve for $(x,y,z)$. This yields $(0,0,0)$ as a fixed point in all cases and $\left(-2\sqrt{\frac{2}{3}(r-1)},-2\sqrt{\frac{2}{3}(r-1)},r-1\right)$, $\left(2\sqrt{\frac{2}{3}(r-1)},2\sqrt{\frac{2}{3}(r-1)},r-1\right)$ as additional fixed points when $r>1$. To evaluate the stability of these fixed points, we investigate the Jacobian 
+\[
+Df(x,y,z)=\begin{pmatrix}
+	-10&10&0\\
+	r-z&-1&-x\\
+	y&x&-8/3
+\end{pmatrix}.
+\]
+At $(0,0,0)$, Mathematica gives that the eigenvalues are $-\frac{8}{3},\frac{-11\pm\sqrt{40r+81}}{2}$. These will all have negative real part provided that $40r+81<121$. Thus, this fixed point is asymptotically stable if $r<1$ and unstable if $r>1$. 
+
+Assuming $r>1$, for both of the remaining fixed points, Mathematica gives that the characteristic polynomial of the Jacobian at these fixed points is
+\[
+-\lambda ^3-\frac{41 \lambda ^2}{3}-\frac{80 \lambda }{3}-\frac{8 \lambda  r}{3}-\frac{160 r}{3}+\frac{160}{3}.
+\]
+Continuing to use Mathematica, we solve for $r$ such that the eigenvalues (which are too messy to reproduce here) all have negative real part only when $r<\frac{470}{19}$. Furthermore, all eigenvalues have nonpositive real part when $r\leq\frac{470}{19}$. Thus, these fixed points are asymptotically stable when $r<\frac{470}{19}$ and unstable when $r>\frac{470}{19}$.
+
+\subsection{Part b}
+Now, consider the fixed point at the origin with $r=1$. From Mathematica, the Jacobian then has eigenvalues $-11,-8/3,0$ and eigenvector matrix 
+\[
+T = \left(
+\begin{array}{ccc}
+	-10 & 0 & 1 \\
+	1 & 0 & 1 \\
+	0 & 1 & 0 \\
+\end{array}
+\right).
+\]
+In accordance with (4.24) in Bernard's notes, this allows us to write the system in eigenspace coordinates (via Mathematica) as 
+\begin{eqnarray*} 
+	\dot u &=& \frac{1}{11}v(10u-w)-11u  \\
+	\dot y &=& -(10u-w)(u+w)-\frac{8}{3}v\\
+	\dot w &=& \frac{10}{11}v(10u-w).
+\end{eqnarray*}
+To find the stable manifold, we set $w=h(u,v)$ and use (4.29) to get the equation
+\[
+\frac{10}{11}v(10u-h(u,v))=\pp{h}{u}\left(\frac{1}{11}v(10u-h(u,v))-11u\right)+\pp{h}{v}\left(-(10u-h(u,v))(u+h(u,v))-\frac{8}{3}v\right).
+\]
+To find up to quadratic terms, we set $h(u,v)=au+bv+cuv+du^2+ev^2$ and plug this into the above equation using Mathematica. Matching the coefficients on $u$ and $v$, we get that $11a=0$ and $8b/3=0$, so we set $a=b=0$. Equating the coefficients on $u^2$ and $v^2$, we then get that $22d=0$ and $16e/3=0$, so we set $d=e=0$. Finally, we equate coefficients on $uv$ which gives that $100/11+41c/3=0$, so $c=-\frac{300}{451}$. Thus, up to quadratic terms, $W^S_{loc}$ is given by 
+\[
+w=-\frac{300}{451}uv,
+\]
+where $u,v,w$ are defined as 
+\[
+\begin{pmatrix}
+	u\\v\\w
+\end{pmatrix}=\left(
+\begin{array}{ccc}
+	-\frac{1}{11} & \frac{1}{11} & 0 \\
+	0 & 0 & 1 \\
+	\frac{1}{11} & \frac{10}{11} & 0 \\
+\end{array}
+\right)\begin{pmatrix}
+	x\\y\\z
+\end{pmatrix}.
+\]
+
+
+To find the center manifold, we set $u=h_1(w)$, $v=h_2(w)$ and now have the system of equations
+\begin{align*}
+\frac{1}{11}h_2(w)(10h_1(w)-w)-11h_1(w)=\pp{h_1}{w}\frac{10}{11}h_2(w)(10h_1(w)-w),\\
+-(10h_1(w)-w)(h_1(w)+w)-\frac{8}{3}h_2(w)=\pp{h_2}{w}\frac{10}{11}h_2(w)(10h_1(w)-w).
+\end{align*}
+To find up to quadratic terms, we set $h_1(w)=a_1w+b_1w^2$ and $h_2(w)=a_2w+b_2w^2$. 
+Equating the coefficients on $w$ in each equation, we get that $-11a_1=0$ and $-8a_2/3=0$, so we set $a_1=a_2=0$. Equating the coefficients on $w^2$ in each, we get that $-11b_1=0$ and $1-8b_2/3=0$, so we set $b_1=0$ and $b_2=\frac{3}{8}$. Thus, up to quadratic terms $W^C_{loc}$ is given by
+\[
+u=0,\quad v=\frac{3}{8}w^2,
+\]
+where $u,v,w$ are again defined as 
+\[
+\begin{pmatrix}
+	u\\v\\w
+\end{pmatrix}=\left(
+\begin{array}{ccc}
+	-\frac{1}{11} & \frac{1}{11} & 0 \\
+	0 & 0 & 1 \\
+	\frac{1}{11} & \frac{10}{11} & 0 \\
+\end{array}
+\right)\begin{pmatrix}
+	x\\y\\z
+\end{pmatrix}.
+\]
+Since there are no eigenvalues with positive real part, $W^U_{loc}=\emptyset$.
+\end{document}

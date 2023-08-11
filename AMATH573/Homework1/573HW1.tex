@@ -1,0 +1,190 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{hyperref}
+\usepackage{listings}
+\usepackage{multimedia} % to embed movies in the PDF file
+\usepackage{graphicx}
+\usepackage{comment}
+\usepackage[english]{babel}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{wrapfig}
+\usepackage{multirow}
+\usepackage{verbatim}
+\usepackage{float}
+\usepackage{cancel}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{mathdots}
+\usepackage{/home/cade/Homework/latex-defs}
+
+
+\title{AMATH 573 Homework 1}
+\author{Cade Ballew \#2120804}
+\date{October 5, 2022}
+
+\begin{document}
+	
+\maketitle
+	
+\section{Problem 1 (1.8.2)}
+Consider the KdV equation written with arbitrary coefficients 
+\[
+au_t=buu_x+cu_{xxx}
+\] 
+where $a,b,c\in\real$ nonzero. First, define $b'=\frac{b}{a}$ and $c'=\frac{c}{a}$ so that the equation becomes 
+\[
+u_t=b'uu_x+c'u_{xxx}. 
+\] 
+Now, consider scaling transformations on all variables $\Tilde x = \alpha x,\Tilde{t}=\beta t,\Tilde{u}=\gamma u$. Applying the scaling in $x$ first, $u_x=\alpha u_{\Tilde{x}}$ and $u_{xxx}=\alpha^3 u_{\Tilde{x}\Tilde{x}\Tilde{x}}$, so
+\[
+u_t=b'\alpha uu_{\Tilde{x}}+c'\alpha^3 u_{\Tilde{x}\Tilde{x}\Tilde{x}}.
+\]
+Applying the scaling in $t$, $u_t=\beta u_{\Tilde{t}}$, so
+\[
+\beta u_{\Tilde{t}}=b'\alpha uu_{\Tilde{x}}+c'\alpha^3 u_{\Tilde{x}\Tilde{x}\Tilde{x}},
+\]
+and
+\[
+u_{\Tilde{t}}=\frac{b'\alpha}{\beta} uu_{\Tilde{x}}+\frac{c'\alpha^3}{\beta} u_{\Tilde{x}\Tilde{x}\Tilde{x}}.
+\]
+Finally, the scaling on $u$ gives that 
+\[
+\frac{1}{\gamma}\Tilde u_{\Tilde{t}}=\frac{b'\alpha}{\beta\gamma^2} \Tilde u \Tilde u_{\Tilde{x}}+\frac{c'\alpha^3}{\beta\gamma} \Tilde u_{\Tilde{x}\Tilde{x}\Tilde{x}},
+\]
+and
+\[
+\Tilde u_{\Tilde{t}}=\frac{b'\alpha}{\beta\gamma} \Tilde u \Tilde u_{\Tilde{x}}+\frac{c'\alpha^3}{\beta} \Tilde u_{\Tilde{x}\Tilde{x}\Tilde{x}}.
+\]
+To obtain the original KdV equation 
+\[
+w_t=ww_x+w_{xxx},
+\]
+we need to take 
+\[
+\frac{b'\alpha}{\beta\gamma}=\frac{c'\alpha^3}{\beta}=1.
+\]
+We then find that $\beta = c'\alpha^3$ which gives that 
+\[
+\frac{b'\alpha}{\gamma c'\alpha^3}=1, 
+\]
+so
+\[
+\alpha=\sqrt{\frac{b'}{\gamma c'}}.
+\]
+We can ensure that $\alpha\in\real$ by taking 
+\[
+\gamma=\text{sign}\left(\frac{c'}{b'}\right).
+\]
+Then,
+\[
+\alpha=\sqrt{\left|\frac{b'}{c'}\right|},
+\]
+and
+\[
+\beta=c'\left|\frac{b'}{c'}\right|^{3/2}.
+\]
+Clearly, $\alpha,\beta,\gamma\in\real$, so with these transformations, we obtain
+\[
+\Tilde u_{\Tilde{t}}= \Tilde u \Tilde u_{\Tilde{x}}+ \Tilde u_{\Tilde{x}\Tilde{x}\Tilde{x}}.
+\]
+as desired.\\
+
+If we instead consider the mKdV equation written with arbitrary coefficients
+\[
+au_t=bu^2u_x+cu_{xxx}
+\]
+and seek to find transformations in the same manner as before, we instead arrive at the equation 
+\[
+\Tilde u_{\Tilde{t}}=\frac{b'\alpha}{\beta\gamma^2} \Tilde u^2 \Tilde u_{\Tilde{x}}+\frac{c'\alpha^3}{\beta} \Tilde u_{\Tilde{x}\Tilde{x}\Tilde{x}}.
+\]
+Now, setting 
+\[
+\frac{b'\alpha}{\beta\gamma^2}=\frac{c'\alpha^3}{\beta}=1
+\]
+again gives that $\beta = c'\alpha^3$, but plugging this in instead gives that 
+\[
+\alpha=\sqrt{\frac{b'}{\gamma^2 c'}}.
+\]
+If 
+\[
+\text{sign}\left(\frac{c'}{b'}\right)<0,
+\]
+this cannot be real regardless of our choice of $\gamma\in\real$ since $\gamma^2>0$. Thus, the scaling property of the KdV equation is not true for the mKdV equation in general as there is no real scaling which lets us obtain
+\[
+\Tilde u_{\Tilde{t}}= \Tilde u^2 \Tilde u_{\Tilde{x}}+ \Tilde u_{\Tilde{x}\Tilde{x}\Tilde{x}}.
+\]
+in the case where $b'$ and $c'$ have different signs.
+	
+
+\section{Problem 2 (1.8.4)}
+Consider the KdV equation $u_t + uu_x + u_{xxx} = 0$. We show that $$u = 12 \partial_x^2 \ln\left(1 + e^{k_1 x - k_1^3t + \alpha}\right)$$
+is a one-soliton solution of the equation by computing
+\begin{align*}
+u&=12 \partial_x\frac{k_1e^{k_1 x - k_1^3t + \alpha}}{1 + e^{k_1 x - k_1^3t + \alpha}}=12\frac{k_1^2e^{k_1 x - k_1^3t + \alpha}(1 + e^{k_1 x - k_1^3t + \alpha})-k_1^2e^{2(k_1 x - k_1^3t + \alpha)}}{(1 + e^{k_1 x - k_1^3t + \alpha})^2}\\&=
+\frac{12k_1^2e^{k_1 x - k_1^3t + \alpha}}{(1 + e^{k_1 x - k_1^3t + \alpha})^2}=\frac{12k_1^2e^{k_1 x - k_1^3t + \alpha}}{e^{k_1 x - k_1^3t + \alpha}(e^{-(k_1 x - k_1^3t + \alpha)/2}+e^{(k_1 x - k_1^3t + \alpha)/2})^2}\\&=
+\frac{12k_1^2}{(2\cosh((k_1 x - k_1^3t + \alpha)/2))^2}=3k_1^2\sech^2\frac{k_1}{2}\left(x-k_1^2t+\frac{\alpha}{k_1}\right)\\&=
+12\left(\frac{k_1}{2}\right)^2\sech^2\frac{k_1}{2}\left(x-4\left(\frac{k_1}{2}\right)^2t+\frac{\alpha}{k_1}\right)=12\kappa^2\delta^2\sech^2\kappa(x-4\kappa^2\delta^2t+\varphi)
+\end{align*}
+where $\kappa=k_1/2$, $\delta=1$, $\varphi=\alpha/k_1$. This is the standard one soliton form, so $u$ is in fact a one soliton solution.\\
+Now, consider 
+$$u = 12 \partial_x^2\ln\left(1 + e^{k_1 x - k_1^3t + \alpha} + e^{k_2 x - k_2^3t + \beta} + \left(\frac{k_1-k_2}{k_1 + k_2}\right)^2e^{k_1x - k_1^3t + \alpha + k_2x - k_2^3t+ \beta}\right).$$
+In the attached Mathematica notebook, we verify that $u$ also solves the KdV equation for arbitrary $k_1,k_2,\alpha,\beta$. We also analyze a few cases of the parameters $k_1,k_2$ when $\alpha=0$ and $\beta=1$ and include animations of the corresponding solution $u$. 
+
+\section{Problem 3 (1.8.5)}
+Consider a non-zero solution of the heat equation $\theta_t = \nu\theta_{xx}$. We wish to show that it gives rise to a solution of the dissipative Burgers equation $u_t + uu_x = \nu u_{xx}$, through the mapping $u = -2\nu\theta_x/\theta$. We do so by directly verifying that $u$ as defined by the mapping satisfies Burgers equation. We compute
+\[
+u_t=-2\nu\frac{\theta\theta_{xt}-\theta_x\theta_t}{\theta^2},
+\]
+\[
+u_x=-2\nu\frac{\theta\theta_{xx}-\theta_x^2}{\theta^2},
+\]
+\begin{align*}
+\nu u_{xx}&=-2\nu^2\frac{\theta^2(\theta_x\theta_{xx}+\theta\theta_{xxx}-2\theta_x\theta_{xx})-2\theta\theta_x(\theta\theta_{xx}-\theta_x^2)}{\theta^4}\\&=
+-2\nu^2\frac{\theta^3\theta_{xxx}-\theta^2\theta_x\theta_{xx}-2\theta^2\theta_x\theta_{xx}+2\theta\theta_x^3}{\theta^4}=-2\nu^2\frac{\theta^2\theta_{xxx}-3\theta\theta_x\theta_{xx}+2\theta_x^3}{\theta^3}.
+\end{align*}
+Now, we substitute $\theta_t = \nu\theta_{xx}$ to get that
+\begin{align*}
+u_t+uu_x&=-2\nu\frac{\nu\theta\theta_{xxx}-\nu\theta_x\theta_{xx}}{\theta^2}+4\nu^2\frac{\theta_x(\theta\theta_{xx}-\theta_x^2)}{\theta^3}\\&=
+-2\nu^2\frac{\theta^2\theta_{xxx}-\theta\theta_x\theta_{xx}-2\theta_x\theta\theta_{xx}+2\theta_x^3}{\theta^3}=-2\nu^2\frac{\theta^2\theta_{xxx}-3\theta\theta_x\theta_{xx}+2\theta_x^3}{\theta^3}.
+\end{align*}
+Now, it is clear that $u_t + uu_x = \nu u_{xx}$ holds, so $u$ does indeed solve the dissipative Burgers equation.
+
+\section{Problem 4 (1.8.6)}
+\subsection{Part a}
+To check that $\theta = 1 + \alpha e^{-kx+\nu k^2 t}$ solves the heat equation, we compute
+\begin{align*}
+\theta_t=\alpha\nu k^2e^{-kx+\nu k^2 t},
+\end{align*}
+\[
+\theta_x=-\alpha ke^{-kx+\nu k^2 t},
+\]
+and
+\begin{align*}
+\nu\theta_{xx}=\alpha\nu k^2e^{-kx+\nu k^2 t}.
+\end{align*}
+Clearly, $\theta_t=\nu\theta_{xx}$, so $\theta$ is a solution of the heat equation. Its corresponding solution of Burgers equation is given by
+\begin{align*}
+u=-2\nu\frac{\theta_x}{\theta}=-2\nu\frac{-\alpha ke^{-kx+\nu k^2 t}}{1 + \alpha e^{-kx+\nu k^2 t}}=\frac{2\nu k}{ e^{kx-\nu k^2 t}/\alpha+1}=\frac{2\nu k}{e^{k(x-\nu k t-\log(\alpha)/k)}+1}
+\end{align*}
+Since this is essentially a scaled and shifted sigmoid function, we can deduce that our curve moves with velocity $\nu k$ and is centered at $x=\nu kt+\log(\alpha)/k$. The function also has horizontal asymptotes as $x\to\pm\infty$. From the formula, we can see that if $k>0$, it goes to $0$ as $x\to\infty$ and $2\nu k$ as $x\to-\infty$, and for $k<0$, it goes to $2\nu k$ as $x\to\infty$ and $0$ as $x\to-\infty$, meaning that it has height $|2\nu k|$ measured between its lowest and highest points. The solution does not really have an amplitude since it only has one peak and is essentially constant elsewhere, but the width of the peak is proportional to $1/k$ since the terms in the exponential are scaled by $k$. See the attached Mathematica notebook for some plots used to help deduce this behavior. 
+
+\subsection{Part b}
+To check that $\theta = 1 + \alpha e^{-k_1x+\nu k_1^2 t}+ \beta e^{-k_2x + \nu k_2^2}$ solves the heat equation, we compute
+\begin{align*}
+	\theta_t=\alpha\nu k_1^2e^{-k_1x+\nu k_1^2 t}+\beta\nu k_2^2e^{-k_2x+\nu k_2^2 t},
+\end{align*}
+\[
+\theta_x=-\alpha k_1e^{-k_1x+\nu k_1^2 t}-\beta k_2e^{-k_2x+\nu k_2^2 t},
+\]
+and
+\begin{align*}
+	\nu\theta_{xx}=\alpha\nu k_1^2e^{-k_1x+\nu k_1^2 t}+\beta\nu k_2^2e^{-k_2x+\nu k_2^2 t}.
+\end{align*}
+Clearly, $\theta_t=\nu\theta_{xx}$, so $\theta$ is a solution of the heat equation. Its corresponding solution of Burgers equation is given by
+\begin{align*}
+	u=-2\nu\frac{\theta_x}{\theta}=2\nu\frac{\alpha k_1e^{-k_1x+\nu k_1^2 t}+\beta k_2e^{-k_2x+\nu k_2^2 t}}{1 + \alpha e^{-k_1x+\nu k_1^2 t}+ \beta e^{-k_2x + \nu k_2^2t}}.
+\end{align*}
+See the attached Mathematica notebook for animations of $u$ and a discussion of their behavior in time.
+
+\end{document}

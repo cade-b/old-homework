@@ -1,0 +1,16 @@
+python /home/cade/clawpack_src/clawpack-v5-9-0/clawutil/src/python/clawutil/clawcode2html.py --force  claw.data
+  Converting  claw.data  to  claw.data.html
+python /home/cade/clawpack_src/clawpack-v5-9-0/clawutil/src/python/clawutil/clawcode2html.py --force  setprob.data
+  Converting  setprob.data  to  setprob.data.html
+python /home/cade/clawpack_src/clawpack-v5-9-0/clawutil/src/python/clawutil/clawcode2html.py --force  --dropext plot_output_1.txt    
+  Converting  plot_output_1.txt  to  plot_output_1.html
+python /home/cade/clawpack_src/clawpack-v5-9-0/clawutil/src/python/clawutil/clawcode2html.py --force  --dropext run_output_1.txt    
+  Converting  run_output_1.txt  to  run_output_1.html
+python /home/cade/clawpack_src/clawpack-v5-9-0/clawutil/src/python/clawutil/clawcode2html.py --force  --dropext htmls_output.txt    
+  Converting  htmls_output.txt  to  htmls_output.html
+python /home/cade/clawpack_src/clawpack-v5-9-0/clawutil/src/python/clawutil/clawcode2html.py --force  --dropext compile_output.txt    
+  Converting  compile_output.txt  to  compile_output.html
+python /home/cade/clawpack_src/clawpack-v5-9-0/clawutil/src/python/clawutil/clawcode2html.py --force  --dropext data_output.txt    
+  Converting  data_output.txt  to  data_output.html
+Converting README.rst...
+python /home/cade/clawpack_src/clawpack-v5-9-0/clawutil/src/python/clawutil/convert_readme.py

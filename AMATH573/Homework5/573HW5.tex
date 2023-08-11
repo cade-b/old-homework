@@ -1,0 +1,287 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{hyperref}
+\usepackage{listings}
+\usepackage{multimedia} % to embed movies in the PDF file
+\usepackage{graphicx}
+\usepackage{comment}
+\usepackage[english]{babel}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{wrapfig}
+\usepackage{multirow}
+\usepackage{verbatim}
+\usepackage{float}
+\usepackage{cancel}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{mathdots}
+\usepackage{/home/cade/Homework/latex-defs}
+
+
+\title{AMATH 573 Homework 5}
+\author{Cade Ballew \#2120804}
+\date{December 2, 2022}
+
+\begin{document}
+	
+\maketitle
+	
+\section{Problem 1}
+We wish to show that
+$$
+X=\left(\ba{cc}-i\zeta&q\\\pm q^*&i\zeta\ea\right),
+T=\left(\ba{cc}-i\zeta^2\mp\frac{i}{2}|q|^2&q\zeta+\frac{i}{2}q_x\\
+\pm q^*\zeta\mp \frac{i}{2}q^*_x&i\zeta^2\pm\frac{i}{2}|q|^2\ea\right)
+$$
+are a Lax Pair for the Nonlinear Schr\"odinger equations
+$$
+iq_t=-\frac{1}{2}q_{xx}\pm |q|^2 q.
+$$
+We do this by explicitly computing that $X_t+XT-T_x-TX=0$ via the attached Mathematica file.
+
+\section{Problem 2}
+Let $\psi_n=\psi_n(t)$, $n\in \mathbb{Z}$.
+We consider the difference equation
+$$
+\psi_{n+1}=X_n \psi_n,
+$$
+and the differential equation
+$$
+\pp{\psi_n}{t}=T_n\psi_n.
+$$
+To find the compatibility condition, we differentiate and substitute the equations into each other to get 
+\begin{align*}
+\psi_{n+1,t}=X_{nt}\psi_n+X_n\psi_{nt}=X_{nt}\psi_n+X_nT_n\psi_n=(X_{nt}+X_nT_n)\psi_n
+\end{align*}
+and 
+\[
+\psi_{n+1,t}=T_{n+1}\psi_{n+1}=T_{n+1}X_n\psi_n.
+\]
+Thus, we a compatability condition is given by
+\[
+X_{nt}+X_nT_n=T_{n+1}X_n.
+\]
+Now, we consider $$
+X_n=\left(\ba{cc}z&q_n\\q^*_n&1/z\ea\right),
+T_n=\left(\ba{cc}
+i q_n q^*_{n-1}-\frac{i}{2}\left(1/z-z\right)^2&
+\frac{i}{z}q_{n-1}-izq_n\\
+-izq^*_{n-1}+\frac{i}{z}q^*_n&
+-i q^*_n q_{n-1}+\frac{i}{2}\left(1/z-z\right)^2
+\ea\right).
+$$
+We show that it is a Lax Pair for the semi-discrete equation
+$$
+i \pp{q_n}{t}=q_{n+1}-2q_n+q_{n-1}-|q_n|^2 (q_{n+1}+q_{n-1})
+$$
+by directly verifying that $X_{nt}+X_nT_n-T_{n+1}X_n=0$ in the attached Mathematica notebook.
+
+\section{Problem 3}
+Consider the forward scattering problem for the KdV equation $u_t+6uu_x+u_{xxx}=0$ with initial condition
+$u(x,0)=0$ for $x\in (-\infty,-L)\cup(L,\infty)$, and $u(x,0)=d$ for
+$x\in(-L,L)$, with $L$ and $d$ both positive. To find $a(k)$ for all time $t$, we first determine the function $\phi(x,k)$ for our initial data. For $x<-L$ or $x>L$, $\phi$ must satisfy 
+\[
+\phi_{xx}+k^2\phi=0
+\]
+which has general solution 
+\[
+\phi=c_1e^{ikx}+c_2e^{-ikx}.
+\]
+However, by definition, we must have that $\phi(x,k)\to e^{-ikx}$ as $x\to-\infty$, so we must have that $c_1=0,c_2=1$ for $x<-L$. For $-L<x<L$, 
+$\phi$ must satisfy 
+\[
+\phi_{xx}+(k^2+d)\phi=0
+\]
+which has general solution
+\[
+\phi=c_3e^{i\sqrt{k^2+d}x}+c_4e^{-i\sqrt{k^2+d}x}.
+\]
+Thus, we have
+\[
+\phi(x,k)=\begin{cases}
+	e^{-ikx},\quad&x<-L,\\
+	c_3e^{i\sqrt{k^2+d}x}+c_4e^{-i\sqrt{k^2+d}x},\quad&-L<x<L,\\
+	c_1e^{ikx}+c_2e^{-ikx}, \quad&x>L.
+\end{cases}
+\]
+To solve for our constants, we first impose that $\phi$ be continuous. Imposing this at $x=\pm L$ gives the conditions
+\begin{align*}
+e^{ikL}=c_3e^{-i\sqrt{k^2+d}L}+c_4e^{i\sqrt{k^2+d}L},\\
+c_1e^{ikL}+c_2e^{-ikL}=c_3e^{i\sqrt{k^2+d}L}+c_4e^{-i\sqrt{k^2+d}L}.
+\end{align*}
+We obtain more conditions so that the constants can be solved for explicitly, we integrate over our differential equation. Namely, we let $u_0(x)$ represent our initial condition as described above and consider 
+\begin{align*}
+0=\int_{-L-\epsilon}^{-L+\epsilon}(\phi_{xx}+(k^2+u_0)\phi)dx
+\end{align*}
+where $\epsilon>0$ is arbitrarily small. Then, the continuity of $\phi$ at $x=-L$ gives that as $\epsilon\to0$,
+\begin{align*}
+0=\left[\phi_x\right]_{-L-\epsilon}^{-L+\epsilon}+d\int_{-L}^{-L+\epsilon}\phi dx+k^2\int_{-L-\epsilon}^{-L+\epsilon}\phi dx=\phi_x(-L+\epsilon)-\phi_x(-L-\epsilon),
+\end{align*}
+implying that $\phi_x$ must also be continuous at $-L$. An analogous argument gives that $\phi_x$ must also be continuous at $x=L$. Enforcing this, we obtain the additional conditions
+\begin{align*}
+	-ike^{ikL}=i\sqrt{k^2+d}c_3e^{-i\sqrt{k^2+d}L}-i\sqrt{k^2+d}c_4e^{i\sqrt{k^2+d}L},\\
+	ikc_1e^{ikL}-ikc_2e^{-ikL}=i\sqrt{k^2+d}c_3e^{i\sqrt{k^2+d}L}-i\sqrt{k^2+d}c_4e^{-i\sqrt{k^2+d}L}.
+\end{align*}
+Now, we have 4 equations and 4 unknown constants, so we use Mathematica to solve this system and obtain $c_1,c_2,c_3,c_4$ which are printed in the attached notebook, meaning that $\phi$ is completely determined. To determine $a(k)$, we need to also know how $\varphi$ behaves. However, by definition $\varphi(x,k)\to e^{ikx}$ as $x\to\infty$, and $\varphi$ satisfies the same differential equation as $\phi$, so we know that for $x>L$,
+\[
+\varphi(x,k)=e^{ikx}.
+\]
+Because the Wronskian can be evaluated at any $x$-value, we can just take $x>L$ and compute
+\[
+a(k)=\frac{W(\phi,\varphi)}{2ik}=\frac{W(c_1e^{ikx}+c_2e^{-ikx},e^{ikx})}{2ik}.
+\]
+Using Mathematica, we can evaluate this with our correct $c_1,c_2$ and conclude that
+\[
+a(k)=\frac{1}{2}e^{2ikL}\left(2\cos\left(2\sqrt{d+k^2}L\right)-\frac{i(d+2k^2)\sin\left(2\sqrt{d+k^2}L\right)}{k\sqrt{d+k^2}}\right).
+\]
+Since $a(k)$ is constant in time, we know that this is $a(k)$ for all time $t$.\\
+Since the number of solitons is equivalent to the zeros of $a(k)$, we begin to search for the zeros by plugging in $k=i\kappa$ to get
+\[
+a(i\kappa)=\frac{1}{2}e^{-2\kappa L}\left(2\cos\left(2\sqrt{d-\kappa^2}L\right)-\frac{i(d-2\kappa^2)\sin\left(2\sqrt{d-\kappa^2}L\right)}{\kappa\sqrt{d-\kappa^2}}\right)
+\]
+and note that $\kappa>0$. We first consider the case where $d-\kappa^2<0$. Taking the principle branch of the square root, we have that $\sqrt{d-\kappa^2}=im$ for some $m>0$. Using Mathematica aid in this substitution, we get that
+\[
+a(i\kappa)=\frac{1}{2}e^{-2\kappa L}\left(2\cosh\left(2Lm\right)+\frac{(2\kappa^2-d)\sinh\left(2Lm\right)}{\kappa m}\right)
+\]
+Note that the exponential and $\cosh$ are positive when their arguments are real and that $\sinh$ is positive when its argument is positive. This is the case here, so $a(i\kappa)$ is guaranteed to be positive if 
+\[
+\frac{2\kappa^2-d}{\kappa m}\geq0.
+\]
+However, this follows directly from our assumptions that $\kappa,m>0$ and $d-\kappa^2<0$, since
+\[
+2\kappa^2-d>\kappa^2-d>0.
+\]
+Thus, we have shown that $a(i\kappa)>0$ for all $\kappa$ such that $d-\kappa^2<0$, meaning that we cannot have any zeros for such values of $\kappa$, and it suffices to consider $d-\kappa^2\geq0$. We define a scaling $s=2\sqrt{d-\kappa^2}L$ which is now valid because it is guaranteed to be real (and nonnegative). Using Mathematica to make this substitution, we get 
+\[
+e^{-\sqrt{4dL^2-s^2}}\left(\cos s+\frac{2dL^2-s^2}{s\sqrt{4dL^2-s^2}}\sin s\right).
+\]
+Letting $p=2dL^2$, we set this expression equal to zero. One way to rewrite this new equation is as
+\[
+\cot s=\frac{s^2-p}{s\sqrt{2p-s^2}}.
+\] 
+We plot both sides of this equation as functions of $s$ for a range of values of $p$ using the Manipulate function in Mathematica and look for points of intersection, noting that we need only consider $s\geq0$, $p>0$. In doing so, we observe that the RHS appears to be monotonically increasing with vertical asymptotes at $s=0,\sqrt{2p}$. We also know that the cotangent is monotonically decreasing on each of its periods which have vertical asymptotes at $s=j\pi,(j+1)\pi$, $j\in\mathbb{N}$, so we expect to have exactly one intersection on each period of $\cot s$ for which the RHS is defined. Thus, we conjecture that the number of zeros (and therefore the number of solitons) is given by $\lceil\sqrt{2p}/\pi\rceil=\lceil2L\sqrt{d}/\pi\rceil$ when we assume that $d>0$.\\
+If we instead wish to consider $d<0$, we actually encounter a case which we have already considered. Namely, because $\kappa>0$, $d-\kappa^2<0$ will always hold if $d<0$. We have shown that this case cannot produce any solitons ($a(k)$ always has no zeros), so if $d<0$, we will not obtain any solitons. Of course, this matches what we'd expect from the KdV equation.\\
+Finally, we return to our original expression but make the substitution $2dL=\alpha$ and compute
+\[
+\lim_{L\to0}a(k)=1-\frac{i\alpha}{2k}
+\]
+via Mathematica. One can rewrite this as 
+\[
+\frac{\alpha+2ik}{2ik}
+\]
+which is precisely the $a(k)$ obtained from the delta function potential with scaling $\alpha$. This makes sense to some extent, because the support of our initial condition is collapsing to a single point in this limit. 
+%This new equation can be written in several forms, one of which is
+%\[
+%\cos s+\frac{p-s^2}{\sqrt{2p-s^2}}\sinc s=0
+%\] 
+%which allows us to observe that 
+
+
+\section{Problem 5}
+Consider Liouville's equation
+\[
+u_{xy}=e^u,
+\]
+and the transformation
+\begin{align*}
+	v_x&=-u_x+\sqrt{2}e^{(u-v)/2},\\
+	v_y&=u_y-\sqrt{2}e^{(u+v)/2},
+\end{align*}
+where $u(x,y)$ satisfies Liouville's equation. 
+\subsection{Part a}
+Taking the $y$ derivative of the first term and plugging in the second, we get that
+\begin{align*}
+v_{xy}&=-u_{xy}+\frac{u_y-v_y}{\sqrt{2}}e^{(u-v)/2}=-u_{xy}+\frac{u_y-(u_y-\sqrt{2}e^{(u+v)/2})}{\sqrt{2}}e^{(u-v)/2}\\&=-u_{xy}+e^u=0.
+\end{align*}
+\subsection{Part b}
+To find a general solution for $v(x,y)$, we simply integrate this relation twice to get that 
+\[
+v(x,y)=a(x)+b(y).
+\]
+\subsection{Part c}
+Plugging this into our  B\"acklund transformation, we get the system of equations
+\[
+\begin{cases}
+a'(x)=-u_x+\sqrt{2}e^{(u-a(x)-b(y))/2}\\
+b'(y)=u_y-\sqrt{2}e^{(u+a(x)+b(y))/2}.
+\end{cases}
+\]
+To get an integrating factor, we can rewrite this system as 
+\[
+\begin{cases}
+	e^{-(u+a(x))/2}(u+a(x))_x=\sqrt{2}e^{-b(y)/2}e^{-a(x)}\\
+	e^{-(u-b(y))/2}(u-b(y))_y=\sqrt{2}e^{a(x)/2}e^{b(y)}.
+\end{cases}
+\]
+Integrating both sides of each,
+\[
+\begin{cases}
+	-2e^{-(u+a(x))/2}=\sqrt{2}e^{-b(y)/2}\int e^{-a(x)}dx\\
+	-2e^{-(u-b(y))/2}=\sqrt{2}e^{a(x)/2}\int e^{b(y)}dy.
+\end{cases}
+\]
+Taking logarithms and adding in integration constants,
+\[
+\begin{cases}
+	-(u+a(x))/2=\log\left(-\frac{1}{\sqrt{2}}e^{-b(y)/2}\left(\int e^{-a(x)}dx+c_1(y)\right)\right)\\
+	-(u-b(y))/2=\log\left(-\frac{1}{\sqrt{2}}e^{a(x)/2}\left(\int e^{b(y)}dy+c_2(x)\right)\right).
+\end{cases}
+\]
+We can finally solve for $u$ in each which gives
+\[
+\begin{cases}
+	u=-a(x)+\log2+b(y)-2\log\left(-\int e^{-a(x)}dx-c_1(y)\right)\\
+	u=b(y)+\log2-a(x)-2\log\left(-\int e^{b(y)}dy-c_2(x)\right).
+\end{cases}
+\]
+Combining these to reconcile our integration constants, we conclude that 
+\[
+u(x,y) = -a(x)+\log2+b(y)-2\log\left(-\int e^{-a(x)}dx-\int e^{b(y)}dy\right).
+\]
+
+\section{Problem 6}
+Consider the sine-Gordon equation
+\[
+u_{xt}=\sin u.
+\]
+\subsection{Part a}
+Consider the transformation
+\begin{align*}
+	v_x=u_x+2\sin \frac{u+v}{2},\\
+	v_t=-u_t-2\sin \frac{u-v}{2}.
+\end{align*}
+To see that this is an auto-B\"acklund transformation for the sine-Gordon equation, we assume that $u$ satisfies the sine-Gordon equation and differentiate the first equation in $t$ to get that 
+\begin{align*}
+v_{xt}=u_{xt}+(u_t+v_t)\cos\frac{u+v}{2}=\sin u+(u_t+v_t)\cos\frac{u+v}{2}.
+\end{align*}
+Plugging in the second equation and applying a product-to-sum identity, we get that 
+\begin{align*}
+v_{xt}&=\sin u-2\sin\frac{u-v}{2}\cos\frac{u+v}{2}\\&=
+\sin u-\left(\sin\left(\frac{u-v}{2}+\frac{u+v}{2}\right)-\sin\left(\frac{u+v}{2}-\frac{u-v}{2}\right)\right)\\&=
+\sin u-(\sin u-\sin v)=\sin v,
+\end{align*}
+meaning that $v$ also satisfies the sine-Gordon equation.
+
+\subsection{Part b}
+Let $u(x,t)=0$, the simplest solution of the sine-Gordon equation. Substituting this in, the auto-B\"acklund transformation yields the system
+\[
+\begin{cases}
+	v_x=2\sin\frac{v}{2}\\
+	v_t=-2\sin\frac{-v}{2}=2\sin\frac{v}{2}.
+\end{cases}
+\]
+From this, we can write
+\[
+dx=\frac{dv}{2\sin\frac{v}{2}}=dt
+\]
+and integrate. Doing this via Mathematica and including integration constants, we get that
+\[
+x+c_1(t)=\log\left(\tan\frac{v}{4}\right)=t+c_2(x).
+\]
+Reconciling $c_1$ and $c_2$ and solving for $v$, we conclude that
+\[
+v(x,t)=4\arctan\left(e^{x+t}\right).
+\]
+
+\end{document}

@@ -1,0 +1,56 @@
+rm -f .plots
+python /home/cade/clawpack_src/clawpack-v5-9-0/visclaw/src/python/visclaw/plotclaw.py _output_1 _plots_1 setplot.py           
+Importing setplot.setplot from /home/cade/Homework/AMATH574/Homework6/psystem.
+Executed setplot successfully
+Will plot 11 frames numbered: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+Will make 1 figure(s) for each frame, numbered:  [0]
+
+-----------------------------------
+
+
+Creating html pages for figures...
+
+Directory '/home/cade/Homework/AMATH574/Homework6/psystem/_plots_1' 
+    already exists, files may be overwritten 
+Now making png files for all figures...
+    Reading  Frame 0 at t = 0  from outdir = /home/cade/Homework/AMATH574/Homework6/psystem/_output_1
+Frame 0 at time t = 0.0
+    Reading  Frame 1 at t = 0.2  from outdir = /home/cade/Homework/AMATH574/Homework6/psystem/_output_1
+Frame 1 at time t = 0.2
+    Reading  Frame 2 at t = 0.4  from outdir = /home/cade/Homework/AMATH574/Homework6/psystem/_output_1
+Frame 2 at time t = 0.4
+    Reading  Frame 3 at t = 0.6  from outdir = /home/cade/Homework/AMATH574/Homework6/psystem/_output_1
+Frame 3 at time t = 0.6000000000000001
+    Reading  Frame 4 at t = 0.8  from outdir = /home/cade/Homework/AMATH574/Homework6/psystem/_output_1
+Frame 4 at time t = 0.8
+    Reading  Frame 5 at t = 1  from outdir = /home/cade/Homework/AMATH574/Homework6/psystem/_output_1
+Frame 5 at time t = 1.0
+    Reading  Frame 6 at t = 1.2  from outdir = /home/cade/Homework/AMATH574/Homework6/psystem/_output_1
+Frame 6 at time t = 1.2
+    Reading  Frame 7 at t = 1.4  from outdir = /home/cade/Homework/AMATH574/Homework6/psystem/_output_1
+Frame 7 at time t = 1.4
+    Reading  Frame 8 at t = 1.6  from outdir = /home/cade/Homework/AMATH574/Homework6/psystem/_output_1
+Frame 8 at time t = 1.6
+    Reading  Frame 9 at t = 1.8  from outdir = /home/cade/Homework/AMATH574/Homework6/psystem/_output_1
+Frame 9 at time t = 1.8
+    Reading  Frame 10 at t = 2  from outdir = /home/cade/Homework/AMATH574/Homework6/psystem/_output_1
+Frame 10 at time t = 2.0
+
+-----------------------------------
+
+Creating latex file...
+Directory '/home/cade/Homework/AMATH574/Homework6/psystem/_plots_1' 
+    already exists, files may be overwritten 
+
+Latex file created:  
+  /home/cade/Homework/AMATH574/Homework6/psystem/_plots_1/plots.tex
+
+Use pdflatex to create pdf file
+2023-02-27 15:22:34,554 INFO CLAW: Animation.save using <class 'matplotlib.animation.HTMLWriter'>
+2023-02-27 15:22:34,555 INFO CLAW: figure size in inches has been adjusted from 6.0 x 7.922330097087379 to 6.0 x 7.92
+Created movie_fig0.html
+
+--------------------------------------------------------
+
+Point your browser to:
+    file:///home/cade/Homework/AMATH574/Homework6/psystem/_plots_1/_PlotIndex.html

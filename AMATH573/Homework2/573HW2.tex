@@ -1,0 +1,350 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{hyperref}
+\usepackage{listings}
+\usepackage{multimedia} % to embed movies in the PDF file
+\usepackage{graphicx}
+\usepackage{comment}
+\usepackage[english]{babel}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{wrapfig}
+\usepackage{multirow}
+\usepackage{verbatim}
+\usepackage{float}
+\usepackage{cancel}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{mathdots}
+\usepackage{mathtools}
+\usepackage{/home/cade/Homework/latex-defs}
+
+
+\title{AMATH 573 Homework 2}
+\author{Cade Ballew \#2120804}
+\date{October 21, 2022}
+
+\begin{document}
+	
+\maketitle
+	
+\section{Problem 1}
+Consider the Benjamin-Ono equation
+\[
+u_t+u u_x+{\cal H}u_{xx}=0
+\]
+where
+\[
+{\cal H}f(x,t)=\frac{1}{\pi}\pvint_{-\infty}^\infty \frac{f(z,t)}{z-x}dz.
+\]
+We first linearize around the zero solution by taking
+\[
+u=\epsilon v+\OO(\epsilon^2).
+\]
+Then, noting that the Hilbert transform is an integral and therefore linear, collecting the first order terms, we have
+\[
+v_t+\mathcal{H}v_{xx}=0.
+\]
+Plugging in the ansatz $v=e^{ikx-i\omega(k)t}$, we get that
+\[
+\mathcal{H}v_{xx}=\frac{1}{\pi}\pvint_{-\infty}^\infty \frac{-k^2e^{ikz-i\omega(k)t}}{z-x}dz=\frac{-k^2e^{-i\omega(k)t}}{\pi}\pvint_{-\infty}^\infty \frac{e^{ikz}}{z-x}dz.
+\]
+To compute this integral, we first consider the case $k>0$. Noting that this is very similar to example 4.3.1 in Ablowitz and Fokas, we define a semicircular contour $C$ from $-R$ to $R$ with a semicircular kink from $x-\epsilon$ to $x+\epsilon$ protruding inwards as in their figure 4.3.2 but shifted to be centered at $z=x$. Letting $C_R$ denote the large semicircle, we have that 
+\[
+\lim_{R\to\infty}\int_{C_R} \frac{e^{ikz}}{z-x}dz=0
+\] 
+by Jordan's lemma, because $k>0$. Letting $C_\epsilon$ denote the kink, we can also use their theorem 4.3.1(b) to get that
+\[
+\lim_{\epsilon\to0}\int_{C_\epsilon} \frac{e^{ikz}}{z-x}dz=i(-\pi)\Res_{z=x}\frac{e^{ikz}}{z-x}=-i\pi e^{ikx}.
+\]
+Now, by Cauchy's theorem, 
+\[
+\oint_{C} \frac{e^{ikz}}{z-x}dz=0,
+\]
+and by definition,
+\[
+\pvint_{-\infty}^\infty \frac{e^{ikz}}{z-x}dz=\lim_{R\to\infty}\lim_{\epsilon\to0}\left(\int_{-R}^{x-\epsilon} \frac{e^{ikz}}{z-x}dz+\int_{x+\epsilon}^{R} \frac{e^{ikz}}{z-x}dz\right),
+\]
+so we can conclude that
+\[
+\pvint_{-\infty}^\infty \frac{e^{ikz}}{z-x}dz=-\left(\lim_{R\to\infty}\int_{C_R} \frac{e^{ikz}}{z-x}dz+\lim_{\epsilon\to0}\int_{C_\epsilon} \frac{e^{ikz}}{z-x}dz\right)=i\pi e^{ikx}.
+\]
+If we instead take $k<0$, we need to reflect our previous contour across the real axis with the same labeling as before. We can then apply Jordan's lemma in the lower halfplane to get that  
+\[
+\lim_{R\to\infty}\int_{C_R} \frac{e^{ikz}}{z-x}dz=0.
+\] 
+By theorem 4.3.1(b), 
+\[
+\lim_{\epsilon\to0}\int_{C_\epsilon} \frac{e^{ikz}}{z-x}dz=i(\pi)\Res_{z=x}\frac{e^{ikz}}{z-x}=i\pi e^{ikx}.
+\]
+Integrating over the entire contour again gives 0 by Cauchy's theorem, so
+\[
+\pvint_{-\infty}^\infty \frac{e^{ikz}}{z-x}dz=-\left(\lim_{R\to\infty}\int_{C_R} \frac{e^{ikz}}{z-x}dz+\lim_{\epsilon\to0}\int_{C_\epsilon} \frac{e^{ikz}}{z-x}dz\right)=-i\pi e^{ikx}.
+\]
+Thus, in general,
+\[
+\pvint_{-\infty}^\infty \frac{e^{ikz}}{z-x}dz=\sign(k)i\pi e^{ikx},
+\]
+and 
+\[
+\mathcal{H}v_{xx}=-\sign(k)k^2e^{ikx-i\omega(k)t}.
+\]
+Our dispersion relation can then be found by
+\[
+-i\omega(k)-\sign(k)ik^2=0,
+\]
+so
+\[
+\omega(k)=-\sign(k)k^2
+\]
+is the linear dispersion relationship for this equation linearized about the zero solution.
+
+\section{Problem 2}
+Consider the one-dimensional
+surface water wave problem 
+\begin{eqnarray*}
+	\nabla^2\phi=0,&& ~~~~-h<z<\zeta(x,t)\\
+	\phi_z=0, && ~~~~ z=-h\\
+	\zeta_t+\phi_x\zeta_x=\phi_z, && ~~~~z=\zeta(x,t)\\
+	\phi_t+g\zeta+\frac{1}{2}\left(\phi_x^2+\phi_z^2\right)=
+	T\frac{\zeta_{xx}}{\left(1+\zeta_x^2\right)^{3/2}}, && ~~~~z=\zeta(x,t).
+\end{eqnarray*}
+We linearize around the trivial solution by taking $\zeta=\epsilon\zeta_1+\OO(\epsilon^2)$ and $\phi=\epsilon\phi_1+\OO(\epsilon^2)$. Plugging these in, and neglecting higher order terms, we get 
+\begin{eqnarray*}
+	\epsilon\phi_{1xx}+\epsilon\phi_{1zz}=0,&& ~~~~-h<z<\zeta(x,t)\\
+	\epsilon\phi_{1z}=0, && ~~~~ z=-h\\
+	\epsilon\zeta_{1t}+\epsilon^2\phi_{1x}\zeta_{1x}=\epsilon\phi_{1z}, && ~~~~z=\zeta(x,t)\\
+	\epsilon\phi_{1t}+\epsilon g\zeta_1+\frac{1}{2}\left(\epsilon^2\phi_{1x}^2+\epsilon\phi_z^2\right)=
+	T\frac{\epsilon\zeta_{1xx}}{\left(1+\epsilon^2\zeta_{1x}^2\right)^{3/2}}, && ~~~~z=\zeta(x,t).
+\end{eqnarray*}
+Looking at just the first order terms in $\epsilon$, we get
+\begin{eqnarray*}
+	\phi_{1xx}+\phi_{1zz}=0,&& ~~~~-h<z<\zeta(x,t)\\
+	\phi_{1z}=0, && ~~~~ z=-h\\
+	\zeta_{1t}=\phi_{1z}, && ~~~~z=\zeta(x,t)\\
+	\phi_{1t}+g\zeta_1=
+	T\zeta_{1xx}, && ~~~~z=\zeta(x,t).
+\end{eqnarray*}
+Now, we apply the ansatz $\zeta_1=e^{ikx-i\omega(k)t}$, $\phi_1=f(z)e^{ikx-i\omega(k)t}$. Plugging this in, our first two equations become
+\begin{eqnarray*}
+	-k^2f(z)+f''(z)=0,&& ~~~~-h<z<\zeta(x,t)\\
+f'(z)=0, && ~~~~ z=-h.
+\end{eqnarray*}
+This is just an ODE with general solution 
+\[
+f(z)=c_1e^{kz}+c_2e^{-kz}.
+\]
+Plugging in the boundary condition, $f'(z)=kc_1e^{kz}-kc_2e^{-kz}$, so we must have that $c_2=c_1e^{-2kh}$ and 
+\[
+f(z)=c_1e^{kz}+c_1e^{-k(z+2h)}=c_1e^{-kh}(e^{k(z+h)}+e^{-k(z+h)})=C\cosh(k(z+h))
+\] 
+where we have redefined our constant. Thus,
+\[
+\phi_1=C\cosh(k(z+h))e^{ikx-i\omega(k)t}.
+\]
+Ignoring the $z=\zeta(x,t)$ condition for now, we plug our ansatz into the latter two equations to get
+\begin{eqnarray*}
+	-i\omega(k)=Ck\sinh(k(z+h))\\
+	-iC\cosh(k(z+h))\omega(k)+g=-Tk^2.
+\end{eqnarray*}
+Then,
+\[
+C=\frac{-i\omega(k)}{k\sinh(k(z+h))},
+\]
+so
+\[
+-i\frac{-i\omega(k)}{k\sinh(k(z+h))}\cosh(k(z+h))\omega(k)+g=-Tk^2.
+\]
+This yields 
+\[
+\frac{-\coth(k(z+h))\omega^2(k)}{k}=-Tk^2-g,
+\]
+and 
+\[
+\omega^2(k)=k(g+Tk^2)\tanh(k(z+h)).
+\]
+Now, we enforce $z=\zeta(x,t)=\epsilon\zeta_1+\OO(\epsilon^2)$ which gives 
+\[
+\omega^2(k)=k(g+Tk^2)\tanh(k(\epsilon\zeta_1+h+\OO(\epsilon^2))).
+\]
+To leading order in $\epsilon$, this simply yields
+\[
+\omega^2(k)=k(g+Tk^2)\tanh(kh),
+\]
+our linear dispersion relationship.
+
+\section{Problem 3}
+Take $T=0$. Then, the dispersion relationship from our previous problem is $\omega^2=gk\tanh(kh)$. If $|k|h\ll1$, then Taylor expanding gives that $\tanh(kh)\approx kh$, so $\omega^2=ghk^2$ and $\omega_\pm=\pm\sqrt{gh}|k|$. Then, the group velocity is given by
+\[
+c_g=\frac{d\omega}{dk}=\pm\sign(k)\sqrt{gh}.
+\]
+If instead $|k|h\gg1$, 
+\[
+\tanh(kh)=\frac{e^{kh}+e^{-kh}}{e^{kh}-e^{-kh}}\sim\sign(k).
+\]
+Then, $\omega^2=g|k|$, and $\omega_\pm=\pm\sqrt{g|k|}$, so the group velocity is given by
+\[
+c_g=\frac{d\omega}{dk}=\pm\frac{\sign(k)}{2}\sqrt{\frac{g}{|k|}}.
+\]
+
+\section{Problem 4}
+\subsection{Part a}
+Consider the Whitham equation 
+\[
+u_t+uu_x+\int_{-\infty}^\infty K(x-y)u_y(y,t)dy=0,
+\]
+
+where
+\[
+K(x)=\frac{1}{2\pi}\pvint_{-\infty}^\infty c(k)e^{ikx}dk,
+\]
+
+and $c(k)$ is the positive phase speed for the water-wave problem: $c(k)=\sqrt{g\tanh(kh)/k}$. To compute the linear dispersion relation, we linearize around zero for simplicity, taking
+\[
+u=\epsilon v+\OO(\epsilon^2).
+\] 
+Then, because integrals are linear operators, by collecting first order terms we get
+\[
+v_t+\int_{-\infty}^\infty K(x-y)v_y(y,t)dy=0.
+\]
+Now, consider the ansatz $v=e^{ikx-i\omega(k)t}$. We can then compute 
+\begin{align*}
+I &\coloneqq\int_{-\infty}^\infty K(x-y)v_y(y,t)dy=\int_{-\infty}^\infty\frac{1}{2\pi}\pvint_{-\infty}^\infty c(k')e^{ik'(x-y)}dk'ike^{iky-i\omega(k)t}dy\\&=
+\frac{ik}{2\pi}e^{-i\omega(k)t}\int_{-\infty}^\infty\pvint_{-\infty}^\infty c(k')e^{ik'x+iy(k-k')}dk'dy\\&=
+\frac{ik}{2\pi}e^{ikx-i\omega(k)t}\int_{-\infty}^\infty\pvint_{-\infty}^\infty c(k')e^{i(k-k')(y-x)}dk'dy.
+\end{align*}
+Now, performing the change of variables $y-x\to y$ inside the integral and flipping the order of integration, 
+\begin{align*}
+I&=\frac{ik}{2\pi}e^{ikx-i\omega(k)t}\int_{-\infty}^\infty\pvint_{-\infty}^\infty c(k')e^{i(k-k')y}dk'dy\\&=
+ike^{ikx-i\omega(k)t}\pvint_{-\infty}^\infty\left(\frac{1}{2\pi}c(k')\int_{-\infty}^\infty e^{i(k-k')y}dy\right)dk'\\&=
+ike^{ikx-i\omega(k)t}\pvint_{-\infty}^\infty c(k')\delta(k-k')dk'=ike^{ikx-i\omega(k)t}c(k)
+\end{align*}
+by the exponential representation of the Dirac delta function and integrating the Dirac delta function. 
+Thus, we can get the linear dispersion relation by taking
+\[
+-i\omega(k)+ikc(k)=0
+\]
+which gives 
+\[
+\omega(k)=kc(k).
+\]
+
+\subsection{Part b}
+Consider the KdV equation 
+\[
+u_t+vu_x+u u_x+\gamma u_{xxx}=0.
+\]
+To compute its linear dispersion relation, we linearize around zero for simplicity, taking
+\[
+u=\epsilon u_1+\OO(\epsilon^2).
+\]
+Collecting first order terms, we get that 
+\[
+u_{1t}+vu_{1x}+\gamma u_{1xxx}=0.
+\] 
+Applying our usual ansatz $u_1=e^{ikx-i\omega(k)t}$, we get
+\[
+-i\omega(k)+vik-\gamma ik^3=0
+\]
+which gives a linear dispersion relation of
+\[
+\omega(k)=k(v-\gamma k^2). 
+\]
+For this to be an approximation of the linear dispersion relation of the Whitham equation as $k\to0$, we need to choose $v$ and $\gamma$ to match the coefficients in the series expansion for $c(k)$ centered at zero. Using Mathematica to compute this expansion, we get that
+\[
+c(k)=\sqrt{gh}-\frac{h^2\sqrt{gh}}{6}k^2+\OO(k^3). 
+\]
+Thus, taking $v=\sqrt{gh}$, $\gamma=\frac{h^2\sqrt{gh}}{6}$ gives that the dispersion relation is an approximation for long waves.
+
+\section{Problem 5}
+Consider the linear free Schr\"odinger equation
+$$
+i \psi_t+\psi_{xx}=0, ~~~~~-\infty<x<\infty,~~t>0, ~~\psi\rightarrow 0
+~~\mbox{as}~~ |x|\rightarrow \infty,
+$$
+with $\psi(x,0)=\psi_0(x)$ such that $\int_{-\infty}^\infty|\psi_0|^2
+dx<\infty$.
+\subsection{Part a}
+To solve this problem, we first need to find the dispersion relation. Since the equation is already linear, we can plug in our usual ansatz $\psi=e^{ikx-i\omega(k)t}$ which gives
+\[
+i(-i\omega(k))-k^2=0,
+\]
+so the dispersion relation is $\omega(k)=k^2$. Then, the solution is given by
+\[
+\psi(x,t)=\frac{1}{2\pi}\int_{-\infty}^{\infty}a(k)e^{ikx-ik^2t}dk
+\]
+where 
+\[
+a(k)=\int_{-\infty}^{\infty}\psi_0(x)e^{-ikx}dx.
+\]
+\subsection{Part b}
+To apply the method of stationary phase, we set 
+\[
+\phi(k)=k\frac{x}{t}-\omega(k)=k\frac{x}{t}-k^2.
+\]
+We compute $\phi'(k)=\frac{x}{t}-2k$ and $\phi''(k)=-2$. We find our stationary points by setting $\phi'(k)=0$ which gives one stationary point at $k_0=\frac{x}{2t}$. We can then use the result (2.7) in the lecture notes to get 
+\begin{align*}
+\psi(x,t)&\approx\frac{a(k_0)}{\sqrt{2\pi t|\phi''(k_0)|}}\exp\left(i\phi(k_0)t+\frac{i\pi\sign(\phi''(k_0))}{4}\right)\\&=
+\frac{\exp\left(\frac{ix^2}{4t}-\frac{i\pi}{4}\right)}{\sqrt{4\pi t}}\int_{-\infty}^{\infty}\psi_0(x)e^{-\frac{ix^2}{2t}}dx.
+\end{align*}
+\subsection{Parts c and d}
+See the attached Mathematica notebook for plots of the true solution when $\psi_0(x)=e^{-x^2}$ compared against the stationary phase approximation and an approximation computed by Mathematica's NIntegrate function on the lines $x/t=1$ and $x/t=2$. In general, we observe that stationary phase performs well as $x,t\to\infty$ but not for $x,t$ close to zero, but the numerical integrator performs well for small $x,t$ but not as $x,t\to\infty$.
+
+\section{Problem 6}
+\subsection{Part a}
+We wish to verify that the discrete analogue of the Fourier transform
+$$
+\psi_n(t)=\frac{1}{2\pi i}\oint_{|z|=1} \hat{\psi}(z,t) z^{n-1} dz,
+$$
+and
+$$
+\hat{\psi}(z,t)=\sum_{m=-\infty}^\infty \psi_m(t) z^{-m}
+$$
+are inverses. We do this by first plugging the latter into the former and interchanging the integral and summation which gives
+\begin{align*}
+\frac{1}{2\pi i}\oint_{|z|=1}\left(\sum_{m=-\infty}^\infty \psi_m(t) z^{-m}\right)z^{n-1}dz&=
+\sum_{m=-\infty}^\infty\phi_m(t)\frac{1}{2\pi i}\oint_{|z|=1}z^{n-m-1}dz\\&=
+\psi_m(t).
+\end{align*}  
+Note that this follows from the residue theorem which gives that
+\[
+\frac{1}{2\pi i}\oint_{|z|=1}z^{j}dz=\begin{cases}
+	1, \quad j=-1,\\
+	0, \quad j=0.
+\end{cases}
+\]
+Now, we plug the former into the latter and perform the change of variables $m\to-m$ to get
+\begin{align*}
+\sum_{m=-\infty}^\infty \frac{1}{2\pi i}\oint_{|z|=1} \hat{\psi}(z',t) z'^{m-1} dz' z^{-m}&=\sum_{m=-\infty}^\infty \left(\frac{1}{2\pi i}\oint_{|z|=1} \frac{\hat{\psi}(z',t)}{z'^{m+1}} dz'\right) z^{m}\\&=
+\hat{\psi}(z,t),
+\end{align*}
+because this is precisely the definition of a Laurent series for $\hat{\psi}$.
+\subsection{Part b}
+Consider the discrete linear
+Schr\"odinger equation:
+$$
+i\frac{d\psi_n}{dt}+\frac{1}{h^2}(\psi_{n+1}-2 \psi_n+\psi_{n-1})=0,
+$$
+where $h$ is a real constant, $n$ is any integer, $t>0$, $\psi_n\rightarrow 0$
+as $|n|\rightarrow \infty$, and $\psi_n(0)=\psi_{n,0}$ is given. To find the dispersion relation, we consider the anstaz $\psi_n=z^n e^{-i \omega(z) t}$. Plugging this in gives
+\[
+i(-i\omega(z))z^n e^{-i \omega(z) t}+\frac{1}{h^2}(z^{n+1} e^{-i \omega(z) t}-2z^n e^{-i \omega(z) t}+z^{n-1} e^{-i \omega(z) t})=0
+\]
+which simplifies to
+\[
+z\omega(z)+\frac{1}{h^2}(z^2-2z+1)=0.
+\]
+This gives the dispersion relation
+\[
+\omega(z)=-\frac{(z-1)^2}{zh^2}.
+\]
+To compare this with the dispersion relation from the fully continuous problem, we note that standard anstaz can be obtained from the one we used by setting $z^n=e^{ikx}$, so $z=e^{ikx/n}$. We then note that if our spatial grid has spacing $h$, points are given by $x=hn$, so we set $z=e^{ikh}$ to acquire the dispersion relation
+\[
+-\frac{(e^{ikh}-1)^2}{e^{ikh}h^2}.
+\] 
+Now, we use Mathematica to compute the limit as $h\to0$. Namely, we get that 
+\[
+\lim_{h\to0}-\frac{(e^{ikh}-1)^2}{e^{ikh}h^2}=k^2
+\]
+which is precisely the dispersion relation ffrom the continuous problem. 
+\end{document}

@@ -1,0 +1,172 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{hyperref}
+\usepackage{listings}
+\usepackage{multimedia} % to embed movies in the PDF file
+\usepackage{graphicx}
+\usepackage{comment}
+\usepackage[english]{babel}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{wrapfig}
+\usepackage{multirow}
+\usepackage{verbatim}
+\usepackage{float}
+\usepackage{cancel}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{mathdots}
+\usepackage{/home/cade/Homework/latex-defs}
+
+
+\title{AMATH 563 Homework 1}
+\author{Cade Ballew \#2120804}
+\date{April 14, 2023}
+
+\begin{document}
+	
+\maketitle
+	
+\section{Problem 1}
+To see that $C([a,b])$ equipped with the $L^2([a,b])$ norm is not a Banach space, consider the sequence of functions
+\[
+f_n(x)=\begin{cases}
+	0, \quad a\leq x<\frac{a+b}{2},\\
+	n\left(x-\frac{a+b}{2}\right),\quad \frac{a+b}{2}\leq x\leq \frac{a+b}{2}+\frac{1}{n},\\
+	1,\quad \frac{a+b}{2}+\frac{1}{n}<x\leq b.
+\end{cases}
+\]
+Clearly, $f_n\in C([a,b])$ for all $n\in N$. However, this sequence converges too
+\[
+f(x)=\begin{cases}
+	0,\quad a\leq x\leq\frac{a+b}{2},\\
+	1,\quad \frac{a+b}{2}\leq b,
+\end{cases}
+\]
+which is clearly discontinuous, so $f\notin C([a,b])$. To see this convergence more explicitly, we compute
+\begin{align*}
+\lim_{n\to\infty}\int_{a}^{b}|f_n(x)-f(x)|^2dx=\int_{\frac{a+b}{2}}^{\frac{a+b}{2}+\frac{1}{n}}|f_n(x)-f(x)|^2dx=0.
+\end{align*}
+Thus, this space is not complete and therefore not a Banach space.
+
+\section{Problem 2}
+Consider normed spaces $(X_1,\|\cdot\|_1)$, $(X_2,\|\cdot\|_2)$ and their product space $X$ with norm $\|x\|=\max\{\|x_1\|_1,\|x_2\|_2\}$. To verify that this is also a normed space, we first verify that $X$ satisfies the axioms of a vector space, i.e. that it is closed under addition and scalar multiplication. For addition, let $(x_1,x_2),(y_1,y_2)\in X$. Then,
+\[
+(x_1,x_2)+(y_1,y_2)=(x_1+y_1,x_2+y_2)\in X,
+\]
+because $x_1+y_1\in X_1$ and $x_2+y_2\in X_2$ since $X_1,X_2$ are normed spaces and must be closed under addition by definition. Similarly, to see that $X$ is closed under scalar multiplication, let $(x_1,x_2)\in X$ and $\alpha\in\real$. Then, 
+\[
+\alpha(x_1,x_2)=(\alpha x_1,\alpha x_2)\in X,
+\]
+because $\alpha x_1\in X_1$ and $\alpha x_2\in X_2$ since $X_1,X_2$ are normed spaces and must be closed under scalar multiplication by definition. Thus, $X$ is a vector space. 
+
+Now, we verify that $\|\cdot\|$ satisfies the axioms of a norm. Let $x=(x_1,x_2)\in X$. To see nonnegativity, note that
+\[
+\|x\|=\max\{\|x_1\|_1,\|x_2\|_2\}\geq\|x_1\|_1\geq0,
+\] 
+since $\|\cdot\|_1$ is a norm and must be nonnegative by definition. To see positive definiteness, we first observe that 
+\[
+\|(0,0)\|=\max\{\|0\|_1,\|0\|_2\}=\max\{0,0\}=0.
+\]
+Furthermore, if $\|x\|=0$, then $0=\max\{\|x_1\|_1,\|x_2\|_2\}$, so $\|x_1\|_1=\|x_2\|_2=0$ since these norms are nonnegative. The positive definiteness of each then implies that $x_1=x_2=0$, so $x=(0,0)$. To see homogeneity, let $\alpha\in\real$ and observe that 
+\begin{align*}
+\|\alpha x\|&=\max\{\|\alpha x_1\|_1,\|\alpha x_2\|_2\}=\max\{|\alpha|\| x_1\|_1,|\alpha|\|x_2\|_2\}\\&=
+|\alpha|\max\{\| x_1\|_1,\|x_2\|_2\}=|\alpha|\|x\|,
+\end{align*}
+which follows from the homogeneity of $\|\cdot\|_1,\|\cdot\|_2$. Finally, we let $y=(y_1,y_2)\in X$, and we see the triangle inequality by taking
+\begin{align*}
+\|x+y\|&=\max\{\|x_1+y_1\|_1,\|x_2+y_2\|_2\}\leq\max\{\|x_1\|_1+\|y_1\|_1,\|x_2\|_2+\|y_2\|_2\}\\&\leq
+\max\{\|x_1\|_1,\|x_2\|_2\}+\max\{\|y_1\|_1,\|y_2\|_2\}=\|x\|+\|y\|,
+\end{align*}
+which follows from the fact that $\|\cdot\|_1,\|\cdot\|_2$ satisfy the triangle inequality. 
+
+\section{Problem 3}
+Let $T,U$ be linear maps defined such that their composition $TU$ exists, i.e. $\text{range}(U)\subset\text{domain}(T)$. Let $x,x'\in\text{domain}(U)$. Then, 
+\begin{align*}
+(TU)(x+x')&=T(U(x+x'))=T(Ux+Ux')\\&=
+T(Ux)+T(Ux')=(TU)x+(TU)x',
+\end{align*}
+by the linearity of $T,U$. Similarly, if we let $\alpha$ be a scalar, then
+\[
+(TU)(\alpha x)=T(U(\alpha x))=T(\alpha Ux)=\alpha T(Ux)=\alpha (TU)x.
+\]
+Thus, $TU$ is indeed a linear map.
+
+\section{Problem 4}
+Let $T:X\to Y$ be a linear map where the spaces $X,Y$ have finite-dimension $n$. Assume that $T^{-1}$ exists. Then part iii of the theorem on pg. 3--4 of lecture 2 gives that $\dim\text{Range}(T)=\dim\text{Dom}(T)$. By definition $\text{Dom}(T)=X$, so $\dim\text{Range}(T)=n$; however, this implies that $\text{Range}(T)=Y$ since $\text{Range}(T)\subset Y$, and proper subspaces must have a strictly smaller dimension (Theorem 2.1-8 in Kreyszig).
+
+Now, assume that $\text{Range}(T)=Y$. Then, for any given $y\in Y$, there exists some $x\in X$ such that $T(x)=y$. Let $x_1,\ldots,x_n$ be a basis in $X$ and write $x=\sum_{j=1}^{n}c_jx_j$. Then,
+\[
+y=T\left(\sum_{j=1}^{n}c_jx_j\right)=\sum_{j=1}^{n}c_jTx_j.
+\]
+Thus, $Tx_1,\ldots,Tx_n$ form a basis for $Y$ since they are a length-$n$ spanning set in an $n$-dimensional space. This means that 
+\[
+0=\sum_{j=1}^{n}c_jTx_j=T\left(\sum_{j=1}^{n}c_jx_j\right)
+\]
+is satisfied iff $c_j=0$ for all $j$. Since any $x\in X$ can be written as $x=\sum_{j=1}^{n}c_jx_j$, this implies that $Tx=0$ iff $x=0$. By part i of the same theorem from the notes, this means that $T^{-1}$ exists. Thus, $T^{-1}$ exists iff $\text{Range}(T)=Y$.
+
+\section{Problem 5}
+Let $T$ be a bounded linear operator from a normed space $X$ onto a normed space $Y$ and  assume there is a positive constant $b$ such that $\|Tx\|\geq b\|x\|$ for all $x\in X$. We can immediately see that $T^{-1}$ exists due to part i of the theorem on pg. 3--4 of lecture 2 since if $Tx=0$, then $b\|x\|\leq0$ which can only hold when $x=0$ by the nonnegativity of norms. Since $T$ is onto, $T^{-1}:Y\to X$, so for any $y\in Y$, we have that for some $x$,
+\[
+\|T^{-1}y\|=\|x\|\leq\frac{1}{b}\|Tx\|=\frac{1}{b}\|y\|,
+\]
+implying that $T^{-1}$ is bounded since $1/b>0$.
+
+\section{Problem 6}
+Consider the functional $f(x)=\max_{t \in [a,b]} x(t)$ on $C([a,b])$ equipped with the sup norm. This functional is not linear, which we can see by considering $x,y\in C([a,b])$ which obtain their maxima in different places. Namely, let $x(t)=2t$ and $y(t)=-t$. Then,
+\[
+f(x+y)=\max_{t \in [a,b]}t=b,
+\]
+but 
+\[
+f(x)+f(y)=\max_{t \in [a,b]}2t+\max_{t \in [a,b]}(-t)=2b-a,
+\]
+so if we take $a=0$, $b=1$, we have that $f(x+y)\neq f(x)+f(y)$. 
+
+However, $f$ is bounded. To see this let $x\in C([a,b])$. Then,
+\[
+|f(x)|=\left|\max_{t \in [a,b]} x(t)\right|\leq\max_{t \in [a,b]} |x(t)|=\|x\|,
+\]
+so the definition of boundedness is satisfied with $c=1$.
+
+\section{Problem 7}
+Let $X$ be a Banach space with dual $X^*$. We show that $\|\varphi\| : \varphi \mapsto \sup_{\|x\|=1} |\varphi(x)|$ is a norm on $X^*$ by verifying the required axioms for a given $\varphi\in X^*$.
+
+Nonnegativity is obvious since $|\varphi(x)|\geq0$ for all $x$ by the definition of absolute value. 
+
+For positive definiteness, first note that the zero functional clearly satisfies $\|0\|=\sup_{\|x\|=1}|0|=0$. Conversely, if $\|\varphi\|=0$, then we must have that $\varphi(x)=0$ for all $\|x\|=1$. Since $\varphi$ is linear, for any nonzero $x$, we must have that 
+\[
+\varphi(x)=\frac{1}{\|x\|}\varphi\left(\frac{x}{\|x\|}\right)=0.
+\]
+Thus $\varphi(x)=0$ for all $x\in X$, so $\varphi$ must be the zero function on $X$.
+
+To see homogeneity, let $\alpha\in\real$. Then,
+\begin{align*}
+\|\alpha\varphi\|=\sup_{\|x\|=1} |\alpha\varphi(x)|=\sup_{\|x\|=1} |\alpha||\varphi(x)|=|\alpha|\sup_{\|x\|=1} |\varphi(x)|=|\alpha|\|\varphi\|.
+\end{align*}
+
+Finally, to see the triangle inequality, let $\phi,\varphi\in X^*$, and observe that
+\begin{align*}
+\|\phi+\varphi\|&=\sup_{\|x\|=1}|\phi(x)+\varphi(x)|\leq\sup_{\|x\|=1}\left\{|\phi(x)|+|\varphi(x)|\right\}\\&\leq
+\sup_{\|x\|=1}|\phi(x)|+\sup_{\|x\|=1}|\varphi(x)|=\|\phi\|+\|\varphi\|.
+\end{align*}
+
+\section{Problem 8}
+To prove the Schwartz inequality on inner product spaces, let $x,y\in X$ where $X$ is a (real) inner product space. For $y\neq0$ and $\alpha\in\real$, we have that
+\[
+0\leq\|x-\alpha y\|^2=\|x\|^2-2\alpha\langle x,y\rangle+\alpha^2\|y\|^2.
+\]
+If we let $\alpha=\langle x,y\rangle/\|y\|^2$, then
+\[
+0\leq\|x\|^2-\frac{\langle x,y\rangle^2}{\|y\|^2},
+\]
+which can be rearranged to get the Schwartz inequality
+\[
+\langle x,y\rangle\leq\|x\|\|y\|,
+\]
+for $y\neq0$. If $y=0$, the inequality is trivially true as both sides are zero. Thus, the Schwartz inequality holds for all $x,y\in X$.
+
+By the positive definiteness of norms and the work above, the Schwartz inequality holds with equality iff $y=0$ or $x=\alpha y$. This is true iff $x$ and $y$ are linearly dependent by definition. 
+
+
+\end{document}

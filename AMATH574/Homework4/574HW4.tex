@@ -1,0 +1,247 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{hyperref}
+\usepackage{listings}
+\usepackage{multimedia} % to embed movies in the PDF file
+\usepackage{graphicx}
+\usepackage{comment}
+\usepackage[english]{babel}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{wrapfig}
+\usepackage{multirow}
+\usepackage{verbatim}
+\usepackage{float}
+\usepackage{cancel}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{mathdots}
+\usepackage{/home/cade/Homework/latex-defs}
+
+
+\title{AMATH 574 Homework 4}
+\author{Cade Ballew \#2120804}
+\date{February 8, 2023}
+
+\begin{document}
+	
+\maketitle
+	
+\section{Problem 8.3}
+We consider the equation
+\[
+q_t+\bar uq_x=aq,\quad q(x,0)=\mathring{q}(x).
+\]
+\subsection{Part a}
+We wish to show that the method 
+\[
+Q^{n+1}_j=Q^n_j-\frac{\bar u\Delta t}{\Delta x}(Q^n_j-Q^n_{j-1})+\Delta taQ^n_i
+\]
+is first-order accurate when applied to this problem. We compute the LTE and Taylor expand
+\begin{align*}
+\tau^n&=\frac{1}{\Delta t}\left(q(x_j,t_n)-\frac{\bar u\Delta t}{\Delta x}(q(x_j,t_n)-q(x_{j-1},t_n))+\Delta taq(x_j,t_n)-q(x_j,t_{n+1})\right)\\&=
+aq+\frac{1}{\Delta t}\left(\left(-q_t\Delta t-\frac{1}{2}q_{tt}(\Delta t)^2+\OO(\Delta t^3)\right)+\frac{\bar u\Delta t}{\Delta x}\left(-q_x\Delta x+\frac{1}{2}q_{xx}(\Delta x)^2+\OO(\Delta x^3)\right)\right)\\&=
+-(q_t+\bar uq_x-aq)+\frac{1}{2}\Delta x\bar u q_{xx}+\OO(\Delta x^2)-\frac{1}{2}\Delta tq_{tt}+\OO(\Delta t^2)\\&=
+\frac{1}{2}\Delta x(1-\nu)\bar u q_{xx}(x_j,t_n)+\OO(\Delta t^2).
+\end{align*}
+where $\nu=\bar{u}\Delta t/\Delta x$ is the Courant number, so the method is indeed first-order accurate.
+\subsection{Part b}
+Now, we assume that $0\leq\nu\leq1$. To see that our method is 1-norm Lax-Richtmyer stable, we bound
+\begin{align*}
+\|Q^{n+1}\|_1&=\Delta x\sum_j|Q_j^n-\nu(Q^n_j-Q^n_{j-1})+\Delta taQ^n_i|\\&\leq
+\Delta x\left((1-\nu+|a|\Delta t)\sum_j|Q^n_j|+\nu\sum_j|Q^n_{j-1}|\right)\\&=
+(1-\nu+|a|\Delta t)\|Q^n\|_1+\nu\|Q^n\|_1=(1+|a|\Delta t)\|Q^n\|_1
+\end{align*}
+which follows from the triangle inequality and reindexing. This is precisely a bound of the form (8.23) with $\alpha=|a|$, so our method is indeed 1-norm Lax-Richtmyer stable.
+\subsection{Part c}
+To see that our method is TVB, we bound
+\begin{align*}
+\text{TV}(Q^{n+1})&=\sum_j|Q^{n+1}_j-Q^{n+1}_{j-1}|\\&=
+\sum_j|(1-\nu+a\Delta t)(Q^n_j-Q^n_{j-1})+\nu(Q^n_{j-1}-Q^n_{j-2})|\\&\leq
+(1-\nu+|a|\Delta t)\sum_j|Q^n_j-Q^n_{j-1}|+\nu\sum_j|Q^n_{j-1}-Q^n_{j-2}|\\&=
+(1-\nu+|a|\Delta t)\text{TV}(Q^n)+\nu\text{TV}(Q^n)=(1+|a|\Delta t)\text{TV}(Q^n)
+\end{align*}
+by the triangle inequality and reindexing with the same restrictions on $\nu$ (between 0 and 1) as before. This is a bound of the form (8.38), so our method is indeed TVB; however, it is only necessarily TVD if $a=0$.
+
+\section{Problem 8.5}
+To prove Harten's theorem, we bound
+\begin{align*}
+\text{TV}(Q^{n+1})&=\sum_j|Q^{n+1}_{j+1}-Q^{n+1}_j|\\&=
+\sum_j\left|(1-C_j^n-D^n_j)(Q^n_{j+1}-Q^n_j)+D^n_{j+1}(Q^n_{j+2}-Q^n_{j+1})+C^n_{j-1}(Q^n_j-Q^n_{j-1})\right|\\&\leq
+(1-C_j^n-D^n_j)\sum_j|Q^n_{j+1}-Q^n_j|+\sum_jD^n_{j+1}|Q^n_{j+2}-Q^n_{j+1}|+\sum_jC^n_{j-1}|Q^n_j-Q^n_{j-1}|\\&=
+(1-C_j^n-D^n_j)\text{TV}(Q^n)+D^n_{j}\text{TV}(Q^n)+C^n_{j}\text{TV}(Q^n)=\text{TV}(Q^n)
+\end{align*}
+by the triangle inequality and reindexing. Thus, such a method satisfying the property that these coefficients be nonnegative is in fact TVD.
+
+\section{Problem 8.6}
+We wish to show that the method (4.64) is 1-norm stable when $1\leq\nu\leq2$ where $\nu=\bar{u}\Delta t/\Delta x$ is the Courant number. We bound 
+\begin{align*}
+\|Q^{n+1}\|_1&=\Delta x\sum_j\left|(2-\nu)Q^n_{j-1}-(\nu-1)Q^n_{j-2}\right|\\&\leq
+\Delta x\left((2-\nu)\sum_j|Q^n_{j-1}|+(\nu-1)\sum_j|Q^n_{j-2}|\right)\\&=
+(2-\nu)\|Q^n\|_1+(\nu-1)\|Q^n\|_1=\|Q^n\|_1
+\end{align*}
+by the triangle inequality and reindexing along with the fact that $2-\nu,\nu-1\geq0$ by our assumption. Thus, this method is indeed 1-norm stable with our choice of $\nu$.
+
+\section{Problem 11.1}
+Assume that we are solving the scalar conservation law $q_t+f(q)_x=0$ with smooth $q(x,0)$. Then, differentiating (11.11) gives that
+\[
+q_x=\xi_xq_x(\xi,0).
+\]
+Since our initial condition is smooth, $q_x$ becomes infinite when $\xi_x$ becomes infinite. Differentiating (11.12), 
+\[
+1=\xi_x+\xi_xq_x(\xi,0)f''(q(\xi,0))t,
+\] 
+so
+\[
+\xi_x=\frac{1}{1+q_x(\xi,0)f''(q(\xi,0))t},
+\]
+so $\xi_x$ becomes infinite when
+\[
+t=\frac{-1}{f''(q(\xi,0))q_x(\xi,0)}.
+\]
+Since we assume $t\geq0$, this only occurs if the denominator is negative for some $\xi$. If this holds, the we wish to find the smallest time for which it occurs, so
+\begin{align*}
+T_b=\min_{\xi}\left\{\frac{-1}{f''(q(\xi,0))q_x(\xi,0)}\right\}=\frac{-1}{\min_{x}\left\{f''(q(x,0))q_x(x,0)\right\}}
+\end{align*}
+where we have changed our dummy variable.
+
+\section{Problem 11.3}
+Consider (11.21) 
+\[
+s=\frac{f(q_r)-f(q_l)}{q_r-q_l}
+\]
+for a general smooth scalar flux function $f$. If we Taylor expand the first term in the numerator around $q_l$ and the second around $q_r$, we get that
+\begin{align*}
+s&=\frac{1}{q_r-q_l}\biggr(f(q_l)+f'(q_l)(q_r-q_l)+\frac{1}{2}f''(q_l)(q_r-q_l)^2-f(q_r)+f'(q_r)(q_r-q_l)\\&-\frac{1}{2}f''(q_r)(q_r-q_l)^2+\OO(|q_r-q_l|^3)\biggr)\\&=
+-s+(f'(q_l)+f'(q_r))+\frac{1}{2}(f''(q_l)-f''(q_r))(q_r-q_l)+\OO(|q_r-q_l|^2).
+\end{align*}
+Now, we Taylor expand
+\[
+f''(q_l)=f''(q_r)+\OO(|q_r-q_l|),
+\]
+which we plug in to get that
+\[
+s=-s+(f'(q_l)+f'(q_r))+\OO(|q_r-q_l|^2).
+\]
+Solving this for $s$ yields that 
+\[
+s=\frac{1}{2}(f'(q_l)+f'(q_r))+\OO(|q_r-q_l|^2).
+\]
+
+\section{Problem 11.5}
+Consider Burgers' equation with initial data
+\[
+\mathring{u}(x)=\begin{cases}
+	2,\quad0<x<1,\\
+	0,\quad\text{otherwise}.
+\end{cases}
+\]
+This produces a rarefaction wave initially at $x=0$ and a shock initially at $x=1$. Letting $T_c$ denote the time at which the shock catches up, we first solve the equation for $t<T_c$. In the rarefaction wave, we have a similarity solution, $u(x,t)=\Tilde u(x,t)$. (11.27) tells us that $\Tilde u(x,t)=x/t$ which we note occurs for $0<x/t<2$. To fit the shock, Rankine-Hugoniot gives that it moves with speed
+\[
+s=\frac{1}{2}(0+2)=1.
+\]
+Thus, our solution for $t<T_c$ is given by
+\[
+u(x,t)=\begin{cases}
+	0,\quad x<0,\\
+	x/t,\quad 0<x<2t,\\
+	2,\quad 2t<x<t+1,\\
+	0,\quad x>t+1.
+\end{cases}
+\]
+From this, we infer that $T_c=1$ which is where this solution fails to hold.
+\subsection{Part a}
+Let $x_s(t)$ denote the shock location at time $t$. Rankine-Hugoniot now gives that
+\[
+x_s'(t)=\frac{1}{2}(u_l+u_r)=\frac{x_s(t)}{2t}.
+\]
+This is a separable ODE with general solution
+\[
+x_s(t)=c_1\sqrt{t}.
+\]
+Plugging in the location $x=2$ at time $t=T_c=1$ gives that $c_1=2$, so
+\[
+x_s(t)=2\sqrt{t}.
+\]
+\subsection{Part b}
+We can instead obtain $x_s$ by noting that the exact solution is triangular with base $x_s$ and height $x_s/t$. Noting that our solution has initial area 2 which is conserved, we get that
+\[
+\frac{1}{2}\frac{x_s}{t}x_s=2
+\]
+which simplifies to
+\[
+x_s(t)=2\sqrt{t}.
+\]
+
+\section{Problem 11.8}
+Consider the scalar conservation law $u_t+(e^u)_x=0$.
+\subsection{Part a}
+Let the initial data be given by
+\[
+\mathring u(x)=\begin{cases}
+1,\quad x<0,\\
+0,\quad x>0.
+\end{cases}
+\]
+Here, a shock forms immediately, so we use Rankine-Hugoniot to compute its speed as
+\[
+s=\frac{e^0-e^1}{0-1}=e-1.
+\]
+Thus, our solution is given by
+\[
+u(x,t)=\begin{cases}
+	1,\quad x<(e-1)t,\\
+	0,\quad x>(e-1)t.
+\end{cases}
+\]
+\subsection{Part b}
+Let the initial data be given by
+\[
+\mathring u(x)=\begin{cases}
+	0,\quad x<0,\\
+	1,\quad x>0.
+\end{cases}
+\]
+Here, we instead get a rarefaction wave. (11.27) tells us that 
+\[
+e^{\Tilde u(x,t)}=\frac{x}{t},
+\]
+so following (11.28), the solution is given by
+\[
+u(x,t)=\begin{cases}
+	0,\quad x<t,\\
+	\log(x/t),\quad t<x<et,\\
+	1,\quad x>et.
+\end{cases}
+\]
+\subsection{Part c}
+Let the initial data be given by
+\[
+\mathring{u}(x)=\begin{cases}
+	2,\quad0<x<1,\\
+	0,\quad\text{otherwise}.
+\end{cases}
+\]
+Now, we have a rarefaction wave followed by a shock which collide at some time $t=T_c$. We can solve this for $t<T_c$ by piecing together our solutions from parts a and b modified for a jump of 2. Namely, our solution is given by
+\[
+u(x,t)=\begin{cases}
+	0,\quad x<t,\\
+	\log(x/t),\quad t<x<e^2t,\\
+	2,\quad e^2t<x<1+(e^2-1)t/2,\\
+	0,\quad x>1+(e^2-1)t/2
+\end{cases}
+\]
+since the shock speed is now $s=(e^2-1)/2$. Thus, this breaks at $T_c=2/(e^2+1)$. To solve this for $t>T_c$, we let $x_s(t)$ denote the shock location. Rankine-Hugoniot then gives that 
+\[
+x_s'=\frac{1-x_s/t}{0-\log(x_s/t)},
+\]
+so the shock location at time $t$ is obtained by solving the ODE
+\begin{align*}
+&x'_s(t)=\frac{x_s(t)}{t}\log\frac{x_s(t)}{t},\\
+&x_s(2/(e^2+1))=\frac{2e^2}{e^2+1}.
+\end{align*}
+
+\section{Coding problem}
+See the attached Jupyter notebook.
+
+\end{document}

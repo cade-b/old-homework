@@ -1,0 +1,298 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{hyperref}
+\usepackage{listings}
+\usepackage{multimedia} % to embed movies in the PDF file
+\usepackage{graphicx}
+\usepackage{comment}
+\usepackage[english]{babel}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{wrapfig}
+\usepackage{multirow}
+\usepackage{verbatim}
+\usepackage{float}
+\usepackage{cancel}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{mathdots}
+\usepackage{/home/cade/Homework/latex-defs}
+\newcommand{\beq}{\begin{equation}}
+	\newcommand{\eeq}{\end{equation}}
+\newcommand{\bea}{\begin{eqnarray}}
+	\newcommand{\eea}{\end{eqnarray}}
+	\newcommand{\ec}{\end{center}}
+	\newcommand{\et}{\end{table}}
+\newcommand{\la}[1]{\label{#1}}
+\newcommand{\p}{\partial}
+\newcommand{\DD}[2]{{\delta #1 \over \delta #2}}
+\newcommand{\dd}[2]{{d #1 \over d #2}}
+\newcommand{\Pain}{Painlev\'{e} }
+\newcommand{\mbf}[1]{\mbox{\boldmath {$#1$}}}
+
+
+\title{AMATH 573 Homework 6}
+\author{Cade Ballew \#2120804}
+\date{December 9, 2022}
+
+\begin{document}
+	
+\maketitle
+	
+\section{Problem 1}
+Consider the second integral formula for $\bar N$ as given in the lecture notes and in class
+\[
+\bar N(x,k)=1+\int_{x}^{\infty}u(z)\frac{e^{2ik(x-z)}-1}{2ik}\bar N(z,k)dz.
+\]
+Using this, we wish to show that $\bar N(x,k)$ is analytic in the open lower-half plane, $\Im k<0$, by showing $\bar N(x,k)$ and $\partial \bar N/\partial k$ are bounded there. To show the former, we recall the lemma from class and the lecture notes which gives that if $\Im k>0$, then 
+\[
+\left|\frac{e^{2ikx}-1}{2ik}\right|\leq\frac{1}{|k|}
+\]
+for all $x\geq0$. We solve the integral equation by iteration, using 
+\[
+\bar N(x,k)=1+\sum_{j=1}^{\infty}\bar N_j(x,k)
+\]
+where
+\[
+\bar N_j(x,k)=\int_{x}^{\infty}\frac{e^{2ik(x-z)}-1}{2ik}u(z)\bar N_{j-1}(z,k)dz
+\]
+for $j=1,2,\ldots$ and $\bar N_0(x,k)=1$. To apply the lemma, note that $\Im(-k)>0$, so when $z\geq x$,
+\[
+\left|\frac{e^{2ik(x-z)}-1}{2ik}\right|=\left|\frac{e^{2i(-k)(z-x)}-1}{2ik}\right|\leq\frac{1}{|-k|}=\frac{1}{|k|}.
+\]
+Then,
+\begin{align*}
+|\bar N_1(x,k)|&=\left|\int_{x}^{\infty}\frac{e^{2ik(x-z)}-1}{2ik}u(z)\bar N_{0}(z,k)dz\right|\leq\int_{x}^{\infty}\left|\frac{e^{2ik(x-z)}-1}{2ik}\right||u(z)|dz\\&\leq
+\frac{1}{|k|}\int_{x}^{\infty}|u(z)|dz=\frac{1}{|k|}U(x)
+\end{align*}
+where we define 
+\[
+U(x)=\int_x^\infty|u(z)|dz
+\]
+and assume that $U(x)$ is defined for all $x$. Then,
+\begin{align*}
+|\bar N_2(x,k)|&=\left|\int_{x}^{\infty}\frac{e^{2ik(x-z)}-1}{2ik}u(z)\bar N_{1}(z,k)dz\right|\leq\int_{x}^{\infty}\left|\frac{e^{2ik(x-z)}-1}{2ik}\right||u(z)|\frac{U(z)}{|k|}dz\\&\leq
+\frac{1}{|k|^2}\int_{x}^{\infty}U'(z)U(z)dz=\frac{U^2(x)}{2|k|^2}.
+\end{align*}
+Similarly, 
+\begin{align*}
+	|\bar N_3(x,k)|&=\left|\int_{x}^{\infty}\frac{e^{2ik(x-z)}-1}{2ik}u(z)\bar N_{2}(z,k)dz\right|\leq\int_{x}^{\infty}\left|\frac{e^{2ik(x-z)}-1}{2ik}\right||u(z)|\frac{U^2(z)}{2|k|^2}dz\\&\leq
+	\frac{1}{2|k|^3}\int_{x}^{\infty}U'(z)U^2(z)dz=\frac{U^3(x)}{3!|k|^3}.
+\end{align*}
+Using the same amount of rigor as the lecture notes, we can see that by induction, 
+\[
+|\bar N_j(x,k)|\leq\frac{U^j(x)}{j!|k|^j}
+\] 	
+for $j=1,2,\ldots$. Thus,
+\[
+|\bar N(x,k)|\leq\sum_{j=1}^{\infty}|\bar N_j(x,k)|\leq \frac{U^j(x)}{j!|k|^j}=e^{U(x)/|k|},
+\]
+meaning that if
+\[
+\int_{-\infty}^{\infty}|u(x)|dx=U(-\infty)<\infty,
+\]
+then 
+\[
+|\bar N(x,k)|\leq e^{U(-\infty)/|k|},
+\]
+meaning that $\bar N$ is bounded in the open lower halfplane. To show that its derivative is bounded, note that
+\[
+\pp{\bar N}{k}=F(x,k)+\int_{x}^{\infty}u(z)\frac{e^{2ik(x-z)}-1}{2ik}\pp{\bar{N}}{k}(z,k)dz
+\]
+where
+\[
+F(x,k)=\int_{x}^{\infty}\frac{e^{2ik(x-z)}-1-2ik(x-z)e^{2ik(x-z)}}{2ik^2}u(z)\bar N(z,k)dz,	
+\]
+so $\partial\bar N/\partial k $ satisfies an integral equation which differs from the one for $\bar N$ only in the inhomogeneous term, meaning that if we can bound $F(x,k)$ uniformly in $x$, then
+\[
+\left|\pp{\bar N}{k}\right|\leq F_0(k)e^{U(-\infty)/|k|}
+\]
+where $F_0(k)$ is the uniform bound on $F$. To do this, we first rewrite $F$ as
+\[
+F(x,k)=\int_{x}^{\infty}\frac{e^{2ik(x-z)}-1}{2ik^2}u(z)\bar N(z,k)dz-\int_{x}^{\infty}\frac{(x-z)e^{2ik(x-z)}}{k}u(z)\bar N(z,k)dz.
+\]
+We break $k$ into real and imaginary parts $k=k_R+ik_I$, noting that $k_I<0$. Then, for $z\geq x\in\real$, we can bound
+\[
+|e^{2ik(x-z)}-1|\leq|e^{2ik_R(x-z)}||e^{-2k_I(x-z)}|+1=e^{2k_I(z-x)}+1\leq2
+\]
+which follows from the triangle inequality, the fact that $2ik_R(x-z)$ is purely imaginary, and the fact that $2k_I(z-x)\leq0$. This logic also lets us see that under the same assumptions,
+\[
+|e^{2ik(x-z)}|\leq e^{2k_I(z-x)}<1.
+\]
+Using these, we can bound
+\begin{align*}
+|F(x,k)|&\leq\int_{x}^{\infty}\frac{|e^{2ik(x-z)}-1|}{2|k|^2}|u(z)||\bar N(z,k)|dz+\int_{x}^{\infty}\frac{|(x-z)e^{2ik(x-z)}|}{|k|}|u(z)||\bar N(z,k)|dz\\&\leq
+\frac{1}{|k|^2}\int_{x}^{\infty}|u(z)||\bar N(z,k)|dz+\frac{1}{|k|}\int_{x}^{\infty}(z-x)|u(z)||\bar N(z,k)|dz\\&\leq
+\frac{1}{|k|^2}e^{U(-\infty)/|k|}\int_{x}^{\infty}|u(z)|dz+\frac{1}{|k|}e^{U(-\infty)/|k|}\int_{x}^{\infty}(z-x)|u(z)|dz\\&=
+\frac{1}{|k|^2}e^{U(-\infty)/|k|}U(x)+\frac{1}{|k|}e^{U(-\infty)/|k|}V(x)\\&\leq
+\frac{1}{|k|^2}e^{U(-\infty)/|k|}U(-\infty)+\frac{1}{|k|}e^{U(-\infty)/|k|}V(-\infty)
+\end{align*}
+where
+\[
+V(x)=\int_{x}^{\infty}(z-x)|u(z)|dz,
+\]
+a monotonically decreasing function of $x$. This means that $\partial\bar N/\partial k $ is bounded in the open lower halfplane provided that
+\[
+\int_{-\infty}^{\infty}|u(x)|dx<\infty,\quad \lim_{x\to-\infty}\int_{x}^{\infty}(z-x)|u(z)|dz<\infty.
+\]
+Thus, under these conditions, we have that $\bar N$ is analytic in the open lower halfplane.
+
+\section{Problem 2}
+From homework 4, we recall the second member of the stationary KdV hierarchy from HW4
+
+\[
+30u^2u_x+20u_x u_{xx}+10u u_{xxx}+u_{5x}+c_1(6uu_x+u_{xxx})+c_0 u_x=0.
+\]
+
+\noindent Integrating once, it can be rewritten as 
+
+\beq
+(10 u^3+10 u_x^2+10 u u_{xx}-5 u_x^2+u_{xxxx})+c_1(3 u^2+u_{xx})+c_0 u+c_{-1}=0. 
+\eeq
+
+
+This equation can be written as
+
+\beq
+\DD{T_2}{u}=0~~\iff~~\frac{\delta}{\delta u}\left(F_2+c_1 F_1+c_0 F_0+c_{-1} F_{-1}\right)=0,
+\eeq
+
+\noindent where $F_k$, $k=-1, 0, \ldots$ are the conserved quantities of the KdV equation. These conserved quantities are in involution, 
+
+\[
+\{F_j, F_k\}=0~~\Rightarrow \{T_j, F_k\}=0,  
+\]
+
+\noindent for $j,k=-1, 0, \ldots$. From homework 4, this implies
+
+\beq
+\DD{T_2}{u}\frac{d}{d x} \DD{F_k}{u}=\dd{H_j}{x}, ~~k=0,1.
+\eeq    
+
+\noindent For some functions $H_0$ and $H_1$. Thus, $H_0$ and $H_1$ are conserved quantities of (1). Note that we avoid $k=-1$ because that would produce a trivial $H_{-1}$.
+\subsection{Part a}
+Reusing portions of the Mathematica code from homework 4 with updated $F_{-1},\ldots,F_2$ for this form of the KdV equation, we can easily compute the LHS of (3). We do so in the attached Mathematica notebook and integrate to get that
+\[
+H_0=\int u_x\left((10 u^3+5 u_x^2+10 u u_{xx}+u_{xxxx})+c_1(3 u^2+u_{xx})+c_0 u+c_{-1}\right)dx
+\]
+and 
+\[
+H_1=\int (6uu_x+u_{xxx})\left((10 u^3+5 u_x^2+10 u u_{xx}+u_{xxxx})+c_1(3 u^2+u_{xx})+c_0 u+c_{-1}\right)dx.
+\]
+We also compute the integrals in the attached Mathematica notebook to get more explicit formulae.
+\subsection{Part b}
+To verify explicitly that $H_0$ and $H_1$ are conserved along solutions of (1), we need only look at the integrand to see that it contains the LHS of (1). However, we also verify explicitly that the integrand is zero in the attached Mathematica notebook.
+
+\section{Problem 3}
+Consider the Ostrovsky equation
+\[
+\left(\eta_t+\eta \eta_x+\eta_{xxx}\right)_x=\gamma \eta,
+\]
+and assume that as $|x|\rightarrow \infty$, $\eta$ and its derivatives approach zero as fast as we need them to. From this equation,
+\[
+\eta=\frac{1}{\gamma}\left(\eta_t+\eta \eta_x+\eta_{xxx}\right)_x,
+\]
+so
+\[
+\int_{-\infty}^{\infty}\eta dx=\frac{1}{\gamma}\int_{-\infty}^{\infty}\left(\eta_t+\eta \eta_x+\eta_{xxx}\right)_xdx=\left[\eta_t+\eta \eta_x+\eta_{xxx}\right]_{-\infty}^{\infty}=0
+\]
+by our decay assumptions. Thus, not only is $\int_{-\infty}^\infty \eta dx$ conserved, but its value is fixed at zero.\\
+To show that $\int_{-\infty}^\infty \eta^2 dx$ is a conserved quantity, we first integrate the Ostrovsky equation to get it in evolution form
+\[
+\eta_t=\gamma\int_{-\infty}^{x}\eta dx'-\eta\eta_x-\eta_{xxx}
+\]
+where our lower bound is valid per our decay assumptions and chosen for convenience. Let
+\[
+\varphi(x)=\int_{-\infty}^{x}\eta(x') dx'.
+\]
+Now, consider
+\begin{align*}
+\frac{d}{dt}\int_{-\infty}^\infty \eta^2 dx=2\int_{-\infty}^\infty \eta\eta_t dx=2\gamma\int_{-\infty}^\infty\eta\varphi dx-2\int_{-\infty}^\infty\eta^2\eta_xdx-2\int_{-\infty}^\infty\eta\eta_{xxx}dx.
+\end{align*}
+First, we  evaluate
+\begin{align*}
+2\int_{-\infty}^\infty\eta\varphi dx=\left[\varphi^2(x)\right]_{-\infty}^\infty=\left(\int_{-\infty}^{\infty}\eta(x') dx'\right)-\left(\int_{-\infty}^{-\infty}\eta(x') dx'\right)=0
+\end{align*}
+due to the fact that $\int_{-\infty}^\infty \eta dx$ has value fixed at zero.
+Next,
+\begin{align*}
+2\int_{-\infty}^\infty\eta^2\eta_xdx=\frac{2}{3}\left[\eta^3(x)\right]_{-\infty}^\infty=0
+\end{align*}
+by our decay assumptions. Finally, we use integration by parts to compute
+\begin{align*}
+\int_{-\infty}^\infty\eta\eta_{xxx}dx=\left[\eta\eta_{xx}\right]_{-\infty}^\infty-\int_{-\infty}^\infty\eta_x\eta_{xx}dx=\half\left[\eta_x^2\right]_{-\infty}^\infty=0
+\end{align*}
+by our decay assumptions. Thus, we can conclude that
+\[
+\frac{d}{dt}\int_{-\infty}^\infty \eta^2 dx=0,
+\]
+meaning that $\int_{-\infty}^\infty \eta^2 dx$ is a conserved quantity.\\
+Now, we wish to verify that the Ostrovsky equation is Hamiltonian with Poisson operator $\p_x$ and Hamiltonian
+\[
+H=\frac{1}{2}\int_{-\infty}^\infty \left(\eta_x^2-\frac{1}{3}\eta^3-\gamma \phi^2\right)dx
+\]
+where $\phi_x=\eta$. Namely, we wish to show that 
+\[
+\partial_x\frac{\delta \mathcal H}{\delta \eta}=\eta_t.
+\]
+To do this, we need to extend the definition of the variation derivative to include a $j=-1$ term. We do so by invesigating the sufficiency proof of the Euler-Lagrange equations. Using the same notation as the course notes\footnote{This is unfortunate because it uses a different $\eta$ from the one in this problem.} and following the general outline, we again consider a small perturbation $\epsilon\eta$ to the path $\gamma$ where $\eta$ and its derivatives are zero at the endpoints of $[a,b]$. We impose the additional assumption that $\partial^{-1}\eta$ is zero at $a,b$. We consider
+\[
+S[x(t)+\epsilon\eta(t)]=\int_{a}^{b}L(X+\epsilon \partial^{-1}\eta,x+\epsilon\eta,x'+\epsilon\eta')dt
+\]
+where $X_t=x$. Taylor expanding, 
+\begin{align*}
+S[x(t)+\epsilon\eta(t)]=\int_{a}^{b}L(X,x,x')dt+\epsilon\sum_{i=1}^{n}\int_{a}^{b}\left(\pp{L}{X_i}\partial^{-1}\eta_i+\pp{L}{x_i}\eta_i+\pp{L}{x_i'}\eta_i'\right)+\OO(\epsilon^2).
+\end{align*}
+Using integration by parts, we compute
+\begin{align*}
+\int_a^b\pp{L}{X_i}\partial^{-1}\eta_i=\left[\partial^{-1}\pp{L}{X_i}\partial^{-1}\eta_i\right]_a^b-\int_a^b\eta_i\partial^{-1}\pp{L}{X_i}dt=-\int_a^b\eta_i\partial^{-1}\pp{L}{X_i}dt
+\end{align*}
+by our decay assumption. The remaining terms behave identically to the notes, so we find that
+\[
+\frac{dS}{d\epsilon}[x+\epsilon\eta]\biggr|_{\epsilon=0}=\sum_{i=1}^{n}\int_a^b\eta_i\left(-\partial_t^{-1}\pp{L}{X_i}+\pp{L}{x_i}-\partial_t\pp{L}{x_i'}\right)dt,
+\]
+meaning that the variational derivative is given by
+\[
+-\partial_t^{-1}\pp{L}{X_i}+\pp{L}{x_i}-\partial_t\pp{L}{x_i'}
+\]
+as the proof of necessity follows in the same manner as the notes. Applying this to our problem\footnote{with the unfortunate flip in notation},
+
+\begin{align*}
+\partial_x\frac{\delta \mathcal H}{\delta \eta}=\partial_x\left(-\partial_x^{-1}\frac{\partial \mathcal H}{\partial \phi}+\pp{\mathcal H}{\eta}-\partial_x\pp{\mathcal H}{\eta_x}\right)=-\left(\frac{\partial \mathcal H}{\partial \phi}-\partial_x\pp{\mathcal H}{\phi_x}+\partial_x^2\pp{\mathcal H}{\phi_{xx}}\right)=-\frac{\delta \mathcal H}{\delta\phi}.
+\end{align*}
+Using Mathematica, we compute
+\[
+-\frac{\delta \mathcal H}{\delta\phi}=\gamma\phi-\phi_x\phi_{xx}-\phi_{xxxx}=\gamma\phi-\eta\eta_x-\eta_{xxx}=\eta_t,
+\]
+meaning that this equation is in fact Hamiltonian with the given Poisson operator and Hamiltonian.
+
+\section{Problem 4}
+We wish to discuss the integrability of 
+\[
+u_t=u^p u_x+u_{xxx}
+\]
+where $p$ is a positive integer using the Painlev\'e test. To do this, we look for solutions of the form
+\[
+u(x,t)=\frac{1}{(x-x_0(t))^\rho}\sum_{n=0}^{\infty}\alpha_n(t)(x-x_0(t))^n=\sum_{n=0}^{\infty}\alpha_n(x-x_0)^{n-\rho}.
+\]
+Looking at leading order terms,
+\begin{align*}
+u&\sim\alpha_0(x-x_0)^{-\rho}\\
+u^p&\sim\alpha_0^p(x-x_0)^{-p\rho}\\
+u_x&\sim-\rho\alpha_0(x-x_0)^{-\rho-1}\\
+u_{xx}&\sim \rho(\rho+1)\alpha_0(x-x_0)^{-\rho-2}\\
+u_{xxx}&\sim-\rho(\rho+1)(\rho+2)\alpha_0(x-x_0)^{-\rho-3}\\
+u_t&\sim\alpha_0'(x-x_0)^{-\rho}+\rho\alpha_0x_0'(x-x_0)^{-\rho-1}.
+\end{align*}
+Substituting these into our PDE,
+\begin{align*}
+&\alpha_0'(x-x_0)^{-\rho}+\rho\alpha_0x_0'(x-x_0)^{-\rho-1}+\rho\alpha_0^{p+1}(x-x_0)^{-(p+1)\rho-1}\\&+
+\rho(\rho+1)(\rho+2)\alpha_0(x-x_0)^{-\rho-3}=0.
+\end{align*}
+Looking at only the most singular terms and applying the principle of dominant balance, we simply need to set
+\[
+-(p+1)\rho-1=-\rho-3
+\]
+which yields that $\rho=\frac{2}{p}$. This means that our function is meromorphic when $2/p$ is integer, so we expect by the \Pain test that our PDE is integrable when $2/p$ an is integer. Since we restrict $p$ to the positive integers, our PDE is only integrable when $p=1,2$.
+
+\end{document}

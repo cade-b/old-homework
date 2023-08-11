@@ -1,0 +1,90 @@
+tend =     0.2000D+00
+info =    0
+smallest dt =     0.2981D-02
+largest dt =     0.1000D+01
+last dt =     0.3030D-02
+largest cfl =     0.9821D+00
+last cfl =     0.4536D+00
+steps taken =  52
+
+tend =     0.4000D+00
+info =    0
+smallest dt =     0.2840D-02
+largest dt =     0.3587D-02
+last dt =     0.2948D-02
+largest cfl =     0.9426D+00
+last cfl =     0.5110D+00
+steps taken =  67
+
+tend =     0.6000D+00
+info =    0
+smallest dt =     0.2870D-02
+largest dt =     0.3067D-02
+last dt =     0.2900D-02
+largest cfl =     0.8503D+00
+last cfl =     0.7717D+00
+steps taken =  67
+
+tend =     0.8000D+00
+info =    0
+smallest dt =     0.2829D-02
+largest dt =     0.3034D-02
+last dt =     0.2989D-02
+largest cfl =     0.8295D+00
+last cfl =     0.4847D+00
+steps taken =  68
+
+tend =     0.1000D+01
+info =    0
+smallest dt =     0.2870D-02
+largest dt =     0.3080D-02
+last dt =     0.2968D-02
+largest cfl =     0.8506D+00
+last cfl =     0.7540D+00
+steps taken =  67
+
+tend =     0.1200D+01
+info =    0
+smallest dt =     0.2832D-02
+largest dt =     0.2996D-02
+last dt =     0.2939D-02
+largest cfl =     0.8417D+00
+last cfl =     0.4964D+00
+steps taken =  68
+
+tend =     0.1400D+01
+info =    0
+smallest dt =     0.2874D-02
+largest dt =     0.3043D-02
+last dt =     0.2978D-02
+largest cfl =     0.8469D+00
+last cfl =     0.4728D-01
+steps taken =  68
+
+tend =     0.1600D+01
+info =    0
+smallest dt =     0.2848D-02
+largest dt =     0.2992D-02
+last dt =     0.2959D-02
+largest cfl =     0.8292D+00
+last cfl =     0.4830D+00
+steps taken =  68
+
+tend =     0.1800D+01
+info =    0
+smallest dt =     0.2834D-02
+largest dt =     0.3039D-02
+last dt =     0.3003D-02
+largest cfl =     0.8553D+00
+last cfl =     0.1027D+00
+steps taken =  68
+
+tend =     0.2000D+01
+info =    0
+smallest dt =     0.2847D-02
+largest dt =     0.3031D-02
+last dt =     0.3009D-02
+largest cfl =     0.8329D+00
+last cfl =     0.2727D+00
+steps taken =  68
+

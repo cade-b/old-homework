@@ -1,0 +1,73 @@
+rm -f .plots
+python /home/cade/clawpack_src/clawpack-v5-9-0/visclaw/src/python/visclaw/plotclaw.py _output_1 _plots_1 setplot.py           
+Importing setplot.setplot from /home/cade/Homework/AMATH574/Homework6/radialdam.
+Executed setplot successfully
+Will plot 11 frames numbered: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+Will make 3 figure(s) for each frame, numbered:  [0, 1, 10]
+
+-----------------------------------
+
+
+Creating html pages for figures...
+
+Directory '/home/cade/Homework/AMATH574/Homework6/radialdam/_plots_1' 
+    already exists, files may be overwritten 
+Now making png files for all figures...
+    Reading  Frame 0 at t = 0  from outdir = /home/cade/Homework/AMATH574/Homework6/radialdam/_output_1
+    Reading  Frame 0 at t = 0  from outdir = /home/cade/Homework/AMATH574/Homework6/radialdam/1drad/_output
+Frame 0 at time t = 0.0
+    Reading  Frame 1 at t = 1  from outdir = /home/cade/Homework/AMATH574/Homework6/radialdam/_output_1
+    Reading  Frame 1 at t = 1  from outdir = /home/cade/Homework/AMATH574/Homework6/radialdam/1drad/_output
+Frame 1 at time t = 1.0
+    Reading  Frame 2 at t = 2  from outdir = /home/cade/Homework/AMATH574/Homework6/radialdam/_output_1
+    Reading  Frame 2 at t = 2  from outdir = /home/cade/Homework/AMATH574/Homework6/radialdam/1drad/_output
+Frame 2 at time t = 2.0
+    Reading  Frame 3 at t = 3  from outdir = /home/cade/Homework/AMATH574/Homework6/radialdam/_output_1
+    Reading  Frame 3 at t = 3  from outdir = /home/cade/Homework/AMATH574/Homework6/radialdam/1drad/_output
+Frame 3 at time t = 3.0
+    Reading  Frame 4 at t = 4  from outdir = /home/cade/Homework/AMATH574/Homework6/radialdam/_output_1
+    Reading  Frame 4 at t = 4  from outdir = /home/cade/Homework/AMATH574/Homework6/radialdam/1drad/_output
+Frame 4 at time t = 4.0
+    Reading  Frame 5 at t = 5  from outdir = /home/cade/Homework/AMATH574/Homework6/radialdam/_output_1
+    Reading  Frame 5 at t = 5  from outdir = /home/cade/Homework/AMATH574/Homework6/radialdam/1drad/_output
+Frame 5 at time t = 5.0
+    Reading  Frame 6 at t = 6  from outdir = /home/cade/Homework/AMATH574/Homework6/radialdam/_output_1
+    Reading  Frame 6 at t = 6  from outdir = /home/cade/Homework/AMATH574/Homework6/radialdam/1drad/_output
+Frame 6 at time t = 6.0
+    Reading  Frame 7 at t = 7  from outdir = /home/cade/Homework/AMATH574/Homework6/radialdam/_output_1
+    Reading  Frame 7 at t = 7  from outdir = /home/cade/Homework/AMATH574/Homework6/radialdam/1drad/_output
+Frame 7 at time t = 7.0
+    Reading  Frame 8 at t = 8  from outdir = /home/cade/Homework/AMATH574/Homework6/radialdam/_output_1
+    Reading  Frame 8 at t = 8  from outdir = /home/cade/Homework/AMATH574/Homework6/radialdam/1drad/_output
+Frame 8 at time t = 8.0
+    Reading  Frame 9 at t = 9  from outdir = /home/cade/Homework/AMATH574/Homework6/radialdam/_output_1
+    Reading  Frame 9 at t = 9  from outdir = /home/cade/Homework/AMATH574/Homework6/radialdam/1drad/_output
+Frame 9 at time t = 9.0
+    Reading  Frame 10 at t = 10  from outdir = /home/cade/Homework/AMATH574/Homework6/radialdam/_output_1
+    Reading  Frame 10 at t = 10  from outdir = /home/cade/Homework/AMATH574/Homework6/radialdam/1drad/_output
+Frame 10 at time t = 10.0
+
+-----------------------------------
+
+Creating latex file...
+Directory '/home/cade/Homework/AMATH574/Homework6/radialdam/_plots_1' 
+    already exists, files may be overwritten 
+
+Latex file created:  
+  /home/cade/Homework/AMATH574/Homework6/radialdam/_plots_1/plots.tex
+
+Use pdflatex to create pdf file
+2023-03-06 15:09:30,734 INFO CLAW: Animation.save using <class 'matplotlib.animation.HTMLWriter'>
+2023-03-06 15:09:30,734 INFO CLAW: figure size in inches has been adjusted from 6.0 x 4.9865642994241846 to 6.0 x 4.98
+Created movie_fig0.html
+2023-03-06 15:09:31,319 INFO CLAW: Animation.save using <class 'matplotlib.animation.HTMLWriter'>
+2023-03-06 15:09:31,320 INFO CLAW: figure size in inches has been adjusted from 6.0 x 5.773333333333333 to 6.0 x 5.76
+Created movie_fig1.html
+2023-03-06 15:09:31,969 INFO CLAW: Animation.save using <class 'matplotlib.animation.HTMLWriter'>
+2023-03-06 15:09:31,970 INFO CLAW: figure size in inches has been adjusted from 6.0 x 4.598230088495575 to 6.0 x 4.58
+Created movie_fig10.html
+
+--------------------------------------------------------
+
+Point your browser to:
+    file:///home/cade/Homework/AMATH574/Homework6/radialdam/_plots_1/_PlotIndex.html

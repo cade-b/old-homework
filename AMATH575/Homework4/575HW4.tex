@@ -1,0 +1,334 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{hyperref}
+\usepackage{listings}
+\usepackage{multimedia} % to embed movies in the PDF file
+\usepackage{graphicx}
+\usepackage{comment}
+\usepackage[english]{babel}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{wrapfig}
+\usepackage{multirow}
+\usepackage{verbatim}
+\usepackage{float}
+\usepackage{cancel}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{mathdots}
+\usepackage{/home/cade/Homework/latex-defs}
+
+
+\title{AMATH 575 Problem Set 4}
+\author{Cade Ballew \#2120804}
+\date{May 31, 2023}
+
+\begin{document}
+	
+\maketitle
+
+\section{Problem 2}
+Consider the ``all-to-all'' coupled system of pulse-coupled phase oscillators on the N-dimensional torus, with coupling strength $\epsilon>0$
+\begin{equation*}
+	\dot \theta_i = \omega + \epsilon z(\theta_i) \frac{1}{N} \sum_{j=1}^N g(\theta_j) \, \, \,  \mod \; \; 2 \pi  
+\end{equation*}
+$i=1...N$, and let $z(\theta)=A \sin \theta + B \cos \theta $, $g(\theta) = \sum_{k=1}^\infty a_k \sin(k \theta) + b_k \cos(k \theta)$.
+
+\subsection{Part a}
+Applying the same substitution as in class, the averaged system is given by
+\[
+\dot\psi_i=\epsilon\frac{1}{2\pi}\int_{\psi_i}^{2\pi+\psi_i}z(s)\sum_{j=1}^N\frac{1}{N}g(\psi_j-\psi_i+s)ds,
+\]
+so we need to compute the integral
+\[
+I=\int_{\psi_i}^{2\pi+\psi_i}(A \sin s + B \cos s)\sum_{j=1}^N\sum_{k=1}^\infty (a_k \sin(k (\psi_j-\psi_i+s)) + b_k \cos(k (\psi_j-\psi_i+s)))ds.
+\]
+Applying trig identities, the term inside the summation can be rewritten as
+\begin{align*}
+&a_k\sin(k (\psi_j-\psi_i))\cos(ks)+a_k\cos(k (\psi_j-\psi_i))\sin(ks)\\&+b_k\cos(k (\psi_j-\psi_i))\cos(ks)-b_k\sin(k (\psi_j-\psi_i))\sin(ks).
+\end{align*}
+Observe that this is a linear combination of $\sin(ks)$ and $\cos(ks)$, so 
+\[
+I=\sum_{j=1}^N\sum_{k=1}^\infty\int_{\psi_i}^{2\pi+\psi_i}(A \sin s + B \cos s)(C \sin(ks) + D \cos(ks))ds,
+\] 
+for some $C,D$ independent of $s$. By the orthogonal of trig polynomials, this integral is zero for $k\neq1$. Thus,
+\[
+I=\sum_{j=1}^N\int_{\psi_i}^{2\pi+\psi_i}(A \sin s + B \cos s) (a_1 \sin( \psi_j-\psi_i+s) + b_1 \cos(\psi_j-\psi_i+s))ds.
+\]
+We compute this integral using Mathematica and find that
+\[
+I=\sum_{j=1}^N\pi\left((Ba_1-Ab_1)\sin(\psi_j-\psi_i)+(Aa_1+Bb_1)\cos(\psi_j-\psi_i)\right).
+\]
+Thus, we have the averaged system 
+ \begin{equation*}
+	\dot \psi_i =  \epsilon  \frac{1}{N} \sum_{j=1}^N f(\psi_j - \psi_i) \, \, \,  \mod \; \; 2 \pi, 
+\end{equation*} 
+where 
+\[
+f(\psi)=\frac{1}{2}\left((Ba_1-Ab_1)\sin\psi+(Aa_1+Bb_1)\cos\psi\right).
+\]
+
+\subsection{Part b}
+From homework 3, we know that this averaged system is guaranteed to be a gradient system when $f$ is an odd function. Since sine is an odd function and cosine is an even function, $f$ will be odd iff
+\[
+Aa_1+Bb_1=0.
+\]
+
+\subsection{Part c}
+To find a general condition on our constants that guarantees that $\psi_i=c$ for all $i$  is a fixed point for all constants $c$. At these points, we have that 
+\[
+\dot\psi_i=\epsilon\frac{1}{2N}\sum_{j=1}^N(Aa_1+Bb_1)=\frac{\epsilon}{2}(Aa_1+Bb_1),
+\]
+so these are guaranteed to be fixed points if 
+\[
+Aa_1+Bb_1=2\pi m.
+\]
+for some $m\in\mathbb{Z}$, since we have the $\text{mod}2\pi$. Now, note that 
+\begin{align*}
+&\pp{\dot\psi_i}{\psi_i}=\frac{1}{2N}\sum_{j\neq i}\left(-(Ba_1-Ab_1)\cos(\psi_j-\psi_i)+(Aa_1+Bb_1)\sin(\psi_j-\psi_i)\right),\\
+&\pp{\dot\psi_i}{\psi_j}=\frac{1}{2N}\left((Ba_1-Ab_1)\cos(\psi_j-\psi_i)-(Aa_1+Bb_1)\sin(\psi_j-\psi_i)\right),
+\end{align*}
+for $j\neq i$. Evaluating this at a fixed point $\psi_i=c$ for all $i$, we get that the Jacobian $J$ has entries
+\begin{align*}
+&J_{ii}=-\frac{N-1}{2N}(Ba_1-Ab_1),\\
+&J_{ij}=\frac{1}{2N}(Ba_1-Ab_1),
+\end{align*}
+again for $i\neq j$. We can write this out as 
+\[
+J=\frac{1}{2N}(Ba_1-Ab_1)\begin{pmatrix}
+	1-N&1&\cdots&1\\
+	1&1-N&\cdots&1\\
+	1&1&\ddots&1\\
+	1&1&\cdots&1-N
+\end{pmatrix}.
+\]
+It is easy to see that this matrix has a zero eigenvalue with eigenvector
+\[
+\begin{pmatrix}
+	1\\\vdots\\1
+\end{pmatrix}
+\]
+and an eigenvalue of $\frac{1}{2}(Ab_1-Ba_1)$ with $N-1$ linear independent eigenvectors
+\[
+\begin{pmatrix}
+	1\\-1\\0\\\vdots\\0
+\end{pmatrix},\begin{pmatrix}
+0\\1\\-1\\\vdots\\0
+\end{pmatrix},\ldots,\begin{pmatrix}
+0\\\vdots\\0\\1\\-1
+\end{pmatrix}.
+\]
+Thus, if $S,U,C$ denote the stable, unstable, and center manifolds, respectively, if $Ab_1-Ba_1<0$, then $\dim(S)=N-1,\dim(U)=0,\dim(C)=1$, if $Ab_1-Ba_1>0$, then $\dim(S)=0,\dim(U)=N-1,\dim(C)=1$, and if $Ab_1-Ba_1=0$, then $\dim(S)=0,\dim(U)=0,\dim(C)=N$.
+
+\section{Problem 3}
+Consider a two-dimensional flow with linear part $$
+J=
+\left[ {\begin{array}{cc}
+		1 & 0 \\
+		0 & \lambda \\
+\end{array} } \right] $$ where $\lambda \neq 0$ is an arbitrary real parameter. Following Bernard's notes, we apply (11.26) to the basis for $H_2$ (11.25). Using Mathematica, we get
+\begin{align*}
+&L^{(2)}_J\begin{pmatrix}
+	x^2\\0
+\end{pmatrix}=\begin{pmatrix}
+-x^2\\0
+\end{pmatrix},\\
+&L^{(2)}_J\begin{pmatrix}
+	xy\\0
+\end{pmatrix}=\begin{pmatrix}
+-\lambda xy\\0
+\end{pmatrix},\\
+&L^{(2)}_J\begin{pmatrix}
+	y^2\\0
+\end{pmatrix}=\begin{pmatrix}
+	(1-2\lambda)y^2\\0
+\end{pmatrix},\\
+&L^{(2)}_J\begin{pmatrix}
+	0\\x^2
+\end{pmatrix}=\begin{pmatrix}
+	0\\(-2+\lambda)x^2
+\end{pmatrix},\\
+&L^{(2)}_J\begin{pmatrix}
+	0\\xy
+\end{pmatrix}=\begin{pmatrix}
+	0\\-xy
+\end{pmatrix},\\
+&L^{(2)}_J\begin{pmatrix}
+	0\\y^2
+\end{pmatrix}=\begin{pmatrix}
+	0\\-\lambda y^2
+\end{pmatrix}.\\
+\end{align*}
+In the case $\lambda\neq1/2,2$, we can see that $\text{range}\left(L^{(2)}_J\right)=H_2$. Thus, there are no quadratic terms in this case, so up to quadratic terms
+\[
+\begin{cases}
+	\dot x=y,\\
+	\dot y=\lambda x.
+\end{cases}
+\]
+In the case $\lambda=1/2$, we have that 
+\[
+\begin{pmatrix}
+	y^2\\0
+\end{pmatrix},
+\]
+is not in the range of $L^{(2)}_J$. Thus, the normal form up to quadratic terms is given by
+\[
+\begin{cases}
+	\dot x=y+ay^2,\\
+	\dot y=\lambda x,
+\end{cases}
+\]
+for some nonzero constant $a$. For the case $\lambda=2$, we have that 
+\[
+\begin{pmatrix}
+	0\\x^2
+\end{pmatrix},
+\]
+is not in the range of $L^{(2)}_J$. Thus, the normal form up to quadratic terms is given by
+\[
+\begin{cases}
+	\dot x=y,\\
+	\dot y=\lambda x+ax^2,
+\end{cases}
+\]
+for some nonzero constant $a$.
+
+\section{Problem 4}
+To determine the Takens--Bogdanov normal form to third order, we again look at
+\[
+L^{(3)}_J=Jh_3-Dh_3J\begin{pmatrix}
+	x\\y
+\end{pmatrix}.
+\]
+Now, consider 
+\[
+H_3=\Span\left\{\begin{pmatrix}
+	x^3\\0
+\end{pmatrix},\begin{pmatrix}
+x^2y\\0
+\end{pmatrix},\begin{pmatrix}
+xy^2\\0
+\end{pmatrix},\begin{pmatrix}
+y^3\\0
+\end{pmatrix},\begin{pmatrix}
+0\\x^3
+\end{pmatrix},\begin{pmatrix}
+0\\x^2y
+\end{pmatrix},\begin{pmatrix}
+0\\xy^2
+\end{pmatrix},\begin{pmatrix}
+0\\y^3
+\end{pmatrix}\right\}.
+\]
+Using Mathematica, we find
+\begin{align*}
+	&L^{(2)}_J\begin{pmatrix}
+		x^3\\0
+	\end{pmatrix}=\begin{pmatrix}
+		-3x^2y\\0
+	\end{pmatrix},\\
+	&L^{(2)}_J\begin{pmatrix}
+		x^2y\\0
+	\end{pmatrix}=\begin{pmatrix}
+		-2xy^2\\0
+	\end{pmatrix},\\
+	&L^{(2)}_J\begin{pmatrix}
+		xy^2\\0
+	\end{pmatrix}=\begin{pmatrix}
+		-y^3\\0
+	\end{pmatrix},\\
+	&L^{(2)}_J\begin{pmatrix}
+		y^3\\0
+	\end{pmatrix}=\begin{pmatrix}
+		0\\0
+	\end{pmatrix},\\
+	&L^{(2)}_J\begin{pmatrix}
+		0\\x^3
+	\end{pmatrix}=\begin{pmatrix}
+		x^3\\-3x^2y
+	\end{pmatrix},\\
+	&L^{(2)}_J\begin{pmatrix}
+		0\\x^2y
+	\end{pmatrix}=\begin{pmatrix}
+		x^2y\\-2xy^2
+	\end{pmatrix},\\
+	&L^{(2)}_J\begin{pmatrix}
+		0\\xy^2
+	\end{pmatrix}=\begin{pmatrix}
+		xy^2\\-y^3
+	\end{pmatrix},\\
+		&L^{(2)}_J\begin{pmatrix}
+		0\\y^3
+	\end{pmatrix}=\begin{pmatrix}
+		y^3\\0
+	\end{pmatrix}.\\
+\end{align*}
+By inspection, we see that this is a 6-dimensional set, and that 
+\[
+\begin{pmatrix}
+x^3\\0
+\end{pmatrix},\begin{pmatrix}
+0\\x^3
+\end{pmatrix},
+\]
+are not contained in it. Thus, the normal form up to third order terms is given by
+\[
+\begin{cases}
+	\dot x=y+a_1x^2+b_1x^3,\\
+	\dot y=a_2x^2+b_2x^3,
+\end{cases}
+\]
+for nonzero constants $a_1,a_2,b_1,b_2$.
+
+\section{Problem 5}
+Recall from homework 1 that the 
+Lorenz equations
+\begin{equation*}
+	\left\{\begin{array}{l}
+		x^{\prime}=10(-x+y) \\
+		y^{\prime}=r x-y-x z \\
+		z^{\prime}=-\frac{8}{3} z+x y
+	\end{array}\right.,
+\end{equation*}
+have a fixed point at the origin that is stable for $r<1$ and unstable for $r>1$ and two additional fixed points at $\left(-2\sqrt{\frac{2}{3}(r-1)},-2\sqrt{\frac{2}{3}(r-1)},r-1\right)$, $\left(2\sqrt{\frac{2}{3}(r-1)},2\sqrt{\frac{2}{3}(r-1)},r-1\right)$ when $r>1$ that are stable for $r<\frac{470}{19}$. This implies that we have a pitchfork bifurcation at $r=1$ since we go from 1 fixed point to 3 and undergo a change in stability.
+
+\section{Problem 6}
+Consider the one-parameter family of one-dimensional maps,
+\begin{equation*}
+	x \mapsto x^2 + c,
+\end{equation*}
+where $c$ is a real-valued parameter.
+
+\subsection{Part 1}
+Using Mathematica, we find that this map has fixed points at
+\[
+x=\frac{1}{2}\pm\frac{1}{2}\sqrt{1-4c}
+\]
+if $c<1/4$. if $c=1/4$, we have one fixed point $\bar x=1/2$, and if $c>1/4$, we have no fixed points. The Jacobian of our map at these fixed points is given by
+\[
+1\pm\sqrt{1-4c},
+\]
+is greater than 1 in absolute value when $c<1/4$, so both fixed points are unstable in this case. Because of this, there is a bifurcation at $c=1/4$.
+
+\subsection{Part 2}
+We consider $c=-3/4$ and let $p_-=-1/2$ be the smaller fixed point. Then,
+\[
+f'_{-3/4}(p_-)=-1.
+\]
+I convinced myself that as c descends through
+$-3/4$, we see the emergence of an (attracting) 2-cycle.
+
+\subsection{Part 3}
+We solve for the period 2 points by using Mathematica to find the fixed points of the map $f^2_c(\cdot)$ where $c\leq1/4$. This gives two fixed points 
+at
+\[
+x=\frac{1}{2}\pm\frac{1}{2}\sqrt{1-4c},
+\]
+for all $c\leq1/4$ and two additional fixed points at 
+\[
+x=-\frac{1}{2}\pm\frac{1}{2}\sqrt{-3-4c},
+\]
+for $c<-3/4$.
+
+\end{document}

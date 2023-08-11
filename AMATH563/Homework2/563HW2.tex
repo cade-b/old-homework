@@ -1,0 +1,143 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{hyperref}
+\usepackage{listings}
+\usepackage{multimedia} % to embed movies in the PDF file
+\usepackage{graphicx}
+\usepackage{comment}
+\usepackage[english]{babel}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{wrapfig}
+\usepackage{multirow}
+\usepackage{verbatim}
+\usepackage{float}
+\usepackage{cancel}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{mathdots}
+\usepackage{/home/cade/Homework/latex-defs}
+
+
+\title{AMATH 563 Homework 2}
+\author{Cade Ballew \#2120804}
+\date{April 28, 2023}
+
+\begin{document}
+	
+\maketitle
+	
+\section{Problem 1}
+Let $\Gamma:\mathcal{X}\times\mathcal{X}\to\real$ be a PDS kernel. Let $x,x'\in\mathcal{X}$. Then, the fact that $\Gamma$ is PDS implies that the matrix 
+\[
+A=\begin{pmatrix}
+\Gamma(x,x)&\Gamma(x,x')\\
+\Gamma(x,x')&\Gamma(x',x')
+\end{pmatrix}
+\]
+is positive semi-definite. This implies that 
+\[
+\det(A)=\Gamma(x,x)\Gamma(x',x')-\Gamma(x,x')\Gamma(x,x')\geq0.
+\]
+Thus,
+\[
+|\Gamma(x,x')|^2\leq\Gamma(x,x)\Gamma(x',x').
+\]
+
+\section{Problem 2}
+Let $K$ be a PDS kernel on $\mathcal{X}$ and define the normalized kernel
+\[
+\bar K(x, x') =
+\begin{cases}
+	0 & \text{if } K(x, x) = 0 \text{ or } K(x', x') = 0 \\
+	\frac{K(x, x')}{\sqrt{K(x, x)}\sqrt{K(x', x')}} & \text{otherwise}.
+\end{cases}
+\]
+We can immediately see from this definition that $\bar K$ is symmetric, since $K$ is symmetric. To show that $\bar K$ is PDS, let $\xi\in\real^n$ and $x_1,\ldots,x_n\in\mathcal{X}$ and consider the sum
+\[
+\sum_{j=1}^{n}\sum_{k=1}^{n}\xi_j\xi_k\bar K(x_j,x_k).
+\]
+Now, define 
+\[
+c_j=\begin{cases}
+	\frac{\xi_j}{\sqrt{K(x_j, x_j)}},&K(x_j, x_j)\neq0,\\
+	0,&K(x_j, x_j)=0,
+\end{cases}
+\]
+for $j=1,\ldots,n$. Then, 
+\[
+\sum_{j=1}^{n}\sum_{k=1}^{n}\xi_j\xi_k\bar K(x_j,x_k)=\sum_{j=1}^{n}\sum_{k=1}^{n}c_jc_kK(x_j,x_k)\geq0,
+\]
+by definition. Thus, $\bar K$ is also a PDS kernel.
+
+\section{Problem 3}
+From class, we have that the linear kernel $K(x,x')=x^Tx'$ is PDS. Furthermore, the kernel $K'(x,x')=c>0$ is also a PDS kernel. To see this, note that for any $\xi\in\real^n$, $x_j,x_k\in\mathcal{X}$,
+\[
+\sum_{j=1}^{n}\sum_{k=1}^{n}\xi_j\xi_k K(x_j,x_k)=c\left(\sum_{j=1}^{n}\xi_j\right)^2\geq0.
+\]
+%We can see this by noting that the $n\times n$ matrix of all ones is the outer product of the length $n$ vector of all ones with itself, so its nullspace has dimension $n-1$. The vector of all ones is also an eigenvector of this matrix with eigenvalue $n$. Our evaluation matrix is $c$ times the matrix of all ones, so its eigenvalues are $nc$ and $0$ with multiplicity $n-1$, meaning it is positive semi-definite. 
+This kernel is trivially symmetric, so it is PDS. Thus, the polynomial kernel defined by $K(x,x')=(x^Tx'+c)^\alpha$ for $c>0$ and $\alpha\in\mathbb{N}$ by the fact that PDS kernels are closed under addition and multiplication.
+
+Again using the fact that the linear kernel, we note that the exponential function has a power series
+\[
+\exp(x)=\sum_{j=0}^\infty\frac{x^j}{j!},
+\]
+with infinite radius of convergence. Thus, the fact that PDS kernels are closed under power series implies that the exponential kernel $K(x,x')=\exp(x^Tx')$ is also a PDS kernel.
+
+In the same vein as the previous part, we have the power series
+\[
+\exp(2\gamma^2x)=\sum_{j=0}^\infty\frac{(2\gamma^2x)^j}{j!}=\sum_{j=0}^\infty\frac{(2\gamma^2)^j}{j!}x^j
+\]
+with infinite radius of convergence, so the kernel $K'(x,x')=\exp(2\gamma^2x^Tx')$ is PDS. To see that the RBF kernel $K(x,x')=\exp(-\gamma^2\|x-x'\|_2^2)$ is also a PDS kernel, we first note that it is obviously symmetric. We then expand
+\[
+K(x,x')=\exp(-\gamma^2\|x\|_2^2)\exp(2\gamma^2x^Tx')\exp(-\gamma^2\|x'\|_2^2).
+\]
+Let $\xi_j\in\real^n$ and $x_1,\ldots,x_n\in\real^d$ and define 
+\[
+c_j=\xi_j\exp(-\gamma^2\|x_j\|_2^2)\in\real.
+\]
+Then,
+\[
+\sum_{j=1}^{n}\sum_{k=1}^{n}\xi_j\xi_k K(x_j,x_k)=\sum_{j=1}^{n}\sum_{k=1}^{n}c_jc_kK'(x_j,x_k)\geq0,
+\]
+since $K'$ is PDS. Thus, the RBF kernel is also PDS.
+
+\section{Problem 4}
+Let $\Omega \subseteq \mathbb{R}^d$ and let $\{\psi_j\}_{j=1}^n$ be a sequence of continuous functions on $\Omega$ and $\{\lambda_j\}_{j=1}^n$ a sequence of non-negative numbers. Consider $K(x, x') = \sum\limits_{j=1}^n \lambda_j \psi_j(x) \psi_j(x')$ as a kernel on $\Omega$. To show that it is PDS, we first observe that it is clearly symmetric. Now, let $\xi\in\real^m$ and $x_1,\ldots,x_m\in\Omega$. Then,
+\begin{align*}
+&\sum_{i=1}^{m}\sum_{k=1}^m\xi_i\xi_kK(x_i,x_k)=\sum_{i=1}^{m}\sum_{k=1}^m\xi_i\xi_k\sum\limits_{j=1}^n \lambda_j \psi_j(x_i) \psi_j(x_k)\\&=
+\sum_{j=1}^{n}\lambda_j\sum_{i=1}^{m}\sum_{k=1}^m\xi_i\xi_k\psi_j(x_i) \psi_j(x_k)=
+\sum_{j=1}^{n}\lambda_j\left(\sum_{i=1}^{m}\xi_i\psi_j(x_i)\right)^2\geq0.
+\end{align*}
+Thus, $K$ is a PDS kernel.
+
+\section{Problem 5}
+\subsection{Part i}
+Let $K$ and $K'$ be two reproducing kernels on $\mathcal{X}$ for an RKHS $\mathcal{H}$. Then, by the reproducing property, 
+\[
+f(x)=\langle f,K(x,\cdot)\rangle=\langle f,K'(x,\cdot)\rangle
+\]
+for all $f\in\mathcal{H}$, $x\in\mathcal{X}$. Thus,
+\[
+0=\langle f,K(x,\cdot)-K'(x,\cdot)\rangle
+\]
+for all $f\in\mathcal{H}$, so 
+\[
+K(x,\cdot)-K'(x,\cdot)=0
+\]
+for all $x\in\mathcal{X}$. This combined with symmetry implied that $k=K'$.
+\subsection{Part ii}
+Let $K$ be a PDS kernel, let $\mathcal{H}$ be its RHKS that we constructed in class (Lecture 7), and let $\mathcal{G}$ be another RKHS corresponding to $K$. Then, for any $f\in \mathcal{H}_0$\footnote{This is the pre-Hilbert space used in the construction of $\mathcal{H}$.}, we have that 
+\[
+f=\sum_{j=1}^nc_jK(x_j,\cdot).
+\]
+By the definition of an RKHS, we have that $K(x_j,\cdot)\in\mathcal{G}$, so $f\in\mathcal{G}$ since Hilbert spaces are closed under finite linear combinations. Thus, $\mathcal{H}_0\subset\mathcal{G}$, but since $\mathcal{H}$ is the completion of $\mathcal{H}_0$, we must have that $\mathcal{H}\subset\mathcal{G}$. Let $g\in\mathcal{G}$. Then, we can write $g=h+h^\perp$ where $h\in\mathcal{H}$ and $h^\perp\in\mathcal{H}^\perp$. Then, by the reproducing property,
+\[
+g(x)=\langle g,K(x,\cdot)\rangle=\langle h,K(x,\cdot)\rangle+\langle h^\perp,K(x,\cdot)\rangle=\langle h,K(x,\cdot)\rangle=h(x),
+\]
+for any $x\in\mathcal{X}$. Thus, $g\in\mathcal{H}$, so $\mathcal{G}=\mathcal{H}$.
+
+A detail we have glossed over here is that the $\mathcal{G}$ and $\mathcal{H}$ inner products may only be the same up to isometry, but in our case, we have chosen the identity isometry WLOG.
+
+
+\end{document}

@@ -1,0 +1,185 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{hyperref}
+\usepackage{listings}
+\usepackage{multimedia} % to embed movies in the PDF file
+\usepackage{graphicx}
+\usepackage{comment}
+\usepackage[english]{babel}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{wrapfig}
+\usepackage{multirow}
+\usepackage{verbatim}
+\usepackage{float}
+\usepackage{cancel}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{mathdots}
+\usepackage{/home/cade/Homework/latex-defs}
+
+
+\title{AMATH 563 Homework 3}
+\author{Cade Ballew \#2120804}
+\date{May 12, 2023}
+
+\begin{document}
+	
+\maketitle
+	
+\section{Problem 1}
+Let $(\mathcal{H}, |\cdot|, \langle\cdot,\cdot\rangle)$ be an RKHS of functions from a set $\mathcal{X} \rightarrow \mathbb{R}$, with kernel $K$. Given a pointset $\mathcal{X} = {x_1, \dots, x_m} \subseteq \mathcal{X}$ consider the interpolation problem:
+\begin{equation*}
+	\begin{aligned}
+		&\min_{u \in \mathcal{H}} \|u\| \\
+		&\text{s.t.}\quad u(X) = y.
+	\end{aligned}
+\end{equation*}
+Suppose the $x_m$ are distinct and that $K(X, X)$ is invertible. To see that the minimizer $u^\ast$ is given by the formula
+\begin{equation*}
+	u^\ast = K(\cdot, X)K(X, X)^{-1}y,
+\end{equation*}
+consider the function
+\[
+L(p_1,\ldots,p_n)=\begin{cases}
+	0,\quad\sum_{j=1}^m|p_j-y_j|=0,\\
+	\infty,\quad\text{otherwise}.
+\end{cases}
+\]
+Then, our original interpolation problem is equivalent to
+\[
+\min_{u \in \mathcal{H}}\left\{L(u(x_1),\ldots,u(x_m))+R(\|u\|)\right\},
+\]
+where $R$ is the identity map. Then, corollary 2 from lecture 8 gives that every minimizer of 
+\[
+\min_{z\in\real^m}\left\{L(z)+R(z^TK(X,X)z)\right\}
+\]
+corresponds to a minimizer of the original problem given by $u^\ast = K(\cdot, X)K(X, X)^{-1}z$. By construction, this new problem is uniquely minimized by $z^*=y$, so we must have that the interpolation problem is minimized by 
+\[
+u^\ast = K(\cdot, X)K(X, X)^{-1}y.
+\]
+
+\section{Problem 2}
+Let $(\mathcal{H}, |\cdot|, \langle\cdot,\cdot\rangle)$ be an RKHS of functions from a set $\mathcal{X} \rightarrow \mathbb{R}$, with kernel $K$.
+\subsection{Part a}
+Let $\phi\in\mathcal{H}^*$ and consider the function $K\phi:x\mapsto\phi(K(\cdot,x))$. Let $f\in\mathcal{H}_0$, the pre-Hilbert space. Then, there exist $\xi_1,\xi_n\in\real$, $x_1,\ldots,x_n\in\mathcal{X}$ such that
+\[
+f=\sum_{j=1}^n\xi_jK(x_j,\cdot).
+\]
+Then, 
+\begin{align*}
+\langle K\phi,f\rangle&=\sum_{j=1}^n\xi_j\langle K\phi,K(x_j,\cdot)\rangle=\sum_{j=1}^n\xi_j K\phi(x_j)=\sum_{j=1}^n\xi_j \phi(K(x_j,\cdot))\\&=
+\phi\left(\sum_{j=1}^n\xi_jK(x_j,\cdot)\right)=\phi(f).
+\end{align*}
+
+Now, we consider $f\in\mathcal{H}$. Note that by definition, $\phi$ is a bounded and therefore continuous linear functional. Since $\mathcal{H}_0$ is dense in $\mathcal{H}$, $\lim_{n\to\infty}f_n=f$ for some sequence $\{f_n\}_{n=1}^\infty\subset\mathcal{H}_0$. Then, by the continuity of the inner product,
+\begin{align*}
+\langle K\phi,f\rangle=\left\langle K\phi,\lim_{n\to\infty}f_n\right\rangle=\lim_{n\to\infty}\langle K\phi,f_n\rangle=\lim_{n\to\infty}\phi(f_n)=\phi\left(\lim_{n\to\infty}f_n\right)=\phi(f).
+\end{align*}
+
+\subsection{Part b}
+Let $\phi_1, \dots, \phi_m \in \mathcal{H}^*$ and consider the spaces $A=\Span\{K\phi_1, \dots, K\phi_m\}^\perp$ and $B=\{f \in \mathcal{H} \mid \phi_j(f) = 0,\quad j = 1,\dots, m\}$. Let $f\in A$. Then, since for any $j=1,\ldots,m$ $K\phi_j\in A$, it must hold that
+\[
+0=\langle f,K\phi_j\rangle=\phi_j(f),
+\]
+by part a. Thus, $f\in B$. 
+
+If we instead assume that $f\in B$, then for any $g=\sum_{k=1}^m \alpha_k K\phi_k$,
+\[
+0=\left\langle f,g\right\rangle=\sum_{k=1}^m \alpha_k\langle f,K\phi_k\rangle=\sum_{k=1}^m \alpha_k\phi_k(f)=0,
+\] 
+by part a. Thus, $f\in A$, so these two subspaces are actually equivalent.
+
+\subsection{Part c}
+Define the bounded linear operator $\bphi: \mathcal{H} \rightarrow \mathbb{R}^m$, $\bphi(f) := (\phi_1(f), \dots, \phi_m(f))^T$, and consider the (generalized) interpolation problem
+\begin{equation*}
+	\begin{aligned}
+		&\min_{u \in \mathcal{H}}\|u\|
+		&\text{subject to } \bphi(u) = \by.
+	\end{aligned}
+\end{equation*}
+Consider the matrix $\Theta \in \mathbb{R}^{m \times m}$ with entries $\Theta_{ij} = \phi_i(K\phi_j)$ and assume that $\Theta$ is invertible. Then, we decompose $v+v^\perp=u\in\mathcal{H}$ where $v\in\Span\{K\phi_1, \dots, K\phi_m\}$, $v^\perp\in\Span\{K\phi_1, \dots, K\phi_m\}^\perp$. Then, 
+\[
+\|u\|=\sqrt{\|v\|+\|v^\perp\|},
+\]
+and by part b, $\bphi=\bzero$, so if $u$ is feasible, so is $v$, and $\|v\|\leq\|u\|$. Thus, by definition, the optimum must be of the form
+\[
+u^*=\sum_{j=1}^{m}\alpha_jK\phi_j.
+\]
+To find the optimal $\balpha$, we observe that
+\[
+\by=\bphi(u^*)=\sum_{j=1}^{m}\alpha_j\bphi(K\phi_j)=\sum_{j=1}^{m}\alpha_j\begin{pmatrix}
+	\phi_1(K\phi_i)\\\vdots\\\phi_1(K\phi_m)
+\end{pmatrix}=\Theta\balpha.
+\]
+Since $\Theta$ is invertible, we must have that $\balpha^*=\Theta^{-1}\by$. Thus, the minimizer $u^\ast$ is given by the formula
+\begin{equation*}
+	u^\ast = \sum_{j=1}^{m} \alpha^\ast_j K\phi_j, \text{ where } \boldsymbol{\alpha}^\ast = \Theta^{-1}\by.
+\end{equation*}
+
+\section{Problem 3}
+Let $L = D - W \in \mathbb{R}^{n \times n}$ be the unnormalized Laplacian and let $\tilde{L} = D^{-1/2}(D-W)D^{-1/2}$ be the normalized Laplacian.
+\subsection{Part a}
+Let $(\lambda, \bv)$ be an eigenpair of $\tilde{L}$ and define $\bv = D^{1/2}\bu$. Then, 
+\[
+L\bu=LD^{-1/2}\bv=(D^{1/2}\tilde LD^{1/2})D^{-1/2}\bv=D^{1/2}\tilde L\bv=\lambda D^{1/2}\bv=\lambda D\bu,
+\]
+so $u$ solves the generalized eigenvalue problem $Lu = \lambda Du$.
+
+If we instead assume that $u$ solves the generalized eigenvalue problem $Lu = \lambda Du$ with $\bv = D^{1/2}\bu$, then 
+\[
+\tilde L\bv=D^{-1/2}L\bu=D^{-1/2}\lambda\bu=\lambda\bv,
+\]
+so $(\lambda, \bv)$ is an eigenpair of $\tilde{L}$.
+
+\subsection{Part b}
+Let $G$ be a disconnected graph without isolated vertices and with $M$-connected components. We know from class (Lecture 15) that $L$ has an $M$-dimensional null space spanned by the indicator vectors $\left\{\bone_{G_j}\right\}_{j=1}^M$. This means that the generalized eigenvalue problem $Lu = \lambda Du$ is solved for $\lambda=0$ only by this null space. Thus, we can apply the result of part a to get that $(0,\bv)$ is an eigenpair of $\tilde L$ iff 
+\[
+v\in D^{1/2}\Span\left\{\bone_{G_j}\right\}_{j=1}^M=\Span\left\{D^{1/2}\bone_{G_j}\right\}_{j=1}^M,
+\]
+so $\tilde L$ has an $M$-dimensional null space spanned by $\left\{D^{1/2}\bone_{G_j}\right\}_{j=1}^M$.
+
+\subsection{Part c}
+To bound the eigenvalues of $\tilde L$ using the CFW characterization, we bound the Rayleigh--Ritz quotient
+\[
+\frac{x^T\tilde Lx}{x^Tx}=\frac{(D^{-1/2}x)^T L(D^{-1/2}x)}{x^Tx}=\frac{y^T Ly}{y^TDy}=1-\frac{y^T Wy}{y^TDy},
+\]
+where $x\in\real^n$ and $y=D^{-1/2}x$. We first note that if our graph contains any isolated nodes, we can reorder $L$ so that all nonzero entries are in an upper left subblock, i.e., isolated nodes correspond to zero eigenvalues, so we can assume WLOG that all nodes have degree at least 1. Now, as a lemma, observe that 
+\[
+\sum_{j=1}^{n}y_j^2-\sum_{j\neq k}y_jy_k=\frac{1}{2}\sum_{j\neq k}(y_j-y_k)^2\geq0.
+\]
+This allows us to establish the chain of inequalities
+\begin{align*}
+-y^TWy=\sum_{j\neq k,j\to k}y_jy_k\leq\sum_{j\neq k}y_jy_k\leq\sum_{j=1}^{n}y_j^2\leq\sum_{j=1}^{n}d_jy_j^2=y^TDy,
+\end{align*}
+which gives a bound on the eigenvalues of $\tilde L$
+\[
+\lambda_j\leq\frac{x^T\tilde Lx}{x^Tx}\leq1-\frac{y^T Wy}{y^TDy}\leq1+1=2.
+\]
+
+To see that we can't get a uniform bound on $L$, consider the fully connected graph which corresponds to
+\[
+L=\begin{pmatrix}
+	n-1&-1&\cdots&-1\\
+	-1&n-1&\cdots&-1\\
+	-1&-1&\ddots&-1\\
+	-1&-1&\cdots&n-1
+\end{pmatrix}.
+\]
+Consider 
+\[
+u=\begin{pmatrix}
+	1\\-1\\0\\\vdots\\0
+\end{pmatrix}.
+\]
+Then,
+\[
+Lu=nu,
+\]
+so $L$ has an eigenvalue that grows with dimension, and its eigenvalues cannot be uniformly bounded.
+
+\section{Computation}
+See the attached Jupyter notebook.
+
+
+\end{document}

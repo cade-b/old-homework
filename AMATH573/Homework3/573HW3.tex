@@ -1,0 +1,910 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{hyperref}
+\usepackage{listings}
+\usepackage{multimedia} % to embed movies in the PDF file
+\usepackage{graphicx}
+\usepackage{comment}
+\usepackage[english]{babel}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{wrapfig}
+\usepackage{multirow}
+\usepackage{verbatim}
+\usepackage{float}
+\usepackage{cancel}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{mathdots}
+\usepackage{/home/cade/Homework/latex-defs}
+
+
+\title{AMATH 573 Homework 3}
+\author{Cade Ballew \#2120804}
+\date{November 4, 2022}
+
+\begin{document}
+	
+\maketitle
+	
+\section{Problem 1}
+Consider the following system of one-dimensional equations
+\[
+\sys{
+	\ds \pp{n}{t}+\pp{}{z}(nv)&=&0\\
+	\vs\ds \pp{v}{t}+v\pp{v}{z}&=&\ds -\frac{e}{m}\pp{\phi}{z}\\
+	\vs \ds \ppn{2}{\phi}{z}&=&\ds \frac{e}{\varepsilon_0}\left[N_0 \exp\left(\frac{e\phi}{\kappa T_e}\right)-n\right]
+}
+\]
+
+\no where $n$ denotes the ion density, $v$ is the ion velocity, $e$ is the electron charge, $m$ is the
+mass of an ion, $\phi$ is the electrostatic potential, $\varepsilon_0$ is the vacuum permittivity, $N_0$ is the
+equilibrium density of the ions, $\kappa$ is Boltzmann's constant, and $T_e$ is the electron temperature.
+\subsection{Part a}
+We wish to verify that $\ds c_s=\sqrt{\frac{\kappa T_e}{m}}$,
+$\ds \lambda_{De}=\sqrt{\frac{\varepsilon_0 \kappa T_e}{N_0 e^2}}$, and
+$\ds \omega_{pi}=\sqrt{\frac{N_0 e^2}{\varepsilon_0 m}}$ have dimensions of velocity,
+length, and frequency, respectively. The SI units for our variables are $\text{A}\cdot{\text{s}}$ for $e$, $\text{kg}$ for $m$, $\frac{\text{kg}\cdot\text{m}^2}{\text{s}^3\cdot\text{A}}$ for $\phi$, $\frac{\text{A}^2\cdot\text{s}^4}{\text{m}^3\cdot\text{kg}}$ for $\varepsilon_0$, $\frac{\text{kg}}{\text{m}^3}$ for $N_0$, $\frac{\text{kg}\cdot\text{m}^2}{\text{s}^2\cdot\text{K}}$ for $\kappa$, and $\text{K}$ for $T_e$. Then, the units for $c_s$ are given by
+\[
+\sqrt{\frac{\text{kg}\cdot\text{m}^2}{\text{s}^2\cdot\text{K}}\text{K}\frac{1}{\text{kg}}}=\frac{\text{m}}{\text{s}}
+\]
+which represents velocity. The units for $\lambda_{De}$ are given by
+\[
+\sqrt{\frac{\text{A}^2\cdot\text{s}^4}{\text{m}^3\cdot\text{kg}}\frac{\text{kg}\cdot\text{m}^2}{\text{s}^2\cdot\text{K}}\text{K}\cdot\text{m}^3\left(\frac{1}{\text{A}\cdot{\text{s}}}\right)^2}=\text{m}
+\]
+which represents length. The units for $\omega_{pi}$ are given by
+\[
+\sqrt{\frac{\text{1}}{\text{m}^3}(\text{A}\cdot{\text{s}})^2\frac{\text{m}^3\cdot\text{kg}}{\text{A}^2\cdot\text{s}^4}\frac{1}{\text{kg}}}=\frac{1}{\text{s}}
+\]
+which represents frequency.
+\subsection{Part b}
+Using 
+\[
+n=N_0 n^*, ~~v=c_s v^*, ~~z=\lambda_{De} z^*, ~~t=\frac{t^*}{\omega_{pi}}, ~~\phi=\frac{\kappa T_e}{e} \phi^*,
+\]
+we wish to nondimensionalize the system. We compute
+\[
+\pp{n}{t}=\pp{n}{n^*}\pp{n^*}{t^*}\pp{t^*}{t}=N_0\omega_{pi}\pp{n^*}{t^*},
+\]
+and
+\begin{align*}
+\pp{}{z}(nv)&=\pp{n}{n^*}\pp{n^*}{z^*}\pp{z^*}{z}c_sv^*+N_0n^*\pp{v}{v^*}\pp{v^*}{z^*}\pp{z^*}{z}\\&=\frac{N_0c_s}{\lambda_{De}}\pp{n^*}{z^*}v+\frac{N_0c_s}{\lambda_{De}}n\pp{v^*}{z^*}=\frac{N_0c_s}{\lambda_{De}}\pp{}{z}(n^*v^*),
+\end{align*}
+so the first equation becomes
+\begin{align*}
+0&=N_0\sqrt{\frac{N_0 e^2}{\varepsilon_0 m}}\pp{n^*}{t^*}+N_0\sqrt{\frac{\kappa T_e}{m}}\sqrt{\frac{N_0 e^2}{\varepsilon_0 \kappa T_e}}\pp{}{z}(n^*v^*)\\&=
+N_0\sqrt{\frac{N_0 e^2}{\varepsilon_0 m}}\left(\pp{n^*}{t^*}+\pp{}{z}(n^*v^*)\right).
+\end{align*}
+Of course, this reduces to
+\[
+\pp{n^*}{t^*}+\pp{}{z}(n^*v^*)=0.
+\]
+Now, we compute 
+\begin{align*}
+\pp{v}{t}=\pp{v}{v^*}\pp{v^*}{t^*}\pp{t^*}{t}=c_s\omega_{pi}\pp{v^*}{t^*},
+\end{align*}
+\begin{align*}
+\pp{v}{z}=\pp{v}{v^*}\pp{v^*}{z^*}\pp{z^*}{z}=\frac{c_s}{\lambda_{De}}\pp{v^*}{z^*},
+\end{align*}
+and
+\begin{align*}
+\pp{\phi}{z}=\pp{\phi}{\phi^*}\pp{\phi^*}{z^*}\pp{z^*}{z}=\frac{\kappa T_e}{e\lambda_{De}}\pp{\phi^*}{z^*}.
+\end{align*}
+Then, our second equation becomes
+\begin{align*}
+-\frac{e}{m}\frac{\kappa T_e}{e}\sqrt{\frac{N_0 e^2}{\varepsilon_0 \kappa T_e}}\pp{\phi^*}{z^*}=\sqrt{\frac{\kappa T_e}{m}}\sqrt{\frac{N_0 e^2}{\varepsilon_0 m}}\pp{v^*}{t^*}+\frac{\kappa T_e}{m}\sqrt{\frac{N_0 e^2}{\varepsilon_0 \kappa T_e}}v^*\pp{v^*}{z^*}.
+\end{align*}
+We can simplify this to
+\begin{align*}
+\sqrt{\frac{\kappa T_e N_0 e^2}{\varepsilon_0 m^2}}\left(\pp{v^*}{t^*}+\pp{v^*}{z^*}\right)=-\sqrt{\frac{\kappa T_e N_0 e^2}{\varepsilon_0 m^2}}\pp{\phi^*}{z^*}
+\end{align*}
+which further simplifies to
+\[
+\pp{v^*}{t^*}+\pp{v^*}{z^*}=-\pp{\phi^*}{z^*}.
+\]
+Finally, we compute
+\begin{align*}
+\ppn{2}{\phi}{z}=\pp{}{z}\left(\pp{\phi}{z}\right)=\pp{z^*}{z}\pp{}{z^*}\left(\pp{\phi}{z}\right)=\frac{1}{\lambda_{De}}\pp{}{z^*}\left(\frac{\kappa T_e}{e\lambda_{De}}\pp{\phi^*}{z^*}\right)=\frac{\kappa T_e}{e\lambda_{De}^2}\ppn{2}{\phi^*}{{z^*}},
+\end{align*}
+and our final equation becomes 
+\begin{align*}
+\frac{\kappa T_e}{e}\frac{N_0 e^2}{\varepsilon_0 \kappa T_e}\ppn{2}{\phi^*}{{z^*}}=\frac{e}{\varepsilon_0}\left(N_0\exp\left(\frac{e}{\kappa T_e}\frac{\kappa T_e}{e}\phi^*\right)-N_0n^*\right).
+\end{align*}
+This simplifies to
+\begin{align*}
+\frac{N_0e}{\varepsilon_0}\ppn{2}{\phi^*}{{z^*}}=\frac{N_0e}{\varepsilon_0}(e^{\phi^*}-n^*)
+\end{align*}
+which further simplifies to
+\[
+\ppn{2}{\phi^*}{{z^*}}=e^{\phi^*}-n^*.
+\]
+Thus, we arrived at the dimensionless system
+\[
+\sys{
+	\ds \pp{n^*}{t^*}+\pp{}{z^*}(n^*v^*)&=&0\\
+	\vs\ds \pp{v^*}{t^*}+v\pp{v^*}{z^*}&=&\ds -\pp{\phi^*}{z^*}\\
+	\vs \ds \ppn{2}{\phi^*}{{z^*}}&=&\ds e^{\phi^*}-n^*.
+}
+\]
+\subsection{Part c}
+Dropping the asterisks, we search for a linear dispersion relation for our system by linearizing around the trivial solution $n=1$, $v=0$, and $\phi=0$. Namely, we set $n=1+\epsilon n_1+\OO(\epsilon^2)$, $v=\epsilon v_1+\OO(\epsilon^2)$, $\phi=\epsilon \phi_1+\OO(\epsilon^2)$. Then, dropping higher order terms, our system becomes
+\[
+\sys{
+	\ds \epsilon n_{1t}+(1+\epsilon n_1)\epsilon v_{1z}+\epsilon n_{1t}\epsilon v_1&=&0\\
+	\vs\ds \epsilon v_{1t}+\epsilon v_1\epsilon v_{1z}&=&\ds -\epsilon\phi_{1z}\\
+	\vs \ds \epsilon\phi_{1zz}&=&\ds \left(1+\epsilon\phi_1+\ldots\right)-(1+\epsilon n_1)
+}.
+\]
+Collecting the terms that are order 1 in $\epsilon$, we get the much simpler system
+\[
+ \sys{
+ 	\ds n_{1t}+v_{1z}&=&0\\
+ 	\vs\ds v_{1t}&=&\ds -\phi_{1z}\\
+ 	\vs \ds \phi_{1zz}&=&\ds \phi_1-n_1.
+ }
+\]
+Now, to avoid solving a system of 3 equations directly, we use the general vector case of our method for finding the dispersion relation by considering 
+\[
+u=\begin{pmatrix}
+	n\\v\\ \phi
+\end{pmatrix}
+\]
+and the ansatz $u=A(k)e^{ikz-i\omega(k)t}$. We first write our system as
+\[
+\begin{pmatrix}
+	n\\v\\ 0
+\end{pmatrix}_t=\begin{pmatrix}
+	0 &-\partial_z &0\\
+	0 &0 &-\partial_z\\
+	-1 &0 &1-\partial^2_z
+\end{pmatrix}\begin{pmatrix}
+n\\v\\ \phi
+\end{pmatrix}.
+\]
+Applying the ansatz, to find the dispersion relation, we examine 
+\[
+\begin{pmatrix}
+i\omega(k) &-ik &0\\
+0 &i\omega(k) &-ik\\
+-1 &0 &1+k^2
+\end{pmatrix}\begin{pmatrix}
+n\\v\\ \phi
+\end{pmatrix}=0,
+\]
+i.e., we set 
+\[
+\det\begin{pmatrix}
+	i\omega(k) &-ik &0\\
+	0 &i\omega(k) &-ik\\
+	-1 &0 &1+k^2
+\end{pmatrix}=0.
+\]
+Using a symbolic matrix determinant calculator, we find that a matrix with this sparsity pattern has determinant
+\begin{align*}
+\det\begin{pmatrix}
+	i\omega(k) &-ik &0\\
+	0 &i\omega(k) &-ik\\
+	-1 &0 &1+k^2
+\end{pmatrix}&=(i\omega(k))(i\omega(k))(1+k^2)+(-1)(-ik)(-ik)\\&=
+-\omega^2(k)(k^2+1)+k^2.
+\end{align*}
+Thus, we find that this problem has linearized dispersion relation
+\[
+\omega^2(k)=\frac{k^2}{k^2+1}.
+\]
+\subsection{Part d}
+Now, we rewrite the system using the ``stretched variables''
+\[
+\xi=\epsilon^{1/2}(z-t), ~~\tau=\epsilon^{3/2} t.
+\]
+We compute
+\begin{align*}
+\pp{}{t}=\pp{\xi}{t}\pp{}{\xi}+\pp{\tau}{t}\pp{}{\tau}=-\epsilon^{1/2}\pp{}{\xi}+\epsilon^{3/2}\pp{}{\tau},
+\end{align*}
+\[
+\pp{}{z}=\pp{\xi}{z}\pp{}{\xi}=\epsilon^{1/2}\pp{}{\xi},
+\]
+and 
+\begin{align*}
+\ppn{2}{}{z}=\pp{}{z}\pp{}{z}=\epsilon\ppn{2}{}{\xi}.
+\end{align*}
+Then, our system becomes
+\[
+\sys{
+	\ds -\epsilon^{1/2}n_\xi+\epsilon^{3/2}n_\tau+\epsilon^{1/2}(nv)_\xi&=&0\\
+	\vs\ds -\epsilon^{1/2}v_\xi+\epsilon^{3/2}v_\tau+\epsilon^{1/2}vv_\xi&=&\ds -\epsilon^{1/2}\phi_\xi\\
+	\epsilon\phi_{\xi\xi}&=&\ds e^\phi-n.
+}
+\]
+We can simplify this slightly to
+\[
+\sys{
+	\ds -n_\xi+\epsilon n_\tau+(nv)_\xi&=&0\\
+	\vs\ds -v_\xi+\epsilon v_\tau+vv_\xi&=&\ds -\phi_\xi\\
+	\epsilon\phi_{\xi\xi}&=&\ds e^\phi-n.
+}
+\]
+To justify this new choice of variables, we use Mathematica to Taylor expand the dispersion relation
+\[
+\omega_\pm(k)=\pm\frac{k}{\sqrt{k^2+1}}
+\]
+around $k=0$ (since we are looking for low-frequency waves) which gives
+\[
+\omega_+(k)=k-\frac{k^3}{2}+\OO(k^4).
+\]
+Then, the $e^{ikz-i\omega(k)t}$ term from our ansatz becomes
+\[
+e^{ikz-i\left(k-\frac{k^3}{2}+\OO(k^4)\right)t}=e^{i\left(k(z-t)+\frac{k^3}{2}t\right)+\OO(k^4)}.
+\]
+Taking $k=\epsilon^{1/2}$, we can see that if we write this as a product of exponentials, $\xi$ corresponds to the first term $e^{i\epsilon^{1/2}(z-t)}$, and up to a constant scaling, $\tau$ corresponds to the second term $e^{i\epsilon^{3/2}t}$.
+\subsection{Part e}
+Now, we expand the dependent variables as
+\[
+\sys{
+	n&=&1+\epsilon n_1+\epsilon^2 n_2+\ldots, \\
+	v&=&\epsilon v_1+\epsilon^2 v_2+\ldots, \\
+	\phi&=&\epsilon \phi_1+\epsilon^2 \phi_2+\ldots .
+}
+\]
+Dropping higher order terms and plugging these in, the first equation becomes
+\[
+(\epsilon n_{1\xi}+\epsilon^2n_{2\xi})+\epsilon(\epsilon n_{1\tau})+(\epsilon n{1\xi}+\epsilon^2n_{2\xi})(\epsilon v_1+\epsilon^2v_2)+(1+\epsilon n_1+\epsilon^2 n_2)(\epsilon v_{1\xi}+\epsilon^2v_{2\xi})=0,
+\]
+the second equation becomes
+\[
+-(\epsilon v_{1\xi}+\epsilon^2v_{2\xi})+\epsilon(\epsilon v_{1\tau}+\epsilon^2 v_{2\tau})+(\epsilon v_1+\epsilon^2v_2)(\epsilon v_{1\xi}+\epsilon^2v_{2\xi})=-(\epsilon\phi_{1\xi}+\epsilon^2\phi_{2\xi}),
+\]
+and the third equation becomes 
+\begin{align*}
+\epsilon(\epsilon\phi_{1\xi\xi}+\epsilon^2\phi_{2\xi\xi})&=e^{\epsilon\phi_1+\epsilon^2\phi_2}-(1+\epsilon n_1+\epsilon^2n_2)\\&=
+\left(1+(\epsilon\phi_1+\epsilon^2\phi_2)+\half(\epsilon\phi_1+\epsilon^2\phi_2)^2\right)-(1+\epsilon n_1+\epsilon^2n_2).
+\end{align*}
+Collecting the first order terms in $\epsilon$, we get the system
+\[
+\sys{
+	\ds -n_{1\xi}+v_{1\xi}&=&0\\
+	\vs\ds -v_{1\xi}&=&\ds -\phi_{1\xi}\\
+	0&=&\ds \phi_1-n_1.
+}
+\]
+Due to the fact that all disturbances return to their equilibrium values as $\xi\rightarrow \pm \infty$,
+$\tau \rightarrow \infty$, we can conclude that $n_1=v_1=\phi_1$. Collecting the second order terms in $\epsilon$, we get the system
+\[
+\sys{
+	\ds -n_{2\xi}+n_{1\tau}+n_{1\xi}v_1+n_1v_{1\xi}+v_{2\xi}&=&0\\
+	\vs\ds -v_{2\xi}+v_{1\tau}+v_1v_{1\xi}&=&\ds -\phi_{2\xi}\\
+	\phi_{1\xi\xi}&=&\ds \phi_2+\half\phi^2_1-n_2.
+}
+\]
+Using our conclusion from the first order system, we reduce this to
+\[
+\sys{
+	\ds -n_{2\xi}+\phi_{1\tau}+2\phi_1\phi_{1\xi}+v_{2\xi}&=&0\\
+	\vs\ds -v_{2\xi}+\phi_{1\tau}+\phi_1\phi_{1\xi}&=&\ds -\phi_{2\xi}\\
+	\phi_{1\xi\xi}&=&\ds \phi_2+\half\phi^2_1-n_2.
+}
+\]
+We can reduce the first two equations to
+\[
+n_{2\xi}=\phi_{1\tau}+2\phi_1\phi_{1\xi}+\phi_{1\tau}+\phi_1\phi_{1\xi}+\phi_{2\xi}=2\phi_{1\tau}+3\phi_1\phi_{1\xi}+\phi_{2\xi}.
+\]
+Differentiating the third gives
+\[
+n_{2\xi}=-\phi_{1\xi\xi\xi}+\phi_{2\xi}+\phi_1\phi_{1\xi}.
+\]
+Setting these equal yields
+\[
+2\phi_{1\tau}+2\phi_1\phi_{1\xi}+\phi_{1\xi\xi\xi}=0
+\]
+which, of course, is the KdV equation.
+
+\section{Problem 2}
+Consider the defocusing NLS equation
+\[
+i a_t=-a_{xx}+|a|^2 a.
+\]
+\subsection{Part a}
+Let
+\[
+a(x,t)=e^{i \int Vdx} \rho^{1/2}.
+\]
+where $V(x,t)$ is the phase and $\rho(x,t)$ is the amplitude. Using Mathematica, we plug this choice of $a$ into the defocusing NLS equation and obtain the following equation
+\[
+-\frac{1}{4\rho^{3/2}}e^{i \int Vdx}\left(4\rho^2\int V_tdx+4V^2\rho^2+4\rho^3-2i\rho\rho_t-4i\rho^2V_x-4iV\rho\rho_x+\rho_x^2-2\rho\rho_{xx}\right)=0.
+\]
+Note that we Mathematica required the assumption that $V$ be real-valued and $\rho$ be nonnegative to obtain this, but one should expect a phase to be real and an amplitude to be nonnegative.
+Dividing through by the terms outside the parentheses and splitting into real and imaginary parts, we get 
+\[
+4\rho^2\int V_tdx+4V^2\rho^2+4\rho^3\rho_x^2-2\rho\rho_{xx}=0
+\]
+from the real part and 
+\[
+-2\rho\rho_t-4\rho^2V_x-4V\rho\rho_x=0
+\]
+from the imaginary part. The first equation can then be written as
+\[
+\int V_tdx=-V^2-\rho-\frac{\rho_x^2}{4\rho^2}+\frac{\rho_{xx}}{2\rho}.
+\]
+Using Mathematica to differentiate both sides, we get our equation for $V_t$. Namely,
+\[
+V_t=-2VV_x-\rho_x+\frac{\rho_x^3}{2\rho^3}-\frac{\rho_x\rho_{xx}}{\rho^2}+\frac{\rho_{xxx}}{2\rho}.
+\]
+Our equation for $\rho_t$ can be solved for directly and is given by
+\[
+\rho_t=-2\rho V_x-2V\rho_x, 
+\]
+so the hydrodynamic form of the NLS equation is given by
+\[
+\sys{
+	\ds V_t&=&-2VV_x-\rho_x+\frac{\rho_x^3}{2\rho^3}-\frac{\rho_x\rho_{xx}}{\rho^2}+\frac{\rho_{xxx}}{2\rho}\\
+	\ds \rho_t&=&\ds -2\rho V_x-2V\rho_x.
+}
+\]
+\subsection{Part b}
+To find the linear dispersion relation for the hydrodynamic form of the defocusing NLS equation, linearized around the trivial solution $V=0$, $\rho=1$, we set $V=\epsilon V_1+\OO(\epsilon^2)$ and $\rho=1+\epsilon\rho_1+\OO(\epsilon^2)$. Dropping higher order terms, our system becomes
+\[
+\sys{
+	\ds \epsilon V_{1t}&=&-2\epsilon V_1\epsilon V_{1x}-\epsilon\rho_{1x}+\frac{\epsilon^3\rho_{1x}^3}{2(1+\epsilon\rho_1)^3}-\frac{\epsilon\rho_{1x}\epsilon\rho_{1xx}}{(1+\epsilon\rho_1)^2}+\frac{\epsilon\rho_{1xxx}}{2(1+\epsilon\rho_1)}\\
+	\ds \epsilon\rho_{1t}&=&\ds -2(1+\epsilon\rho_1)\epsilon V_{1x}-2\epsilon V_1\epsilon\rho_{1x}.
+}
+\]
+To collect the first order terms in $\epsilon$, we utilize the geometric series
+\[
+\frac{1}{1+\epsilon\rho_1}=\frac{1}{1-(-\epsilon\rho_1)}=\sum_{j=0}^{\infty}(-\epsilon\rho_1)^j=1-\epsilon\rho_1+\OO(\epsilon^2).
+\]
+Then, we can see that first order terms in $\epsilon$ give
+\[
+\sys{
+	\ds V_{1t}&=&-\rho_{1x}+\half\rho_{1xxx}\\
+	\ds \rho_{1t}&=&\ds -2 V_{1x}.
+}
+\]
+As in problem 1, we use the general vector case of our method to find the dispersion relation, but since we a smaller system this time, we consider it component-wise. Namely, apply the ansatz  $V=a_1(k)e^{ikx-i\omega(k)t}$, $\rho=a_2(k)e^{ikx-i\omega(k)t}$,. Then, we get the system of equations
+\[
+\sys{
+	\ds -a_1i\omega&=&-a_2ik-\half a_2ik^3\\
+	\ds -a_2i\omega&=&\ds -2 a_1ik.
+}
+\]
+Then, the second equation gives $a_1=\frac{a_2\omega}{2k}$, so
+\[
+\frac{-ia_2\omega^2}{2k}=-a_2ik-\half a_2ik^3.
+\]
+Solving this, we conclude that our dispersion relation is given by
+\[
+\omega^2=k^4+2k^2.
+\]
+
+\subsection{Part c}
+Now, we wish to rewrite our system using the ``stretched variables''
+\[
+\xi=\epsilon(x-\beta t), ~~\tau=\epsilon^{3} t.
+\]
+We compute
+\begin{align*}
+	\pp{}{t}=\pp{\xi}{t}\pp{}{\xi}+\pp{\tau}{t}\pp{}{\tau}=-\epsilon\beta\pp{}{\xi}+\epsilon^{3}\pp{}{\tau},
+\end{align*}
+\[
+\pp{}{x}=\pp{\xi}{x}\pp{}{\xi}=\epsilon\pp{}{\xi},
+\]
+\begin{align*}
+	\ppn{2}{}{z}=\pp{}{z}\pp{}{z}=\epsilon^2\ppn{2}{}{\xi},
+\end{align*}
+and
+\begin{align*}
+	\ppn{3}{}{z}=\pp{}{z}\ppn{2}{}{z}=\epsilon^3\ppn{3}{}{\xi}.
+\end{align*}
+Then, our system becomes
+\[
+\sys{
+	\ds -\epsilon\beta V_\xi+\epsilon^3V_\tau&=&-2V\epsilon V_\xi-\epsilon\rho_\xi+\frac{\epsilon^3\rho_\xi^3}{2\rho^3}-\frac{\epsilon\rho_\xi\epsilon^2\rho_{\xi\xi}}{\rho^2}+\frac{\epsilon^3\rho_{\xi\xi\xi}}{2\rho}\\
+	\ds -\epsilon\beta \rho_\xi+\epsilon^3\rho_\tau&=&\ds -2\rho \epsilon V_\xi-2V\epsilon\rho_\xi.
+}
+\]
+We can divide through by $\epsilon$ to get
+\[
+\sys{
+	\ds -\beta V_\xi+\epsilon^2V_\tau&=&-2V V_\xi-\rho_\xi+\frac{\epsilon^2\rho_\xi^3}{2\rho^3}-\frac{\epsilon^2\rho_\xi\rho_{\xi\xi}}{\rho^2}+\frac{\epsilon^2\rho_{\xi\xi\xi}}{2\rho}\\
+	\ds -\beta \rho_\xi+\epsilon^2\rho_\tau&=&\ds -2\rho V_\xi-2V\rho_\xi.
+}
+\]
+To justify our choice of stretched variables, we again look at the series expansion of 
+\[
+\omega_+(k)=k\sqrt{k^2+2}
+\]
+using Mathematica. This gives
+\[
+\omega_+(k)=\sqrt{2}k+\frac{k^3}{2\sqrt{2}}+\OO(k^4).
+\]
+Then, our ansatz term $e^{ikx-i\omega t}$ becomes
+\[
+e^{ikx-i\omega(k)t}=e^{i\left((x-\sqrt{2})t+\frac{k^3}{2\sqrt{2}}t+\OO(k^4)\right)}.
+\]
+If we take $k=\epsilon$ and write this as a product of exponentials, we can see that the first two arguments are $(x-\sqrt{2})t$ and $\frac{k^3}{2\sqrt{2}}t$. If we take $\beta=\sqrt{2}$, these match our stetched variables up to a constant scaling on the second one. Using this value of $\beta$, our system becomes
+\[
+\sys{
+	\ds -\sqrt{2} V_\xi+\epsilon^2V_tau&=&-2V V_\xi-\rho_\xi+\frac{\epsilon^2\rho_\xi^3}{2\rho^3}-\frac{\epsilon^2\rho_\xi\rho_{\xi\xi}}{\rho^2}+\frac{\epsilon^2\rho_{\xi\xi\xi}}{2\rho}\\
+	\ds -\sqrt{2} \rho_\xi+\epsilon^2\rho_\tau&=&\ds -2\rho V_\xi-2V\rho_\xi.
+}
+\]
+
+\subsection{Part d}
+Now, we wish to expand the dependent variables as
+\[
+\sys{
+	V&=&\epsilon^2 V_1+\epsilon^4 V_2+\ldots, \\
+	\rho&=&1+\epsilon^2 \rho_1+\epsilon^4 \rho_2+\ldots.
+}
+\]
+Dropping higher order terms and multiplying through by $\rho$, our first equation becomes
+\begin{align*}
+ &-\sqrt{2}(\epsilon^2V_{1\xi}+\epsilon^4V_{2\xi})(1+\epsilon^2 \rho_1+\epsilon^4 \rho_2)^3+\epsilon^2(\epsilon^2V_{1\tau}+\epsilon^4V_{2\tau})(1+\epsilon^2 \rho_1+\epsilon^4 \rho_2)\\&=
+ -2(\epsilon^2 V_1+\epsilon^4 V_2) (\epsilon^2V_{1\xi}+\epsilon^4V_{2\xi})(1+\epsilon^2 \rho_1+\epsilon^4 \rho_2)^3-(1+\epsilon^2 \rho_1+\epsilon^4 \rho_2)^3(\epsilon^2 \rho_{1\xi}+\epsilon^4 \rho_{2\xi})\\&+\half\epsilon^2(\epsilon^2 \rho_{1\xi}+\epsilon^4 \rho_{2\xi})^3-\epsilon^2(\epsilon^2 \rho_{1\xi}+\epsilon^4 \rho_{2\xi})(\epsilon^2 \rho_{1\xi\xi}+\epsilon^4 \rho_{2\xi\xi})(1+\epsilon^2 \rho_{1}+\epsilon^4 \rho_{2})\\&+\half\epsilon^2(\epsilon^2 \rho_{1\xi\xi\xi}+\epsilon^4 \rho_{2\xi\xi\xi})(1+\epsilon^2 \rho_{1}+\epsilon^4 \rho_{2})^2.
+\end{align*}
+Our second equation becomes
+\begin{align*}
+&-\sqrt{2}(\epsilon^2 \rho_{1\xi}+\epsilon^4 \rho_{2\xi})+\epsilon^2(\epsilon^2 \rho_{1\tau}+\epsilon^4 \rho_{2\tau})\\&=
+-2(1+\epsilon^2 \rho_{1}+\epsilon^4 \rho_{2})(\epsilon^2V_{1\xi}+\epsilon^4V_{2\xi})-2(\epsilon^2V_{1}+\epsilon^4V_{2})(\epsilon^2 \rho_{1\xi}+\epsilon^4 \rho_{2\xi}).
+\end{align*}
+Collecting second order terms in $\epsilon$, we get the system
+\[
+\sys{
+	\ds -\sqrt{2} V_{1\xi}&=&-\rho_{1\xi}\\
+	\ds -\sqrt{2} \rho_{1\xi}&=&\ds -2 V_{1\xi}.
+}
+\]
+This yields $\rho_{1\xi}=\sqrt{2}V_{1\xi}$ which combined with the fact that all disturbances return to their equilibrium values as $\xi\rightarrow \pm \infty$,
+$\tau \rightarrow \infty$, yields that $\rho_1=\sqrt{2}V_1$. Collecting fourth order terms in $\epsilon$, we get the system
+\[
+\sys{
+	\ds -\sqrt{2}V_{2\xi}+V_{1\tau}&=&-2V_1V_{1\xi}-\rho_{2\xi}+\half\rho_{1\xi\xi\xi}\\
+	\ds -\sqrt{2} \rho_{2\xi}+\rho_{1\tau}&=&\ds -2\rho_1 V_{1\xi}-2V_{2\xi}-2V_1\rho_{1\xi}.
+}
+\]
+Substituting $\rho_1=\sqrt{2}V_1$ yields
+\[
+\sys{
+	\ds -\sqrt{2}V_{2\xi}+V_{1\tau}&=&-2V_1V_{1\xi}-\rho_{2\xi}+\frac{1}{\sqrt{2}}V_{1\xi\xi\xi}\\
+	\ds -\sqrt{2} \rho_{2\xi}+\sqrt{2}V_{1\tau}&=&\ds -4\sqrt{2}V_1 V_{1\xi}-2V_{2\xi}.
+}
+\]
+Solving each for $\rho_{2\xi}$, we get the equation
+\[
+\sqrt{2}V_{2\xi}-V_{1\tau}-2V_1V_{1\xi}+\frac{1}{\sqrt{2}}V_{1\xi\xi\xi}=V_{1\tau}+4V_1 V_{1\xi}+\sqrt{2}V_{2\xi}.
+\]
+Simplifying, we again get the KdV equation
+\[
+2V_{1\tau}+6V_1V_{1\xi}-\frac{1}{\sqrt{2}}V_{1\xi\xi\xi}=0.
+\]
+
+\section{Problem 3}
+Now, consider the previous problem, but with the focusing NLS equation
+\[
+i a_t=-a_{xx}-|a|^2 a.
+\]
+To see why the method presented in the previous problem does not allow one to describe the dynamics of long-wave solutions of the focusing NLS equation using the KdV equation, we follow the same steps as before noting the effect of the sign change. Plugging the same $a(x,t)$ into the equation via Mathematica, we now get 
+\[
+-\frac{1}{4\rho^{3/2}}e^{i \int Vdx}\left(4\rho^2\int V_tdx+4V^2\rho^2-4\rho^3-2i\rho\rho_t-4i\rho^2V_x-4iV\rho\rho_x+\rho_x^2-2\rho\rho_{xx}\right)=0.
+\]
+Note that only the sign on the $4\rho^3$ has changed. This changes the hydrodynamic form of the NLS equation to
+\[
+\sys{
+	\ds V_t&=&-2VV_x+\rho_x+\frac{\rho_x^3}{2\rho^3}-\frac{\rho_x\rho_{xx}}{\rho^2}+\frac{\rho_{xxx}}{2\rho}\\
+	\ds \rho_t&=&\ds -2\rho V_x-2V\rho_x.
+}
+\]
+Linearizing in the same manner as before, the first order terms in $\epsilon$ now give
+\[
+\sys{
+	\ds V_{1t}&=&\rho_{1x}+\half\rho_{1xxx}\\
+	\ds \rho_{1t}&=&\ds -2 V_{1x}.
+}
+\]
+Plugging in the same ansatz, the sign change causes our dispersion relation to become
+\[
+\omega^2(k)=k^4-2k^2,
+\]
+so 
+\[
+\omega_\pm(k)=\pm k\sqrt{k^2-2}.
+\]
+This is problematic, because when $k^2<2$, $\omega(k)$ cannot be real. This shows up if one attempts to series expand around zero. Mathematica now gives that the series is given by
+\[
+\omega_+(z)=-i\sqrt{2}k+\frac{i}{2\sqrt{2}}k^3+\OO(k^4).
+\]
+Applying this to our ansatz in the same way as before gives that we need $\beta=-i\sqrt{2}$. However, this would mean that our stretched variable $\xi$ would be nonreal which makes this an invalid scaling. 
+\section{Problem 4}
+Consider the defocusing mKdV equation
+    \[
+4u_t=-6u^2 u_x+u_{xxx}.
+\]
+\subsection{Part a}
+We first examine the traveling-wave solutions via the potential energy method. Namely, we first set 
+\[
+u(x,t)=U(x-vt)=U(z)
+\]
+where $z=x-vt$ and $v$ is constant. Substituting this in gives
+\[
+-4vU'=-6U^2U'+U'''.
+\]
+Integrating yields
+\[
+-4vU=-2U^3+U'''+\alpha
+\]
+where $\alpha$ is an integration constant. Multiplying both sides by $U'$ and integrating again, we get 
+\[
+\half U'^2+V(U;v,\alpha)=\beta
+\]
+where 
+\[
+V(U;v,\alpha)=-\half U^4+2vU^2+\alpha U
+\]
+and $\beta$ is another integration constant. Note that $V$ is quartic in $U$ and $V\to-\infty$ as $U\to\pm\infty$, so when plotted, it looks like Figure 5.1 in the notes but upside down. We include two plots of $V(U)$ in the Mathematica notebook for different values of $v,\alpha$. Let $U_{1}$ and $U_{2}$ denote the locations of the local maxima named such that $\beta_s=V(U_1)\leq V(U_2)=\beta_t$. As a first case, consider $\beta>\beta_t$. Clearly, we have no real-valued solutions. If $\beta=\beta_t$, we see only a double real root at $U_2$, so our solution takes infinite time to get to $U_2$ from either $U\in(-\infty,U_2)$ or $U\in(U_2,\infty)$. If $\beta_s<\beta<\beta_t$, we have two simple roots which we label $U_{\text{min}}<U_{\text{max}}$. We have two classes of solutions which reach either  $U_{\text{min}}$ or $U_{\text{max}}$ in finite time depending on if $U\in(-\infty,U_2)$ or $U\in(U_2,\infty)$. If $\beta=\beta_s$, we have two simple roots and one double root. Using the same labeling for the simple roots, we have three solution classes. One takes an infinite time to reach $U_1$ from $U\in(-\infty,U_1)$, another reaches $U_{\text{min}}$ in finite time from $U\in(U_1,U_{\text{min}})$, and one reaches $U_{\text{max}}$ in finite time from $U\in(U_{\text{max}},\infty)$. Finally, if $0<\beta<\beta_s$, we have four simple roots which we label $U_3<U_4<U_5<U_6$. we have periodic solutions in the gaps, e.g., $U\in(U_4,U_5)$, which reach their endpoints in finite time as well as solitary solutions on $U\in(-\infty,U_3)$ and $U\in(U_6,\infty)$ which also reach their endpoints in finite time. As a special case, when $\alpha=0$ and $\beta=\beta_s=\beta_t$, our solution takes an infinite amount of time to get to both $U_1$ and $U_2$ (a shock).\\
+To perform phase plane analysis, we consider
+\[
+U''=-\pp{V}{U}=2U^3-4vU-\alpha.
+\]
+Letting $u_1=U$, $u_2=U'$, we have the system 
+\[
+\sys{
+	u_1'&=&u_2, \\
+	u_2'&=&2u_1^3-4vu_1-\alpha.
+}
+\]
+Our critical points are given by
+\[
+\pp{V}{U}=0=-2U^3+4vU+\alpha.
+\]
+This cubic has discriminant 
+\[
+\Delta=512v^3-108\alpha^2,
+\]
+so we consider cases based on whether $\Delta$ is positive, negative, or zero. See the attached Mathematica notebook for phase plane plots. Note that we observe homoclinic connection when $\Delta>0$ which becomes heteroclinic when we also take $\alpha=0$.
+
+\subsection{Part b}
+We wish to find the explicit form of the profiles corresponding to heteroclinic connection, so we take $\alpha=0$. Then, we have 
+\[
+V(U)=-\half U^4+2vU^2,\quad V'(U)=-2U^3+4vU.
+\]
+Setting $V'(U)=0$ yields 
+\[
+-2U(U^2-2vU)=0,
+\]
+so we have critical points at $U=0,\pm\sqrt{2v}$. Note that this requires $v>0$, but that requirement corresponds to $\Delta>0$ which is what enabled us to find the heteroclinic orbit in the first place. Then, as $x\to\pm\infty$, $U\to\pm\sqrt{2v}$, so
+\[
+\beta=\lim_{x\to\infty}=\left(\half U'^2-\half U^4+2vU^2\right)=-\half(2v)^2+2v(2v)=2v^2
+\]
+since we assume that derivatives go to zero at infinity. Then, we can write
+\[
+U'=\pm\sqrt{2(\beta-V(U))},
+\]
+so 
+\begin{align*}
+\pm z=\int_{U_0}^{U}\frac{du}{\sqrt{2(2v^2+\half U^4-2vU^2)}}=\mp\frac{1}{\sqrt{2v}}\left(\arctanh\left(\frac{U}{\sqrt{2v}}\right)+C\right)
+\end{align*}
+where we have used Mathematica to compute the integral and replaced the term induced by $U_0$ with a constant $C$. Solving for $U$,
+\[
+U=\mp\sqrt{2v}\tanh(\sqrt{2v}z+C).
+\]
+Letting $x_0=C$, we can conclude
+\[
+u(x,t)=U(x-vt)=\pm\sqrt{2v}\tanh(\sqrt{2v}(x-vt)+x_0).
+\] 
+
+\section{Problem 5}
+Consider the DNLS equation
+$$
+b_t+\alpha \left(b |b|^2\right)_x-i b_{xx}=0.
+$$
+where $b(x,t)$ is a complex-valued function.
+\subsection{Part a}
+Consider a polar decomposition
+$$
+b(x,t)=B(x,t)e^{i\theta(x,t)},
+$$
+where $B$ and $\theta$ are real-valued functions. Using Mathematica, we plug this ansatz into the DNLS equation, noting that due to real-valuedness, $|b|^2=B^2$, so we can make that replacement in our Mathematica code. This yields the equation
+\[
+e^{i\theta}(B_t+3\alpha B^2B_x+i\alpha B^3\theta_x+2B_x\theta_x-iB_{xx}+B(i\theta_t+i\theta_x^2+\theta_{xx}))=0.
+\]
+Dividing by the exponential and separating real and imaginary parts, we get the system of equations
+\begin{align*}
+	B_t+3\alpha B^2B_x+2B_x\theta_x+B\theta_{xx}&=0,\\
+	\alpha B^3\theta_x-B_{xx}+B\theta_t+B\theta_x^2&=0.
+\end{align*}
+We can simplify this by noting that $\frac{1}{B}(B^2 \theta_x)_x=2B_x\theta_x+B\theta_{xx}$ and dividing the second equation by $B$ to get the system
+\begin{align*}
+	B_t+3\alpha B^2 B_x+\frac{1}{B}(B^2 \theta_x)_x&=0,\\
+	\theta_t+\alpha B^2 \theta_x+\theta_x^2-\frac{1}{B}B_{xx}&=0.
+\end{align*}
+
+\subsection{Part b}
+Assuming a traveling-wave envelope, $B(x,t)=R(z)$, with $z=x-vt$  and constant $v$, we consider an ansatz $\theta(x,t)=\Phi(z)-\Omega t$, with constant $\Omega$. To show that this ansatz is consistent with our equations, we plug it into them. Using the form of the equations from part a before we simplified and noting that 
+\[
+\partial_x=\partial_z,\quad\partial_t=-v\partial_z,
+\] we get the system 
+\begin{align*}
+	-vR_z+3\alpha R^2R_z+2R_z\Phi_z+R\Phi_{zz}&=0,\\
+	\alpha R^3\Phi_z-R_{zz}+R(-v\Phi_z-\Omega)+R\Phi_z^2&=0.
+\end{align*}
+Note that this system does not contain $x,t$ outside of the variable $z$, so this ansatz is in fact consistent with our equations.
+
+\subsection{Part c}
+Now, we assume $B(x,t)=R(z)$, with $z=x-vt$  and constant $v$ and $\theta(x,t)=\Phi(z)-\Omega t$. Plugging this into the equation associated with the real part, we get that 
+\[
+-vR'+3\alpha R^2R'+\frac{1}{R}(R^2 \Phi')_x=0.
+\]
+Letting $s=\alpha R^2/2$, we can write this as
+\[
+\frac{2s}{\alpha}\Phi'=\int(vRR'-3\alpha R^3R')dx=\frac{v}{2}R^2-\frac{3\alpha}{4}R^4+C_1
+\]
+where $C_1$ is an integration constant since $\partial_x=\partial_z$. Letting $C=\alpha C_1$, we get that 
+\[
+\Phi'=\frac{C+vs-3s^2}{2s}.
+\]
+\subsection{Part d}
+Plugging in our ansatz $B(x,t)=R(z)$, with $z=x-vt$  and constant $v$ and $\theta(x,t)=\Phi(z)-\Omega t$ into the second equation, we get that
+\[
+\alpha R^2\Phi'-\frac{R''}{R}-v\Phi'-\Omega+\Phi'^2=0.
+\]
+We let 
+\begin{align*}
+&F(s)=\alpha R^2\Phi'-v\Phi'-\Omega+\Phi'^2\\&
+=2s\frac{C+vs-3s^2}{2s}-v\frac{C+vs-3s^2}{2s}-\Omega+\left(\frac{C+vs-3s^2}{2s}\right)^2\\&=
+\frac{C^2}{4s^2}-\left(\frac{C}{2}+\frac{v^2}{4}+\Omega\right)+vs-\frac{3s^2}{4}
+\end{align*}
+where we have expanded terms in Mathematica. Note that $s'=\alpha RR'$. Multiplying through by $s'$, we get that 
+\[
+\alpha R'R''-F(s)s'=0.
+\]
+Integrating both sides, we get that 
+\[
+0=\alpha R'^2-\int F(s)s'dz=\frac{s'^2}{\alpha R^2}-\int F(s)s'dz=\frac{s'^2}{2s}-\int F(s)s'dz=0.
+\]
+Noting the chain rule, we can compute the integral in Mathematica as 
+\[
+\int F(s)s'dz=-\frac{C^2}{4s}-\left(\frac{C}{2}+\frac{v^2}{4}+\Omega\right)s+\frac{vs^2}{2}-\frac{s^3}{4}+C_1.
+\]
+where $C_1$ is an integration constant. We can then get that
+\[
+s'^2+\frac{C^2}{2}+2C_1s+\left(C+\frac{v^2}{2}+2\Omega\right)s^2-vs^3+\frac{s^4}{2}=0
+\]
+which we can write as 
+\[
+s'^2+V(s)=E
+\]
+where 
+\[
+V(s)=2C_1s+\left(C+\frac{v^2}{2}+2\Omega\right)s^2-vs^3+\frac{s^4}{2}
+\]
+and 
+\[
+E=-\frac{C^2}{2}.
+\]
+
+\section{Problem 6}
+Consider example 5.2 in the notes. To check that $y=x^2/t$ and $t^{1/2} q$ are both scaling invariant, we note that the NLS equation has scaling symmetry
+\[
+x=\frac{\hat{x}}{a},\quad t=\frac{\hat{t}}{a^2}, \quad q=a\hat{q},
+\]
+so we simply see that 
+\[
+y=\frac{x^2}{t}=\frac{\hat{x}^2/a^2}{\hat{t}/a^2}=\frac{\hat{x}^2}{\hat{t}}
+\]
+and 
+\[
+t^{1/2}q=\frac{\hat{t}^{1/2}}{a}a\hat{q}=\hat{t}^{1/2}\hat{q}.
+\]
+Now we find the ordinary differential equation satisfied by $G(y)$, for similarity solutions of the form $q(x,t)=t^{-1/2}G(y)$ by computing
+\[
+q_t=t^{-1/2}G'(y)\left(-\frac{x^2}{t^2}\right)-\half t^{-3/2}G(y)=-x^2t^{-5/2}G'(y)-\half t^{-3/2}G(y),
+\]
+\[
+q_x=t^{-1/2}G'(y)\frac{2x}{t}=2xt^{-3/2}G'(y),
+\]
+and
+\[
+q_{xx}=2t^{-3/2}G'(y)+4x^2t^{-5/2}G''(y).
+\]
+Plugging this into the NLS equation,
+\[
+i\left(-x^2t^{-5/2}G'(y)-\half t^{-3/2}G(y)\right)=-\left(2t^{-3/2}G'(y)+4x^2t^{-5/2}G''(y)\right)+\sigma t^{-3/2}|G(y)|^2|G(y)|.
+\]
+Dividing through by $t^{-3/2}$,
+\[
+i\left(-x^2t^{-1}G'(y)-\half G(y)\right)=-\left(2G'(y)+4x^2t^{-1}G''(y)\right)+\sigma|G(y)|^2|G(y)|
+\]
+which simplifies to the ODE
+\[
+i\left(-yG'(y)-\half G(y)\right)=-2G'(y)-4yG''(y)+\sigma|G(y)|^2|G(y)|.
+\]
+To see that this result is in the same similarity solutions as the example, we note that $z=\sqrt{y}$, so we want to apply this change of variables, letting $\Tilde{G}(z)=G(y)$. Then, $$\Tilde{G}'(z)=(G(z^2))'=2zG'(z^2),$$ so $$G'(z^2)=\frac{1}{2z}\Tilde{G}'(z),$$ and 
+\[
+\Tilde G''(z)=(G(z^2))''=(2zG'(z^2))'=2\frac{dz}{dy} G'(z^2)+4z^2{G}''(z^2)=\frac{1}{z}G'(z^2)+4z^2{G}''(z^2).
+\]
+This gives us that
+\[ G''(z^2)=-\frac{1}{4z^3}\Tilde{G}'(z)+\frac{1}{4z^2}\Tilde{G}''(z).
+\]
+Then, our ODE becomes
+\begin{align*}
+i\left(-z^2\frac{1}{2z}\Tilde{G}'(z)-\half \tilde{G}(z)\right)&=-2\frac{1}{2z}\Tilde{G}'(z)-4z^2\left(-\frac{1}{4z^3}\Tilde{G}'(z)+\frac{1}{4z^2}\Tilde{G}''(z)\right)\\&+\sigma|\Tilde G(z)|^2|\Tilde G(z)|.
+\end{align*}
+This reduces to
+\[
+i\left(-\half z\Tilde{G}'(z)-\half \tilde{G}(z)\right)=-\Tilde{G}''(z)+\sigma|\Tilde G(z)|^2|\Tilde G(z)|
+\]
+which is precisely the ODE that $F$ in the notes satisfies, so clearly these are the same similarity solutions.
+
+\section{Problem 7}
+Consider the Toda lattice 
+\begin{align*}
+	\frac{da_n}{dt}&=a_n(b_{n+1}-b_n),\\
+	\frac{db_n}{dt}&=2(a_n^2-a_{n-1}^2)
+\end{align*}
+where $a_n$, $b_n$, $n\in \mathbb{Z}$, are functions of $t$. 
+\subsection{Part a}
+To find a scaling symmetry, let $a_n=\alpha A_n$, $b_n=\beta B_n$, $t=\gamma \tau$. Then,
+\[
+\frac{d}{dt}=\pp{\tau}{t}=\frac{1}{\gamma}\frac{d}{d\tau},
+\]
+so the lattice becomes
+\begin{align*}
+	\frac{1}{\gamma}\frac{d(\alpha A_n)}{d\tau}&=\alpha A_n(\beta B_{n+1}-\beta B_n),\\
+	\frac{1}{\gamma}\frac{d(\beta B_n)}{dt}&=2(\alpha^2A_n^2-\alpha^2A_{n-1}^2).
+\end{align*}
+In order for the system to be the same, we need that 
+\[
+\frac{\alpha}{\gamma\alpha\beta}=\frac{\beta}{\gamma\alpha^2}=1.
+\]
+This requires $\gamma=\frac{1}{\beta}$ which in turn requires $\alpha^2=\beta^2$. For simplicity, we choose to require that $\alpha=\beta$. Then, our scaling symmetry is given by
+\[
+a_n=\alpha A_n,\quad b_n=\alpha B_n,\quad t=\frac{\tau}{\alpha}.
+\]
+\subsection{Part b}
+As a similarity ansatz, take 
+\[
+x_n=ta_n\quad y_n=tb_n.
+\]
+where $x_n$ and $y_n$ are constants. Then,
+\[
+\frac{da_n}{dt}=\frac{d}{dt}\frac{x_n}{t}=-\frac{x_n}{t^2},\quad\frac{db_n}{dt}=-\frac{y_n}{t^2}.
+\]
+Then, the lattice becomes
+\begin{align*}
+	-\frac{x_n}{t^2}&=\frac{x_n}{t}\left(\frac{y_{n+1}}{t}-\frac{y_n}{t}\right),\\
+	-\frac{y_n}{t^2}&=2\left(\frac{x_n^2}{t^2}-\frac{x_{n-1}^2}{t^2}\right).
+\end{align*}
+This reduces to
+\begin{align*}
+	-1&=y_{n+1}-y_n,\\
+	-y_n&=2\left(x_n^2-x_{n-1}^2\right).
+\end{align*}
+If $n\geq0$, the first equation can be solved inductively to get that
+\[
+y_n=y_0-n
+\]
+which when plugged into the second equation gives
+\[
+n-y_0=2x_n^2-2x_{n-1}^2,
+\]
+so 
+\[
+x_n^2=\frac{n-y_0}{2}+x_{n-1}^2=x_0^2+\half\sum_{j=0}^{n}j-n\frac{y_0}{2}=x_0^2+\frac{n(n+1)}{4}-\frac{ny_0}{2}.
+\]
+In order for $x_n$ to be real for all $n\geq0$, we need that 
+\[
+x_0^2+\frac{n(n+1)}{4}-\frac{ny_0}{2}\geq0
+\]
+for all $n$. To get a sufficient condition that does not depend on $n$, we note that $\frac{n(n+1)}{4}-\frac{ny_0}{2}$ is convex in $n$, so we can set its deriviative to zero to find a minimizer. This gives that $n^*=y_0-\half$ which allows us to bound 
+\[
+x_0^2+\frac{n(n+1)}{4}-\frac{ny_0}{2}\geq x_0^2-\frac{4y_0^2-4y_0+1}{16},
+\]
+so we can get a bound if 
+\[
+x_0^2\geq\left(\frac{2y_0-1}{4}\right)^2.
+\]
+Note that this may not be tight since $y_0-\half$ is not necessarily a nonnegative integer. In this case, we could in principle instead consider $n^*=\max\{0,\text{round}(y_0-\half)\}$.\\
+If instead $n\leq0$, we can inductively find that 
+\[
+y_n=y_0+n
+\]
+which instead gives that
+\[
+x_n^2=x_{n+1}^2-\frac{y_0+(n+1)}{2}=x_0^2-\frac{ny_0}{2}+\half\sum_{j=0}^n(j+1)=x_0^2-\frac{(n+1)(n+2)}{2}-\frac{ny_0}{2},
+\]
+so we need that 
+\[
+x_0^2\geq\frac{(n+1)(n+2)}{2}+\frac{ny_0}{2}
+\]
+for all $n\leq0$. Again optimizing this over $n$, we get $n^*=-\frac{y_0+3}{2}$ which gives the requirement that 
+\[
+x_0^2\geq-\frac{y_0^2+6y_0+1}{8}.
+\]
+Again, this bound is not necessarily tight, and one should really consider $n^*=\min\{0,\text{round}\left(-\frac{y_0+3}{2}\right)\}$. These two bounds could in principle be compared and combined to get a tight bound, but regardless, the two together are sufficient to ensure that $x_n,y_n$ are real for all $n\in\mathbb{Z}$.
+
+\section{Problem 8}
+ Consider the equation
+\[
+u_t=30u^2 u_x+20u_x u_{xx}+10 u u_{xxx}+u_{5x}.
+\]
+To find its scaling symmetry, we set 
+\[
+x=\frac{\hat{x}}{a},\quad t=\frac{\hat{t}}{b}, \quad u=c\hat{u}.
+\]
+Plugging these in, our equation becomes
+\[
+bc\hat{u}_{\hat{t}}=30ac^3\hat{u}^2_{\hat{x}}+20a^3c^2\hat{u}_{\hat{x}}\hat{u}_{\hat{x}\hat{x}}+10a^3c^2\hat{u}\hat{u}_{\hat{x}\hat{x}\hat{x}}+a^5c\hat{u}_{5\hat{x}}.
+\]
+Dividing through by $bc$, in order to have the same equation, we need that
+\[
+\frac{ac^2}{b}=\frac{a^3c}{b}+\frac{a^5}{b}=1.
+\]
+We get that $b=a^5$ which when plugged into either the first or second equation gives that $c=a^2$. Thus, a scaling symmetry for this equation exists and is given by the form
+\[
+x=\frac{\hat{x}}{a},\quad t=\frac{\hat{t}}{a^5}, \quad u=a^2\hat{u}.
+\]
+
+\section{Problem 9}
+Consider a Modified KdV equation
+\[
+u_t-6 u^2 u_x+u_{xxx}=0.
+\]
+\subsection{Part a}
+To find its scaling symmetry, we set 
+\[
+x=\frac{\hat{x}}{a},\quad t=\frac{\hat{t}}{b}, \quad u=c\hat{u}.
+\]
+Plugging these in, our equation becomes
+\[
+bc\hat{u}_{\hat{t}}-6ac^3\hat{u}^2\hat{u}_{\hat{x}}+a^3c\hat{u}_{\hat{x}\hat{x}\hat{x}}.
+\]
+Dividing through by $bc$, in order to have the same equation, we need that
+\[
+\frac{ac^2}{b}=\frac{a^3}{b}=0.
+\]
+We get that $b=a^3$ which then gives that $c^2=a^2$ which we simplify to $c=a$. Thus, the scaling symmetry is given by
+\[
+x=\frac{\hat{x}}{a},\quad t=\frac{\hat{t}}{a^3}, \quad u=a\hat{u}.
+\]
+\subsection{Part b}
+Based on this scaling symmetery, a similarity ansatz is given by
+\[
+y=t^{-1/3}x,\quad F=t^{1/3}u
+\]
+as both quantities are clearly scale invariant with our scaling symmetry. 
+\subsection{Part c}
+To see that this ansatz is compatible with
+$\ds u=(3t)^{-1/3}w(z)$ with $\ds z=x/(3t)^{1/3}$, simply take $z=3^{-1/3}y$, $w=3^{-1/3}F$. Then, both $z,w$ are clearly scale invariant since we only multiplied by a constant in both. %idk what he wants here 
+\subsection{Part d}
+With $z,w$ defined in this way, we compute
+\[
+u_t=-(3t)^{-1/3}w'(z)x(3t)^{-4/3}-(3t)^{-4/3}w(z)=-(3t)^{-5/3}xw'(z)-(3t)^{-4/3}w(z),
+\]
+\[
+u_x=(3t)^{-1/3}(3t)^{-1/3}w'(z)=(3t)^{-2/3}w'(z),
+\]
+\[
+u_{xxx}=(3t)^{-4/3}w'''(z).
+\]
+Then, the equation becomes
+\[
+-(3t)^{-5/3}xw'(z)-(3t)^{-4/3}w(z)-6(3t)^{-2/3}w^2(z)(3t)^{-2/3}w'(z)+(3t)^{-4/3}w'''(z)=0.
+\]
+Dividing through by by $(3t)^{-4/3}$, we get that
+\[
+-(3t)^{-1/3}xw'(z)-w(z)-6w^2(z)w'(z)+w'''(z)=0
+\]
+which is just
+\[
+w'''(z)=zw'(z)+w(z)+6w^2(z)w'(z).
+\]
+Note that 
+\[
+zw'(z)+w(z)+6w^2(z)w'(z)=(2w^3(z)+zw(z))_z,
+\]
+so integrating both sides of our equation yields
+\[
+w''(z)=2w^3(z)+zw(z)+\alpha
+\]
+where $\alpha$ is an integration constant; this is precisely the second Painlev\'e equation.
+
+\end{document}

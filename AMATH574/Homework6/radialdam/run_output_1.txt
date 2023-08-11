@@ -1,0 +1,40 @@
+rm -f .output
+python /home/cade/clawpack_src/clawpack-v5-9-0/clawutil/src/python/clawutil/runclaw.py xclaw                          _output_1 \
+True                    None . False False None
+Reading data file: claw.data   
+         first 5 lines are comments and will be skipped
+ +++ mx, my =           50          50
+ running...
+  
+Reading data file: setprob.data
+         first 5 lines are comments and will be skipped
+CLAW2EZ: Frame    0 output files done at time t =  0.0000D+00
+
+CLAW2EZ: Frame    1 output files done at time t =  0.1000D+01
+
+CLAW2EZ: Frame    2 output files done at time t =  0.2000D+01
+
+CLAW2EZ: Frame    3 output files done at time t =  0.3000D+01
+
+CLAW2EZ: Frame    4 output files done at time t =  0.4000D+01
+
+CLAW2EZ: Frame    5 output files done at time t =  0.5000D+01
+
+CLAW2EZ: Frame    6 output files done at time t =  0.6000D+01
+
+CLAW2EZ: Frame    7 output files done at time t =  0.7000D+01
+
+CLAW2EZ: Frame    8 output files done at time t =  0.8000D+01
+
+CLAW2EZ: Frame    9 output files done at time t =  0.9000D+01
+
+CLAW2EZ: Frame   10 output files done at time t =  0.1000D+02
+
+==> runclaw: Will take data from  /home/cade/Homework/AMATH574/Homework6/radialdam
+==> runclaw: Will write output to  /home/cade/Homework/AMATH574/Homework6/radialdam/_output_1
+==> runclaw: Removing all old fort/gauge files in  /home/cade/Homework/AMATH574/Homework6/radialdam/_output_1
+
+==> Running with command:
+    /home/cade/Homework/AMATH574/Homework6/radialdam/xclaw
+==> runclaw: Done executing /home/cade/Homework/AMATH574/Homework6/radialdam/xclaw via clawutil.runclaw.py
+==> runclaw: Output is in  /home/cade/Homework/AMATH574/Homework6/radialdam/_output_1

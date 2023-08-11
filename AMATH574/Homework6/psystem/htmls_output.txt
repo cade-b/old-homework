@@ -1,0 +1,21 @@
+python /home/cade/clawpack_src/clawpack-v5-9-0/clawutil/src/python/clawutil/clawcode2html.py --force  setprob_module.f90
+  Converting  setprob_module.f90  to  setprob_module.f90.html
+python /home/cade/clawpack_src/clawpack-v5-9-0/clawutil/src/python/clawutil/clawcode2html.py --force  rp1_psystem_roe.f90
+  Converting  rp1_psystem_roe.f90  to  rp1_psystem_roe.f90.html
+python /home/cade/clawpack_src/clawpack-v5-9-0/clawutil/src/python/clawutil/clawcode2html.py --force  qinit.f90
+  Converting  qinit.f90  to  qinit.f90.html
+python /home/cade/clawpack_src/clawpack-v5-9-0/clawutil/src/python/clawutil/clawcode2html.py --force  setprob.f90
+  Converting  setprob.f90  to  setprob.f90.html
+python /home/cade/clawpack_src/clawpack-v5-9-0/clawutil/src/python/clawutil/clawcode2html.py --force  setrun.py
+  Converting  setrun.py  to  setrun.py.html
+python /home/cade/clawpack_src/clawpack-v5-9-0/clawutil/src/python/clawutil/clawcode2html.py --force  setplot.py
+  Converting  setplot.py  to  setplot.py.html
+python /home/cade/clawpack_src/clawpack-v5-9-0/clawutil/src/python/clawutil/clawcode2html.py --force  --dropext compile_output.txt    
+  Converting  compile_output.txt  to  compile_output.html
+python /home/cade/clawpack_src/clawpack-v5-9-0/clawutil/src/python/clawutil/clawcode2html.py --force  --dropext htmls_output.txt    
+  Converting  htmls_output.txt  to  htmls_output.html
+python /home/cade/clawpack_src/clawpack-v5-9-0/clawutil/src/python/clawutil/clawcode2html.py --force  Makefile    
+  Converting  Makefile  to  Makefile.html
+Converting README.rst...
+python /home/cade/clawpack_src/clawpack-v5-9-0/clawutil/src/python/clawutil/convert_readme.py
+*** README.rst file not found in /home/cade/Homework/AMATH574/Homework6/psystem

@@ -16,12 +16,16 @@
 \newcommand{\set}[2]{\left\{ #1 \; : \; #2 \right\} }
 \newcommand{\deq}{\raisebox{0pt}[1ex][0pt]{$\stackrel{\scriptscriptstyle{\rm def}}{{}={}}$}}
 \newcommand{\ip}[2]{\left \langle #1 , #2 \right \rangle}
-
-\newcommand {\DS} {\displaystyle}
+\newcommand{\pp}[2]{\frac{\partial #1}{\partial #2}}
+\newcommand{\ppn}[3]{\frac{\partial^{#1} #2} {\partial #3^{#1}}}
+\newcommand{\ppm}[3]{\frac{\partial^2 #1} {\partial {#2}\partial {#3}}}
+\newcommand{\sys}[1]{\left\{\ba{rcl}#1\ea\right.}
+\newcommand{\no}{\noindent}
+\newcommand{\ds}{\displaystyle}
 
 \newcommand{\real}{\mathbb{R}}
 \newcommand{\compl}{\mathbb{C}}
-
+\newcommand{\vs}{\vspace*{0.1in}}
 
 
 \newcommand {\half} {\mbox{$\frac{1}{2}$}}
@@ -29,6 +33,9 @@
 \newcommand{\strain}{{\boldsymbol{\varepsilon}}}
 \newcommand{\stress}{{\boldsymbol{\sigma}}}
 \renewcommand{\div}{{\boldsymbol{\nabla}}}
+\newcommand{\im}{\mathrm{i}}
+\newcommand{\df}{\mathrm{d}}
+\newcommand{\ex}{\mathrm{e}}
 
 \newcommand {\cA} {{\cal A}}
 \newcommand {\cB} {{\cal B}}
@@ -46,7 +53,9 @@
 
 
 \newcommand{\bzero}{\mathbf{0}}
-\newcommand{\ba}{\mathbf{a}}
+\newcommand{\bone}{\mathbf{1}}
+\newcommand{\ba}{\begin{array}}
+\newcommand{\ea}{\end{array}}
 \newcommand{\bb}{\mathbf{b}}
 \newcommand{\bc}{\mathbf{c}}
 \newcommand{\bd}{\mathbf{d}}
@@ -99,6 +108,7 @@
 \newcommand{\bOmega}{{\boldsymbol{\Omega}}}
 \newcommand{\bPsi}{{\boldsymbol{\Psi}}}
 
+\newcommand{\balpha}{{\boldsymbol{\alpha}}}
 \newcommand{\bgamma}{{\boldsymbol{\gamma}}}
 \newcommand{\bmu}{{\boldsymbol{\mu}}}
 \newcommand{\blambda}{{\boldsymbol{\lambda}}}
@@ -124,6 +134,10 @@
 \DeclareMathOperator{\Bi}{Bi}
 \DeclareMathOperator{\Var}{Var}
 \DeclareMathOperator{\Prob}{Prob}
+\DeclareMathOperator{\sech}{sech}
+\DeclareMathOperator{\sign}{sign}
+\DeclareMathOperator{\arctanh}{arctanh}
+\DeclareMathOperator{\tr}{Tr}
 \def\Xint#1{\mathchoice
    {\XXint\displaystyle\textstyle{#1}}%
    {\XXint\textstyle\scriptstyle{#1}}%
