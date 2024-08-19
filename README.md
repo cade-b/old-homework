@@ -23,3 +23,5 @@ AMATH 574: Finite Volume Methods for Hyperbolic Problems by R. J. LeVeque
 AMATH 575: Introduction to Applied Nonlinear Dynamical Systems and Chaos by S. Wiggins
 
 AMATH 585/6: Finite Difference Methods for Ordinary and Partial Differential Equations, Steady State and Time Dependent Problems by R. J. LeVeque
+
+MATH 524/5: Real Analysis, Modern Techniques and Their Applications by G. B. Folland
