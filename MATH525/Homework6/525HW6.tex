@@ -1,0 +1,117 @@
+\documentclass{article}
+\usepackage[top = 0.9in, bottom = 0.9in, left =1in, right = 1in]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage{hyperref}
+\usepackage{listings}
+\usepackage{multimedia} % to embed movies in the PDF file
+\usepackage{graphicx}
+\usepackage{comment}
+\usepackage[english]{babel}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{wrapfig}
+\usepackage{multirow}
+\usepackage{verbatim}
+\usepackage{float}
+\usepackage{cancel}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{mathdots}
+\usepackage{bbm}
+\usepackage{/home/cade/Homework/latex-defs}
+
+
+\title{MATH 525 Homework 6}
+\author{Cade Ballew \#2120804}
+\date{February 16, 2024}
+
+\begin{document}
+	
+\maketitle
+	
+\section{Problem 1 (Folland Problem 55)}
+Let $\cH$ be a Hilbert space.
+
+\subsection{Part a}
+Let $x,y\in\cH$. Then, 
+\begin{align*}
+\|x+y\|^2-\|x-y\|^2=(\|x\|^2+2\re\langle x,y\rangle+\|y\|^2)-(\|x\|^2-2\re\langle x,y\rangle+\|y\|^2)=4\re\langle x,y\rangle.
+\end{align*}
+Similarly, 
+\begin{align*}
+\|x+\im y\|^2-\|x-\im y\|^2&=(\|x\|^2+2\re\langle x,\im y\rangle+\|\im y\|^2)-(\|x\|^2-2\re\langle x,\im y\rangle+\|\im y\|^2)\\&=
+4\re\langle x,\im y\rangle=4\re\left(-\im \langle x,y\rangle\right)=4\imag\langle x,y\rangle.
+\end{align*}
+Thus,
+\[
+\frac{1}{4}\left(\|x+y\|^2-\|x-y\|^2+\im\|x+\im y\|^2-\im\|x-\im y\|^2\right)=\re\langle x,y\rangle+\im\imag\langle x,y\rangle=\langle x, y\rangle,
+\]
+and the polarization identity is satisfied.
+
+\subsection{Part b}
+Let $\cH'$ be another Hilbert space. If a linear map $U:\cH\to\cH'$ is unitary, then it is by definition invertible and therefore surjective. Since $U$ preserves inner products, for any $x\in\cH$,
+\[
+\|Ux\|_{\cH'}=\sqrt{\langle Ux,Ux\rangle_{\cH'}}=\sqrt{\langle x,x\rangle_{\cH}}\|x\|_{\cH},
+\]
+so $U$ must be isometric.
+
+Conversely, if $U$ is isometric and surjective, then for any $x,y\in\cH$, 
+\begin{align*}
+\langle Ux,Uy\rangle_{\cH'}&=\frac{1}{4}\left(\|Ux+Uy\|^2_{\cH'}-\|Ux-Uy\|^2_{\cH'}+\im\|Ux+\im Uy\|^2_{\cH'}-\im\|Ux-\im Uy\|^2_{\cH'}\right)\\&=
+\frac{1}{4}\left(\|U(x+y)\|^2_{\cH'}-\|U(x-y)\|^2_{\cH'}+\im\|U(x+\im y)\|^2_{\cH'}-\im\|U(x-\im y)\|^2_{\cH'}\right)\\&=
+\frac{1}{4}\left(\|x+y\|^2_{\cH}-\|x-y\|^2_{\cH}+\im\|x+\im y\|^2_{\cH}-\im\|x-\im y\|^2_{\cH}\right)=\langle x,y\rangle_{\cH},
+\end{align*}
+so $U$ preserves inner products. Furthermore, $U$ injective as for any $x,y\in\cH$ such that $Ux=Uy$,
+\[
+0=\|Ux-Uy\|_{\cH'}=\|U(x-y)\|_{\cH'}=\|x-y\|\|Ux-Uy\|_{\cH},
+\]
+so $x-y=0$ and $x=y$. Finally, both $U$ and $U^{-1}$ are bounded since $\|Ux\|_{\cH'}=\|x\|_{\cH}$ for all $x\in\cH$, so $\|Ux\|_{\cH'}\leq C_1\|x\|_{\cH}$ and $\|Ux\|_{\cH'}\geq C_2\|x\|_{\cH}$ for $C_1=C_2=1$. Thus, $U$ is invertible, so it is also a unitary map.
+
+\section{Problem 2 (Folland Problem 56)}
+Let $E$ be a subset of a Hilbert space $\cH$. Consider $\left(E^\perp\right)^\perp$. Since all orthogonal complements are closed subspaces, this set is a closed subspace of $\cH$. Let $x\in E$. Then, for any $y\in E^\perp$, by definition $\langle x,y\rangle=0$, so $x\in\left(E^\perp\right)^\perp$ and $E\subset\left(E^\perp\right)^\perp$. 
+
+Now, as a lemma, we note that for any two subsets $A,B$ of $\cH$ such that $A\subset B$, $B^\perp\subset A^\perp$. Indeed, if $x\in B^\perp$, then $\langle x,y\rangle=0$ for all $y\in B$. This implies that $\langle x,y\rangle=0$ for all $y\in A$ since $A\subset B$, so $x\in A^\perp$ as well.
+
+Let $F$ be any closed subspace such that $E\subset F$. Then, by the lemma, $F^\perp\subset E^\perp$ and $\left(E^\perp\right)^\perp\subset \left(F^\perp\right)^\perp.$ Let $x\in \left(F^\perp\right)^\perp$. Because $F$ is a closed subspace of $\cH$, $\cH=F\oplus F^\perp$, $x$ can be expressed uniquely as $x=y+z$ with $y\in F$ and $z\in F^\perp$. By definition, we must also have that $0=\langle x,z\rangle$ and $0=\langle y,z\rangle$. Thus,
+\[
+0=\langle y+z,z\rangle=\langle y,z\rangle+\langle z,z\rangle=\|z\|^2,
+\]
+so $z=0$ and $x=y\in F$. This means that $\left(E^\perp\right)^\perp\subset \left(F^\perp\right)^\perp\subset F$, so $\left(E^\perp\right)^\perp$ is contained in any closed subspace containing $E$. Thus, it must be the smallest closed subspace of $\cH$ containing $E$. 
+
+\section{Problem 3 (Folland Problem 7)}
+Let $f\in L^p\cap L^\infty$ for some $p<\infty$ such that $f\in L^q$ for all $q>p$. First, note that if $f=0$ almost everywhere, then $\|f\|_\infty=\|f\|_q=0$, so $\|f\|_\infty=\lim_{q\to\infty}\|f\|q$ holds trivially. Assume that this is not the case, i.e., that $\|f\|_\infty>0$. By setting $r=\infty$, Proposition 6.10 in Folland gives that $\|f\|_q\leq\|f\|_p^{\frac{p}{q}}\|f\|_\infty^{1-\frac{p}{q}}$. Taking limits,
+\[
+\limsup_{q\to\infty}\|f\|_q\leq\limsup_{q\to\infty}\|f\|_p^{\frac{p}{q}}\|f\|_\infty^{1-\frac{p}{q}}=\|f\|_\infty.
+\]
+For the other direction, fix $\epsilon>0$ such that $\epsilon<\|f\|_\infty$ and let $E=\{x:|f(x)|>\|f\|_\infty-\epsilon\}$. By construction, $(\|f\|_\infty-\epsilon)\mathbbm{1}_E\leq|f|$. Thus,
+\[
+(\|f\|_\infty-\epsilon)^q\mu(E)\leq\int_E|f|^q\df\mu\leq\int|f|^q\df\mu=\|f\|^q<\infty,
+\]
+so $\mu(E)<\infty$ as well. Taking the $q$th root and limits,
+\[
+\|f\|_\infty-\epsilon=\liminf_{q\to\infty}(\|f\|_\infty-\epsilon)\mu(E)^{\frac{1}{q}}\leq\liminf_{q\to\infty}\|f\|_q.
+\]
+Since this holds for all $\epsilon>0$ sufficiently small, we have that
+\[
+\limsup_{q\to\infty}\|f\|_q\leq\|f\|_\infty\leq\liminf_{q\to\infty}\|f\|_q,
+\]
+so we conclude that
+\[
+\lim_{q\to\infty}\|f\|_q=\|f\|_\infty
+\]
+
+\section{Problem 4 (Folland Problem 13)}
+Consider the space $L^p(\real^n,m)$ for $1\leq p<\infty$. By Proposition 6.7 in Folland, the set of simple functions $F$ of the form $\sum_{j=1}^na_j\mathbbm{1}_{E_j}$ where $m(E_j)<\infty$ for all $j$ is dense in $L^p(\real^n,m)$, so to show that $L^p(\real^n,m)$ is separable, it suffices to show that this set is separable. Consider the set of simple functions $G$ of the form $\sum_{j=1}^nb_j\mathbbm{1}_{F_j}$ where $b_j$ is rational and $F_j$ is a finite union of rectangles whose sides are intervals with rational coordinates. $G$ is clearly countable as it is the collection of finite sums of products of countable sets. Let $f=\sum_{j=1}^na_j\mathbbm{1}_{E_j}\in F$ be given and fix $\epsilon>0$. By the construction of simple functions, we can assume without loss of generality that $a_j,m(E_j)\neq0$ for any $j$. By the density of the rationals in $\real$, for each $j$, we can find some $b_j\in\mathbb{Q}$ such that $|a_j-b_j|<\frac{\epsilon}{3nm(E_j)^{1/p}}$. By Theorem 2.40c in Folland, there is some collection of disjoint rectangles whose sides are intervals $E_j'$ such that $m(E_j\triangle E_j')<\left(\frac{\epsilon}{3n|b_j|}\right)^p$. In the case $b_j=0$, $E_j'$ can be chosen arbitrarily. Finally, the density rationals in $\real$ implies that there is some finite union of rectangles whose sides are intervals with rational coordinates $F_j$ such that $m(E_j'\triangle F_j)<\left(\frac{\epsilon}{3n|b_j|}\right)^p$, where, as before, $F_j$ can be chosen arbitrarily if $b_j=0$. Define $g=\sum_{j=1}^nb_j\mathbbm{1}_{F_j}\in G$. Then,
+\begin{align*}
+\|f-g\|_p&\leq\left\|\sum_{j=1}^n(a_j-b_j)\mathbbm{1}_{E_j}\right\|_p+\left\|\sum_{j=1}^nb_j\left(\mathbbm{1}_{E_j}-\mathbbm{1}_{E_j'}\right)\right\|_p+\left\|\sum_{j=1}^nb_j\left(\mathbbm{1}_{E_j'}-\mathbbm{1}_{F_j}\right)\right\|_p\\&\leq\sum_{j=1}^{n}|a_j-b_j|m(E_j)^{1/p}+\sum_{j=1}^{n}|b_j|m(E_j\triangle E_j')^{1/p}+\sum_{j=1}^{n}|b_j|m(E_j'\triangle F_j)^{1/p}\\&\leq
+\frac{\epsilon}{3}+\frac{\epsilon}{3}+\frac{\epsilon}{3}=\epsilon.
+\end{align*}
+Thus, $G$ is dense in $F$, so $L^p(\real^n,m)$ is separable.
+
+Now, consider the space $L^\infty(\real^n,m)$ and the set $F$ of functions of the form $f_r=\mathbbm{1}_{\cB_r(0)}$ for some $r>0$. Then, for any $f_r,f_{r'}\in F$ with $r\neq s$, $\|f_r-f_{r'}\|_\infty\geq1$ since $\|f_r(x)-f_{r'}(x)\|$ for any $x\in \cB_r(0)\triangle\cB_{r'}(0)$. This means that the set 
+\[
+\bigcup_{r>0}\cB_{1/2}(f_r),
+\]
+is an uncountable collection of disjoint open balls each containing at least one element of $L^\infty(\real^n,m)$. Therefore, any countable subset of $L^\infty(\real^n,m)$ cannot be dense as there must be some open ball in this collection that does not contain an element of the countable set. Thus, $L^\infty(\real^n,m)$ is not separable.
+
+\end{document}

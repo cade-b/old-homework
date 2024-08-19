@@ -1,0 +1,210 @@
+\documentclass{article}
+\usepackage[top = 0.9in, bottom = 0.9in, left =1in, right = 1in]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage{hyperref}
+\usepackage{listings}
+\usepackage{multimedia} % to embed movies in the PDF file
+\usepackage{graphicx}
+\usepackage{comment}
+\usepackage[english]{babel}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{wrapfig}
+\usepackage{multirow}
+\usepackage{verbatim}
+\usepackage{float}
+\usepackage{cancel}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{mathdots}
+\usepackage{bbm}
+\usepackage{/home/cade/Homework/latex-defs}
+
+
+\title{MATH 524 Homework 5}
+\author{Cade Ballew \#2120804}
+\date{November 3, 2023}
+
+\begin{document}
+	
+\maketitle
+	
+\section{Problem 1}
+Let $\mu$ and $\nu$ be regular Borel measures on $\real^n$ with the property that
+\[
+\int\phi\df\mu=\int\phi\df\nu,
+\]
+for all $\phi\in C_c(\real^n)$. Let $E\in\mathcal B_{\real^n}$ and assume that $E$ is contained in some finite rectangle which implies that $\mu(E),\nu(E)<\infty$. Then, because $\mu$ is regular,
+\[
+\mu(E)=\sup\{\mu(K)~|~K\subset E,~K\text{ compact}\},
+\]
+so for any $\epsilon>0$, there exists some compact set $K_1\subset E$ such that
+\[
+\mu(E)\leq \mu(K_1)+\frac{\epsilon}{2}.
+\]
+Similarly, because $\nu$ is regular,
+\[
+\nu(E)=\inf\{\nu(U)~|~E\subset U,~U\text{ open}\},
+\]
+so there exists some open set $U_1$ such that
+\[
+\nu(U_1)\leq\nu(E)+\frac{\epsilon}{2},
+\]
+and $E\subset U_1$. From class (and the 12th lecture notes), we have that there exists some continuous function $f_1:\real^n\to[0,1]$ such that $f_1=1$ on $K_1$ and $f_1=0$ on $\real^n\setminus U_1$. In particular, $f_1\in C_c(\real^n)$ and $\mathbbm{1}_{K_1}\leq f_1\leq\mathbbm{1}_{U_1}$. Then, by monotonicity and the definition of the Lebesgue integral,
+\begin{align*}
+\mu(E)\leq \mu(K_1)+\frac{\epsilon}{2}=\int \mathbbm{1}_{K_1}\df\mu+\frac{\epsilon}{2}\leq\int f_1\df\mu+\frac{\epsilon}{2}=\int f_1\df\nu+\frac{\epsilon}{2}\leq \int \mathbbm{1}_{U_1}\df\nu+\frac{\epsilon}{2}=\nu(U_1)+\frac{\epsilon}{2}\leq\nu(E)+\epsilon.
+\end{align*}
+Now, we apply the same argument with $\mu$ and $\nu$ interchanged. That is, because $\nu$ is regular,
+for any $\epsilon>0$, there exists some compact set $K_2\subset E$ such that
+\[
+\nu(E)\leq \nu(K_2)+\frac{\epsilon}{2}.
+\]
+Because $\mu$ is regular, there exists some open set $U_2$ such that
+\[
+\mu(U_2)\leq\mu(E)+\frac{\epsilon}{2},
+\]
+and $E\subset U_2$. There exists some continuous function $f_2:\real^n\to[0,1]$ such that $f_2=1$ on $K_2$ and $f_2=0$ on $\real^n\setminus U_2$. In particular, $f_2\in C_c(\real^n)$ and $\mathbbm{1}_{K_2}\leq f_2\leq\mathbbm{1}_{U_2}$. Then, by monotonicity and the definition of the Lebesgue integral,
+\begin{align*}
+	\nu(E)\leq \nu(K_2)+\frac{\epsilon}{2}=\int \mathbbm{1}_{K_2}\df\nu+\frac{\epsilon}{2}\leq\int f_2\df\nu+\frac{\epsilon}{2}=\int f_2\df\mu+\frac{\epsilon}{2}\leq \int \mathbbm{1}_{U_2}\df\mu+\frac{\epsilon}{2}=\mu(U_2)+\frac{\epsilon}{2}\leq\mu(E)+\epsilon.
+\end{align*}
+Thus, for any $\epsilon>0$,
+\[
+\nu(E)-\epsilon\leq\mu(E)\leq\nu(E)+\epsilon,
+\]
+so $\mu(E)=\nu(E)$, and the measures agree on sets contained in finite rectangles. 
+
+Now, $\real^n$ can be written as the increasing countable union of finite rectangles, so for any $E\in\cB_{\real^n}$, we can write $E$ as
+\[
+E=\bigcup_{j=1}^\infty E_j,
+\]
+where each $E_j$ is contained in some finite rectangle, meaning that $\mu(E_j)=\nu(E_j)$ for all $j\in\mathbb{N}$. Thus, applying continuity from below twice,
+\[
+\mu(E)=\lim_{j\to\infty}\mu(E_j)=\lim_{j\to\infty}\nu(E_j)=\nu(E).
+\]
+Thus, the measures agree on all Borel sets, so $\mu=\nu$.
+
+\section{Problem 2 (Folland Problem 20)}
+Let $f_n,g_n,f,g\in L^1$, $f_n\to f$ and $g_n\to g$ almost everywhere, $|f_n|\leq g_n$, and $\int g_n\to\int g$. 
+First, as a lemma, we claim that 
+\[
+\inf_{k}\{a_k+b_k\}\leq \sup_{k}\{a_k\}+\inf_{k}\{b_k\},
+\]
+and therefore 
+\[
+\liminf_{n}(a_n+b_n)\leq \limsup_{n}a_n+\liminf_{n}b_n.
+\]
+To see this, we first note that the infimum of the sums is at least as large as the sum of the infimums. Thus,
+\[
+\inf_k\{a_k\}=\inf_k\{(a_k+b_k)-b_k\}\geq\inf_k\{a_k+b_k\}+\inf_k\{-b_k\}=\inf_k\{a_k+b_k\}-\sup_k\{b_k\},
+\]
+and the result follows.
+
+Now, following Folland's proof of the dominated convergence theorem, we note that by taking real and imaginary parts, it suffices to assume that $f_n$ and $f$ are real-valued. Thus, $g_n+f_n$ and $g_n-f_n$ are nonnegative almost everywhere. Applying Fatou's lemma to the sequence $\{g_n+f_n\}$, and utilizing our lemma,
+\[
+\int g+\int f=\int (g+f)\leq \liminf_n\int(g_n+f_n)\leq\limsup_n\int g_n+\liminf_n\int f_n=\int g+\liminf_n\int f_n.
+\]
+Similarly, applying Fatou's lemma to the sequence $\{g_n-f_n\}$, 
+\[
+\int g-\int f=\int (g-f)\leq \liminf_n\int(g_n-f_n)\leq\limsup_n\int g_n-\limsup_n\int f_n=\int g-\limsup_n\int f_n.
+\]
+Thus, 
+\[
+\liminf_n\int f_n\geq f\geq \limsup_n\int f_n,
+\]
+so it follows that
+\[
+\int f=\lim_{n\to\infty}f_n.
+\]
+
+\section{Problem 3 (Folland Problem 21)}
+Suppose $f_n,f\in L^1$ and $f_n\to f$ almost everywhere. First, assume that $\int|f_n-f|\to0$. By the triangle inequality, 
+\[
+|f_n|\leq |f_n-f|+|f|.
+\]
+Taking limits,
+\[
+\lim_{n\to\infty}\int |f_n|\leq \lim_{n\to\infty}\left(\int|f_n-f|+\int|f|\right)=\int|f|.
+\]
+Furthermore, $|f_n|\in L^+$, so Fatou's lemma implies that
+\[
+\int|f|\leq \liminf_{n\to\infty}\int |f_n|\leq \lim_{n\to\infty}\int |f_n|.
+\]
+Thus, 
+\[
+\lim_{n\to\infty}\int |f_n|=\int|f|.
+\]
+
+Now, assume that $\int |f_n|\to\int|f|$. Then, by the triangle inequality,
+\[
+|f_n-f|\leq|f_n|+|f|.
+\]
+Additionally,
+\[
+\lim_{n\to\infty}\int(|f_n|+|f|)=\lim_{n\to\infty}\int|f_n|+\int|f|=\int2|f|.
+\]
+Now, we can apply the result of Exercise 20 by denoting
+\[
+\hat f_n:=|f_n-f|,\quad \hat f:=0,\quad \hat g_n:=|f_n|+|f|,\quad \hat g:=2|f|.
+\]
+These are all $L^1$ functions that satisfy $\hat f_n\to \hat f$ and $\hat g_n\to \hat g$ almost everywhere, $|\hat f_n|\leq \hat g_n$, and $\int \hat g_n\to\int \hat g$. Thus, Exercise 20 gives that $\int \hat f_n\to \hat f$, which in our notation means
+\[
+\lim_{n\to\infty}\int|f_n-f|=\int0=0.
+\]
+
+\section{Problem 4 (Folland Problem 33)}
+Assume that $f_n\geq0$ and $f_n\to f$ in measure. We can always find a subsequence that converges to the $\liminf$, so applying this to the sequence $\int f_n$, there exists some subsequence $\{f_{n_j}\}$ such that 
+\[
+\lim_{j\to\infty}\int f_{n_j}=\liminf_n\int f_n.
+\]
+This subsequence also converges to $f$ in measure. To see this, for any $\epsilon>0$, consider the sequence $\{a_n\}$ where
+\[
+a_n=\mu(\{x~|~|f_n(x)-f(x)|\geq\epsilon\}).
+\]
+Then, $\{a_n\}$ converges to 0, so any subsequence of $\{a_n\}$ also converges to zero. Namely,
+\[
+\lim_{j\to\infty}\mu(\{x~|~|f_{n_j}(x)-f(x)|\geq\epsilon\})=0,
+\]
+so $\{f_{n_j}\}$ converges to $f$ in measure. This implies that $\{f_{n_j}\}$ is Cauchy in measure, so Theorem 2.30 in Folland implies that there exists a subsequence $\{f_{n_{j_k}}\}$ that converges to $f$ almost everywhere. Applying Fatou's lemma to this sequence 
+\[
+\int f\leq\liminf_k\int f_{n_{j_k}}=\lim_{j\to\infty}\int f_{n_j}=\liminf_n\int f_n,
+\]
+where the first equality follows from the fact that $\int f_{n_{j_k}}$ is a subsequence of a convergent sequence, so its $\liminf$ must be the limit of the whole sequence. 
+
+\section{Problem 5 (Folland Problem 46)}
+Let $X=Y=[0,1]$, $\cM,\cN=\cB_{[0,1]}$, $\mu$ be the Lebesgue measure, $\nu$ the counting measure, and $D=\{(x,x)~|~x\in[0,1]\}$. Then, observe that
+\[
+D_x=\{y\in Y~|~(x,y)\in D\}=\{x\},
+\]
+and 
+\[
+D^y=\{x\in X~|~(x,y)\in D\}=\{y\}.
+\]
+Then,
+\[
+\iint\mathbbm{1}_D\df\mu\df\nu=\int_Y\mu(D^y)\df\nu=\int_Y0\df\nu=0,
+\]
+while
+\[
+\iint\mathbbm{1}_D\df\nu\df\mu=\int_X\nu(D_x)\df\mu=\int_X\df\mu=\mu(X)=1.
+\]
+Finally, by definition,
+\[
+(\mu\times\nu)(D)=\inf\left\{\sum_{j=1}^\infty\mu(A_j)\nu(B_j),~D\subset\bigsqcup_{j=1}^\infty(A_j\times B_j),~A_j,B_j\text{ are disjoint rectangles}\right\}.
+\]
+Thus, for any $\epsilon>0$, there exists a set of disjoint rectangles $A_j\times B_j$, $j\in\mathbb{N}$ such that  $D\subset \bigsqcup_{j=1}^\infty(A_j\times B_j)$ and 
+\[
+(\mu\times\nu)(D)\geq\sum_{j=1}^\infty\mu(A_j)\nu(B_j)+\epsilon.
+\]
+Furthermore, we can assume without loss of generality that $A_j=B_j$ for all $j\in\mathbb{N}$. This is because if there exists some $a\in A_j$ such that $a\notin B_j$, $a$ can be removed from $A_j$ while retaining $D\subset \bigsqcup_{j=1}^\infty(A_j\times B_j)$ and not increasing $\mu(A_j)$ by monotonicity. Applying the same argument to some $b\in B_j$ such that $b\notin A_j$ yields the desired result. 
+
+Then, we must have that $[0,1]\subset\bigcup_{j=1}^\infty A_j$ as otherwise we could find an element of $D$ not included in the rectangles. Monotonicity implies that
+\[
+1=\mu([0,1])\leq \mu\left(\bigcup_{j=1}^\infty A_j\right)\leq \sum_{j=1}^\infty \mu(A_j),
+\]
+which implies that there must exist some index $k\in\mathbb{N}$ such that $\mu(A_k)>0$. This implies that $A_k$ is uncountable, since all countable sets have Lebesgue measure zero. Thus, $B_k=A_k$ is also uncountable, so $\nu(B_k)=\infty$. This means that $\mu(A_k)\nu(B_k)=\infty$, so
+\[
+(\mu\times\nu)(D)\geq\sum_{j=1}^\infty\mu(A_j)\nu(B_j)+\epsilon=\infty.
+\]
+Thus, $(\mu\times\nu)(D)=\infty$.
+
+\end{document}

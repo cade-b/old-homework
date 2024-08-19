@@ -1,0 +1,131 @@
+\documentclass{article}
+\usepackage[top = 0.9in, bottom = 0.9in, left =1in, right = 1in]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage{hyperref}
+\usepackage{listings}
+\usepackage{multimedia} % to embed movies in the PDF file
+\usepackage{graphicx}
+\usepackage{comment}
+\usepackage[english]{babel}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{wrapfig}
+\usepackage{multirow}
+\usepackage{verbatim}
+\usepackage{float}
+\usepackage{cancel}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{mathdots}
+\usepackage{bbm}
+\usepackage{/home/cade/Homework/latex-defs}
+
+
+\title{MATH 525 Homework 8}
+\author{Cade Ballew \#2120804}
+\date{March 1, 2024}
+
+\begin{document}
+	
+\maketitle
+	
+\section{Problem 1 (Folland Problem 2)}
+Let $\mu$ be a Radon measure on $X$. 
+\subsection{Part a}
+Let $N$ be the union of all open $U\subset X$ such that $\mu(U)=0$. Then, $N$ is the union of open sets, so it is also open. Let $K\subset N$ be compact. Then, all open $U\subset X$ such that $\mu(U)=0$ form an open cover of $K$, so this can be reduced to a finite subcover $K\subset\bigcup_{j=1}^nU_j$ such that $\mu(U_j)=0$ for all $j$. Thus, 
+\[
+\mu(K)\leq\sum_{j=1}^{n}\mu(U_j)=0.
+\]
+By inner regularity for open sets, $\mu(N)$ is the supremum over $\mu(K)$ for all compact $K\subset U$, but $\mu(K)=0$ for all such $K$, so $\mu(N)=0$ as well.
+
+\subsection{Part b}
+Let $x\in\supp(\mu)$ and let $f\in C_c(X,[0,1])$ such that $f(x)>0$ be given. Let $f(x)=a$ and let $0<\epsilon<a$. Then, since $f$ is continuous, $U=f^{-1}\left((a-\epsilon,1)\right)$ is open, so $\mu(U)>0$ since $x\in U$. Thus,
+\[
+\int f\df\mu\geq\int_Uf\df\mu>(a-\epsilon)\mu(U)>0.
+\]
+Conversely, assume that $\int f\df\mu>0$ for all $f\in C_c(X,[0,1])$ such that $f(x)>0$ for some $x\in X$. Let $U$ be any open set containing $x$. $\{x\}$ is compact, so there is some $f\in C_c(X,[0,1])$ such that $\mathbbm{1}_{\{x\}}\leq f\prec U$. In particular, $f(x)>0$ and $f\prec U$. By assumption,
+\[
+I(f)=\int f\df\mu>0,
+\]
+so by the Riesz representation theorem,
+\[
+\mu(U)=\sup\{I(f):f\prec U\}>0.
+\]
+Since this holds for all open $U$ containing $x$, we conclude that $x\in\supp(\mu)$ if and only if $\int f\df\mu>0$ for all $f\in C_c(X,[0,1])$ such that $f(x)>0$.
+
+\section{Problem 2 (Folland Problem 8)}
+Let $\mu$ be a Radon measure on $X$, $\phi\in L^1(\mu)$, and $\phi\geq0$. By Exercise 2.14 from last quarter, $\nu$ defined by $\nu(E)=\int_E\phi\df\mu$ is a measure, so we need only show that it is Radon. $\nu$ is finite as for any $E\in\cB_X$,
+\[
+\nu(E)=\int_E\phi\df\mu\leq\int\phi\df\mu<\infty,
+\]
+so in particular, $\nu$ is finite on compact sets. To see that $\nu$ is inner regular, fix $E\in\cB_X$ and define $F_n=\phi^{-1}\left(\left(\frac{1}{n},\infty\right)\right)$, $E_n=E\cap F_n$ for all $n\in\mathbb{N}$. Then, $E\setminus\phi^{-1}\left(\{0\}\right)=\bigcup_{n=1}^\infty E_n$, so continuity from below implies that $\nu\left(E\setminus\phi^{-1}\left(\{0\}\right)\right)=\lim_{n\to\infty}\nu(E_n)$. Furthermore,
+\[
+\nu(E)=\int_E\phi\df\mu=\int_{E\setminus\phi^{-1}\left(\{0\}\right)}\phi\df\mu=\nu\left(E\setminus\phi^{-1}\left(\{0\}\right)\right)=\lim_{n\to\infty}\nu(E_n).
+\]
+Now, we observe that for each $n$,
+\[
+\mu(E_n)<n\int_{E_n}\phi\df\mu\leq n\int\phi\df\mu<\infty,
+\]
+so $\mu$ is finite on each $E_n$. By Corollary 3.6, there exists some $\delta_n>0$ such that $\nu(E)<\frac{1}{n}$ whenever $\mu(E)<\delta_n$. By Proposition 7.5, for all $n\in\mathbb{N}$, there exists some compact $K_n\subset E_n$ such that $\mu(E_n\setminus K_n)<\delta_n$, meaning that $\nu(E_n\setminus K_n)<\frac{1}{n}$, and since $\nu$ is finite, $\nu(E_n)<\frac{1}{n}+\nu(K_n)$. Thus,
+\[
+\nu(E)=\lim_{n\to\infty}\left(\frac{1}{n}+\nu(K_n)\right)=\lim_{n\to\infty}\nu(K_n).
+\]
+Since $E_n\subset E$ for all $n$, we have constucted a sequence of compact sets $\{K_n\}$ such that $K_n\subset E$ for all $n\in\mathbb{N}$ and $\nu(E)=\lim_{n\to\infty}\nu(K_n)$. Thus, for any $E\in\cB_X$,
+\[
+\nu(E)=\sup\left\{\nu(E):K\subset E,~K\text{ compact}\right\},
+\]
+so $\nu$ is inner regular on all Borel sets. To show outer regularity, fix $\epsilon>0$ and $E\in\cB_X$. Then, $\nu$ is inner regular on $E^c$ and finite, so there exists some compact $K\subset E^c$ such that $\nu(E^c\setminus K)<\epsilon$. The set $U=K^c$ is open, $E\subset U$, and
+\[
+\nu(U\setminus E)=\nu(E^c\cap U)=\nu(E^c\setminus K)<\epsilon.
+\]
+Thus, for any $\epsilon>0$ we can find some $U\supset E$ such that $\nu(E)>\nu(U)-\epsilon$, so
+\[
+\nu(E)=\inf\left\{\nu(E):U\supset E,~U\text{ open}\right\},
+\]
+meaning that $\nu$ is outer regular and therefore Borel.
+
+\section{Problem 3 (Folland Problem 9)}
+Let $\mu$ be a Radon measure on $X$, $\phi\in C(X,(0,\infty))$, $\nu(E)=\int_E\phi\df\mu$, and $\nu'$ be the Radon measure associated to the functional $I(f)=\int f\phi\df\mu$ on $C_c(X)$. 
+
+\subsection{Part a}
+Let $U\subset X$ be open. By the Riesz representation theorem,
+\[
+\nu'(U)=\sup\left\{\int f\phi\df\mu:f\in C_c(X),~f\prec U\right\}.
+\]
+By Theorem 7.13 applied to $\phi\mathbbm{1}_U$,
+\[
+\nu(U)=\int_U\phi\df\mu=\sup\left\{\int g\df\mu:g\in C_c(X),~0\leq g\leq\phi\mathbbm{1}_U\right\}.
+\]
+This theorem requires that $\phi\mathbbm{1}_U$ be lower semicontinuous, but this is easy to verify: for any $a\in\real$, $\{x:(\phi\mathbbm{1}_U)(x)>a\}=U\cap\{x:\phi(x)>a\}$ is open because $U$ is open and $\phi$ is continuous. To see that $\nu'(U)=\nu(U)$, let $f\in C_c(X)$ and $f\prec U$. Then, $0\leq f\leq\mathbbm{1}_U$, so if we let $g=f\phi$, $0\leq g\leq\phi\mathbbm{1}_U$ and $\int f\phi\df\mu=\int g\df\mu$. Since $f$ is continuous and compactly supported and $\phi$ is continuous, $g\in C_c(X)$. Thus, every element in the set defining $\nu'(U)$ can be written as an element in the set defining $\nu(U)$. Conversely, let $g\in C_c(X)$ and $0\leq g\leq\phi\mathbbm{1}_U$. Since $g$ is continuous and compactly supported and $\phi$ is continuous and positive, $f=\frac{g}{\phi}$ satisfies $0\leq f\leq\mathbbm{1}_U$ and $f\in C_c(x)$. Then, $f\prec U$ and $\int f\phi\df\mu=\int g\df\mu$, so every element in the set defining $\nu(U)$ can be written as an element in the set defining $\nu'(U)$. Since we take the supremum of both sets, we conclude that $\nu'(U)=\nu(U)$ for all open $U\subset X$. 
+
+\subsection{Part b}
+Let $E\in\cB_X$ and fix $\epsilon>0$. If $\nu(E)=\infty$, then $\nu(U)=\infty$ for any open set $U\supset E$, so outer regularity is trivially satisfied for such sets, and we can assume that $\nu(E)$ is finite. Noting that $X=\bigcup_{k\in\mathbb{Z}}V_k$ where $V_k=\{x:2^k<\phi(x)<2^{k+2}\}$ is open, for each $k$, define $F_k=E\cap V_k$ and $E_k=F_k\setminus F_{k-1}$. Then, $E=\bigcup_{k\in\mathbb{Z}}E_k$. Since $E_k\subset V_k$,
+\[
+\mu(E_k)<2^{-k}\int_{E_k}\phi\df\mu=2^{-k}\nu(E_k),
+\]
+so $\mu(E_k)<\infty$. Then, because $\mu$ is outer regular on all Borel sets, there exists some open set $U_k\supset E_k$ such that $\mu(U_k\setminus E_k)<\frac{\epsilon2^{-|k|-k-2}}{3}$. We can assume without loss of generality that $U_k\subset V_k$ by redefining $U_k\to U_k\cap V_k$ since $V_k$ is open. Then, $U_k\setminus E_k\subset V_k$, so
+\[
+\nu(U_k\setminus E_k)=\int_{U_k\setminus E_k}\phi\df\mu<2^{k+2}\mu(U_k\setminus E_k)<\frac{\epsilon2^{-|k|}}{3}.
+\]
+Define $U=\bigcup_{k\in\mathbb{Z}}U_k$. Then,
+\[
+\nu(E)=\sum_{k\in\mathbb{Z}}\nu(E_k)>\sum_{k\in\mathbb{Z}}\nu(U_k)-\sum_{k\in\mathbb{Z}}\frac{\epsilon2^{-|k|}}{3}\geq\nu(U)-\epsilon.
+\]
+Thus, for any $\epsilon>0$, there exists some open $U\supset E$ such that $\nu(E)>\nu(U)-\epsilon$, so
+\[
+\nu(E)=\inf\left\{\nu(E):U\supset E,~U\text{ open}\right\},
+\]
+meaning that $\nu$ is outer regular.
+
+\subsection{Part c}
+For any $E\in\cB_X$, since $\nu$ and $\nu'$ agree on open sets and both are outer regular,
+\[
+\nu(E)=\inf\left\{\nu(E):U\supset E,~U\text{ open}\right\}=\inf\left\{\nu'(E):U\supset E,~U\text{ open}\right\}=\nu'(E),
+\]
+so $\nu=\nu'$. Since $\nu'$ is Radon, $\nu$ is as well.
+
+\section{Problem 4 (Folland Problem 18)}
+Let $\mu$ be a $\sigma$-finite Radon measure on $X$ and $\nu\in M(X)$ where $\nu=\nu_1+\nu_2$ is the Lebesgue decomposition of $\nu$ with respect to $\mu$. That is, $\nu_1\perp\mu$ and $\nu_2\ll\mu$, meaning that $\df\nu_2=f\df\mu$ for some $f\in L^1(\mu)$. We decompose $f$ into positive and negative real and imaginary parts by $f=f_R^+-f_R^-+\im f_I^+-\im f_I^-$ where $f_R^+,f_R^-,f_I^+,f_I^-\in L^1(\mu)$ are all nonnegative. Then, by Problem 2, the measures defined by $\df\nu_R^+=f_R^+\df\mu$, $\df\nu_R^-=f_R^-\df\mu$, $\df\nu_I^+=f_I^+\df\mu$, $\df\nu_I^-=f_I^-\df\mu$ are all Radon, i.e., $\nu_R^+,\nu_R^-,\nu_I^+,\nu_I^-\in M(X)$. By Proposition 7.16, $M(X)$ is a vector space, so $\nu_2=\nu_R^+-\nu_R^-+\im\nu_I^+-\im\nu_I^-\in M(X)$, meaning that $\nu_2$ is Radon. Since $ \nu\in M(X)$, this also implies that $\nu_1=\nu-\nu_2\in M(X)$. Thus, $\nu_1$ and $\nu_2$ are both Radon, as desired.
+
+
+\end{document}

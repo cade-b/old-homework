@@ -1,0 +1,156 @@
+\documentclass{article}
+\usepackage[top = 0.9in, bottom = 0.9in, left =1in, right = 1in]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage{hyperref}
+\usepackage{listings}
+\usepackage{multimedia} % to embed movies in the PDF file
+\usepackage{graphicx}
+\usepackage{comment}
+\usepackage[english]{babel}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{wrapfig}
+\usepackage{multirow}
+\usepackage{verbatim}
+\usepackage{float}
+\usepackage{cancel}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{mathdots}
+\usepackage{/home/cade/Homework/latex-defs}
+
+
+\title{MATH 525 Homework 2}
+\author{Cade Ballew \#2120804}
+\date{January 19, 2024}
+
+\begin{document}
+	
+\maketitle
+	
+\section{Problem 1}
+Let $X$ be a compact metric space and $\cF\subset C(X)$ be equicontinuous on $X$. Fix $\epsilon>0$. Then, for every $x\in X$, there exists some $\delta_x>0$ such that for all $f\in\cF$ and $y\in X$,
+\[
+|f(x)-f(y)|<\frac{\epsilon}{2}\quad\text{if}\quad d(x,y)<\delta_x.
+\]
+Consider the collection of open balls $\{\cB_{\delta_x/2}(x):x\in X\}.$ This is an open cover of $X$, so it can be reduced to a finite subcover $\bigcup_{j=1}^n\cB_{\delta_{x_j}/2}(x_j)$ of $X$. Let $\delta=\min_{j\in\{1,\ldots,n\}}\frac{\delta_{x_j}}{2}$. Then, for any $x,y\in X$, $x\in\cB_{\delta_{x_j}/2}(x_j)$ for some $j\in\{1,\ldots,n\}$. If $d(x,y)<\delta$, then by the triangle inequality,
+\[
+d(y,x_j)\leq d(y,x)+d(x,x_j)\leq \delta+\frac{\delta_{x_j}}{2}\leq \delta_{x_j},
+\]
+Again applying the triangle inequality, this implies that for all $f\in\cF$,
+\[
+|f(x)-f(y)|\leq|f(x)-f(x_j)|+|f(x_j)-f(y)|<\frac{\epsilon}{2}+\frac{\epsilon}{2}=\epsilon.
+\]
+Thus, $\cF$ is uniformly equicontinuous. 
+
+\section{Problem 2}
+Let $X$ be a locally compact Hausdorff space and let $\cF\subset C(X)$ be equicontinuous. Consider the closure $\overline \cF$ in the topology of uniform convergence on compact sets. That is, for every $f\in\overline\cF$, there exists some sequence $\{f_n\}_{n=1}^\infty$ such that $\|f_n-f\|_{u,K}\to0$ for all compact sets $K\subset X$. Fix $\epsilon>0$ and $x\in X$. Then, because $X$ is locally compact, there exists some open set $V_x\ni x$ such that $\overline{V_x}$ is compact. This means that there exists some $N_f\in\mathbb{N}$ such that 
+\[
+|f_n(y)-f(y)|<\frac{\epsilon}{3},
+\]
+for all $y\in\overline{V_x}$ and $n\geq N_f$. Furthermore, by the definition of equicontinuity, there exists some open set $W_x\ni x$, independent of $f$, such that for all $n\in N$, 
+\[
+|f_n(y)-f_n(x)|<\frac{\epsilon}{3}\quad\text{if}\quad y\in W_x.
+\]
+Let $U_x=V_x\cap W_x\ni x$. Note that this set is open and, because $X$ is Hausdorff, it contains at least one point other than $x$. Then, for all $y\in U_x$, by the triangle inequality,
+\[
+|f(y)-f(x)|\leq|f(y)-f_{N_f}(y)|+|f_{N_f}(y)-f_{N_f}(x)|+|f_{N_f}(x)-f(x)|<\frac{\epsilon}{3}+\frac{\epsilon}{3}+\frac{\epsilon}{3}=\epsilon,
+\]
+since $x,y\in \overline V_x$ and $y\in W_x$. Since this construction of $U_x$ is independent of the function $f$, this implies that $\overline\cF$ is equicontinuous because $f\in C(X)$ since $C(X)$ is complete. 
+
+\section{Problem 3}
+Let $\cF\subset C_0(X)$ be compact in the uniform norm topology where $X$ is a locally compact Hausdorff space. Then, for any $\epsilon>0$, by total boundedness, there exist a finite number of functions $f_1,\ldots,f_n\in\cF$ such that $\cF\subset\bigcup_{j=1}^n\cB_{\epsilon/2}(f_j)$ with the balls taken in the uniform norm. For all $j=1,\ldots,n$, there exist compact sets $K_j\subset X$ such that $|f_j(x)|<\frac{\epsilon}{2}$ for all $x\in K^c_j$. Define $K=\bigcup_{j=1}^n K_j$ and note that this set is also compact. For any $f\in\cF$, there exists some $j\in\{1,\ldots,n\}$ such that $f\in\cB_{\epsilon/2}(f_j)$. Then, by the triangle inequality, for all $x\in K^c$, 
+\[
+|f(x)|\leq|f(x)-f_j(x)|+|f_j(x)|<\frac{\epsilon}{2}+\frac{\epsilon}{2}=\epsilon. 
+\]
+Since the compact set $K$ does not depend on the specific $j$, this implies that for all $\epsilon>0$, there is a compact set $K$ such that for all $f\in\cF$, $|f(x)|<\epsilon$ on $K^c$. To see that $\cF$ is bounded fix $\epsilon>0$ and let $K$ be the associated compact set that we just found. Then, $\cF$ is pointwise bounded on $K^c$ because $|f(x)|<\epsilon$ for all $f\in\cF$ and $x\in K^c$. By Arzel\`a--Ascoli, $\cF$ is pointwise bounded on $K$ since it is a compact set. Thus, $\cF$ is pointwise bounded on all of $X$. To see that $\cF$ is equicontinuous, fix $\epsilon>0$ and let $K$ be a compact set such that $|f(x)|<\frac{\epsilon}{2}$ for all $x\in K^c$ and $f\in\cF$. Then, by Arzel\`a--Ascoli, $\cF$ is equicontinuous on $K$ since it is compact. Fix $x\in K^c$. Then, $U=K^c$ is an open set containing $x$ such that for any $y\in U$,
+\[
+|f(y)-f(x)|\leq|f(y)|+|f(x)|<\frac{\epsilon}{2}+\frac{\epsilon}{2}=\epsilon.
+\]
+Thus, $\cF$ is equicontinuous on $K^c$, so it is equicontinuous on all of $X$. 
+
+Conversely, let $\cF\subset C_0(X)$ with the same assumptions on $X$ be closed, pointwise bounded, equicontinuous, and satisfy the property that for each $\epsilon>0$, there is a compact set $K$ such that for all $f\in\cF$, $|f(x)|\leq\epsilon$ on $K^c$. To show that $\cF$ is sequentially compact, let $\{f_n\}_{n=1}^\infty\subset\cF$ be given. For all $j\in\mathbb{N}$, let $K_j$ be a compact set such that for all $f\in\cF$ and $x\in K^c_j$, $|f(x)|\leq\frac{1}{j}$. Because each $K_j$ is compact, Arzel\`a--Ascoli implies that $\cF\subset C(K_j)$ is compact.\footnote{This is a slight abuse of notation. When we say $\cF\subset C(K_j)$, we're really considering $\cF$ to be its composite functions restricted to $K_j$.} Denote by $\{f_{n,1}\}_{n=1}^\infty$ a subsequence of $\{f_n\}_{n=1}^\infty$ that is uniformly Cauchy on $K_1$. Noting that $K_{j}\subset K_{j+1}$ for all $j$ and proceeding inductively, there exists a subsequence $\{f_{n,j+1}\}_{n=1}^\infty$ of $\{f_{n,j}\}_{n=1}^\infty$ that is uniformly Cauchy on $K_{j+1}$ for all $j$. By a standard diagonalization argument, letting $g_j=f_{j,j}$, there exists a subsequence $\{g_n\}_{n=1}^\infty$ of $\{f_n\}_{n=1}^\infty$ that is uniformly Cauchy on $K_j$ for all $j\in\mathbb{N}$. Fix $\epsilon>0$ and choose $m\in\mathbb{N}$ such that $\frac{2}{m}<\epsilon$. Then, if $x\in K^c_m$, for all $j,k\in\mathbb{N}$, 
+\[
+|g_j(x)-g_k(x)|\leq|g_j(x)|+|g_k(x)|\leq\frac{1}{m}+\frac{1}{m}=\frac{2}{m}<\epsilon.
+\]
+If $x\in K_m$, then because $\{g_n\}_{n=1}^\infty$ is uniformly Cauchy, there exists some $N\in\mathbb{N}$ such that $|g_j(x)-g_k(x)|<\epsilon$ if $j,k\geq N$. Thus, there exists some $N\in\mathbb{N}$ such that for all $x\in X$, $|g_j(x)-g_k(x)|<\epsilon$ if $j,k\geq N$, so $\{g_n\}_{n=1}^\infty$ is uniformly Cauchy on all of $X$. Since $BC(X)$ is complete and $C_0(X)\subset BC(X)$ is closed, this implies that $\{g_n\}_{n=1}^\infty$ converges. Thus, every sequence in $\cF$ has a convergent subsequence, so $\cF$ is sequentially compact. Since $C_0(X)$ with the topology of uniform convergence is a metric space, this implies that $\cF$ is compact.
+
+\section{Problem 4 (Folland Problem 63)}
+Let $K\in C([0,1]\times[0,1])$ and for any $f\in C([0,1])$, define
+\[
+Tf(x)=\int_{0}^{1}K(x,y)f(y)\df y.
+\]
+To see that $Tf\in C([0,1])$, fix $\epsilon>0$ and $x\in[0,1]$. Let $M=\max_{y\in[0,1]}|f(y)|$. We know that $M$ is finite because $[0,1]\subset\real$ is compact and $f$ is continuous. Note that $K$ is uniformly continuous because $[0,1]\times[0,1]$ is compact. Thus, there exists some $\delta>0$ such that $|K(x_1,x_2)-K(y_1,y_2)|<\frac{\epsilon}{M}$ if $\|(x_1,x_2)-(y_1,y_2)\|<\delta$. This implies that if $|x-y|<\delta$, then
+\begin{align*}
+|Tf(x)-Tf(y)|\leq\int_0^1|K(x,z)-K(y,z)||f(z)|\df z<\frac{\epsilon}{M}M=\epsilon,
+\end{align*}
+since
+\[
+\|(x,z)-(y,z)\|=|x-y|<\delta,
+\]
+for all $z\in[0,1]$. Thus, $Tf\in C([0,1])$. 
+
+Let $\cF=\{Tf:\|f\|_u\leq1\}$. To see that $\cF$ is equicontinuous, fix $\epsilon>0$, $x\in[0,1]$, and $Tf\in\cF$. Then, as before, there exists some $\delta>0$ such that $|K(x_1,x_2)-K(y_1,y_2)|<\epsilon$ if $\|(x_1,x_2)-(y_1,y_2)\|<\delta$. This implies that if $|x-y|<\delta$, then
+\begin{align*}
+	|Tf(x)-Tf(y)|\leq\int_0^1|K(x,z)-K(y,z)||f(z)|\df z<\epsilon,
+\end{align*}
+since $\|f\|_u\leq1$. Since the choice of $\delta$ is independent of $f$, this implies that $\cF$ is equicontinuous. To see that $\cF$ is pointwise bounded, let $M=\max_{(x,y)\in[0,1]\times[0,1]}|K(x,y)|$. We know that $M$ is finite because $[0,1]\times[0,1]$ is compact and $K$ is continuous. Then, for any $Tf\in\cF$ and $x\in[0,1]$,
+\[
+|Tf(x)|\leq\int_0^1|K(x,y)||f(y)|\df y\leq M.
+\]
+Thus, $\cF$ is pointwise bounded, so $\cF$ is precompact in $C([0,1])$ by Arzel\`a--Ascoli since $[0,1]$ is a compact Hausdorff space.
+
+\section{Problem 5 (Folland Problem 6)}
+Let $X$ be a finite-dimensional vector space with a basis given by $e_1,\ldots,e_n$. Define $\|\sum_{j=1}^na_je_j\|_1=\sum_{j=1}^n|a_j|$.
+
+\subsection{Part a}
+We show that $\|\cdot\|_1$ is a norm on $X$ by verifying the required axioms. In the following, let $x,y\in X$ be represented in the basis as $x=\sum_{j=1}^na_je_j, y=\sum_{j=1}^nb_je_j$.
+\begin{itemize}
+	\item By the triangle inequality on $\mathbb{K}$, 
+	\[
+	\|x+y\|_1=\left\|\sum_{j=1}^n(a_j+b_j)e_j\right\|_1=\sum_{j=1}^n|a_j+b_j|\leq\sum_{j=1}^n|a_j|+\sum_{j=1}^n|b_j|=\|x\|_1+\|y\|_1,
+	\]
+	so $\|\cdot\|_1$ satisfies the triangle inequality.
+	\item Let $\lambda\in\mathbb{K}$. Then,
+	\[
+	\|\lambda x\|_1=\left\|\sum_{j=1}^n(\lambda a_j)e_j\right\|_1=\sum_{j=1}^n|\lambda a_j|=|\lambda|\sum_{j=1}^n|a_j|=|\lambda|\|x\|_1,
+	\]
+	so $\|\cdot\|_1$ is homogeneous. 
+	\item If $\|x\|=0$, then 
+	\[
+	\sum_{j=1}^n|a_j|=0.
+	\]
+	Since the absolute value function is nonnegative, this implies that $a_1,\ldots,a_n=0$, meaning that $x=0$. 
+\end{itemize}
+Thus, $\|\cdot\|_1$ is a norm on $X$.
+
+\subsection{Part b}
+Consider the map $f$ defined by $(a_1,\ldots,a_n)\mapsto\sum_{j=1}^na_je_j$ from $\mathbb{K}^n$ with the Euclidean topology to $X$ with the topology defined by $\|\cdot\|_1$. To see that this is continuous, fix $\epsilon>0$ and $(a_1,\ldots,a_n)\in\mathbb{K}^n$. Let $\delta=\frac{\epsilon}{n}$. Then, if $\|(a_1,\ldots,a_n)-(b_1,\ldots,b_n)\|<\delta$,
+\begin{align*}
+\|f(a_1,\ldots,a_n)-f(b_1,\ldots,b_n)\|_1=\sum_{j=1}^n|b_j-a_j|\leq n\max_{j\in\{1,\ldots,n\}}|b_j-a_j|\leq n\sqrt{\sum_{j=1}^n(b_j-a_j)^2}<n\frac{\epsilon}{n}=\epsilon.
+\end{align*}
+Thus, $f$ is continuous at all $(a_1,\ldots,a_n)\in\mathbb{K}^n$. 
+
+\subsection{Part c}
+Consider the set $A=\left\{(a_1,\ldots,a_n)\in \mathbb{K}^n:\sum_{j=1}^{n}|a_j|=1\right\}$. To see that this is compact in the Euclidean topology, we need only show that it is closed and bounded. The function $g(a_1,\ldots,a_n)=\sum_{j=1}^{n}|a_j|$ is a continuous function from $\mathbb{K}^n$ to $\real$. The set $\{1\}\subset\real$ is closed, and $g^{-1}(\{1\})=A$, so $A$ must also be closed. Also, for any $(a_1,\ldots,a_n)\in A$, 
+\[
+\|(a_1,\ldots,a_n)\|=\sqrt{\sum_{j=1}^n a_j^2}\leq\sqrt{n\max_{j\in\{1,\ldots,n\}}a_j^2}=\sqrt{n}\max_{j\in\{1,\ldots,n\}}|a_j|\leq\sqrt{n}\sum_{j=1}^{n}|a_j|=\sqrt{n},
+\]
+so $A$ is also bounded. Thus, $A$ is compact. Letting $f$ be the continuous map from part b, the set $f(A)=\{x\in X:\|x\|_1=1\}$ is also compact.
+
+\subsection{Part d}
+Let $\|\cdot\|$ denote an arbitrary norm on $X$. Let $C_2=\max_{j\in\{1,\ldots,n\}}\|e_j\|$. Then, for any $x=\sum_{j=1}^na_je_j\in X$, 
+\[
+\|x\|\leq\sum_{j=1}^n|a_j|\|e_j\|\leq C_2\sum_{j=1}^n|a_j|=C_2\|x\|_1.
+\]
+Additionally, let $C_1=\min_{\|y\|_1=1}\|y\|$. This is defined because $\{x\in X:\|x\|_1=1\}$ is compact by part c and norms are continuous. Then,
+\[
+\|x\|=\|x\|_1\left\|\frac{x}{\|x\|_1}\right\|\geq C_1\|x\|_1.
+\]
+Thus, we have found constants $C_1,C_2>0$ such that
+\[
+C_1\|x\|_1\leq \|x\|\leq C_2\|x\|_1,
+\]
+for all $x\in X$. Thus, any norms are equivalent to the 1-norm, meaning that all norms are equivalent in finite dimensions. 
+
+\end{document}

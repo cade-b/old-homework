@@ -1,0 +1,204 @@
+\documentclass{article}
+\usepackage[top = 0.9in, bottom = 0.9in, left =1in, right = 1in]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage{hyperref}
+\usepackage{listings}
+\usepackage{multimedia} % to embed movies in the PDF file
+\usepackage{graphicx}
+\usepackage{comment}
+\usepackage[english]{babel}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{wrapfig}
+\usepackage{multirow}
+\usepackage{verbatim}
+\usepackage{float}
+\usepackage{cancel}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{mathdots}
+\usepackage{/home/cade/Homework/latex-defs}
+
+
+\title{MATH 524 Homework 2}
+\author{Cade Ballew \#2120804}
+\date{October 13, 2023}
+
+\begin{document}
+	
+\maketitle
+	
+\section{Problem 1}
+Let $\mathcal A$ be the algebra on $\mathbb{Z}^\mathbb{N}_q$ defined last week, and define a function $\mu_0$ on $\mathcal A$ by the rule
+\[
+\mu_0(\Pi_n^{-1}(E))=\frac{1}{q^n}\card(E),
+\]
+when $E\in\mathbb{Z}^n_q$.
+\subsection{Part a}
+To see that $\mu_0$ is well-defined on $\mathcal A$, we note that 
+\[
+\mu_0(\emptyset)=\mu_0(\Pi_n^{-1}(\emptyset))=\frac{1}{q^n}\card(\emptyset)=0,
+\]
+for any $n\in\mathbb{N}$, so it is defined on the empty set. Furthermore, let $A\in\mathcal A$ have two different representations, i.e., $A=\Pi_{n_1}^{-1}(E_1)=\Pi_{n_2}^{-1}(E_2)$ for $E_1\in\mathbb{Z}_q^{n_1}$, $E_2\in\mathbb{Z}_q^{n_2}$. Assume without loss of generality that $n_1\leq n_2$. Then, it must hold that
+\[
+E_2=\{a\in\mathbb{Z}^{n_2}_q~|~(a_1,\ldots,a_{n_1})\in E_1\},
+\]
+since all elements of $a\in A$ must satisfy $\Pi_{n_1}a\in E_1$, and restrictions on the elements $a_{n_1+1},\ldots,a_{n_2}$ cannot be imposed if $A=\Pi_{n_1}^{-1}(E_1)$. From this, it is easy to see that
+\[
+\card(E_2)=q^{n_2-n_1}\card(E_1),
+\]
+since there are $n_2-n_1$ elements that can be chosen freely. Thus,
+\[
+\mu_0(\Pi_{n_2}^{-1}(E_2))=\frac{1}{q^{n_2}}q^{n_2-n_1}\card(E_1)=\frac{1}{q^{n_1}}\card(E_1)=\mu_0(\Pi_{n_1}^{-1}(E_1)).
+\]
+
+We show that $\mu_0$ is finitely additive in a similar manner. Let $\Pi_{n_1}^{-1}(E_1),\Pi_{n_2}^{-1}(E_2)\in\mathcal A$ be disjoint, and assume without loss of generality that $n_1\leq n_2$. Define 
+\[
+E_3=\{a\in\mathbb{Z}^{n_2}_q~|~(a_1,\ldots,a_{n_1})\in E_1\},
+\]
+and observe that $\Pi_{n_2}^{-1}(E_3)=\Pi_{n_1}^{-1}(E_1)$ and that $E_2\cap E_3=\emptyset$. Then,
+\begin{align*}
+&\mu_0(\Pi_{n_1}^{-1}(E_1)\sqcup\Pi_{n_2}^{-1}(E_2))=\mu_0(\Pi_{n_2}^{-1}(E_3)\sqcup\Pi_{n_2}^{-1}(E_2))=\mu_0(\Pi_{n_2}^{-1}(E_3\sqcup E_2))=\frac{1}{q^{n_2}}\card(E_3\sqcup E_2)\\&=\frac{1}{q^{n_2}}\card(E_3)+\frac{1}{q^{n_2}}\card(E_2)=\frac{1}{q^{n_2}}q^{n_2-n_1}\card(E_1)+\frac{1}{q^{n_2}}\card(E_2)=\mu_0(\Pi_{n_1}^{-1}(E_1))+\mu_0(\Pi_{n_2}^{-1}(E_2)).
+\end{align*}
+
+\subsection{Part b}
+To show that $(\mathbb{Z}^\mathbb{N}_q,\mathcal A,\mu_0)$ is a premeasure space, we need only show countable disjoint additivity and nonnegativity, as the other axioms have already been verified in part a or on Homework 1. Note that $\mu_0$ is nonnegative, because cardinality is nonnegative. Let $\mathcal A\ni A=\bigsqcup_{j=1}^\infty A_j$, where each $A_j\in\mathcal A$ and $A_i\cap A_j=\emptyset$ for each $i\neq j$. From Homework 1, we know that $A\subset \mathbb{Z}^\mathbb{N}_q$ is closed and that $\mathbb{Z}^\mathbb{N}_q$ is compact, so $A$ must also be compact. Furthermore, each $A_j\in\mathcal A$ is open, so the countable open cover defining $A$ can be reduced to a finite subcover. Thus, by finite disjoint additivity,
+\[
+\mu_0(A)=\mu_0\left(\bigsqcup_{j=1}^n A_j\right)=\sum_{j=1}^n\mu_0(A_j),
+\]
+where the $A_j$s have possibly been reindexed. However, because this union is disjoint, we must have that $A_k=\emptyset$ for $k>n$, as otherwise, it could not hold that 
+\[
+\bigsqcup_{j=1}^\infty A_j\subset \bigsqcup_{j=1}^n A_j.
+\]
+Thus, $\mu_0(A_k)=0$ for $k>n$, so
+\[
+\mu_0(A)=\sum_{j=1}^n\mu_0(A_j)=\sum_{j=1}^\infty\mu_0(A_j),
+\]
+and countable disjoint additivity holds.
+
+\section{Problem 2 (Folland problem 11)}
+To show that a finitely additive measure $\mu$ is a measure iff it is continuous from below, we need only show the ``if'' statement, as the other direction is trivially true by Theorem 1.8c in Folland. To do this, let $\mu$ be a finitely additive measure that is continuous from below; to show that $\mu$ is a measure, we need only verify that it is countably additive. Let $\{E_j\}_{j=1}^\infty\subset\mathcal M$ be disjoint. Define $F_k=\bigsqcup_{j=1}^kE_j$ for all $k\in\mathbb{N}$. Then, $F_1\subset F_2\subset\ldots$, so we apply continuity from below and finite additivity to get
+\begin{align*}
+\mu\left(\bigsqcup_{j=1}^\infty E_j\right)=\mu\left(\bigsqcup_{k=1}^\infty F_k\right)=\lim_{k\to\infty}\mu(F_k)=\lim_{k\to\infty}\mu\left(\bigsqcup_{j=1}^kE_j\right)=\lim_{k\to\infty}\sum_{j=1}^k\mu(E_j)=\sum_{j=1}^\infty\mu(E_j),
+\end{align*}
+so $\mu$ is countably additive and therefore a measure.
+
+Similarly, to show that if $\mu(X)<\infty$, a finitely additive measure $\mu$ is a measure iff it is continuous from above, we need only show the ``if'' statement, as the other direction is trivially true by Theorem 1.8d in Folland (since montonicity implies that $\mu(E)<\infty$ for all $E\subset X$). To do this, let $\mu$ be a finitely additive measure that is continuous from above and satisfies $\mu(X)<\infty$. Let $\{E_j\}_{j=1}^\infty\subset\mathcal M$ be disjoint and define for each $k\in\mathbb{N}$,
+\[
+F_k=\left(\bigsqcup_{j=1}^k E_j\right)^c=\bigcap_{j=1}^k E_j^c.
+\]
+Then, $F_1\supset F_2\supset\ldots$ and $\mu(F_1)=\mu(X)-\mu(E_1)<\infty$, so we apply continuity from above and finite additivity to get
+\begin{align*}
+&\mu\left(\bigsqcup_{j=1}^\infty E_j\right)=\mu(X)-\mu\left(\left(\bigsqcup_{j=1}^\infty E_j\right)^c\right)=\mu(X)-\mu\left(\bigcap_{k=1}^\infty F_k\right)=\mu(X)-\lim_{k\to\infty}\mu(F_k)\\&=
+\mu(X)-\lim_{k\to\infty}\mu\left(X\setminus \left(\bigsqcup_{j=1}^k E_j\right)\right)=\mu(X)-\lim_{k\to\infty}\left(\mu(X)-\mu\left(\bigsqcup_{j=1}^k E_j\right)\right)=\lim_{k\to\infty}\mu\left(\bigsqcup_{j=1}^k E_j\right)\\&=
+\lim_{k\to\infty}\sum_{j=1}^k E_j=\sum_{j=1}^{\infty}E_j,
+\end{align*}
+so $\mu$ is countably additive and therefore a measure.
+
+\section{Problem 3}
+Suppose that $(X,\mathcal A,\mu_0)$ is a premeasure space, $\mu^*$ is the corresponding outer measure, and $\mathcal M^*$ is the $\sigma$-algebra of sets satisfying the Carath\'eodory condition. Let $\mathcal M$ be the $\sigma$-algebra generated by $\mathcal A$.
+
+\subsection{Part a}
+Let $E\subset X$ and $\mu^*(E)=0$. Then, for any $B\subset X$, by monotonicity,
+\[
+0=\mu^*(E)\geq\mu^*(E\cap B),
+\]
+so $\mu^*(E\cap B)=0$, and
+\[
+\mu^*(B)\geq\mu^*(B\cap E^c)=\mu^*(E\cap B)+\mu^*(B\cap E^c).
+\]
+Thus, $E$ satisfies the Carath\'eodory condition, and $E\in\mathcal M^*$.
+
+Furthermore, by the definition of the corresponding outer measure, there exist some $A^n_j\in\mathcal A$, $j\in\mathbb{N}$ such that $E\subset\bigcup_{j=1}^\infty A^n_j$ and
+\[
+\sum_{j=1}^\infty\mu_0(A^n_j)<\mu^*(E)+\frac{1}{n}=\frac{1}{n}.
+\]
+Define $F^n=\bigcup_{j=1}^\infty A^n_j$ and $F=\bigcap_{n=1}^\infty F^n\in\mathcal M$ by the definition of a $\sigma$-algebra. Note that $E\subset F$. Assume without loss of generality that $F^1\supset F^2\supset\ldots$\footnote{If this does not hold, one may redefine $F^n\leftarrow\bigcap_{j=1}^nF^n\in\mathcal M$ which has smaller premeasure by homogeneity.}, and note that $\mu_0(F_1)<\infty$. Then, continuity from above for premeasures implies that
+\[
+\mu_0(F)=\lim_{n\to\infty}\mu_0(F^n)\leq\lim_{n\to\infty}\frac{1}{n}=0.
+\]
+Then, by the definition of the corresponding outer measure, it follows that $\mu^*(F)=0$, so there exists some $F\in\mathcal M$ such that $E\subset F$ and $\mu^*(F)=0$.
+
+\subsection{Part b}
+Let $E\in\mathcal M^*$ and $\mu^*(E)=0$. Following a similar argument to part a,  by the definition of the corresponding outer measure, there exist some $A^n_j\in\mathcal A$, $j\in\mathbb{N}$ such that $E\subset\bigcup_{j=1}^\infty A^n_j$ and
+\[
+\sum_{j=1}^\infty\mu_0(A^n_j)<\mu^*(E)+\frac{1}{n}.
+\]
+Define $A^n=\bigcup_{j=1}^\infty A^n_j$ and $A=\bigcap_{n=1}^\infty A^n\in\mathcal M$ by the definition of a $\sigma$-algebra. Assume without loss of generality that $F^1\supset F^2\supset\ldots$, and note that $\mu_0(F_1)<\infty$. Then, continuity from above for premeasures implies that
+\[
+\mu^*(A)=\mu_0(A)=\lim_{n\to\infty}\mu_0(A^n)\leq\lim_{n\to\infty}\left(\mu^*(E)+\frac{1}{n}\right)=\mu^*(E).
+\]
+Then, since $E$ satisfies the Carath\'eodory condition and $\mu^*(E)<\infty$, it immediately follows that $\mu^*(A\setminus E)=0$.
+
+\subsection{Part c}
+Let $E\in\mathcal M^*$ and $\mu^*(E)=0$. By part b, there exists $A\in\mathcal M$ such that $\mu^*(A\setminus E)=0$. Noting that $\mathcal M\subset \mathcal M^*$ and applying part a, there exists $B\in\mathcal M^*$ such that $\mu^*(B)=0$ and $A\setminus E\subset B$. Applying the Carath\'eodory condition,
+\[
+0=\mu^*(B)=\mu^*(E\cap B)+\mu^*(E\cap B^c)=\mu^*(E\setminus B).
+\]
+\subsection{Part d}
+Because $\sigma$-algebras are closed under countable unions, it immediately follows that parts b and c also hold if $E=\bigcup_{j=1}^\infty E_j$ where $E_j\in\mathcal M^*$ and $\mu^*(E_j)<\infty$.
+
+\subsection{Part e}
+Let $(X,\mathcal A,\mu_0)$ be $\sigma$-finite and let $(X,\overline{\mathcal M},\overline{\mu})$ denote the completion of $(X,\mathcal M,\mu)$ where $\mu$ is the restriction of $\mu^*$ to $\mathcal M$. Let $E\in\mathcal M^*$. By $\sigma$-finiteness, $E=\bigcup_{j=1}^\infty E_j$ where $E_j\in\mathcal M^*$ and $\mu^*(E_j)<\infty$, so we apply part d to get that there exists $B\in\mathcal M$ such that $\mu^*(E\setminus B)=0$. Furthermore, part a implies that there exists $F\in\mathcal M$ such that $\mu(F)=0$ and $E\setminus B\subset F$. Thus, by the definition of the completion,
+\[
+E=E\cup(E\setminus B)\in\overline{\mathcal M}.
+\]
+Now, let $E\cup F\in\overline{\mathcal M}$.  By definition, $E\in\mathcal M\subset \mathcal M^*$, and there exists $N\in\mathcal M$ such that $\mu^*(N)=\mu(N)=0$ and $F\subset N$. By the monotonicity of outer measures, $\mu^*(F)=\mu^*(N)=0$. Part a implies that $F\in\mathcal M^*$, so $E\cup F\in\mathcal M^*$ since $\sigma$-algebras are closed under finite unions. Thus, $\mathcal M^*=\overline{\mathcal M}$.
+
+By Theorem 1.14 in Folland, the extension of $\mu$ of $\mu_0$ to $\mathcal M$ is unique. Futhermore, Theorem 1.9 in Folland gives that the extension $\overline{\mu}$ of $\mu$ to $\overline{\mathcal M}$ is also unique. Since we established that $\mathcal M^*=\overline{\mathcal M}$, it then follows that $(X,\mathcal M^*,\mu^*)$ is the completion of $(X,\mathcal M,\mu)$.
+
+\section{Problem 4 (Folland problem 28)}
+Let $F$ be increasing and right continuous, and let $\mu_F$ be the associated measure. Then, for any $a<b$, 
+\begin{itemize}
+	\item Note that $\{a\}=\bigcap_{j=1}^\infty\big(a-\frac{1}{j},a\big]$, that $\mu_F\left((a-1,a]\right)<\infty$, and that these intervals decrease in size, each contained in the previous. Then, continuity from above for premeasures gives that
+	\[
+	\mu_F(\{a\})=\lim_{j\to\infty}\mu_F\left(\bigg(a-\frac{1}{j},a\bigg]\right)=\lim_{j\to\infty}\left(F(a)-F\left(a-\frac{1}{j}\right)\right)=F(a)-F(a-).
+	\]
+	\item Now, note that $[a,b)=\left(\bigcap_{j=1}^\infty\big(a-\frac{1}{j},a\big]\right)\sqcup\left(\bigcup_{j=1}^\infty\big(a,b-\frac{1}{j}\big]\right)$ and that the intervals in the latter union increase in size, each containing the previous. Then, continuity from below for premeasures gives that 
+	\[
+	\mu_F\left(\bigcup_{j=1}^\infty\bigg(a,b-\frac{1}{j}\bigg]\right)=\lim_{j\to\infty}\mu_F\left(\bigg(a,b-\frac{1}{j}\bigg]\right)=\lim_{j\to\infty}\left(F\left(b-\frac{1}{j}\right)-F(a)\right)=F(b-)-F(a).
+	\]
+	Finite disjoint addivity for premeasures then gives that 
+	\[
+	\mu_F\left([a,b)\right)=F(a)-F(a-)+F(b-)-F(a)=F(b-)-F(a-).
+	\]
+	\item Note that $[a,b]=\bigcap_{j=1}^\infty\big(a-\frac{1}{j},b\big]$, that $\mu_F((a-1),b)<\infty$, and that these intervals decrease in size, each contained in the previous.. Then, continuity from above for premeasures gives that
+	\[
+	\mu_F([a,b])=\lim_{j\to\infty}\mu_F\left(\bigg(a-\frac{1}{j},b\bigg]\right)=\lim_{j\to\infty}\left(F(b)-F\left(a-\frac{1}{j}\right)\right)=F(b)-F(a-).
+	\]
+	\item Finally, note that $(a,b)=\bigcup_{j=1}^\infty\big(a,b-\frac{1}{j}\big]$ and that the intervals increase in size, each containing the previous.. It follows directly from the previous work for the $[a,b)$ case that 
+	\[
+	\mu_F((a,b))=\mu_F\left(\bigcup_{j=1}^\infty\bigg(a,b-\frac{1}{j}\bigg]\right)=F(b-)-F(a).
+	\]
+\end{itemize}
+
+\section{Problem 5 (Folland problem 30)}
+Let $E\in\mathcal L$ and $m(E)>0$. To show that for any $\alpha<1$, there is an open interval $I$ such that $m(E\cap I)>\alpha m(I)$, we assume the contrary, i.e., that for all open intervals $I$, $m(E\cap I)\leq\alpha m(I)$ for all $\alpha<1$. By Lemma 1.17, there exist open intervals $I_j$ such that $E\subset\bigcup_{j=1}^\infty I_j$ and 
+\[
+\sum_{j=1}^\infty m(I_j)\leq m(E)+\epsilon,
+\]
+for any $\epsilon>0$. Then, by our assumptions,
+\[
+\sum_{j=1}^\infty m(E\cap I_j)\leq\sum_{j=1}^\infty \alpha m(I_j)\leq \alpha m(E)+\alpha\epsilon.
+\]
+On the other hand, since $E\subset\bigcup_{j=1}^\infty I_j$ and by subadditivity,
+\[
+m(E)=m\left(E\cap\left(\bigcup_{j=1}^\infty I_j\right)\right)=m\left(\bigcup_{j=1}^\infty (E\cap I_j)\right)\leq\sum_{j=1}^\infty(E\cap I_j).
+\]
+Thus, 
+\[
+m(E)\leq \alpha m(E)+\alpha\epsilon.
+\]
+This yields the desired contradiction if we take 
+\[
+\epsilon\geq\frac{1-\alpha}{\alpha}m(E),
+\]
+for any $0<\alpha<1$, provided that $m(E)<\infty$. 
+
+If $m(E)=\infty$, let $E_j=E\cap(j,j+1]$. Then, $E=\bigcup_{j=-\infty}^\infty E_j$, and $m(E_j)\leq m((j,j+1])=1<\infty$ for all $j\in\mathbb{Z}$. Let $I$ be the open interval corresponding to some $E_j$ such that $m(E_j\cap I)\leq\alpha m(I)$ for all $\alpha<1$. Then, by monotonicity,
+\[
+m(E\cap I)\geq m(E_j\cap I)>\alpha m(I),
+\]
+for all $\alpha<1$.
+
+\end{document}

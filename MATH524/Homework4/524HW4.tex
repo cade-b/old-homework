@@ -1,0 +1,211 @@
+\documentclass{article}
+\usepackage[top = 0.9in, bottom = 0.9in, left =1in, right = 1in]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage{hyperref}
+\usepackage{listings}
+\usepackage{multimedia} % to embed movies in the PDF file
+\usepackage{graphicx}
+\usepackage{comment}
+\usepackage[english]{babel}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{wrapfig}
+\usepackage{multirow}
+\usepackage{verbatim}
+\usepackage{float}
+\usepackage{cancel}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{mathdots}
+\usepackage{bbm}
+\usepackage{/home/cade/Homework/latex-defs}
+
+
+\title{MATH 524 Homework 4}
+\author{Cade Ballew \#2120804}
+\date{October 27, 2023}
+
+\begin{document}
+	
+\maketitle
+	
+\section{Problem 1}
+For a bounded real-valued function $f(x)$ defined on a metric space, define the upper and lower envelope functions by the rule
+\[
+\overline f(x)=\lim_{r>0}\left(\sup_{d(y,x)<r}f(y)\right),\quad \underline f(x)=\lim_{r>0}\left(\inf_{d(y,x)<r}f(y)\right),
+\]
+and define the oscillation function for $f$ as
+\[
+\omega(x)=\overline f(x)-\underline f(x).
+\]
+
+\subsection{Part a}
+To show that the function $f$ is continuous at $x$ if and only if $\omega(x)=0$, first let $f$ be continuous and fix $\epsilon>0$. Then, there exists some $\delta>0$ such that $|f(x)-f(y)|<\epsilon$ if $d(x,y)<\delta$. This implies that
+\[
+\sup_{d(y,x)<\delta}f(y)\leq f(x)+\epsilon.
+\]
+This shows that $\overline{f}(x)=f(x)$ because
+\[
+\left|\sup_{d(y,x)<r}f(y)- f(x)\right|\leq\epsilon,
+\]
+whenever $r\leq\delta$. Similarly, 
+\[
+\inf_{d(y,x)<\delta}f(y)\geq f(x)-\epsilon,
+\]
+so 
+\[
+\left|\inf_{d(y,x)<r}f(y)- f(x)\right|\leq\epsilon,
+\]
+whenever $r\leq\delta$. Thus, $\underline{f}(x)=f(x)$, and $\omega(x)=0$.
+
+Now, assume that $\omega(x)=0$ for some $x$ and fix $\epsilon>0$. By definition,
+\[
+\underline{f}(x)\leq f(x)\leq\overline{f}(x),
+\]
+so $\omega(x)=0$ implies that $\underline{f}(x)=\overline{f}(x)=f(x)$. Thus, there exist some $\delta_1,\delta_2>0$ such that
+\[
+\sup_{d(y,x)<\delta_1}f(y)-f(x)<\epsilon,\quad f(x)-\inf_{d(y,x)<\delta_2}f(y)<\epsilon.
+\]
+Let $\delta=\min\{\delta_1,\delta_2\}$. Then, if $d(y,x)<\delta$, 
+\[
+|f(y)-f(x)|\leq\max\left\{\sup_{d(y,x)<\delta_1}f(y)-f(x),f(x)-\inf_{d(y,x)<\delta_2}f(y)\right\}<\epsilon.
+\]
+Thus, $f$ is continuous at $x$. 
+
+\subsection{Part b}
+For a given $\epsilon>0$, consider the set $A_\epsilon=\{x~|~\omega(x)<\epsilon\}$. Let $x\in A_\epsilon$ and fix $\varepsilon>0$. Then, by definition, there exists some $2\delta>0$ such that
+\[
+\sup_{d(y,x)<2\delta}f(y)-\inf_{d(y,x)<2\delta}f(y)<\epsilon+\varepsilon.
+\]
+Let $z\in\mathcal B_{\delta}(x).$ Then, if $d(y,z)<\delta$, the triangle inequality gives that 
+\[
+d(y,x)\leq d(y,z)+d(z,x)<\delta+\delta=2\delta.
+\]
+Thus,
+\[
+\sup_{d(y,z)<\delta}f(y)-\inf_{d(y,z)<\delta}f(y)\leq\sup_{d(y,x)<2\delta}f(y)-\inf_{d(y,x)<2\delta}f(y)<\epsilon+\varepsilon.
+\]
+Thus, for any $\varepsilon>0$, there exists some $\delta>0$ for which this is true, so we have the limit
+\[
+\omega(z)=\lim_{r>0}\left(\sup_{d(y,z)<r}f(y)-\inf_{d(y,z)<r}f(y)\right)<\epsilon.
+\]
+Thus, $z\in A_\epsilon$, meaning that $\mathcal B_\delta(x)\subset A_\epsilon$, and $A_\epsilon$ is an open set.
+
+\subsection{Part c}
+Now, consider the set
+\[
+A=\bigcap_{j=1}^\infty A_{1/j}=\{x~|~\omega(x)=0\}.
+\]
+From part a, we have that $A$ is precisely the set of $x$ where $f(x)$ is continuous. Furthermore, part b gives that $A$ is a countable intersection of open sets, meaning that $A$ is also a Borel set. Thus, the set of $x$ where $f(x)$ is continuous is a Borel set.
+
+\section{Problem 2 (Folland Problem 9)}
+Let $f:[0,1]\to[0,1]$ be the Cantor function and let $g(x)=f(x)+x$. 
+
+\subsection{Part a}
+To show that $g$ is a bijection from $[0,1]$ to $[0,2]$, we first let $x,y\in[0,1]$ and assume that $g(x)=g(y)$. Then, $f(x)+x=f(y)+y$, so $f(x)-f(y)=y-x$. Assume without loss of generality that $y\geq x$. Then, we have from the first paragraph on page 39 of Folland that $f$ is nondecreasing, so $f(y)\geq f(x)$. Thus, 
+\[
+0\geq f(x)-f(y)=y-x\geq 0,
+\]
+so we must have that $f(x)-f(y)=y-x=0$. Thus, $x=y$ and $g$ is injective. From the same paragraph in Folland, $f$ is continuous, so $g$ is also continuous. Since $g(0)=f(0)=0$ and $g(1)=f(1)+1=2$, the intermediate value theorem implies that every value in $[0,2]$ is attained. Thus, $g$ is surjective and therefore a bijection. 
+
+From undergrad analysis (Theorem 4.17 in Baby Rudin), we have that a continuous bijective function defined on a compact set has a continuous inverse. Since $[0,1]$ is compact, it immediately follows that $h=g^{-1}$ is continuous from $[0,2]$ to $[0,1]$.
+
+\subsection{Part b}
+By construction, we have that
+\[
+C^c=\bigsqcup_{j=1}^\infty I_j,
+\]
+where each $I_j$ is an open interval and $I_j\cap I_k=\emptyset$ when $j\neq k$. Define $(a_j,b_j)=I_j$. Then, $f(x)=a_j$ for all $x\in I_j$. Thus, $g(x)=a_j+x$ for all $x\in I_j$. The continuity of $g$ and the intermediate value theorem give that $g(I_j)=(2a_j,a_j+b_j)$. Thus,
+\[
+m(g(C^c))=m\left(\bigsqcup_{j=1}^\infty g(I_j)\right)=\sum_{j=1}^{\infty}m(g(I_j))=\sum_{j=1}^{\infty}(b_j-a_j)=\sum_{j=1}^{\infty}m(I_j)=m(C^c),
+\]
+since the image of a disjoint union is the disjoint union of the images because $g$ is a bijection. Now, Theorem 1.22b in Folland gives that $m(C)=0$, so $m(C^c)=1$. Thus,
+\[
+2=m([0,2])=m\left(g(C^c)\sqcup g(C)\right)=m\left(g(C^c)\right)+m\left(g(C)\right)=1+m\left(g(C)\right),
+\]
+so $m\left(g(C)\right)=1$.
+
+\section{Problem 3 (Folland Problem 14)}
+Let $f\in L^+$ and define $\lambda(E)=\int_Ef\df\mu$ for any $E\in\mathcal M$. To show that $\lambda$ is a measure on $\mathcal M$, we verify the required axioms. 
+\begin{itemize}
+	\item For any $E\in\mathcal M$, 
+	\[
+	\lambda(E)=\int_Ef\df\mu=\int f\mathbbm{1}_E\df\mu\geq0,
+	\]
+	because $f\mathbbm{1}_E\in L^+$ since both $f$ and $\mathbbm{1}_E$ are nonnegative. Thus, $\lambda$ is nonnegative.
+	\item 
+	\[
+	\lambda(\emptyset)=\int_\emptyset f\df\mu=\int f\mathbbm{1}_\emptyset\df\mu=\int0\df\mu=0,
+	\]
+	since $\mathbbm{1}_\emptyset$ is the zero function by definition.
+	\item Let $\{E_j\}_{j=1}^\infty$ be a collection of disjoint elements of $\mathcal M$ and let $E=\bigcup_{j=1}^\infty E_j$. Then,
+	\[
+	\lambda(E)=\int f\mathbbm{1}_E\df\mu=\int f\sum_{j=1}^{\infty}\mathbbm{1}_{E_j}\df\mu=\int\lim_{n\to\infty} f\sum_{j=1}^{n}\mathbbm{1}_{E_j}\df\mu.
+	\]
+	Now, define 
+	\[
+	f_n=f\sum_{j=1}^{n}\mathbbm{1}_{E_j}.
+	\]
+	Then, $f_n\in L^+$ and $f_n\leq f_{n+1}$ for all $n$, so we apply the monotone convergence theorem to get that
+	\begin{align*}
+	\lambda(E)&=\int\lim_{n\to\infty} f\sum_{j=1}^{n}\mathbbm{1}_{E_j}\df\mu=\lim_{n\to\infty}\int f\sum_{j=1}^{n}\mathbbm{1}_{E_j}\df\mu\\&=
+	\lim_{n\to\infty}\sum_{j=1}^{n}\int f\mathbbm{1}_{E_j}\df\mu=\lim_{n\to\infty}\sum_{j=1}^{n}\lambda(E_j)=\sum_{j=1}^{\infty}\lambda(E_j).
+	\end{align*}
+	Thus, $\lambda$ is a measure on $\mathcal M$.
+\end{itemize}
+	Now, let $\phi\in L^+$ be simple, that is
+\[
+\phi=\sum_{j=1}^na_j\mathbbm{1}_{E_j},
+\] 
+for some constants $a_j$ and sets $E_j\in\mathcal M$. Then,
+\[
+\int \phi\df\lambda=\sum_{j=1}^{n}a_j\lambda(E_j)=\sum_{j=1}^{n}a_j\int_{E_j}f\df\mu=\sum_{j=1}^{n}a_j\int f\mathbbm{1}_{E_j}\df\mu=\int f\sum_{j=1}^na_j\mathbbm{1}_{E_j}\df\mu=\int f\phi\df\mu.
+\]
+Now, let $g\in L^+$. Then, by Theorem 2.10a in Folland, there exists a sequence of simple functions $\{\phi_n\}_{n=1}^\infty$ such that $0\leq\phi_1\leq\phi_2\leq\ldots\leq g$, and $\phi_n\to g$ pointwise. Since $f$ is nonnegative, we can multiply this through by $f$ to get that $0\leq f\phi_1\leq f\phi_2\leq\ldots\leq fg$, and $f\phi_n\to fg$ pointwise. Then, applying the monotone convergence theorem twice and using the above equality for simple functions,
+\[
+\int g\df\lambda=\lim_{n\to\infty}\int\phi_n\df\lambda=\lim_{n\to\infty}\int f\phi_n\df\mu=\int fg\df\mu.
+\]
+
+\section{Problem 4 (Folland Problem 15)}
+Let $\{f_n\}_{n=1}^\infty\subset L^+$ such that $f_n$ decreases pointwise to $f$ and $\int f_1\df\mu<\infty$. Define the functions $g_n=f_1-f_n$ for all $n\in\mathbb{N}$. Then, 
+\[
+\lim_{n\to\infty}g_n=f_1-\lim_{n\to\infty}f_n=f_1-f,
+\]
+pointwise. Furthermore, $g_n\leq g_{n+1}$ and $g_n\in L^+$ for all $n\in\mathbb{N}$. Thus, we can apply the monotone convergence theorem to get that
+\begin{equation}\label{p4}
+\int(f_1-f)\df\mu=\lim_{n\to\infty}\int(f_1-f_n)\df\mu.
+\end{equation}
+Now, as a lemma, we note that if $g,h,g-h\in L^+$, then by Theorem 2.15,
+\[
+\int g\df\mu=\int (h+(g-h))\df\mu=\int h\df\mu+\int (g-h)\df\mu.
+\]
+Thus, 
+\[
+\int (g-h)\df\mu=\int g\df\mu-\int h\df\mu.
+\]
+Applying this to both sides of \eqref{p4}, 
+\[
+\int f_1\df\mu-\int f\df\mu=\lim_{n\to\infty}\int f_1\df\mu-\lim_{n\to\infty}\int f\df\mu=\int f_1\df\mu-\lim_{n\to\infty}\int f_n\df\mu.
+\]
+Since $\int f_1\df\mu<\infty$, we can subtract this from both sides and conclude that
+\[
+\int f\df\mu=\lim_{n\to\infty}\int f_n\df\mu.
+\]
+
+
+\section{Problem 5 (Folland Problem 16)}
+Let $f\in L^+$ with $\int f\df\mu<\infty$ and fix $\epsilon>0$. Then, by the definition of the Lebesgue integral, there exists some $\phi$ simple such that 
+\[
+\int f\df\mu<\int\phi\df\mu+\epsilon,
+\]
+and $\phi\leq f$. Let $\phi$ be given by $\phi=\sum_{j=1}^na_j\mathbbm{1}_{E_j}$ for some constants $a_j$ and sets $E_j\in\mathcal M$, and define $E=\bigcup_{j=1}^n E_j$. We first observe that $\phi$ is nonzero only on $E$, so $\phi\mathbbm{1}_E=\phi$. Then,
+\[
+\int_Ef\df\mu=\int f\mathbbm{1}_E\df\mu\geq\int \phi\mathbbm{1}_E\df\mu=\int\phi\df\mu>\int f\df\mu-\epsilon.
+\]
+Now, $\int \phi\df\mu<\infty$ because $\phi\leq f$. Since
+\[
+\mu(E)\leq\sum_{j=1}^na_j\mu(E_j)=\int \phi\df\mu,
+\]
+we have that $\mu(E)<\infty$ as well.
+
+\end{document}

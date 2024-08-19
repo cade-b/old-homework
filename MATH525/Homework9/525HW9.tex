@@ -1,0 +1,153 @@
+\documentclass{article}
+\usepackage[top = 0.9in, bottom = 0.9in, left =1in, right = 1in]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage{hyperref}
+\usepackage{listings}
+\usepackage{multimedia} % to embed movies in the PDF file
+\usepackage{graphicx}
+\usepackage{comment}
+\usepackage[english]{babel}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{wrapfig}
+\usepackage{multirow}
+\usepackage{verbatim}
+\usepackage{float}
+\usepackage{cancel}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{mathdots}
+\usepackage{bbm}
+\usepackage{/home/cade/Homework/latex-defs}
+
+
+\title{MATH 525 Homework 9}
+\author{Cade Ballew \#2120804}
+\date{March 8, 2024}
+
+\begin{document}
+	
+\maketitle
+	
+\section{Problem 1}
+Let $T\in\cB(X)$ and $\lambda\in\sigma_C(T)$. Then, $\lambda I-T$ cannot be bounded below. To see this, assume the contrary, i.e., there exists some $C>0$ such that $\|(\lambda I-T)x\|\geq C\|x\|$ for all $x\in X$. Since the range of $\lambda I-T$ is dense in $X$, for any $x\in X$, there exists some sequence $\{x_n\}_{n=1}^\infty\subset X$ such that $\{x_n\}\to x$ and $x_n=(\lambda I-T)y_n$ for some $y_n\in X$. Then,
+\[
+\lim_{n,m\to\infty}\|y_n-y_m\|\leq C^{-1}\lim_{n,m\to\infty}\|x_n-x_m\|=0,
+\] 
+so $\{y_n\}$ is Cauchy. Because $X$ is complete, $\{y_n\}\to y$ for some $y\in X$. Then, the continuity of $(\lambda I-T)$ implies that
+\[
+x=\lim_{n\to\infty}(\lambda I-T)y_n=(\lambda I-T)y.
+\]
+Thus, for all $x\in X$, there exists some $y\in X$ such that $x=(\lambda I-T)y$, so $\lambda I-T$ is surjective. By assumption, $\lambda I-T$ is injective and bounded below, so $\lambda I-T$ must be invertible which is a contradiction, meaning that $\lambda I-T$ cannot be bounded below. This implies that 
+\[
+\inf_{\|x\|=1}\|(\lambda I-T)x\|=\inf_{x\neq 0}\frac{\|(\lambda I-T)x\|}{\|x\|}=0,
+\]
+so there exists some sequence $\{x_n\}\subset X$ such that $\|x_n\|=1$ for all $n$ and 
+\[
+\lim_{n\to\infty}\|Tx_n-\lambda x_n\|=\lim_{n\to\infty}\|(\lambda I-T)x_n\|=0,
+\]
+as desired.
+
+\section{Problem 2}
+\subsection{Part a}
+Let $\cH$ be a Hilbert space and $S\in\cB(\cH)$. Let $x\in\overline{S(\cH)}$. Then, there exists a sequence $\{y_n\}\subset \cH$ such that $\{Sy_n\}\to x$. Then, for any $y\in\ker(S^*)$, by the continuity of inner products,
+\[
+\langle x,y\rangle=\lim_{n\to\infty}\langle Sy_n,y\rangle=\lim_{n\to\infty}\langle y_n,S^*y\rangle=\lim_{n\to\infty}\langle y_n,0\rangle=0.
+\]
+Thus, $x\in\ker(S^*)^\perp$, so $\overline{S(\cH)}\subset\ker(S^*)^\perp$. 
+
+Conversely, let $x\in\ker(S^*)^\perp$. Because $\overline{S(\cH)}$ is a closed subspace, we can uniquely decompose $x=y+z$ where $y\in\overline{S(\cH)}$ and $z\in\overline{S(\cH)}^\perp$. Then, for any $w\in \cH$,
+\[
+\langle S^*z,w\rangle=\langle z,Sw\rangle=0,
+\]
+so $S^*z=0$ and $z\in\ker(S^*)$. Since $\overline{S(\cH)}\subset \ker(S^*)^\perp$, $y\in\ker(S^*)^\perp$, so 
+\[
+0=\langle x,z\rangle=\langle y,z\rangle+\langle z,z\rangle=\langle z,z\rangle.
+\]
+Thus, $z=0$ and $x=y\in\overline{S(\cH)}$, so $\overline{S(\cH)}=\ker(S^*)^\perp$.
+
+\subsection{Part b}
+Let $\lambda\in\sigma(T)\setminus\sigma_P(T)$. We first note that for any $x,y\in \cH$,
+\[
+\langle x,(\lambda I-T)^*y\rangle=\langle (\lambda I-T)x,y\rangle=\lambda\langle x,y\rangle-\langle Tx,y\rangle=\langle x,\overline\lambda y\rangle+\langle x,T^*y\rangle=\langle x,(\overline\lambda I-T^*)y\rangle,
+\]
+so $(\lambda I-T)^*=\overline\lambda I-T^*$. If $\overline\lambda\in\sigma_P(T^*)$, then $\ker(\overline\lambda I-T^*)\neq\{0\}$. This implies that $\ker\left((\lambda I-T)^*\right)^\perp\neq \cH$, so by part a, $\overline{(\lambda I-T)(\cH)}\neq\cH$, and the range of $\lambda I-T$ is not dense, meaning that $\lambda\in\sigma_R(T)$ since $\lambda\in\sigma(T)\setminus\sigma_\rho(T)$. Conversely, if $\overline\lambda\notin\sigma_P(T^*)$, then $\ker(\overline\lambda I-T^*)=\{0\}$. This means that $\ker\left((\lambda I-T)^*\right)^\perp=\cH$, so by part a, $\overline{(\lambda I-T)(\cH)}=\cH$. Thus, the range of $\lambda I-T$ is dense in $\cH$, so $\lambda\notin\sigma_R(T)$. Thus, $\lambda\in\sigma_R(T)$ if and only if $\overline\lambda\in\sigma_P(T^*)$.
+
+\section{Problem 3}
+Let $\mathcal{H}=\ell^2(\mathbb{N})$ and define the left and right shift operators:
+$$
+S_L\left(x_1, x_2, \ldots\right)=\left(x_2, x_3, \ldots\right), \quad S_R\left(x_1, x_2, \ldots\right)=\left(0, x_1, x_2, \ldots\right) .
+$$
+\subsection{Part a}
+For any $x,y\in\ell^2(\mathbb{N})$,
+\[
+\langle x,S_Ry\rangle=\sum_{j=2}^{\infty}x_jy_{j-1}=\sum_{j=1}^{\infty}x_{j+1}y_{j}=\langle S_Lx,y\rangle,
+\]
+so $S_L^*=S_R$. 
+
+\subsection{Part b}
+For any $z\in\compl$, consider the series expansion for $z\neq0$
+\[
+(zI-S_L)^{-1}=\sum_{k=0}^\infty z^{-k-1}S^k_L.
+\]
+Then, for any $x\in\cH$,
+\[
+\left((zI-S_L)^{-1}x\right)_j=\sum_{k=0}^\infty z^{-k-1}x_{k+j}.
+\]
+If $x$ is any finite sequence, this series has only a finite number of nonzero terms, so it must converge. Furthermore, $(zI-S_L)^{-1}x$ can only have a finite number of nonzero terms, so $(zI-S_L)^{-1}x\in\ell^2(\mathbb{N})$ is defined, and $x$ is in the range of $zI-S_L$. Since finite sequences are dense in $\ell^2(\mathbb{N})$, the range of $zI-S_L$ is dense in $\cH$ for all $z\in\compl$, meaning that $\sigma_R(S_L)=\emptyset$. Now, let $x\in\ker(zI-S_L)$. Then,
+\[
+0=\left((zI-S_L)x\right)_j=zx_j-x_{j+1},
+\]
+so $x_{j+1}=zx_j$ for all $j\in\mathbb{N}$ and $x=x_1(1,z,z^2,\ldots)$. Then,
+\[
+\|x\|^2=\sum_{j=1}^{\infty}|x_1|^2|z|^{2j}.
+\]
+This sum is finite if and only if $|z|<1$, so $\ker(zI-S_L)\neq\{0\}$ if and only if $|z|<1$, meaning that $\{z:|z|<1\}\subset\sigma_P(S_L)$. Since $\sigma(S_L)$ is closed, $\overline{\{z:|z|<1\}}=\{z:|z|\leq1\}\subset\sigma(S_L)$. Now, we observe that for any $x\in\cH$,
+\[
+\|S_Lx\|^2=\sum_{j=1}^{\infty}|x_{j+1}|^2=\sum_{j=2}^{\infty}|x_j|^2\leq\|x\|^2,
+\]
+so $\|S_L\|\leq1$; however, for any $x\in\cH$ such that $x_1=0$, $\|x\|=\|S_Lx\|$, so $\|S_L\|=1$. This means that $zI-T$ is invertible for all $z\in\compl$ such that $|z|>1$, so we must have that $\{z:|z|\leq1\}=\sigma(S_L)$. Since $\ker(zI-S_L)\neq\{0\}$ only if $|z|<1$ and there is no residual spectrum, we conclude that $\sigma_P(S_L)=\{z:|z|<1\}$ and $\sigma_C(S_L)=\{z:|z|=1\}$.
+
+\subsection{Part c}
+First, let $|z|<1$. Then, $\overline z\in\sigma_P(S_L)$, so $\ker(\overline zI-S_L)=\ker\left((zI-S_R)^*\right)\neq0$. By Problem 2a, this implies that $zI-S_R$ is not dense in $\cH$, so $zI-S_R$ is not invertible and $z\in\sigma_R(S_R)$. This means that $\{z:|z|<1\}\subset\sigma(S_R)$, so $\overline{\{z:|z|<1\}}=\{z:|z|\leq1\}\subset\sigma(S_R)$. For any $x\in\ell^2(\mathbb{N})$, $\|S_Rx\|=\|x\|$, so $\|S_R\|=1$, meaning that $\sigma(S_R)\subset\{z:|z|\leq 1\}$, so $\sigma(S_R)=\{z:|z|\leq 1\}$. Now, we note that $\sigma_P(S_R)=\emptyset$ because for any $x\in\ker(zI-S_R)$, for all $j\in\mathbb{N}$,
+\[
+0=\left((zI-S_R)x\right)_j=\begin{cases}
+	zx_j-x_{j-1},&j\geq2,\\
+	zx_1,&j=1,
+\end{cases}
+\]
+so $x_j=0$ for all $j$, meaning that $\ker(zI-S_R)=\{0\}$ for all $z\in\compl$. Then, Problem 2b gives that if $z\in\sigma(S_R)$, then $z\in\sigma_R(S_R)$ if and only if $\overline{z}\in\sigma_P(S_L)$. If $|z|=1$, then $\overline z\notin\sigma_R(S_L)$, so $z\notin \sigma_R(S_R)$. Since $S_R$ has no eigenvalues, we must have that $z\in\sigma_C(S_R)$, so $\{z:|z|=1\}\subset\sigma_C(S_R)$. We already have that $\{z:|z|<1\}\subset\sigma_R(S_R)$, so we have classified the entire spectrum and can conclude that $\{z:|z|<1\}=\sigma_R(S_R)$ and $\{z:|z|=1\}=\sigma_C(S_R)$.
+
+\section{Problem 4}
+Let $X$ and $Y$ be Banach spaces with respective duals $X^*$ and $Y^*$ and assume that $T^*:Y^*\to X^*$ is compact. Then, $T^{**}:X^{**}\to Y^{**}$ is compact. For any $y\in X^*$ and $x\in X$,
+\[
+(T^{**}\hat x)(y)=\hat x(T^*y)=T^*y(x)=y(Tx)=\widehat{Tx}(y),
+\]
+so $T^{**}\hat x=\widehat{Tx}$ for all $x\in X$. Let $\{x_n\}\subset X$ be a bounded sequence. Then, since the embedding $X\to X^{**}$ is norm-preserving, $\{\widehat{x_n}\}\subset X^{**}$ is also a bounded sequence. The compactness of $T^{**}$ then implies that the sequence $\{\widehat{Tx_n}\}=\{T^{**}\widehat{x_n}\}\subset Y$ has a convergent subsequence. Denote this subsequence by $\{\widehat{Tx_{n_j}}\}$. This subsequence is Cauchy, so
+\[
+0=\lim_{j,k\to\infty}\left\|\widehat{Tx_{n_j}}-\widehat{Tx_{n_k}}\right\|=\lim_{j,k\to\infty}\left\|\widehat{T(x_{n_j}-x_{n_k}})\right\|=\lim_{j,k\to\infty}\left\|T(x_{n_j}-x_{n_k})\right\|=\lim_{j,k\to\infty}\left\|Tx_{n_j}-Tx_{n_k}\right\|,
+\]
+meaning that $\{Tx_{n_j}\}\subset Y$ is also Cauchy. Since $Y$ is complete, $\{Tx_{n_j}\}$ is convergent, meaning that we have found a convergent subsequence of $\{Tx_n\}\subset Y$. Thus, $T$ is also compact.
+
+\section{Problem 5}
+Let $h:[0,1]\to\compl$ be a continuous function and define the multiplication operator $T_h$ on $L^2([0,1],m)$ by $(T_hf)(x)=h(x)f(x)$. First, let $\lambda\notin\range(h)$. Denoting $S_\lambda=\lambda I-T_h$, let $S_\lambda f=0$. Then, $(\lambda-h(x))f(x)=0$ for almost all $x$, meaning that $f(x)=0$ for all $x$ since $\lambda\neq h(x)$ for any $x$. This means that $f=0$ in the $L^2$-sense, so $S_\lambda$ is injective. Similarly, for any $f\in L^2$, since $\lambda\neq h(x)$ for any $x$, $g(x)=\frac{f(x)}{\lambda-h(x)}$ is in $L^2$, and $S_\lambda g=f$, so $S_\lambda$ is surjective. Corollary 5.11 in Folland then implies that $S_\lambda$ is invertible, so $\sigma(T_h)\subset\range(h)$. 
+
+To see that $\range(h)$ is precisely the spectrum, let $\lambda\in\range(h)$. Let $y\in[0,1]$ be a point such that $h(y)=\lambda$. Since $h$ is continuous, there exists some positive decreasing sequence $\{\delta_n\}$ such that $|h(x)-h(y)|<\frac{1}{n}$ whenever $|x-y|<\delta_n$. Define the functions $f_n=\frac{1}{2\delta_n}\mathbbm{1}_{(x-\delta_n,x+\delta_n)}$ and note that these have norm 1. Then,
+\[
+\|S_\lambda f_n\|_{L^2}^2=\int \left|(h(x)-h(y))\frac{1}{2\delta_n}\mathbbm{1}_{(x-\delta_n,x+\delta_n)}(x)\right|^2\df x\leq\frac{1}{n^2}.
+\]
+Thus, $\lim_{n\to\infty}\|S_\lambda f_n\|_{L^2}=0$, so 
+\[
+\inf_{\|f\|=1}\|S_\lambda f\|=0,
+\]
+meaning that $S_\lambda$ and $\lambda\in\sigma(T_h)$. 
+
+To find the eigenvalues of $T_h$, let $\lambda\in\range(h)$ and set $S_\lambda f=0$. Then, $(\lambda-h(x))f(x)=0$ for almost all $x$. This means that $h(x)=\lambda$ at all $x$ for which $f(x)=0$. For $f$ to be nonzero in the $L^2$-sense, there must be some set $A$ such that $m(A)>0$ and $f\neq 0$ on $A$. Thus, $S_\lambda$ has a nontrivial kernel if and only if $h(x)=\lambda$ on a set of positive measure. That is, $\lambda$ is an eigenvalue if and only if there is a set $A$ such that $m(A)>0$ and $h(x)=\lambda$ for all $x\in A$. 
+
+Using this, we may show that $\sigma_R(T_h)=\emptyset$. Since $L^2$ is a Hilbert space, we find the adjoint of $T_h$ by noting that for any $f,g\in L^2$,
+\[
+\langle T_h f,g\rangle=\int h(x)f(x)\overline{g(x)}\df x=\int f(x)\overline{\overline{h(x)}g(x)}\df x=\langle f,T_{\overline{h}}g\rangle,
+\]
+so $T_h^*=T_{\overline{h}}$. Let $\lambda\in \sigma(T_h)\setminus\sigma_P(T_h)$. Then, by Problem 2, $\lambda\in\sigma_R(T_h)$ if and only if $\overline{\lambda}\in \sigma_P(T_{\overline{h}})$. This occurs if and only if $\overline{h(x)}=\overline{\lambda}$ for all $x$ in some set of positive measure. Conjugating, this is true if and only if $h(x)=\lambda$ for all $x$ in some set of positive measure, i.e., $\lambda\in\sigma_P(T_h)$. However, we assumed that $\lambda\notin\sigma_P(T_h)$, so $\lambda\notin\sigma_R(T_h)$ as well. Thus, $\sigma_R(T_h)=\emptyset$.
+
+\end{document}

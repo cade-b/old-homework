@@ -1,0 +1,150 @@
+\documentclass{article}
+\usepackage[top = 0.9in, bottom = 0.9in, left =1in, right = 1in]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage{hyperref}
+\usepackage{listings}
+\usepackage{multimedia} % to embed movies in the PDF file
+\usepackage{graphicx}
+\usepackage{comment}
+\usepackage[english]{babel}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsfonts}
+\usepackage{wrapfig}
+\usepackage{multirow}
+\usepackage{verbatim}
+\usepackage{float}
+\usepackage{cancel}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{mathdots}
+\usepackage{/home/cade/Homework/latex-defs}
+
+
+\title{MATH 525 Homework 3}
+\author{Cade Ballew \#2120804}
+\date{January 26, 2024}
+
+\begin{document}
+	
+\maketitle
+	
+\section{Problem 1}
+\subsection{Part a}
+Let $W_1\subsetneq W_2$ be subspaces of a normed vector space $X$ with $W_1$ finite-dimensional. Let $v'\in W_2\setminus W_1$ and let $v_0\in W_1$ be the closest element to $v'$. Let $c=\|v'-v_0\|>0$. Then, $c=\inf_{w_1\in W_1}\|v'-w\|$. The infimum is achieved because $W_1$ is finite-dimensional. Let $v=v'-v_0$. Then, $\|v\|=c$ and 
+\[
+\inf_{w\in W_1}\|v-w\|=\inf_{w\in W_1}\|v'-(v_0+w)\|=\inf_{w_1\in W_1}\|v'-w_1\|=c,
+\]
+since $v_0+w\in W_1$. This means that there exists some element $v\in W_2$ such that $\|v\|=c>0$ and $\inf_{w\in W_1}\|v-w\|=c$. By rescaling $v\to\frac{v}{c}$, this means that there exists some $v\in W_2$ such that $\|v\|=1$ and 
+$\inf_{w\in W_1}\|v-w\|=1$, since $\frac{w}{c}\in W_1$ if $w\in W_1$.
+
+\subsection{Part b}
+Let $V$ be an infinite-dimensional normed vector space. For all $j\in\mathbb{N}$, let $V_j\subset V$ be a $j$-dimensional subspace such that $V_j\subset V_{j+1}$ for all $j$ with the convention that $V_0=\{0\}$. For all $j$, let $v_j\in V_{j+1}$ satisfy $\|v_j\|=1$ and $\inf_{w\in V_j}\|v_j-w\|=1$. Part a guarantees the existence of such a $v_j$ for all $j$. Then, the sequence $\{v_n\}_{n=1}^\infty$ satisfies $\|v_n\|=1$ for all $n$. Furthermore, if $n\neq m$ and we take $n>m$ without loss of generality, $v_m\in V_n$, so
+\[
+\|v_n-v_m\|\geq \inf_{w\in V_n}\|v_n-w\|=1.
+\]
+Thus, we have produced a sequence in the set $A=\{x:\|x\|\leq1\}$ that does not converge to an element of $A$, so $A$ is not closed and therefore not compact. From Homework 2, we have that in finite dimensions, the set A is compact\footnote{This is from Problem 5 as we showed that $A$ is compact in the 1-norm and that all norms are equivalent in finite-dimensions.}. Thus, the set $\{x:\|x\|\leq1\}$ is compact if and only if $V$ is finite-dimensional.
+
+\section{Problem 2}
+Let $M$ be a finite-dimensional subspace of a normed vector space $(X,\|\cdot\|)$. Let $e_1,\ldots,e_n$ denote a basis for $M$ and  $e_1^*,\ldots,e_n^*$ denote its corresponding dual basis. That is, if $x\in M$ is represented as $x=\sum_{k=1}^na_ke_k$, then $e_j^*(x)=a_j$ for all $j=1,\ldots,n$. For each $j$, let $C_j=\|e^*_j\|_{M^*}$ and $p_j(x)=C_j\|x\|$ for any $x\in X$. Because each $C_j$ is a positive constant, each $p_j$ is clearly a norm on $X$ since scaling by a positive constant does not impact any of the axioms that a norm must satisfy. Therefore, each $p_j$ is a sublinear functional, so Hahn-Banach implies that each $e^*_j$ can be extended to a continuous linear functional $f_j$ on $X$ such that $f_j(x)=e^*_j(x)$ for all $x\in M$. From this, consider the map $T$ defined by 
+\[
+Tx=\sum_{j=1}^{n}e_jf_j(x), \quad x\in X.
+\]
+If $x\in M$ is represented as $x=\sum_{k=1}^na_ke_k$, then
+\[
+Tx=\sum_{j=1}^{n}e_jf_j\left(\sum_{k=1}^na_ke_k\right)=\sum_{j=1}^{n}e_ja_j=x.
+\]
+Because $T$ is a linear combination of continuous linear functions and elements of $M$, it is a continuous map from $X$ to $M$ such that $Tx=x$ for all $x\in M$.
+
+\section{Problem 3}
+Let $X$ denote the vector space of bounded sequences $\{x_n\}_{n=1}^\infty$ with $x_n\in\compl$ such that $\sup_n|x_n|<\infty$ where $c\{x_n\}+\{y_n\}=\{cx_n+y_n\}$. Let $M$ denote the set of sequences $\{x_n\}\in X$ such that $\lim_{n\to\infty}x_n$ exists. To see that this is a subspace of $X$, let $\{x_n\},\{y_n\}\in X$ and $c\in\compl$. Then, 
+\[
+\lim_{n\to\infty}(c\{x_n\}+\{y_n\})=\lim_{n\to\infty}\{cx_n+y_n\}=c\lim_{n\to\infty}\{x_n\}+\lim_{n\to\infty}\{y_n\},
+\]
+so this limit exists and $c\{x_n\}+\{y_n\}\in M$. Based on this, define $g:M\to\compl$ by 
+\[
+g(\{x_n\})=\lim_{n\to\infty}x_n,
+\]
+and $p:X\to(0,\infty)$ by
+\[
+p(\{x_n\})=\limsup_{n\to\infty}|x_n|.
+\]
+To see that $p$ is a sublinear functional on $X$, let $\{x_n\},\{y_n\}\in X$ and $\lambda\geq0$. Then,
+\[
+p(\{x_n\}+\{y_n\})=\limsup_{n\to\infty}|x_n+y_n|\leq\limsup_{n\to\infty}|x_n|+\limsup_{n\to\infty}|y_n|=p(\{x_n\})+p(\{y_n\}),
+\]
+and
+\[
+p(\lambda\{x_n\})=\limsup_{n\to\infty}|\lambda x_n|=\lambda\limsup_{n\to\infty}|x_n|=\lambda p(\{x_n\}),
+\]
+so $p$ satisfies the required axioms. Clearly, $g$ is a bounded linear functional on $M$ as 
+\[
+|g(\{x_n\})|=\left|\lim_{n\to\infty}x_n\right|=\lim_{n\to\infty}|x_n|\leq\sup_n|x_n|<\infty.
+\]
+Furthermore, for any $\{x_n\}\in M$, 
+\[
+|g(\{x_n\})|=\left|\lim_{n\to\infty}x_n\right|=\lim_{n\to\infty}|x_n|\leq\limsup_{n\to\infty}|x_n|=p(\{x_n\}).
+\]
+Thus, we can apply Hahn-Banach to get that there is a linear functional $f:X\to\compl$ such that $|f(\{x_n\})|\leq~ p(\{x_n\})$ for all $\{x_n\}$ in $X$ and $g(\{x_n\})=f(\{x_n\})$ for all $\{x_n\}\in M$. That is, $f:X\to\compl$ is a linear mapping such that 
+\[
+|f(\{x_n\})|\leq\limsup_{n\to\infty}|x_n|,\quad f(\{x_n\})=\lim_{n\to\infty}x_n,\quad \text{if the limit exists}.
+\]
+
+\section{Problem 4}
+Let $X$ be a Banach space.
+\subsection{Part a}
+Let $T\in \cL(X)$ and $\|I-T\|<1$. Then, the series $\sum_{n=0}^\infty(I-T)^n$ converges absolutely because
+\[
+\sum_{n=0}^\infty\|(I-T)^n\|\leq \sum_{n=0}^\infty\|I-T\|^n=\frac{1}{1-\|I-T\|}<\infty.
+\]
+By Proposition 5.4, $\cL(X)$ is complete, so the series $\sum_{n=0}^\infty(I-T)^n$ converges to some $S\in \cL(X)$ by Theorem 5.1. Now, we compute
+\begin{align*}
+ST&=\lim_{N\to\infty}\sum_{n=0}^N(I-T)^nT=\lim_{N\to\infty}\sum_{n=0}^N(I-T)^n(I-(I-T))\lim_{N\to\infty}\left(\sum_{n=0}^N(I-T)^{n}-\sum_{n=0}^N(I-T)^{n+1}\right)\\&=
+\lim_{N\to\infty}\left(\sum_{n=0}^{N}(I-T)^{n}-\sum_{n=1}^{N+1}(I-T)^{n}\right)=\lim_{N\to\infty}\left(I-(I-T)^{N+1}\right)=I-\lim_{N\to\infty}(I-T)^{N+1}.
+\end{align*}
+Now, we note that 
+\[
+\lim_{N\to\infty}\|(I-T)^{N+1}\|\leq\lim_{N\to\infty}\|I-T\|^{N+1}=0,
+\]
+so $\lim_{N\to\infty}(I-T)^{N+1}$ must converge to the zero operator, meaning that $ST=I$. Similarly, 
+\begin{align*}
+	TS&=\lim_{N\to\infty}\sum_{n=0}^NT(I-T)^n=\lim_{N\to\infty}\sum_{n=0}^N(I-(I-T))(I-T)^n\lim_{N\to\infty}\left(\sum_{n=0}^N(I-T)^{n}-\sum_{n=0}^N(I-T)^{n+1}\right)\\&=
+	\lim_{N\to\infty}\left(\sum_{n=0}^{N}(I-T)^{n}-\sum_{n=1}^{N+1}(I-T)^{n}\right)=\lim_{N\to\infty}\left(I-(I-T)^{N+1}\right)=I-\lim_{N\to\infty}(I-T)^{N+1}=I.
+\end{align*}
+Thus, $S=T^{-1}$, meaning that $T$ is bijective. Furthermore, $T$ is invertible because $T^{-1}\in\cL(X)$, so it is bounded.
+
+\subsection{Part b}
+Now, let $T\in\cL(X)$ be invertible and $\|S-T\|<\|T^{-1}\|^{-1}$. Then,
+\[
+\|I-T^{-1}S\|=\|T^{-1}(T-S)\|\leq\|T^{-1}\|\|S-T\|<1,
+\]
+so $T^{-1}S$ is invertible by part a. Let $R=(T^{-1}S)^{-1}T^{-1}\in \cL(X)$. Then,
+\[
+SR=S(T^{-1}S)^{-1}T^{-1}=T(T^{-1}S)(T^{-1}S)^{-1}T^{-1}=TT^{-1}=I,
+\]
+and 
+\[
+RS=(T^{-1}S)^{-1}T^{-1}S=I,
+\]
+so $S^{-1}=R\in \cL(X)$ and $S$ is bijective. $S^{-1}$ is bounded as it is the composition of bounded linear operators. More explicitly,
+\[
+\|S^{-1}\|\leq\|(T^{-1}S)^{-1}\|\|T^{-1}\|<\infty,
+\]
+by assumption and part a. Thus, $S$ is invertible. This implies that the set of invertible linear operators is open in $\cL(X)$ because given $T$ in this set, any $S$ satisfying $\|S-T\|<\delta_T$ is also in this set for $\delta_T=\|T^{-1}\|^{-1}$.
+
+\section{Problem 5}
+Let $X$ be a Banach space and assume that $X^*$ is separable. Let $\{f_n\}_{n=1}^\infty\subset X^*$ be dense and for all $n\in\mathbb{N}$, choose $x_n\in X$ such that $\|x_n\|=1$ and $|f_n(x_n)|\geq\frac{1}{2}\|f_n\|$. Consider $M=\overline{\Span\{\{x_n\}_{n=1}^\infty\}}$. $M$ is clearly a closed subspace of $X$ as the closure is closed and the span satisfies the axioms of a subspace by construction. If $M\subsetneq X$, then Theorem 5.8a implies that given some $x\in X\setminus M$, there exists some $f\in X^*$ such that $f(x)=\delta>0$, $f(y)=0$ for all $y\in M$, and $\|f\|=1$. Because $\{f_n\}$ is dense, for any $\epsilon>0$, there exists $n\in\mathbb{N}$ such that $\|f_n-f\|<\epsilon$. This implies that
+\[
+|f_n(x_n)-f(x_n)|\leq \|f_n-f\|\|x_n\|<\epsilon.
+\]
+For $\epsilon$ sufficiently small, the reverse traingle inequality implies that
+\[
+0=|f(x_n)|\geq \left||f_n(x_n)|-|f_n(x_n)-f(x_n)|\right|\geq\frac{1}{2}\|f_n\|-\epsilon,
+\]
+so $\|f_n\|<2\epsilon$ for any $\epsilon>0$ sufficiently small, meaning that we must have that $\|f_n\|=0$ and $f_n$ must be the zero functional. This then implies that $\|f\|<\epsilon$ for all $\epsilon>0$, so $f$ must also be the zero functional. This is a contradiction because $f(x)>0$, so the assumption that $M\subsetneq X$ must be false. Since $M\subset X$, this means that $M=X$. Now, note that the set of rationals is countable and dense in $\real$ and the set of complex numbers with rational real and imaginary part is countable and dense in $\compl$. Denote the set corresponding to the field $\mathbb{K}$ by $\mathbb{J}$. Let $N$ be the subset of $M$ with coefficients in $\mathbb{J}$. Clearly, $N$ is countable as it is the set of linear combinations of a countable number of vectors with a countable number of coefficients. Let $\sum_{j=1}^\infty a_jx_j\in M$ and fix $\epsilon>0$. For each $j\in\mathbb{N}$, there exists some $b_j\in\mathbb{J}$ such that $|a_j-b_j|<\epsilon2^{-j}$. Then, $\sum_{j=1}^\infty b_jx_j\in N$ and 
+\[
+\left\|\sum_{j=1}^\infty a_jx_j-\sum_{j=1}^\infty b_jx_j\right\|\leq\sum_{j=1}^\infty|a_j-b_j|\|x_j\|\leq\sum_{j=1}^\infty\epsilon2^{-j}=\epsilon.
+\]
+Thus, $N$ is dense in $M=X$, so $X$ must also be separable.
+
+\end{document}

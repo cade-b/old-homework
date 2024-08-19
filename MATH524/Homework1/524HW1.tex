@@ -1,0 +1,231 @@
+\documentclass{article}
+\usepackage[top = 0.9in, bottom = 0.9in, left =1in, right = 1in]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage{hyperref}
+\usepackage{listings}
+\usepackage{multimedia} % to embed movies in the PDF file
+\usepackage{graphicx}
+\usepackage{comment}
+\usepackage[english]{babel}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{wrapfig}
+\usepackage{multirow}
+\usepackage{verbatim}
+\usepackage{float}
+\usepackage{cancel}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{mathdots}
+\usepackage{/home/cade/Homework/latex-defs}
+
+
+\title{MATH 524 Homework 1}
+\author{Cade Ballew \#2120804}
+\date{October 6, 2023}
+
+\begin{document}
+	
+\maketitle
+	
+\section{Problem 1}
+Let $\mathbb{Z}^\mathbb{N}_q$ denote the collection of infinite sequences $a=a_1a_2a_3\ldots$ with $a_j\in\mathbb{Z}_q=\{0,1,\ldots,q-1\}$ and define
+\[
+\rho(a,b)=\sum_{j=1}^\infty\frac{|a_j-b_j|}{q^j}.
+\]
+\subsection{Part a}
+To show that $\rho$ is a metric on $\mathbb{Z}^\mathbb{N}_q$, we first note that it is well-defined (i.e., the sum converges) by noting that for $a,b\in\mathbb{Z}^\mathbb{N}_q$ and $q>1$,
+\[
+\rho(a,b)=\sum_{j=1}^\infty\frac{|a_j-b_j|}{q^j}\leq\sum_{j=1}^\infty\frac{q-1}{q^j}=\sum_{j=1}^\infty\frac{1}{q^{j-1}}-\sum_{j=1}^\infty\frac{1}{q^{j}}=1,
+\]
+and that $a=b=00\ldots$ for all $a,b\in\mathbb{Z}^\mathbb{N}_1$, so the sum is always zero in this case as the space contains only the zero element.
+
+We now verify the required axioms.
+\begin{itemize}
+	\item If $a,b\in\mathbb{Z}^\mathbb{N}_q$, then $\rho(a,b)\geq0$ because each term in the infinite sum that defines it is nonnegative since $q>0$, and the absolute value function is nonnegative. Furthermore, we have that
+	\[
+	\rho(a,a)=\sum_{j=1}^\infty\frac{|a_j-a_j|}{q^j}=0,
+	\]
+	and if $\rho(a,b)=0$, then because each term of the sum is nonnegative, they must all be zero, so $a_j=b_j$ for all $j\in\mathbb{N}$. Thus, $a=b$.
+	\item If $a,b\in\mathbb{Z}^\mathbb{N}_q$, then
+	\[
+	\rho(a,b)=\sum_{j=1}^\infty\frac{|a_j-b_j|}{q^j}=\sum_{j=1}^\infty\frac{|b_j-a_j|}{q^j}=\rho(b,a).
+	\]
+	\item To show the triangle inequality we let $a,b,c\in\mathbb{Z}^\mathbb{N}_q$. Then, by the triangle inequality for the absolute value,
+	\[
+	\rho(a,b)=\sum_{j=1}^\infty\frac{|a_j-b_j|}{q^j}\leq\sum_{j=1}^\infty\frac{|a_j-c_j|}{q^j}+\sum_{j=1}^\infty\frac{|c_j-b_j|}{q^j}=\rho(a,c)+\rho(c,b),
+	\]
+	where we can split the sums because they converge.
+\end{itemize}
+
+\subsection{Part b}
+Consider a sequence of elements $\{a_n\}\subset\mathbb{Z}^\mathbb{N}_q$ such that $a_j^n$ is constant in $n$ for $n\geq N$ for each $j$. This sequence is trivially Cauchy. More specifically, if we fix $\epsilon>0$, then for an $n,m\geq N$, 
+\[
+\rho(a^n,a^m)=\sum_{j=1}^\infty\frac{|a^n_j-a^m_j|}{q^j}=0<\epsilon.
+\]
+To show that all Cauchy sequences must have this property, say that there exists a sequence that does not, i.e., there exists $\{a_n\}\subset\mathbb{Z}^\mathbb{N}_q$ such that for any $N\in\mathbb{N}$, there exist $n,m\geq N$ such that $a^n_k\neq a^m_k$ for some $k$. Then, 
+\[
+\rho(a^n,a^m)=\sum_{j=1}^\infty\frac{|a^n_j-a^m_j|}{q^j}\geq\frac{|a^n_k-a^m_k|}{q^k}\geq\frac{1}{q^k}.
+\]
+This means that there is no $N\in\mathbb{N}$ such that $\rho(a^n,a^m)<\epsilon$ for $n,m\geq N$ when $\epsilon\geq\frac{1}{q^k}$, so the sequence cannot be Cauchy. Thus, sequences in $\mathbb{Z}^\mathbb{N}_q$ are Cauchy iff they have this property.
+
+To see that $(\mathbb{Z}^\mathbb{N}_q,\rho)$ is complete, let $\{a_n\}\subset\mathbb{Z}^\mathbb{N}_q$ be Cauchy, and let $a_j=a^n_j$ for each $j$ for all $n\geq N$. Then, for any $\epsilon>0$,
+\[
+\rho(a,a^n)=\sum_{j=1}^\infty\frac{|a^n_j-a^m_j|}{q^j}=0<\epsilon,
+\]
+for all $n\geq N$, so $\{a_n\}$ converges to $a$. Clearly, $a\in\mathbb{Z}^\mathbb{N}_q$, so all Cauchy sequences must converge.
+
+\subsection{Part c}
+To see that $(\mathbb{Z}^\mathbb{N}_q,\rho)$ is totally bounded, fix $\epsilon>0$ and take $k\in\mathbb{N}$ sufficently large such that $\epsilon>\frac{1}{q^k}$. Define
+\[
+Z=\{a\in\mathbb{Z}^\mathbb{N}_q~|~0=a_{k+1}=a_{k+2}=\ldots\},
+\]
+which is clearly a finite set. Given $a\in\mathbb{Z}^\mathbb{N}_q$, let $a^*$ be the element of $Z$ such that $a_j=a^*_j$ for all $j\leq k$. Then,
+\begin{equation*}
+\rho(a,a^*)=\sum_{j=k+1}^\infty\frac{|a_j|}{q^j}=\frac{1}{q^k}\sum_{j=1}^\infty\frac{|a_j|}{q^j}\leq\frac{1}{q^k}\sum_{j=1}^\infty\frac{q-1}{q^j}=\frac{1}{q^k}<\epsilon.
+\end{equation*}
+Thus, 
+\[
+\mathbb{Z}^\mathbb{N}_q\subset\bigcup_{z\in Z}\mathcal{B}_\epsilon(z),
+\]
+so $\mathbb{Z}^\mathbb{N}_q$ is totally bounded.
+
+\section{Problem 2}
+For $n\geq1$, define the projections $\Pi_n:\mathbb{Z}^\mathbb{N}_q\to\mathbb{Z}^n_q$ by the rule
+\[
+\Pi_n(a_1a_2a_3\ldots)=(a_1,a_2,\ldots,a_n).
+\]	
+\subsection{Part a}
+Let $\mathcal A$ be the collection of sets of the form $\Pi_n^{-1}(E)$ for $n\in\mathbb{N}$ and $E\subset\mathbb{Z}^\mathbb{N}_q$. To show that $\mathcal A$ is an algebra, we verify the required axioms. 
+\begin{itemize}
+	\item $\emptyset\subset\mathbb{Z}^n_q$, so $\Pi_n^{-1}(\emptyset)=\emptyset\in\mathcal A.$
+	\item Let $F_1,F_2\in\mathcal A$ where $F_1=\Pi_{n_1}^{-1}(E_1)$, $F_2=\Pi_{n_2}^{-1}(E_2)$, $E_1\subset\mathbb{Z}^{n_1}_q$, $E_2\subset\mathbb{Z}^{n_2}_q$. Assume WLOG that $n_1\leq n_2$ and define 
+	\[
+	E_3=\{a\in\mathbb{Z}^{n_2}_q~|~(a_1,\ldots,a_{n_1})\in E_1\}\subset\mathbb{Z}^{n_2}_q.
+	\]
+	Then,
+	\[
+	F_1\cup F_2=\Pi_{n_2}^{-1}(E_2\cup E_3)\in\mathcal A,
+	\]
+	so $\mathcal A$ is closed under finite unions.
+	\item To show that $\mathcal A$ is closed under compliments, let $A\in\mathcal A$ such that $A=\Pi_n^{-1}(E)$, $E\subset\mathbb{Z}^n_q$. Then,
+	\[
+	A^c=\{a\in\mathbb{Z}^\mathbb{N}_q~|~(a_1,\ldots,a_n)\in E^c\}\in\mathcal A,
+	\]
+	since $E^c=\mathbb{Z}^n_q\setminus E\subset \mathbb{Z}^n_q$.
+\end{itemize}
+
+\subsection{Part b}
+Let $A\in\mathcal A$ such that $A=\Pi_n^{-1}(E)$, $E\subset\mathbb{Z}^n_q$. To see that $A$ is open, let $a\in A$, $r<\frac{1}{q^{n}}$, and $b\in\mathcal B_r(a)$.
+If $a_k\neq b_k$ for some $k\leq n$, then
+\[
+\rho(a,b)\geq\frac{a_k-b_k}{q^k}\geq\frac{1}{q^k}\geq\frac{1}{q^{n}}>r,
+\]
+so it it must hold that $b\in\mathcal B_r(a)$ only if $a_k=b_k$ for $k\leq n$, i.e., $\Pi_n(b)\in E$, so $b\in A$. Thus, $\mathcal B_r(a)\subset A$, so $A$ must be open.
+
+To see that $A$ is closed, note that since $\mathcal A$ is an algebra, $A^c\in \mathcal A$. Therefore, $A^c$ is open, so $A$ must be closed.
+\subsection{Part c}
+To prove that the $\sigma$-algebra generated by $\mathcal A$ is the Borel $\sigma$-algebra on $Z^{\mathbb N}_q$, we show that all open sets in $X$ are contained in a countable union of elements of $\mathcal A$. In this case, all open sets are contained in $\mathcal M(\mathcal{A})$, so the Borel $\sigma$-algebra is contained in $\mathcal M(\mathcal{A})$ by Folland Lemma 1.1. Since all elements of $\mathcal A$ are open, it follows that $\mathcal M(\mathcal{A})$ is precisely the Borel $\sigma$-algebra in this case.
+
+To show this, let $B\in\mathbb{Z}_q^\mathbb{N}$ be an open set, and let $a\in B$. Then, $\mathcal B_\epsilon(a)\subset B$ for some $\epsilon>0$. Let $n\in\mathbb{N}$ be chosen such that $\epsilon>\frac{1}{q^n}$. Define $A\in\mathcal A$ by
+\[
+A=\{b\in\mathbb{Z}^\mathbb{N}_q~|~\Pi_n(b)=a\}.
+\]
+Then, for every $b\in A$,
+\begin{equation*}
+	\rho(a,b)=\sum_{j=n+1}^\infty\frac{|a_j-b_j|}{q^j}=\frac{1}{q^n}\sum_{j=1}^\infty\frac{|a_j-b_j|}{q^j}\leq\frac{1}{q^n}\sum_{j=1}^\infty\frac{q-1}{q^j}=\frac{1}{q^n}<\epsilon,
+\end{equation*}
+so $b\in\mathcal B_\epsilon(a)$ and $A\subset\mathcal B_\epsilon(a)\subset B$. Because this can be done for each $a\in B$, it must then hold that 
+\[
+B=\bigcup_{A_j\in\mathcal A,A_j\subset B}A_j,
+\]
+and this union is countable because $\mathcal A$ is countable. Thus, the $\sigma$-algebra generated by $\mathcal A$ is the Borel $\sigma$-algebra on $Z^{\mathbb N}_q$.
+
+\section{Problem 3 (Folland problem 1)} 
+\subsection{Part a}
+Let $\mathcal R\subset\mathcal P(X)$ be a ($\sigma$-)ring. To see that ($\sigma$-)rings are closed under finite (countable) intersections, let $E_j\in\mathcal R$ for $j=1,\ldots,n$ ($j=1,2,\ldots$). Then,
+\[
+\bigcap_{j=1}^nE_j=E_1\cap\left(\bigcap_{j=2}^nE_j\right)=E_1\setminus\left(\bigcap_{j=2}^nE_j\right)^c=E_1\setminus\left(\bigcup_{j=2}^nE_j\right)\in\mathcal R.
+\]
+Note that the ($\sigma$-)ring case follows from simply replacing the finite unions/intersections with countably infinite ones.
+
+\subsection{Part b}
+Let $\mathcal R\subset\mathcal P(X)$ be a ($\sigma$-)ring. To see that $\mathcal R$ is an ($\sigma$-)algebra if $X\in\mathcal R$, we verify the required axioms.
+\begin{itemize}
+	\item $\emptyset=X\setminus X\in\mathcal R$.
+	\item $\mathcal R$ is closed under finite (countable) unions by the definition of a ($\sigma$-)ring.
+	\item If $E\in\mathcal R$, then $E^c=X\setminus E\in\mathcal R$.
+\end{itemize}
+Thus, $\mathcal R$ is an ($\sigma$-)algebra. 
+
+On the other hand, if $\mathcal R$ is also an ($\sigma$-)algebra, then by the definition of an ($\sigma$-)algebra, $X\in\mathcal R$. Thus, $\mathcal{R}$ is an ($\sigma$-)algebra iff $X\in\mathcal R$.
+
+\subsection{Part c}
+Let $\mathcal R\subset\mathcal P(X)$ be a $\sigma$-ring and define $\mathcal A=\{E\subset X~|~E\in\mathcal R\text{ or }E^c\in\mathcal R\}$. To see that $\mathcal A$ is a $\sigma$-algebra, we verify the required axioms.
+\begin{itemize}
+	\item For any $E\in\mathcal R$, 
+	\[
+	\emptyset=E\setminus E\in\mathcal R,
+	\]
+	so $\emptyset\in\mathcal A$.
+	\item To see that $\mathcal A$ is closed under countable intersections, let $E_j\in\mathcal{A}$ for $j\in\mathbb{N}$, and let $J=\{j\in\mathbb{N}~|~E_j\in\mathcal R\}$. Note that $E_j^c\in\mathcal R$ for $j\in \mathbb{N}\setminus J$. Then,
+	\[
+	\bigcap_{j=1}^\infty E_j=\left(\bigcap_{j\in J} E_j\right)\cap\left(\bigcap_{j\in \mathbb{N}\setminus J} E_j\right)=\left(\bigcap_{j\in J} E_j\right)\cap\left(\bigcup_{j\in \mathbb{N}\setminus J} E_j^c\right)^c=\left(\bigcap_{j\in J} E_j\right)\setminus\left(\bigcup_{j\in \mathbb{N}\setminus J} E_j^c\right)\in\mathcal R,
+	\]
+	since $\sigma$-rings are closed under countable unions and intersections and differences. Thus, $\bigcup_{j=1}^\infty E_j\in\mathcal A$.
+	\item To see that $\mathcal A$ is closed under compliments, let $E\in\mathcal A$. If $E\in\mathcal R$, then $(E^c)^c\in\mathcal R$, so $E^c\in\mathcal A$. If $E^c\in\mathcal R$, then $E^c\in\mathcal A$.
+\end{itemize}
+Thus, $\mathcal A$ is a $\sigma$-algebra.
+\subsection{Part d}
+Let $\mathcal R\subset\mathcal P(X)$ be a $\sigma$-ring and define $\mathcal A=\{E\subset X~|~E\cap F\in\mathcal R\text{ for all }F\in\mathcal R\}$. To see that $\mathcal A$ is a $\sigma$-algebra, we verify the required axioms.
+\begin{itemize}
+	\item For any $E\in\mathcal R$, 
+	\[
+	\emptyset=E\setminus E\in\mathcal R,
+	\]
+	so $\emptyset\in\mathcal A$.
+	\item To see that $\mathcal A$ is closed under countable intersections, let $E_j\in\mathcal{A}$ for $j\in\mathbb{N}$. Then, for any $F\in\mathcal R$,
+	\[
+	\bigcup_{j=1}^\infty(E_j\cap F)=\left(\bigcup_{j=1}^\infty E_j\right)\cap F\in\mathcal R,
+	\]
+	so $\bigcup_{j=1}^\infty E_j\in\mathcal A$.
+	\item To see that $\mathcal A$ is closed under compliments, let $E\in\mathcal A$. Then, for any $F\in\mathcal R$,
+	\[
+	\mathcal R\ni F\setminus(E\cap F)=F\cap(E\cap F)^c=F\cap(E^c\cup F^c)=E^c\cap F,
+	\]
+	so $E^c\in\mathcal A$.
+\end{itemize}
+Thus, $\mathcal A$ is a $\sigma$-algebra.
+
+\section{Problem 4 (Folland problem 8)}
+Let $(X,\mathcal M,\mu)$ be a measure space and $\{E_j\}_{j=1}^\infty\subset\mathcal M$. Then, noting that $\bigcap_{n=k}^\infty E_n\subset\bigcap_{n=k+1}^\infty E_n$, continuity from below implies that 
+\[
+\mu(\liminf E_j)=\mu\left(\bigcup_{k=1}^\infty\bigcap_{n=k}^\infty E_n\right)=\lim_{k\to\infty}\mu\left(\bigcap_{n=k}^\infty E_n\right).
+\]
+Noting that $\bigcap_{n=k}^\infty E_n\subset E_{n^*}$ for any $n^*\geq k$, monotonicity implies that 
+\[
+\mu(\liminf E_j)=\lim_{k\to\infty}\mu\left(\bigcap_{n=k}^\infty E_n\right)\leq\lim_{k\to\infty}\inf_{n\geq k}\mu(E_n)=\liminf\mu(E_j).
+\]
+Similarly, if $\mu\left(\bigcup_{j=1}^\infty E_j\right)<\infty$, continuity from above implies that 
+\[
+\mu(\limsup E_j)=\mu\left(\bigcap_{k=1}^\infty\bigcup_{n=k}^\infty E_n\right)=\lim_{k\to\infty}\mu\left(\bigcup_{n=k}^\infty E_n\right).
+\]
+since $\bigcup_{n=k+1}^\infty E_n\subset\bigcup_{n=k}^\infty E_n$. Noting that $E_{n^*}\subset\bigcup_{n=k}^\infty E_n$ for any $n^*\geq k$, monotonicity implies that 
+\[
+\mu(\limsup E_j)=\lim_{k\to\infty}\mu\left(\bigcup_{n=k}^\infty E_n\right)\leq\lim_{k\to\infty}\sup_{n\geq k}\mu(E_n)=\limsup\mu(E_j).
+\]
+
+\section{Problem 5 (Folland problem 10)}
+Let $(X,\mathcal M,\mu)$ be a measure space and fix $E\in\mathcal M$. Define $\mu_E(A)=\mu(A\cap E)$. To see that $\mu_E$ is a measure, we verify the required axioms. 
+\begin{itemize}
+	\item 
+	\[
+	\mu_E(\emptyset)=\mu(\emptyset\cap E)=\mu(\emptyset)=0.
+	\]
+	\item  Let $E_1,E_2,\ldots\in\mathcal M$ be disjoint. Then,
+	\[
+	\mu_E\left(\bigsqcup_{j=1}^\infty E_j\right)=\mu\left(\left(\bigsqcup_{j=1}^\infty E_j\right)\cap E\right)=\mu\left(\bigsqcup_{j=1}^\infty (E_j\cap E)\right)=\sum_{j=1}^{\infty}\mu(E_j\cap E)=\sum_{j=1}^\infty\mu_E(E_j).
+	\]
+\end{itemize}
+Thus, $\mu_E$ is a measure.
+\end{document}

@@ -1,0 +1,127 @@
+\documentclass{article}
+\usepackage[top = 0.9in, bottom = 0.9in, left =1in, right = 1in]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage{hyperref}
+\usepackage{listings}
+\usepackage{multimedia} % to embed movies in the PDF file
+\usepackage{graphicx}
+\usepackage{comment}
+\usepackage[english]{babel}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{wrapfig}
+\usepackage{multirow}
+\usepackage{verbatim}
+\usepackage{float}
+\usepackage{cancel}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{mathdots}
+\usepackage{/home/cade/Homework/latex-defs}
+
+
+\title{MATH 524 Homework 6}
+\author{Cade Ballew \#2120804}
+\date{November 27, 2023}
+
+\begin{document}
+	
+\maketitle
+	
+\section{Problem 1}
+Let $f,g\in L^1(\real,\cB_\real,m)$. Then, since both $|f|$ and $|g|$ are measurable, the functions $K(x,y)=|f(x-y)|$ and $G(x,y)=|g(y)|$ are Lebesgue measurable in $\real\times\real$. More explicitly, $K=|f|\circ s$ where $s(x,y)=x-y$ is continuous, so $K$ is Lebesgue measurable. Thus, the product $|f(x-y)g(y)|$ is measurable as a function of $x$ and $y$, so we apply Tonnelli's theorem and utilize the shift invariance of the Lebesgue measure to get
+\begin{align*}
+\iint |f(x-y)||g(y)|\df x\df y&=\int\left(\int |f(x-y)||g(y)| \df x\right)\df y=\int\left(\int |f(x)| \df x\right)|g(y)|\df y\\&=\left(\int |f(x)| \df x\right)\left(\int |g(y)| \df y\right)<\infty.
+\end{align*}
+In particular, this implies that 
+\[
+\iint |f(x-y)||g(y)|\df x\df y=\int\left(\int |f(x-y)g(y)| \df y\right)\df x<\infty,
+\]
+meaning that $\int |f(x-y)g(y)| \df y<\infty$ for almost every $x$. Thus, $f(x-y)g(y)$ is integrable in $y$ for almost all $x\in\real$. 
+
+Using the substitution $z=x-y$ and the shift invariance of the Lebesgue measure, we see that
+\[
+(f\ast g)(x)=\int f(x-y)g(y)\df y=\int f(z)g(x-z)\df z=(g\ast f)(x),
+\]
+for all $x$ for which these functions are defined. That is, $f\ast g=g\ast f$ almost everywhere. Finally, we use our first result to conclude that
+\[
+\|f\ast g\|_1=\int\left|\int f(x-y)g(y)\df x\right|\df y\leq\iint |f(x-y)||g(y)|\df x\df y=\left(\int |f(x)| \df x\right)\left(\int |g(y)| \df y\right)=\|f\|_1\|g\|_1.
+\]
+
+\section{Problem 2 (Folland Problem 11)}
+\subsection{Part a}
+Consider a finite subset $\{f_j\}_{j=1}^n\subset L^1(\mu)$ and fix $\epsilon>0$. By Corollary 3.6 in Folland, for each $f_j$, there exists some $\delta_j>0$ such that $\left|\int_Ef_j\df\mu\right|<\epsilon$ whenever $\mu(E)<\delta_j$. Let $\delta=\min_{j\in\{1,\ldots,n\}}\delta_j$. Then, for all $j=1,\ldots,n$, $\left|\int_Ef_j\df\mu\right|<\epsilon$ whenever $\mu(E)<\delta$. Thus, $\{f_j\}_{j=1}^n$ is uniformly integrable. 
+
+\subsection{Part b}
+Now, let $\{f_n\}\subset L^1(\mu)$ converge to $f\in L^1(\mu)$ in the $L^1$ metric and fix $\epsilon>0$. Then, there exists some $N\in\mathbb{N}$ such that $\int |f_n-f|\df\mu<\frac{\epsilon}{2}$ for $n\geq N$. By the reverse triangle inequality, 
+\[
+\left|\int_E f_n\df\mu\right|-\left|\int_E f\df\mu\right|\leq \left|\int_E (f_n-f)\df\mu\right|\leq\int_E |f_n-f|\df\mu\leq\int |f_n-f|\df\mu<\frac{\epsilon}{2}.
+\]
+Now, by Corollary 3.6 in Folland, since $f\in L^1(\mu)$, there exists some $\hat\delta>0$ such that $\left|\int_E f\df\mu\right|<\frac{\epsilon}{2}$ if $\mu(E)<\hat\delta$. Therefore, $\left|\int_E f_n\df\mu\right|<\epsilon$ if $\mu(E)<\hat\delta$ and $n\geq N$. As in part a, for each $f_n$ with $n<N$, there exists some $\delta_n>0$ such that $\left|\int_Ef_n\df\mu\right|<\epsilon$ whenever $\mu(E)<\delta_n$. Now, let $\delta=\left\{\min_{n\in\{1,\ldots,N-1\}}\delta_n,\hat\delta\right\}$. Then, clearly, $\left|\int_Ef_n\df\mu\right|<\epsilon$ whenever $\mu(E)<\delta$ for all $n\in\mathbb{N}$. Thus, $\{f_n\}$ is uniformly integrable. 
+
+\section{Problem 3 (Folland Problem 17)}
+Let $(X,\cM,\mu)$ be a $\sigma$-finite measure space, $\cN\subset\cM$ a sub-$\sigma$-algebra, $\nu=\mu|\cN$, and $f\in L^1(\mu)$. Define the signed measure $\hat\lambda$ on $(X,\cM)$ by
+\[
+\hat\lambda(E)=\int_Ef\df\mu,\quad E\in\cM,
+\]
+and let $\lambda=\hat\lambda|\cN$. Then, $\lambda\ll\nu$ because for any $E\in\cN$ such that $\nu(E)=0$, $\mu(E)=0$, and $\lambda(E)=\int_Ef\df\mu=0$. Thus, the Lebesgue--Radon--Nikodym theorem (Theorem 3.8 in Folland) gives that there exists some $g=\frac{\df\lambda}{\df\nu}$ that is extended $\nu$-integrable such that $\df\lambda=g\df\nu$. Furthermore, if $g'$ is another such function, then $g'=g$ $\nu$-almost everywhere. This means that for any $E\in\cN$,
+\[
+\int_Ef\df\mu=\lambda(E)=\int_E\df\lambda=\int_Eg\df\nu.
+\]
+Since $f\in L^1(\mu)$, the leftmost integral is always finite, so the rightmost integral is as well, meaning that $g\in L^1(\nu)$. 
+
+\section{Problem 4 (Folland Problem 21)}
+Let $\nu$ be a complex measure on $(X,\cM)$. For $E\in\cM$, define
+\begin{equation*}
+	\begin{aligned}
+		& \mu_1(E)=\sup \left\{\sum_1^n\left|\nu\left(E_j\right)\right|: n \in \mathbb{N}, E_1, \ldots, E_n \text { disjoint, } E=\bigsqcup_1^n E_j\right\}, \\
+		& \mu_2(E)=\sup \left\{\sum_1^{\infty}\left|\nu\left(E_j\right)\right|: E_1, E_2, \ldots \text { disjoint, } E=\bigsqcup_1^{\infty} E_j\right\}, \\
+		& \mu_3(E)=\sup \left\{\left|\int_E f d \nu\right|:|f| \leq 1\right\} .
+	\end{aligned}
+\end{equation*}
+For any $E\in\cM$, we trivially have that $\mu_1(E)\leq\mu_2(E)$, since
+\[
+\left\{\sum_1^n\left|\nu\left(E_j\right)\right|: n \in \mathbb{N}, E_1, \ldots, E_n \text { disjoint, } E=\bigsqcup_1^n E_j\right\}\subset\left\{\sum_1^{\infty}\left|\nu\left(E_j\right)\right|: E_1, E_2, \ldots \text { disjoint, } E=\bigsqcup_1^{\infty} E_j\right\},
+\]
+clearly holds. If $E=\bigsqcup_1^{\infty} E_j$, then proposition 3.13a gives that
+\[
+\sum_{j=1}^{\infty}\left|\nu\left(E_j\right)\right|\leq\sum_{j=1}^\infty |\nu|(E_j)=|\nu|(E),
+\]
+so we must have that $\mu_2(E)\leq|\nu|(E)$ for all $E\in\cM$. Following the first hint, for any $E\in\cM$,
+\[
+\mu_3(E)\geq\left|\int_E\overline{\frac{\df \nu}{\df|\nu|}}\df\nu\right|.
+\]
+We note that Proposition 3.9a generalizes to complex measures as mentioned in Section 3.3, so by this and Proposition 3.13b,
+\[
+\mu_3(E)\geq\left|\int_E\overline{\frac{\df \nu}{\df|\nu|}}\frac{\df \nu}{\df|\nu|}\df|\nu|\right|=\left|\int_E\left|\frac{\df \nu}{\df|\nu|}\right|^2\df|\nu|\right|=\left|\int_E\df|\nu|\right|=\left||\nu|(E)\right|=|\nu|(E).
+\]
+Thus, for all $E\in\cM$, $\mu_1(E)\leq\mu_2(E)\leq|\nu|(E)\leq\mu_3(E)$. To show that these are equalities, fix $\epsilon>0$ and let $|f|\leq1$ as in the definition of $\mu_3$. Then, by Theorem 2.26 in Folland, there exists some simple function $\phi$ such that
+\[
+\left|\int_E f d \nu\right|\leq\left|\int_E \phi d \nu\right|+\epsilon.
+\]
+Let the representation of $\phi$ be given by $\phi=\sum_{j=1}^nc_j\nu(F_j)$ for $F_1,\ldots,F_n$ disjoint and $X=\bigsqcup_{j=1}^n F_j$. Then, by the triangle inequality,
+\[
+\left|\int_E f d \nu\right|\leq\left|\sum_{j=1}^nc_j\nu(F_j\cap E)\right|+\epsilon\leq\sum_{j=1}^n\left|c_j||\nu(F_j\cap E)\right|+\epsilon.
+\]
+Now, define $E_j=F_j\cap E$ and note that because $|f|\leq1,$ $|c_j|\leq1$ for all $j=1,\ldots,n$. Thus,
+\[
+\left|\int_E f d \nu\right|\leq\sum_{j=1}^n\left|\nu(E_j)\right|+\epsilon.
+\]
+Furthermore, $E_1,\ldots,E_n$ are disjoint and $E=\bigsqcup_{j=1}^n E_j$. Since this holds for all $\epsilon>0$ and $|f|\leq1$, we must have that $\mu_3(E)\leq\mu_1(E)$ for all $E\in\cM$. Thus, $\mu_1(E)=\mu_2(E)=\mu_3(E)=|\nu|(E)$ for all $E\in\cM$.
+
+\section{Problem 5}
+Consider the algebra $\cA_n\subset\cB_{(0,1]}$ on $(0,1]$ generated by sets of the form $E_k=\left(\frac{k}{2^n},\frac{k+1}{2^n}\right]$ with $0\leq k\leq2^n-1$ and let $f\in L^1\left((0,1],\cB_{(0,1]},m\right)$ be given. Let $g$ be the conditional expectation of $f$ on $\cA_n$ as defined in Problem 3. Then, since $g$ is $\cA_n$-measurable, it must be constant on each $E_k$. If it weren't, then there would exist some $a$ such that $A_a=\{x\in X:g(x)<a\}$ would contain a nontrivial subset of $E_k$. Because $\cA_n$ contains only unions of the disjoint sets $E_k$, a nontrivial subset cannot be $\cA_n$-measurable. Let $\hat m$ denote the restriction of $m$ to $\cA_n$ and $c_k$ denote the value of $g$ on $E_k$. Then, it must hold that for all $E_k$,
+\[
+\int_{E_k}f\df m=\int_{E_k}g\df \hat m=c_k\hat m(E_k)=c_km(E_k)=\frac{c_k}{2^n}.
+\]
+Thus, for $x\in E_k$, 
+\[
+g(x)=c_k=2^n\int_{E_k}f\df m=2^n\int_{\frac{k}{2^n}}^{\frac{k+1}{2^n}}f(x)\df x.
+\]
+Since the sets $E_k$ cover $(0,1]$ disjointly, this defines $g$ on all of $(0,1]$. Since any $E\in\cA_n$ can be written as the disjoint union of the sets $E_k$, it immediately follows by additivity that 
+\[
+\int_{E}f\df m=\int_{E}g\df \hat m,
+\]
+for all $E\in\cA_n$, so $g$ as defined above must be the conditional expectation of $f$ on $\cA_n$ that is unique $m$-almost everywhere.
+
+\end{document}

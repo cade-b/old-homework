@@ -1,0 +1,154 @@
+\documentclass{article}
+\usepackage[top = 0.9in, bottom = 0.9in, left =1in, right = 1in]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage{hyperref}
+\usepackage{listings}
+\usepackage{multimedia} % to embed movies in the PDF file
+\usepackage{graphicx}
+\usepackage{comment}
+\usepackage[english]{babel}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{wrapfig}
+\usepackage{multirow}
+\usepackage{verbatim}
+\usepackage{float}
+\usepackage{cancel}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{mathdots}
+\usepackage{/home/cade/Homework/latex-defs}
+
+
+\title{MATH 524 Homework 7}
+\author{Cade Ballew \#2120804}
+\date{December 8, 2023}
+
+\begin{document}
+	
+\maketitle
+	
+\section{Problem 1 (Folland Problem 23)}
+Define the following variant of the Hardy-Littlewood maximal function:
+\[
+H^* f(x)=\sup \left\{\frac{1}{m(B)} \int_B|f(y)| \df y: B \text { is a ball and } x \in B\right\}.
+\]
+It is easy to see that $Hf\leq H^*f$, as any ball centered at $x$ is a ball containing $x$, so clearly,
+\[
+\sup_{r>0}\left\{\frac{1}{m(B(x,r))}\int_{B(x,r)}|f(y)|\df y\right\}\leq\sup\left\{\frac{1}{m(B)} \int_B|f(y)| \df y: B \text { is a ball and } x \in B\right\}.
+\]
+On the other hand, note that if for a ball $B$, if $x\in B$ and $B$ has radius $r$, then $B\subset B(x,2r)$. Also note that $M(B)=c_nr^n$ and $m(B(x,2r))=c_n(2r)^n$, so $m(B)=\frac{m(B(x,2r))}{2^n}$. Then,
+\begin{align*}
+\frac{1}{m(B)} \int_B|f(y)| \df y\leq\frac{1}{m(B)} \int_{B(x,2r)}|f(y)| \df y=2^n\frac{1}{m(B(x,2r))} \int_{B(x,2r)}|f(y)| \df y.
+\end{align*}
+Since this holds for all balls $B$ contianing $x$, this demonstrates that $H^*f\leq 2^n Hf$. 
+
+\section{Problem 2 (Folland Problem 26)}
+Let $\lambda$ and $\mu$ be positive, mutually singular Borel measures on $\real^n$ and $\lambda+\mu$ be regular. By definition, there exist $L,M\in\cB_{\real^n}$ such that $\real^n=L\sqcup M$ and $\lambda$ is null on $L$ and $\mu$ is null on $M$. To see that $\lambda$ and $\mu$ are both regular, we first note that because $\lambda+\mu$ is regular, for any compact $K\in\cB_{\real^n}$,
+\[
+\lambda(K)+\mu(K)=(\lambda+\mu)(K)<\infty.
+\]
+Because both $\lambda$ and $\mu$ are measures,
+\[
+\lambda(K)\leq(\lambda+\mu)(K)<\infty.
+\]
+Likewise, $\mu(K)<\infty$. 
+
+To see that $\lambda$ and $\mu$ satisfy outer regularity,  fix $\epsilon>0$. Then, because $\lambda+\mu$ is regular, there exists some open set $U$ such that $E\subset U$ and 
+\[
+(\lambda+\mu)(U)\leq(\lambda+\mu)(E)+\epsilon.
+\]
+Because $\real^n$ is $\sigma$-compact, it suffices to consider the case where $E$ and $U$ are bounded sets. That is, all quantities in this expression are finite. Expanding this,
+\[
+\lambda(U\cap M)+\mu(U\cap L)\leq\lambda(E\cap M)+\mu(E\cap L)+\epsilon. 
+\]
+Rearranging,
+\[
+\lambda(U\cap M)\leq\lambda(E\cap M)-\mu\left((U\setminus E)\cap L\right)+\epsilon\leq \lambda(E\cap M)+\epsilon, 
+\]
+since $E\subset U$. Because $\lambda$ is null on $L$, this gives that
+\[
+\lambda(U)\leq\lambda(E)+\epsilon.
+\]
+Since we can find such a $U\supset E$ for any $\epsilon>0$, it must follow that $\lambda$ is outer regular. Since the argument is symmetric when interchanging $\lambda$ and $\mu$ and $L$ and $M$, $\mu$ must be outer regular as well. Thus, both measures are regular.
+
+\section{Problem 3 (Folland Problem 28)}
+Let $F\in NBV$ and $G(x)=\left|\mu_F\right|\left((-\infty,x]\right)$. We prove that $\left|\mu_F\right|=\mu_{T_F}$ by showing that $G=T_F$ through the following steps.
+\subsection{Part a}
+By definition,
+\[
+T_F(x)=\sup\left\{\sum_{j=1}^{n}\left|F(x_j)-F(x_{j-1})\right|~:~n\in\mathbb{N},~-\infty<x_0<\ldots<x_n=x\right\}.
+\]
+For any partition $x_0,\ldots,x_n$ as in the definition of $T_F$, by Proposition 3.13a,
+\begin{align*}
+\sum_{j=1}^{n}\left|F(x_j)-F(x_{j-1})\right|=\sum_{j=1}^{n}\left|\mu_F\left((x_{j-1},x_j]\right)\right|\leq\sum_{j=1}^{n}\left|\mu_F\right|\left((x_{j-1},x_j]\right)=\left|\mu_F\right|\left((x_{0},x]\right)\leq G(x).
+\end{align*}
+Thus, $T_f\leq G$.
+\subsection{Part b}
+Let $E$ be an interval with endpoints at $a,b\in\overline\real$ with $a<b$. Then, noting that $x_0=a,x_1=b$ is a partition of $E$, 
+\begin{align*}
+\left|\mu_F(E)\right|&=|F(b)-F(a)|\leq\sup\left\{\sum_{j=1}^{n}\left|F(x_j)-F(x_{j-1})\right|~:~n\in\mathbb{N},~a=x_0<\ldots<x_n=b\right\}\\&=
+T_F(b)-T_F(a)=\mu_{T_F}(E).
+\end{align*}
+A trivial subtlety here is that limits are needed if $a,b=\pm\infty$. Since this inequality holds for all intervals, it must also hold for all Borel sets since all quantities involved are finite.
+\subsection{Part c}
+By Exercise 21, and part b, we have that for any $E\in\cB_{\real}$,
+\begin{align*}
+\left|\mu_F\right|(E)&=\sup \left\{\sum_1^n\left|\mu_F\left(E_j\right)\right|: n \in \mathbb{N}, E_1, \ldots, E_n \text { disjoint, } E=\bigsqcup_1^n E_j\right\}\\&\leq
+\sup\left\{\sum_1^n\left|\mu_{T_F}\left(E_j\right)\right|: n \in \mathbb{N}, E_1, \ldots, E_n \text { disjoint, } E=\bigsqcup_1^n E_j\right\} =\mu_{T_F}(E).
+\end{align*}
+Thus, $\left|\mu_F\right|\leq\mu_{T_F}$, and hence $G\leq T_F$.
+
+\section{Problem 4 (Folland Problem 31)}
+Let $F(x)=x^2\sin(x^{-1})$ and $G(x)=x^2\sin(x^{-2})$ for $x\neq0$ and $F(0)=G(0)=0$. 
+\subsection{Part a}
+We see that $F(x)$ and $G(x)$ are differentiable for $x\neq0$ by computing
+\[
+F'(x)=2x\sin(x^{-1})-\cos(x^{-1}),\quad G'(x)=2x\sin(x^{-2})-\frac{2}{x}\cos(x^{-2}),
+\]
+which are clearly defined for $x\neq0$. We also compute
+\[
+F'(0)=\lim_{h\to0}\frac{F(h)-F(0)}{h}=h\sin(h^{-1})=0,
+\]
+by the squeeze theorem since $-1\leq\sin(h^{-1})\leq1$. Similarly,
+\[
+G'(0)=\lim_{h\to0}\frac{G(h)-G(0)}{h}=h\sin(h^{-2})=0.
+\]
+Thus, $F$ and $G$ are both differentiable everywhere.
+
+\subsection{Part b}
+To see that $F$ is of bounded variation, note that for $x\in[-1,1]$,
+\[
+|F'(x)|\leq 2|x|\left|\sin(x^{-1})\right|+\left|\cos(x^{-1})\right|\leq2+1=3.
+\]
+Thus, by Example 3.25c, since $F$ is differentiable on $\real$ and $F'$ is bounded on $[-1,1]$, $F\in BV([-1,1])$.
+
+On the other hand, consider the partition 
+\[
+x_0=-1,~x_j=-\sqrt{\frac{2}{j\pi}},~x_n=1,
+\]
+defined for $j=1,\ldots,n-1$. For simplicity, let $n\geq3$. Then,
+\begin{align*}
+\sum_{j=1}^n\left|G(x_j)-G(x_{j-1})\right|\geq \sum_{j=2}^{n-1}\left|-\frac{2}{j\pi}\sin\left(\frac{j\pi}{2}\right)+\frac{2}{(j-1)\pi}\left(\frac{(j-1)\pi}{2}\right)\right|\geq\sum_{j=2}^{n-1}\frac{2}{j\pi}.
+\end{align*}
+Since
+\[
+\lim_{n\to\infty}\sum_{j=2}^{n-1}\frac{2}{j\pi}=\infty,
+\]
+by definition, $T_G(1)-T_G(-1)=\infty$ and $G\notin BV([-1,1])$.
+
+\section{Problem 5 (Folland Problem 33)}
+Let $F$ be increasing on $\real$. Define 
+\[
+\hat F(x)=\begin{cases}
+	F(x),\quad x\leq b,\\
+	F(b),\quad x>b,
+\end{cases}
+\]
+and let $G(x)=\hat F(x+)$, noting that $G$ is increasing and right-continuous. By Theorem 3.23, $\hat F$ and $G$ are differentiable almost everywhere and $\hat F'=G'$ almost everywhere. This implies that on the interval $(a,b]$, $F$ and $G$ are differentiable almost everywhere and $F'=G'$ almost everywhere. Furthermore, Theorem 3.22 gives that $\mu_G=G'\df m$. Thus, by construction,
+\begin{align*}
+F(b)-F(a)\geq G(b)-G(a)=\mu_G\left((a,b]\right)=\int_{(a,b]}G'\df m=\int_a^bG'(t)\df t=\int_a^bF'(t)\df t,
+\end{align*}
+as desired. 
+
+\end{document}

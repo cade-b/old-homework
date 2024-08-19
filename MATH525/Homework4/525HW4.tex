@@ -1,0 +1,138 @@
+\documentclass{article}
+\usepackage[top = 0.9in, bottom = 0.9in, left =1in, right = 1in]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage{hyperref}
+\usepackage{listings}
+\usepackage{multimedia} % to embed movies in the PDF file
+\usepackage{graphicx}
+\usepackage{comment}
+\usepackage[english]{babel}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{wrapfig}
+\usepackage{multirow}
+\usepackage{verbatim}
+\usepackage{float}
+\usepackage{cancel}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{mathdots}
+\usepackage{/home/cade/Homework/latex-defs}
+
+
+\title{MATH 525 Homework 4}
+\author{Cade Ballew \#2120804}
+\date{February 2, 2024}
+
+\begin{document}
+	
+\maketitle
+	
+\section{Problem 1}
+Let $E$ be a barrel in a Banach space. Because $E$ is closed, $E^o\subset E$ by definition, and $\overline{E^o}$ is the smallest closed set containing $E^o$, we must have that $\overline{E^o}\subset E$. Let $x\in E$ and $t\in[0,1)$. Because $E$ is a barrel, there exists some $r>0$ such that $\cB_r(0)\subset E$. Let $y\in\cB_{(1-t)r}(tx)$. Then, $y$ can be represented as $y=tx+(1-t)rv$ for some $v$ with $\|v\|<1$. This means that $rv\in\cB_r(0)\subset E$, so $y\in E$ since $E$ is convex. Thus, $\cB_{(1-t)r}(tx)\subset E$, meaning that $tx\in E^o$ since $E^o$ must contain all of the interior points of $E$. Now, consider the sequence of points $\{x_n\}_{n=1}^\infty\subset E^o$ where $x_n=\frac{n}{n+1}x$ for all $n$. Clearly, $\{x_n\}\to x$ and $x_n\subset E^o$ for all $n$. Thus, $x\in\overline{E^o}$, so we conclude that $\overline{E^o}=E$. 
+
+\section{Problem 2}
+Let $X$ be a normed vector space and $M$ a vector subspace of $X$ considered as a normed vector space itself. Let $M^\perp\subset X^*$ be the set of all $f\in X^*$ such that $M\subset\ker(f)$.
+ 
+\subsection{Part a}
+Let $M$ be closed. If $x\in M$, then by the definition of $M^\perp$, $f(x)=0$ for all $f\in M^\perp$. Conversely, assume that for some $x$, $f(x)=0$ for all $f\in M^\perp$. If $x\notin M$, then Theorem 5.8a implies that there exists some $f\in X^*$ such that $f(x)\neq 0$ and $f(y)=0$ for all $y\in M$. This implies that $f\in M^\perp$ but $f(x)\neq 0$ which contradicts the assumptions. Thus, $x\in M$.
+
+\subsection{Part b}
+To see that there is a natural equivalence $M^*\equiv X^*/M^\perp$, let $f\in M^*$ and consider the norm $p(x)=\|f\|_{M^*}\|x\|$. Since $\|f\|_{M^*}$ is a positive constant independent of $X$, this is clearly a norm on $X$. By definition, $|f(x)|\leq p(x)$ for all $x\in M$, so Hahn--Banach implies that there exists some $F\in X^*$ such that $F(x)=f(x)$ for all $x\in M$ and $|F(x)|\leq p(x)$ for all $x\in X$. We let $f$ correspond to $F+M^\perp\in X^*/M^\perp$. Then,
+\[
+\|F\|_{X^*}=\sup_{x\in X}\frac{|F(x)|}{\|x\|}\leq\sup_{x\in X}\|f\|_{M^*}=\|f\|_{M^*}.
+\]
+Noting that the zero functional is in $M^\perp$, 
+\[
+\|F+M\|_{X^*/M^\perp}=\inf_{g\in M^\perp}\|F+g\|_{X^*}\leq \|F+0\|_{X^*}=\|F\|_{X^*}\leq \|f\|_{M^*}.
+\]
+Now, note that if $g+M^\perp=h+M^\perp\in X^*/M^\perp$, then $g-h\in M^\perp$, so $(g-h)(x)=0$ for all $x\in M$, meaning that $g(x)=h(x)$ for all $x\in M$. Thus, given  $F+M^\perp\in X^*/M^\perp$, we can uniquely define $f\in M^*$ by $f(x)=(F+M^\perp)(x)$ for all $x\in M$ where $f(x)=g(x)$ for all $g\in F+M^\perp$. Then, for all such $g$,
+\[
+\|f\|_{M^*}=\sup_{x\in M}\frac{|f(x)|}{\|x\|}=\sup_{x\in M}\frac{|g(x)|}{\|x\|}\leq\sup_{x\in X}\frac{|g(x)|}{\|x\|}=\|g\|_{X^*}.
+\]
+Since this holds for all $g\in F+M^\perp$, this implies that that 
+\[
+\|f\|_{M^*}\leq\inf_{g\in F+M^\perp}\|g\|_{X^*}=\inf_{v\in M^\perp}\|F+v\|_{X^*}=\|F+M^\perp\|_{X^*/M\perp}.
+\]
+Thus, we have established a equivalence between $f\in M^*$ and $F+M^\perp\in X^*/M\perp$ such that $\|f\|_{M^*}=\|F+M^\perp\|_{X^*/M^\perp}$ for all elements of $M^*$ and $X^*/M^\perp$, so $M^*\equiv X^*/M^\perp$. 
+
+\section{Problem 3}
+Let $X$ be a reflexive Banach space and $M$ a closed subspace of $X$. Let $\hat m\in M^{**}$ and define $\hat M\in X^{**}$ by $\hat M(F)=\hat m\left(F\big|_M\right)$ for all $F\in X^{**}$. Because $X$ is reflexive, there exists some $x\in X$ such that $\hat M(F)=F(x)$ for all $F\in X^*$, meaning that $\hat m\left(F\big|_M\right)=F(x)$ for all $F\in X^*$. Let $G\in M^\perp$. Then,
+\[
+G(x)=\hat m\left(G\big|_M\right)=\hat m(0)=0,
+\]
+so Problem 2a implies that $x\in M$ because $G(x)=0$ for all $G\in M^\perp$. Now, let $f\in M^*$. Hahn--Banach implies that there exists some $F\in X^*$ such that $F\big|_M=f$ since $p(x)=\|f\|_{M^*}\|x\|$ is a norm and $|f(x)|\leq p(x)$ for all $x\in M$. This implies that for any $f\in M^*$,
+\[
+\hat m(f)=\hat m\left(F\big|_M\right)=\hat M(F)=F(x)=f(x),
+\]
+since $x\in M$. Thus, for any $\hat m\in M^{**}$, we can find some $x\in M$ such that $\hat m(f)=f(x)$ for all $f\in M^*$. This means that the double dual map $M\to M^{**}$ is surjective, so $M$ is also reflexive.
+
+\section{Problem 4}
+Let $E$ and $F$ be closed subspaces of a Banach space $X$ such that $E\cap F=\{0\}$ and $X=\Span(E\cup F)$. Define the map $\varphi:E\times F\to X$ by $\varphi(v,w)=v+w$. To see that $\varphi$ is injective, assume that $\varphi(e_1,f_1)=\varphi(e_2,f_2)$. Then, $e_1+f_1=e_2+f_2$, so
+\[
+E\ni e_1-e_2=f_2-f_1\in F.
+\]
+Since $E\cap F=\{0\}$, this means that
+\[
+0=e_1-e_2=f_2-f_1,
+\]
+so $(e_1,f_1)=(e_2,f_2)$.
+
+To see that $\varphi$ is surjective, let $x\in X$. Since $X=\Span(E\cup F)$, we can write $x=e+f$ for some $e\in E$ and $f\in F$. This implies that there exists $(e,f)\in E\times F$ such that $\varphi(e,f)=e+f=x$, so $\varphi$ is surjective.
+
+To see that $\varphi$ is continuous, fix $\epsilon>0$ and $(e,f)\in E\times F$ and let $\delta=\epsilon$. Then, for any $(c,d)\in E\times F$ such that $\|(e,f)-(c,d)\|_{E\times F}<\delta$, 
+\begin{align*}
+\|\varphi(e,f)-\varphi(c,d)\|_X&=\|(e+f)-(c+d)\|_X\leq \|e-c\|_X+\|f-d\|_X\\&=\|(e-c,f-d)\|_{E\times F}=\|(e,f)-(c,d)\|_{E\times F}<\epsilon.
+\end{align*}
+Note that this uses the product space norm as defined in the course notes rather than the one in Folland. Thus, $\varphi$ is continuous on $E\times F$. 
+
+Finally, we note that $E$ and $F$ are Banach spaces since they are closed subspaces of a Banach space. Thus, $E\times F$ is a Banach space, so the open mapping theorem implies that $\varphi$ is open since it is continuous and surjective. This means that $\varphi^{-1}$ is continuous, so we can conclude that $\varphi$ is a homeomorphism of $E\times F$ onto $X$. 
+
+If $E$ is a closed subspace of a Banach space with a closed complement $F$, denote by $\Pi_E$ the continuous surjective projection map from $E\times F$ to $E$. Then, we can conclude that the composition map $\Pi_E\circ\varphi^{-1}$ is a continuous onto projection from $X$ to $E$ since both $\Pi_E$ and $\varphi^{-1}$ are. Conversely, if E has a continuous projection map $\Pi_E$ from $X$ to $E$, define $F=\{x\in X:\Pi_E(x)=0\}$ and note that $F$ is a closed subspace of $X$ because $\Pi_E$ is continuous, $F=\Pi_E^{-1}(\{0\})$, and $\{0\}$ is a closed subspace of $X$. Then, by construction, $E\cap F=\{0\}$. Furthermore, for any $x\in X$, $x=\Pi_E(x)+(x-\Pi_E(x))$. Then, $\Pi_E(x)\in E$ and 
+\[
+\Pi_E(x-\Pi_E(x))=\Pi_E(x)-\Pi_E(\Pi_E(x))=\Pi_E(x)-\Pi_E(x)=0,
+\]
+so $x-\Pi_E(x)\in F$ and $x\in\Span(E\cup F)$. Thus, $X=\Span(E\cup F)$, so $E$ has a closed complement, namely $F$.
+
+\section{Problem 5}
+Let $X$ be a normed vector space over $\compl$ and let $f\in X^*$ with $\|f\|_{X^*}=1$. 
+\subsection{Part a}
+Define the map $\varphi:X/\ker(f)\to\compl$ by $\varphi(y)=f(y)$ for any $y\in x+\ker(f)$ and $x\in X$. This is well-defined because if $x+\ker(f)=y+\ker(f)$, then $x-y\in\ker(f)$, so $f(x-y)=0$ and, because $f$ is linear, $f(x)=f(y)$. Thus, we can define the map by $\varphi(x+\ker(f))=f(x)$. 
+
+To see that is map is onto, note that because $\|f\|_{X^*}=1$, there exists some $\Tilde x\in X$ such that $f(\Tilde x)=c\neq 0$ since $f$ is not the zero functional. Given some $a\in\compl$, let $x=\frac{a}{c}\Tilde x$. Then,
+\[
+f(x)=\frac{a}{c}f(\Tilde x)=a.
+\]
+Thus, $\varphi$ is onto. 
+
+To see that $\varphi$ is norm-preserving, we first observe that for any $v\in\ker(f)$,
+\[
+|f(x)|\leq |f(x)-f(v)|+|f(v)|=|f(x-v)|\leq \|x-v\|.
+\]
+Thus,
+\[
+\|\varphi(x+\ker(f))\|=|f(x)|\leq\inf_{v\in\ker(f)}\|x-v\|=\|x+\ker(f)\|_{X/\ker(f)}.
+\]
+To show this inequality in the opposite direction, we first note that $\varphi$ is injective because if $\varphi(x+\ker(f))=\varphi(y+\ker(f))$, then $f(x)=f(y)$, so $f(x-y)=0$ and $x-y\in\ker(f)$, so $x$ and $y$ are in the same equivalence class and $x+\ker(f)=y+\ker(f)$. This means that $\varphi$ is an isomorphism, so $X/\ker(f)$ is one-dimensional since $\compl$ is. Now, because $\|f\|_{X^*}=1$, for any $\epsilon>0$, there exists some $y\in X$ such that $\|y\|\leq|f(y)|+\epsilon$. Then,
+\[
+\|y+\ker(f)\|_{X/\ker(f)}=\inf_{v\in\ker(f)}\|y-v\|\leq\|y\|\leq|f(y)|+\epsilon. 
+\]
+Because $X/\ker(f)$ is one-dimensional, for any $x\in X$ nonzero, there exists some $\lambda\in\compl$ such that $x+\ker(f)=\lambda(y+\ker(f))$. This implies that $x-\lambda y\in\ker(f)$, so $f(x)=f(\lambda y)$ and $f\left(\frac{x}{\lambda}\right)=f(y)$. Thus,
+\begin{align*}
+\|x+\ker(f)\|_{X/\ker(f)}&=|\lambda|\|y+\ker(f)\|_{X/\ker(f)}\leq|\lambda||f(y)|+|\lambda|\epsilon=|\lambda|\left|f\left(\frac{x}{\lambda}\right)\right|+|\lambda|\epsilon\\&=|f(x)|+|\lambda|\epsilon=\|\varphi(x+\ker(f))\|+|\lambda|\epsilon.
+\end{align*}
+By rescaling $\epsilon$, this implies that for any nonzero $x\in X$ and $\epsilon>0$, $\|x+\ker(f)\|_{X/\ker(f)}\leq \|\varphi(x+\ker(f))\|+\epsilon$. Furthermore, this is trivially true for $x=0$, so we can conclude that for all $x\in X$, $\|x+\ker(f)\|_{X/\ker(f)}\leq \|\varphi(x+\ker(f))\|$. Thus, $\varphi$ is norm-preserving.
+
+\subsection{Part b}
+
+From class, we have that if $X$ is reflexive and $f\in X^*$ with $\|f\|_{X^*}=1$, then there is an $x\in X$ with $\|x\|=1$ such that
+\[
+f(x)=\|f\|_{X^*}=1.
+\]
+By part a, there is a norm-preserving onto map $\varphi$ from $X/\ker(f)$ to $\compl$ such that $\varphi(y+\ker(f))=f(y)$. Thus, by definition,
+\[
+1=|f(x)|=\|x+\ker(f)\|_{X+\ker(f)}=\inf_{v\in\ker(f)}\|x-v\|,
+\]
+so we have established that there is an $x\in X$ with $\|x\|=1$ such that $\inf_{v\in\ker(f)}\|x-v\|=1$.
+
+\end{document}

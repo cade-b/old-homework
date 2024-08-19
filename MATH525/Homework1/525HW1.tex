@@ -1,0 +1,109 @@
+\documentclass{article}
+\usepackage[top = 0.9in, bottom = 0.9in, left =1in, right = 1in]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage{hyperref}
+\usepackage{listings}
+\usepackage{multimedia} % to embed movies in the PDF file
+\usepackage{graphicx}
+\usepackage{comment}
+\usepackage[english]{babel}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{wrapfig}
+\usepackage{multirow}
+\usepackage{verbatim}
+\usepackage{float}
+\usepackage{cancel}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{mathdots}
+\usepackage{/home/cade/Homework/latex-defs}
+
+
+\title{MATH 525 Homework 1}
+\author{Cade Ballew \#2120804}
+\date{January 12, 2024}
+
+\begin{document}
+	
+\maketitle
+	
+\section{Problem 1}
+Consider the following alternative definition of a normal topology: given any two disjoint closed sets $A$ and $B$, there is an open set $V\supset A$ such that $\overline V\cap B=\emptyset$. 
+
+To see that this is equivalent to our definition, let $(X,\cT)$ be a normal topological space. Then, given any two disjoint closed sets $A$ and $B$, there exist two disjoint open sets $U$ and $V$ such that $A\subset V$ and $B\subset U$. This implies that
+\[
+V\subset U^c\subset B^c.
+\]
+Because $U^c$ is closed and $\overline V$ is the smallest closed set containing $V$, this further implies that
+\[
+\overline V\subset U^c\subset B^c,
+\]
+meaning that $\overline V\cap B=\emptyset$ and the alternative definition is satisfied. 
+
+Conversely, let $(X,\cT)$ be a topological space satisfying the alternative definition. Then, given any two disjoint closed sets $A$ and $B$, there is an open set $V\supset A$ such that $\overline V\cap B=\emptyset$. We let $U=\left(\overline V\right)^c$, noting that this set is open. Then, $B\subset U$ and $V\subset U^c$, so $U\cap V=\emptyset$, and $(X,\cT)$ is normal by definition.
+
+\section{Problem 2}
+Let $f:X\to\real$ be continuous. Then, for every $a\in\real$, $(-\infty,a)$ and $(a,\infty)$ are both open, so their preimages $f^{-1}\left((-\infty,a)\right)$ and $f^{-1}\left((a,\infty)\right)$ are both open.
+
+Conversely, consider a map $f:X\to\real$ such that for every $a\in\real$, the preimages $f^{-1}\left((-\infty,a)\right)$ and $f^{-1}\left((a,\infty)\right)$ are both open. Since $\real$ is a metric space with the standard Euclidean distance, the open balls $B(x,r)=(x-r,x+r)$ with $x\in\real$ and $r>0$ form a base for $\real$. Thus, to show that $f$ is continuous, it suffices to show that $f^{-1}\left((x-r,x+r)\right)$ is open for all $x\in\real$, $r>0$. Note that
+\[
+(x-r,x+r)=(-\infty,x-r)\cap(x+r,\infty),
+\]
+so
+\[
+f^{-1}\left((x-r,x+r)\right)=f^{-1}\left((-\infty,x+r)\right)\cap f^{-1}\left((x-r,\infty)\right),
+\]
+is open because it is the finite intersection of open sets. Thus, $f$ is continuous.
+
+\section{Problem 3}
+Suppose $X$ is compact and $f_n:X\to\real$ is a sequence of continuous functions on $X$ such that $f_n(x)$ converges monotonically upwards to $f(x)$ and $f$ is continuous. Fix $\epsilon>0$. Define $g_n=f-f_n$ for all $n$ and note that each $g_n$ is continuous and the sequence $\{g_n\}$ is monotonically decreasing. For each $n$, define $E_n=g_n^{-1}\left((-\infty,\epsilon)\right)$. By problem 2, $E_n$ is open for all $n$. Because $f_n\to f$ pointwise, $X\subset \bigcup_{n=1}^\infty E_n$. This is an open cover of $X$, so it can be reduced to a finite subcover. Furthermore, because $\{g_n\}$ is monotonically decreasing, we must have that for all $n$, $E_n\subset E_{n+1}$. Thus, the finite subcover is equivalent to its largest member set, meaning that $X\subset E_N$ for some $N\in\mathbb{N}$. This means that for any $n\geq N$, 
+\[
+|f(x)-f_n(x)|<\epsilon,
+\]
+for all $x\in X$. Thus, by definition, $f_n\to f$ uniformly.
+
+\section{Problem 4}
+Let $A$ denote a set and $A'$ its limit points.
+
+\subsection{Part a}
+Let $x\in U$ where $U$ is an open set that does not intersect $A$. Then, $U^c$ is closed and $A\subset U^c$. Since $\overline A$ is the smallest closed set containing $A$, this implies that $\overline A\subset U^c$, so $U\cap \overline A=\emptyset$, and $x\notin \overline{A}$.
+
+Conversely, let $x\notin\overline A$. Then, $x\in\left(\overline A\right)^c$, and $\left(\overline A\right)^c$ is an open set that clearly does not intersect $A$. Thus, there exists an open set containing $x$ that does not intersect $A$.
+
+We have established that $x\notin \overline A$ if and only if there exists an open set containing $x$ that does not intersect $A$. The contrapositive of this statement is that $x\in\overline A$ if and only if every open set containing $x$ intersects $A$.
+
+\subsection{Part b}
+By part a, we have that $A'\subset \overline A$, as $x\in A'$ implies that every open set containing $x$ intersects $A$.
+
+Conversely, let $x\notin A\cup A'.$ Then, there exists an open set $U$ such that $U\cap A=\emptyset$ and $x\in U$. This implies that $A\subset U^c$, but $U^c$ is closed, so $\overline A\subset U^c$ since $\overline A$ is the smallest closed set containing $A$. Thus, $x\notin \overline A$, so $\overline A\subset A\cup A'$ and $\overline A= A\cup A'$ since $A'\subset \overline A$.
+
+%\subsection{Part c}
+%Using the fact that $\partial A=\overline A\cap\overline{A^c}$ and part b, we have that
+%\[
+%\partial A=\left(A\cup A'\right)\cap\left(A^c\cup \left(A^c\right)'\right).
+%\]
+%Expanding this, 
+%\begin{align*}
+%%\partial A&=\left(\left(A\cup A'\right)\cap A^c\right)\cup\left(\left(A\cup A'\right)\cap \left(A^c\right)'\right)=(A'\cap A^c)\cup\left(\left(A\cap \left(A^c\right)'\right)\cup \left(A'\cap \left(A^c\right)'\right)\right)\\&=
+%%\left(A'\cup\left(\left(A\cap \left(A^c\right)'\right)\cup \left(A'\cap \left(A^c\right)'\right)\right)\right)\cap \left(A^c\cup\left(\left(A\cap \left(A^c\right)'\right)\cup \left(A'\cap \left(A^c\right)'\right)\right)\right).
+%\partial A&=\cancel{(A\cap A^c)}\cup\left(A\cap \left(A^c\right)'\right)\cup\left(A'\cap A^c\right)\cup\left(A'\cap \left(A^c\right)'\right)
+%\end{align*}
+
+
+\section{Problem 5 (Folland Problem 14)}
+Let $X$ and $Y$ be topological spaces and $f:X\to Y$. If $f$ is continuous, then for all $A\subset X$, $f^{-1}\left(\overline{f(A)}\right)$ is a closed set. Note that $A\subset f^{-1}\left(\overline{f(A)}\right)$, so $\overline A\subset f^{-1}\left(\overline{f(A)}\right)$ since $\overline A$ is the smallest closed set containing $A$. Thus, $f\left(\overline A\right)\subset \overline{f(A)}$ for all $A\subset X$. 
+
+Now, assume that $f\left(\overline A\right)\subset \overline{f(A)}$ for all $A\subset X$ and let $B\subset Y$. If we take $A=f^{-1}(B)$, then
+\[
+f\left(\overline{f^{-1}(B)}\right)\subset\overline{f\left(f^{-1}(B)\right)}=\overline B.
+\]
+Thus, $\overline{f^{-1}(B)}\subset f^{-1}\left(\overline B\right)$ for all $B\subset Y$.
+
+Finally, assume that $\overline{f^{-1}(B)}\subset f^{-1}\left(\overline B\right)$ for all $B\subset Y$ and let $V\subset Y$ be closed. Taking $B=V$ yields 
+\[
+\overline{f^{-1}(V)}\subset f^{-1}\left(\overline V\right)=f^{-1}(V).
+\]
+However, since $\overline{f^{-1}(V)}$ is the smallest closed set containing $f^{-1}(V)$, we must have that $f^{-1}(V)$ is closed for all closed $V\subset Y$. Thus, $f$ is continuous, and the three statements are equivalent. 
+
+\end{document}

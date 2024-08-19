@@ -1,0 +1,162 @@
+\documentclass{article}
+\usepackage[top = 0.9in, bottom = 0.9in, left =1in, right = 1in]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage{hyperref}
+\usepackage{listings}
+\usepackage{multimedia} % to embed movies in the PDF file
+\usepackage{graphicx}
+\usepackage{comment}
+\usepackage[english]{babel}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{wrapfig}
+\usepackage{multirow}
+\usepackage{verbatim}
+\usepackage{float}
+\usepackage{cancel}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{mathdots}
+\usepackage{bbm}
+\usepackage{/home/cade/Homework/latex-defs}
+
+
+\title{MATH 525 Homework 7}
+\author{Cade Ballew \#2120804}
+\date{February 23, 2024}
+
+\begin{document}
+	
+\maketitle
+	
+\section{Problem 1}
+Let $1\leq p\leq q<\infty$ and $(X,\mu)$, $(Y,\nu)$ be $\sigma$-finite. Then, $1\leq \frac{q}{p}<\infty$, so applying Minkowski's integral inequality to $|f|^p$ with index $\frac{q}{p}$ gives that
+\[
+\left(\int_Y\left(\int_X|f(x, y)|^p \df \mu(x)\right)^{\frac{q}{p}} \df \nu(y)\right)^{\frac{p}{q}} \leq\int_X\left(\int_Y|f(x, y)|^q \df \nu(y)\right)^{\frac{p}{q}} \df \mu(x).
+\]
+Taking the $p$th root of both sides, 
+$$
+\left(\int_Y\left(\int_X|f(x, y)|^p \df \mu(x)\right)^{\frac{q}{p}} \df \nu(y)\right)^{\frac{1}{q}} \leq\left(\int_X\left(\int_Y|f(x, y)|^q \df \nu(y)\right)^{\frac{p}{q}} \df \mu(x)\right)^{\frac{1}{p}},
+$$
+as desired.
+
+To see that this inequality can fail if $q<p$, consider $f(x,y)=\cos(2\pi(x-y))+1$ on the unit square with $q=1$, $p=2$. Then, since $f$ is nonnegative, the inequality is given by
+\[
+\int_0^1\left(\int_0^1(\cos(2\pi(x-y))+1)^2 \df x\right)^{1/2} \df y \leq\left(\int_0^1\left(\int_0^1(\cos(2\pi(x-y))+1) \df y\right)^{2} \df x\right)^{1/2}.
+\]
+We have that
+\begin{align*}
+\int_0^1(\cos(2\pi(x-y))+1)^2 \df x=\frac{3}{2},
+\end{align*}
+so
+\[
+\int_0^1\left(\int_0^1(\cos(2\pi(x-y))+1)^2 \df x\right)^{1/2} \df y=\sqrt{\frac{3}{2}}.
+\]
+On the other hand, 
+\[
+\int_0^1(\cos(2\pi(x-y))+1) \df y=1,
+\]
+so 
+\[
+\left(\int_0^1\left(\int_0^1(\cos(2\pi(x-y))+1) \df y\right)^{2} \df x\right)^{1/2}=1,
+\]
+and the inequality fails.
+
+\section{Problem 2 (Folland Problem 21)}
+Let $1<p<\infty$ and assume that $f_n\to f$ weakly in $l^p(A)$. Then, for each $a\in A$, $\mathbbm{1}_{\{a\}}\in l^q(A)$ where $q$ is the dual index to $p$ corresponds to an element $\phi_a\in l^p(A)^*$ defined such that
+\[
+\phi_a(g)=\int g\mathbbm{1}_{\{a\}}=\sum_{a'\in A}g(a')\mathbbm{1}_{\{a\}}(a')=g(a).
+\]
+Thus, weak convergence applied to each $\phi_a$ gives that $f_n(a)\to f(a)$ for all $a\in A$. That is, $f_n\to f$ pointwise. Since $l^p(A)$ is reflexive, let $\hat f_n$ denote the double dual element corresponding to each $f_n$. Then, for each $\phi\in l^p(A)^*$, $\lim_{n\to\infty}\phi(f_n)$ converges to $\phi(f)$, so
+\[
+\sup_n|\hat{f_n}(\phi)|=\sup_n|\phi(f_n)|<\infty.
+\]
+Since this holds for all $\phi\in l^p(A)^*$, the uniform boundedness principle implies that 
+\[
+\sup_n\|f_n\|_p=\sup_n\|\hat{f_n}\|_{l^p(A)^{**}}<\infty,
+\]
+as desired. 
+
+Conversely, assume that $\sup_n\|f_n\|_p=M<\infty$ and $f_n\to f$ pointwise. First, by Fatou's lemma and the continuity of exponentiation, we have that
+\[
+\|f\|^p_p=\int|f|^p\leq\liminf_{n\to\infty}|f_n|^p=\|f_n\|_p^p,
+\]
+so $f\in l^p(A)$ and $\|f\|_p\leq M$. Now, fix $\epsilon>0$ and let $\phi\in l^p(A)^*$ be given where $g$ denotes its corresponding function in $l^q(A)$. Since 
+\[
+\|g\|^q_g=\sum_{a\in A}|g(a)|^q<\infty,
+\]
+there must be some countable subset $B\subset A$ such that $g(a)=0$ for $a\in A\setminus B$. Denote the elements of $b$ by $b_1,b_2,\ldots$. Then, $\sum_{j=1}^\infty|g(x_j)|^q<\infty$, so there must be some $J\in\mathbb{N}$ such that
+\[
+\sum_{j=J+1}^\infty|g(x_j)|^q<\left(\frac{\epsilon}{4M}\right)^q.
+\]
+Since $f_n\to f$ pointwise, for each $j=1,\ldots J$, we can find some $N_j$ such that for all $n\geq N_j$,
+\[
+|f_n(b_j)-f(b_j)|<\frac{\epsilon}{2J|g(b_j)|},
+\]
+when $g(b_j)\neq 0$. If $g(b_j)=0$, it suffices to choose $N_j=1$. Let $N=\max_{j=1,\ldots,J}N_j$. Then, for all $n\geq N$, by H\"older's inequality on $B\setminus\{b_1,\ldots,b_j\}$,
+\begin{align*}
+&|\phi(f_n)-\phi(f)|=\sum_{j=1}^\infty|f_n(b_j)-f(b_j)||g(b_j)|=\sum_{j=1}^J|f_n(b_j)-f(b_j)||g(b_j)|+\sum_{j=J+1}^\infty|f_n(b_j)-f(b_j)||g(b_j)|\\&<
+\frac{\epsilon}{2}+\left(\sum_{j=J+1}^\infty|f_n(b_j)-f(b_j)|^p\right)^{1/p}\left(\sum_{j=J+1}^\infty|g(b_j)|^q\right)^{1/q}<\frac{\epsilon}{2}+\frac{\epsilon}{4M}\left(\sum_{a\in A}|f_n(a)-f(a)|^p\right)^{1/p}\\&=
+\frac{\epsilon}{2}+\frac{\epsilon}{4M}\|f_n-f\|_p\leq\frac{\epsilon}{2}+\frac{\epsilon}{4M}(\|f_n\|_p+\|f\|_p)\leq\frac{\epsilon}{2}+\frac{\epsilon}{2}=\epsilon.
+\end{align*}
+Thus, $f_n\to f$ weakly in $l^p(A)$. 
+
+\section{Problem 3 (Folland Problem 31)}
+Let $1\leq p_j\leq\infty$, $\sum_{j=1}^np_j^{-1}=r^{-1}\leq 1$, and $f_j\in L^{p_j}$ for $j=1,\ldots,n$. First consider the case $n=2$. If $1<p_1,p_2<\infty$, then by H\"older's inequality applied to $|f_1|^r|f_2|^r$ with indices $p_1/r$ and $p_2/r$,
+\[
+\|f_1f_2\|^r_r=\int |f_1f_2|^r\leq\left(\int\left(|f_1|^r\right)^{p_1/r}\right)^{r/p_1}\left(\int\left(|f_2|^r\right)^{p_2/r}\right)^{r/p_2}=\|f_1\|_{p_1}^r\|f_2\|_{p_2}^r.
+\]
+Note that this quantity is finite since $f_1\in L^{p_1}$ and $f_2\in L^{p_2}$, so $f_1f_2\in L^r$. Furthermore, taking the $r$th root of each side gives that $\|f_1f_2\|_r\leq\|f_1\|_{p_1}\|f_2\|_{p_2}$. If either $p_1$ or $p_2$ is 1, then the other must be infinity and $r=1$, so the result is equivalent to H\"older's inequality with indices 1 and infinity. If instead we assume without loss of generality that $p_1=\infty$, then $r=p_2$ and
+\[
+\|f_1f_2\|^r_r=\int |f_1f_2|^r\leq\|f_1\|_\infty^r\int|f_2|^r=\|f_1\|_{\infty}^r\|f_2\|_{r}^r,
+\]
+and the result again follows by taking the $r$th root of each side. 
+
+To apply induction, we assume that the result holds for $n=k$. That is, $\prod_{j=1}^{k}f_j\in L^{r'}$ and $\|\prod_{j=1}^{k}f_j\|_{r'}\leq\prod_{j=1}^{k}\|f_j\|_{p_j},$ where $r'^{-1}=\sum_{j=1}^k p_j^{-1}$. To show that the result holds for $n=k+1$, we again let $1<p_{k+1},r'<\infty$ and apply H\"older's inequality with indices $p_{k+1}/r$ and $r'/r$. Then,
+\[
+\left\|\prod_{j=1}^{k+1}f_j\right\|^r_r\leq\left(\int\left(|f_{k+1}|^r\right)^{p_{k+1}/r}\right)^{r/p_{k+1}}\left(\int\left(\left|\prod_{j=1}^{k+1}f_j\right|^r\right)^{r'/r}\right)^{r/r'}=\|f_{k+1}\|_{p_{k+1}}^r\left\|\prod_{j=1}^{k}f_j\right\|^r_{r'}.
+\]
+This quantity is finite by the inductive hypothesis, so $\prod_{j=1}^{k+1}f_j\in L^{r}$, and taking $r$th roots gives that
+\[
+\left\|\prod_{j=1}^{k+1}f_j\right\|_r\leq\|f_{k+1}\|_{p_{k+1}}\left\|\prod_{j=1}^{k}f_j\right\|_{r'}\leq\|f_{k+1}\|_{p_{k+1}}\prod_{j=1}^{k}\|f_j\|_{p_j}=\prod_{j=1}^{k+1}\|f_j\|_{p_j}.
+\]
+The case where either $p_{k+1}$ or $r'$ is 1 or infinity follows by the same argument as before, as this inductive step simply amounts to applying the $n=2$ case to $f_{k+1}$ and $\prod_{j=1}^{k}f_j$. Thus, the inductive step holds for all $1\leq p_{k+1},r'\leq\infty$, so by induction, we have that $\prod_{j=1}^{k}f_j\in L^{r'}$ and $\|\prod_{j=1}^{n}f_j\|_{r'}\leq\prod_{j=1}^{n}\|f_j\|_{p_j}$ for all $n\geq 2$.
+
+\section{Problem 4 (Folland Problem 32)}
+Let $(X,\cM,\mu)$ and $(Y,\cN,\nu)$ be $\sigma$-finite measure spaces, $K\in L^2(\mu\times\nu)$, and $f\in L^2(\nu)$. Then, by Fubini--Tonelli,
+\[
+\int\left(\int|K(x,y)|^2\df\nu(y)\right)\df\mu(x)=\int\int|K(x,y)|^2\df(\mu\times\nu)(x,y)<\infty,
+\]
+so in particular, the inner integral is finite for almost every $x\in X$. Then, H\"older's inequality gives that for almost all $x\in X$,
+\[
+|Tf(x)|\leq\int|K(x,y)f(y)|\df\nu(y)\leq\left(\int|K(x,y)|^2\df\nu(y)\right)^{1/2}\|f\|_2<\infty,
+\]
+so $Tf(x)$ converges absolutely for almost every $x\in X$. By Minkowski's inequality,
+\begin{align*}
+\|Tf\|_2&=\left(\int\left|Tf(x)\right|^2\df\mu(x)\right)^{1/2}\leq\left(\int\left(\int|K(x,y)f(y)|\df\nu(y)\right)^2\df\mu(x)\right)^{1/2}\\&\leq\int\left(\int|K(x,y)f(y)|^2\df\mu(x)\right)^{1/2}\df\nu(y)=\int\left(\int|K(x,y)|^2\df\mu(x)\right)^{1/2}|f(y)|\df\nu(y).
+\end{align*}
+Applying H\"older's inequality,
+\[
+\|Tf\|_2\leq \|f\|_2\left(\int|K(x,y)|^2\df\mu(x)\df\nu(y)\right)^{1/2}=\|f\|_2\|K\|_2,
+\]
+by Fubini--Tonelli, as desired. 
+
+\section{Problem 5 (Folland Problem 36)}
+Let $f$ be weak $L^p$ and $\mu\left(\{x:f(x)\neq0\}\right)<\infty$. Let $M=[f]_p$ and $L=\mu\left(\{x:f(x)\neq0\}\right)$. Then, by definition, $\lambda_f(\alpha)\leq L$ for all $\alpha\in(0,\infty)$. This inequality also holds at $\alpha=0$ if $\lambda_f$ is extended to be defined there. Furthermore, for all $\alpha\in(0,\infty)$, $\alpha^p\lambda_f(\alpha)\leq M$. Let $\epsilon>0$. Then, by Proposition 6.24, for $q<p$,
+\begin{align*}
+\|f\|_q^q&=\int|f|^q\df\mu=q\int_0^\infty\alpha^{q-1}\lambda_f(\alpha)\df\alpha=q\int_0^\epsilon\alpha^{q-1}\lambda_f(\alpha)\df\alpha+q\int_\epsilon^\infty\alpha^{q-1}\lambda_f(\alpha)\df\alpha\\&\leq
+qL\int_{0}^{\epsilon}\alpha^{q-1}\df\alpha+qM\int_\epsilon^\infty\alpha^{q-p-1}\df\alpha=L\left[\alpha^q\right]_0^\epsilon+M\frac{q}{q-p}\left[\alpha^{q-p}\right]_\epsilon^\infty=L\epsilon^q-M\frac{q}{q-p}\epsilon^{q-p}.
+\end{align*}
+This quantity is finite for any $\epsilon$, so $\|f\|_q<\infty$ and $f\in L^q$ for all $q<p$. 
+
+Now, let $f$ be in both weak $L^p$ and $L^\infty$ and fix $q>p$. As before, let $M=[f]_p$, so $\alpha^p\lambda_f(\alpha)\leq M$ for all $\alpha\in(0,\infty)$. Because $f\in L^\infty$, 
+\[
+\|f\|_\infty=\inf\{\alpha>0:\lambda_f(\alpha)=0\}<\infty,
+\]
+so there exists some $a>0$ such that $\lambda_f(\alpha)=0$ for all $\alpha>a$. Then, by Proposition 6.24,
+\begin{align*}
+\|f\|_q^q&=\int|f|^q\df\mu=q\int_0^\infty\alpha^{q-1}\lambda_f(\alpha)\df\alpha=q\int_0^a\alpha^{q-1}\lambda_f(\alpha)\df\alpha\leq qM\int_0^a\alpha^{q-p-1}\df\alpha\\&=\frac{q}{q-p}M\left[\alpha^{q-p}\right]_0^a=\frac{q}{q-p}Ma^{q-p}.
+\end{align*}
+This quantity is finite, so $\|f\|_q<\infty$ and $f\in L^q$ for all $q>p$. 
+
+\end{document}
